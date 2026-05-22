@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
+import { inter, bebasNeue } from "@/lib/fonts";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "APEX ACADEMY — Where Elite Athletes Are Built",
-  description: "The standard in baseball and athlete development. Hitting, pitching, strength, speed, and recruiting — built for the next level.",
-  icons: { icon: "/logos/apex-a-mark.png" },
-  openGraph: {
-    title: "APEX ACADEMY",
-    description: "Where Elite Athletes Are Built",
-    type: "website",
-  },
+  title: "APEX ACADEMY — Where Athletes Are Developed",
+  description: "Baseball development in Boston. Hitting, pitching, strength, speed, recruiting — built for the next level.",
+  icons: { icon: "/logos/favicon-192.png" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="antialiased">
-      <body className="min-h-screen">{children}</body>
+    <html lang="en" className={`${inter.variable} ${bebasNeue.variable}`}>
+      <body>
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

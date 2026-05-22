@@ -1,80 +1,145 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
-
-const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Programs", href: "#programs" },
-  { label: "Teams", href: "#teams" },
-  { label: "Facilities", href: "#facilities" },
-  { label: "Contact", href: "#contact" },
-];
+import { NAV_LINKS } from "@/lib/constants";
+import { getCurrentUser, type User } from "@/lib/auth-store";
+import { Button } from "./Button";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [dropdown, setDropdown] = useState<string | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const fn = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", fn, { passive: true });
+    setUser(getCurrentUser());
+    return () => window.removeEventListener("scroll", fn);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  function openDropdown(title: string) {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setDropdown(title);
+  }
+
+  function closeDropdown() {
+    timeoutRef.current = setTimeout(() => setDropdown(null), 150);
+  }
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-black/90 backdrop-blur-xl border-b border-white/[0.06]" : "bg-transparent"}`}>
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 no-underline">
-            <Image src="/logos/apex-a-transparent.png" alt="Apex Academy" width={44} height={44} className="object-contain" />
-            <div className="hidden sm:block">
-              <div className="text-[16px] font-black text-white uppercase tracking-wider leading-none">Apex</div>
-              <div className="text-[10px] font-bold text-[#6EFF00] uppercase tracking-[0.3em] leading-none mt-0.5">Academy</div>
-            </div>
-          </Link>
-
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map(link => (
-              <a key={link.href} href={link.href}
-                className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/60 hover:text-[#6EFF00] transition-colors duration-300 no-underline">
-                {link.label}
-              </a>
-            ))}
-          </div>
-
-          {/* CTA + Mobile Toggle */}
-          <div className="flex items-center gap-4">
-            <a href="#contact" className="hidden md:block px-6 py-2.5 bg-[#6EFF00] text-black text-[11px] font-bold uppercase tracking-wider rounded-lg no-underline hover:brightness-110 transition">
-              Join Apex
-            </a>
-            <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 bg-transparent border-none cursor-pointer">
-              <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[5px]" : ""}`} />
-              <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-              <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[5px]" : ""}`} />
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile Menu — Fullscreen */}
-      <div className={`fixed inset-0 z-40 bg-black transition-all duration-500 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
-        <div className="flex flex-col items-center justify-center h-full gap-8">
-          {NAV_LINKS.map((link, i) => (
-            <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}
-              className="text-[28px] font-black uppercase tracking-wider text-white hover:text-[#6EFF00] transition-colors no-underline"
-              style={{ transitionDelay: `${i * 50}ms` }}>
-              {link.label}
-            </a>
-          ))}
-          <a href="#contact" onClick={() => setMenuOpen(false)}
-            className="mt-4 px-10 py-4 bg-[#6EFF00] text-black text-[14px] font-bold uppercase tracking-wider rounded-lg no-underline">
-            Join Apex
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 flex h-20 w-full items-center border-b transition-all duration-300 ${
+          scrolled ? "bg-black/95 md:bg-black/75 md:backdrop-blur-sm border-[#171717]" : "bg-transparent border-transparent"
+        }`}
+      >
+        <div className="max-w-[1120px] mx-auto px-6 w-full flex items-center justify-between">
+          <a href="/" className="no-underline">
+            <Image src="/logos/decal-lg.png" alt="Apex Academy" width={480} height={320} className="h-14 w-auto object-contain" />
           </a>
+
+          <nav className="hidden md:block">
+            <ul className="flex items-center gap-6 text-xs font-bold uppercase list-none">
+              {NAV_LINKS.map((n) => (
+                <li
+                  key={n.title}
+                  className="relative"
+                  onMouseEnter={() => n.children && openDropdown(n.title)}
+                  onMouseLeave={() => n.children && closeDropdown()}
+                >
+                  <a
+                    href={n.href}
+                    className="flex items-center gap-1 text-white/50 hover:text-white transition-colors no-underline py-2"
+                  >
+                    {n.title}
+                    {n.children && (
+                      <svg className="w-3 h-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path d="M19 9l-7 7-7-7" />
+                      </svg>
+                    )}
+                  </a>
+
+                  {/* Dropdown */}
+                  {n.children && dropdown === n.title && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2">
+                      <div className="border border-[#171717] bg-black/95 backdrop-blur-sm min-w-[140px] py-2">
+                        {n.children.map((child) => (
+                          <a
+                            key={child.title}
+                            href={child.href}
+                            className="block px-5 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white/50 hover:text-[#17FC13] hover:bg-white/[0.03] transition-all no-underline"
+                          >
+                            {child.title}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </li>
+              ))}
+              <li>
+                <Button href="/join" size="small">Join Apex</Button>
+              </li>
+              <li>
+                {user ? (
+                  <a href="/account" className="text-white/50 hover:text-[#17FC13] transition-colors no-underline">{user.name.split(" ")[0]}</a>
+                ) : (
+                  <a href="/signin" className="text-white/40 hover:text-white transition-colors no-underline">Sign In</a>
+                )}
+              </li>
+            </ul>
+          </nav>
+
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden text-white bg-transparent border-none cursor-pointer p-2 text-xl leading-none"
+            aria-label="Menu"
+          >
+            {open ? "\u2715" : "\u2630"}
+          </button>
         </div>
-      </div>
+      </header>
+
+      {/* Mobile menu */}
+      {open && (
+        <div className="fixed inset-0 top-20 bg-black z-40 flex flex-col items-center justify-center gap-6 md:hidden overflow-y-auto py-8">
+          {NAV_LINKS.map((n) => (
+            <div key={n.title} className="flex flex-col items-center gap-3">
+              <a href={n.href} onClick={() => setOpen(false)} className="text-2xl font-bold uppercase text-white no-underline hover:text-[#17FC13] transition-colors">
+                {n.title}
+              </a>
+              {n.children && (
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  {n.children.map((child) => (
+                    <a
+                      key={child.title}
+                      href={child.href}
+                      onClick={() => setOpen(false)}
+                      className="px-4 py-1.5 border border-[#171717] text-xs font-bold uppercase text-white/50 hover:text-[#17FC13] hover:border-[#17FC13]/30 transition-all no-underline"
+                    >
+                      {child.title}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+          {user ? (
+            <a href="/account" onClick={() => setOpen(false)} className="text-lg font-bold uppercase text-[#17FC13] no-underline">{user.name}</a>
+          ) : (
+            <a href="/signin" onClick={() => setOpen(false)} className="text-lg font-bold uppercase text-white/50 no-underline">Sign In</a>
+          )}
+          <Button href="/join">Join Apex</Button>
+        </div>
+      )}
     </>
   );
 }

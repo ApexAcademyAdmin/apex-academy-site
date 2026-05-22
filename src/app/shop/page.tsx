@@ -1,0 +1,197 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import { Button } from "@/components/Button";
+import { CONTACT } from "@/lib/constants";
+
+type Product = {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+
+  colors: string[];
+  description: string;
+};
+
+const PRODUCTS: Product[] = [
+  // Hats
+  { id: "hat-home", name: "Home Hat", category: "Hats", price: 35, colors: ["Black/Green"], description: "Official Apex Academy home game fitted cap. Structured crown with raised embroidered A mark. Pro-style curved brim." },
+  { id: "hat-away", name: "Away Hat", category: "Hats", price: 35, colors: ["White/Green"], description: "Official away game fitted cap. Clean white crown with embroidered Apex branding. Performance fabric." },
+  { id: "hat-alt", name: "Alternative Hat", category: "Hats", price: 35, colors: ["Green/Black"], description: "Alternative game day cap. Bold colorway with Apex Academy branding. Structured fit." },
+
+  // Jerseys
+  { id: "jersey-home", name: "Home Jersey", category: "Jerseys", price: 90, colors: ["Black"], description: "Official Apex Academy home game jersey. Full button-down with tackle twill lettering. Pro-cut fit." },
+  { id: "jersey-away", name: "Away Jersey", category: "Jerseys", price: 90, colors: ["White"], description: "Official away game jersey. Clean white with Apex Academy lettering. Pro-cut fit." },
+  { id: "jersey-alt", name: "Alternative Jersey", category: "Jerseys", price: 90, colors: ["Green"], description: "Alternative game day jersey. Bold Apex green colorway with premium detailing." },
+
+  // Pants & Bottoms
+  { id: "pants-game", name: "New Balance Game Pants", category: "Pants & Bottoms", price: 55, colors: ["White", "Black"], description: "Official New Balance game pants. Pro-length with reinforced knees. Belt loop waist. Performance fit." },
+  { id: "shorts-training", name: "Training Shorts", category: "Pants & Bottoms", price: 40, colors: ["Black"], description: "Lightweight performance shorts with zippered pockets. Athletic fit for training and warmups." },
+  { id: "sweats-apex", name: "Apex Sweatpants", category: "Pants & Bottoms", price: 55, colors: ["Black"], description: "Premium black sweatpants with embroidered Apex branding. Tapered leg. Comfortable off-field wear." },
+
+  // Performance Wear
+  { id: "tee-performance", name: "Performance T-Shirt", category: "Performance", price: 30, colors: ["Black"], description: "Moisture-wicking performance tee with Apex Academy branding. Athletic fit. Built for training." },
+  { id: "hoodie-apex", name: "Apex Hoodie", category: "Performance", price: 65, colors: ["Black"], description: "Premium heavyweight hoodie with embroidered Apex Academy crest. Fleece-lined. Cold weather essential." },
+  { id: "jacket-apex", name: "Apex Team Jacket", category: "Performance", price: 75, colors: ["Black"], description: "Full-zip team jacket with Apex Academy branding. Water-resistant shell. Warm-up and travel." },
+  { id: "jersey-practice", name: "Practice Jersey", category: "Performance", price: 35, colors: ["Black", "Green"], description: "Lightweight mesh practice jersey. Sublimated Apex branding. Breathable and durable for daily training." },
+
+  // Equipment
+  { id: "bag-equipment", name: "Apex Equipment Bag", category: "Equipment", price: 85, colors: ["Black"], description: "Full-size equipment bag with bat compartment, cleat pocket, and Apex Academy branding. Padded straps." },
+
+  // Accessories
+  { id: "belt-black", name: "Black Belt", category: "Accessories", price: 15, colors: ["Black"], description: "Standard black baseball belt. Adjustable clasp closure." },
+  { id: "socks-black", name: "Black Socks", category: "Accessories", price: 12, colors: ["Black"], description: "Performance baseball socks. Moisture-wicking fabric. Over-the-calf length." },
+  { id: "helmet-black", name: "Black Batting Helmet", category: "Accessories", price: 45, colors: ["Black"], description: "Approved batting helmet in matte black finish. Meets NOCSAE standards." },
+  { id: "helmet-decal", name: "Apex Helmet Decal", category: "Accessories", price: 5, colors: ["Green/Black"], description: "Official Apex Academy helmet decal. Adhesive-backed. Weather-resistant." },
+];
+
+const CATEGORIES = ["All", "Hats", "Jerseys", "Pants & Bottoms", "Performance", "Equipment", "Accessories"];
+
+export default function ShopPage() {
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  const filtered = activeCategory === "All"
+    ? PRODUCTS
+    : PRODUCTS.filter((p) => p.category === activeCategory);
+
+  return (
+    <>
+      {/* Header */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-black" />
+        <div className="relative max-w-[1120px] mx-auto px-6 pt-28 md:pt-36 pb-6">
+          <div className="flex items-center gap-2 mb-5 text-[10px] font-medium uppercase tracking-[0.2em]">
+            <a href="/" className="text-white/20 no-underline hover:text-white/40">Home</a>
+            <span className="text-white/10">/</span>
+            <span className="text-[#17FC13]/50">Shop</span>
+          </div>
+          <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-2">
+            Apex <span className="accent-text">Shop</span>
+          </h1>
+          <p className="text-[14px] text-white/30 leading-[1.7] max-w-lg">Official Apex Academy apparel and gear.</p>
+        </div>
+      </section>
+
+      {/* Category Filter */}
+      <div className="border-y border-[#171717] bg-radial">
+        <div className="max-w-[1120px] mx-auto px-6 py-3">
+          <div className="flex flex-wrap gap-1.5">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-4 py-2 text-[11px] font-bold uppercase tracking-wider border transition-all duration-200 cursor-pointer select-none ${
+                activeCategory === cat
+                  ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.05]"
+                  : "border-[#171717] text-white/40 hover:border-white/20 hover:text-white/60"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Product Grid */}
+      <div className="max-w-[1120px] mx-auto px-6 py-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {filtered.map((product) => (
+            <div
+              key={product.id}
+              className="border border-[#171717] bg-black hover:border-[#17FC13]/20 transition-all duration-300 group cursor-pointer"
+              onClick={() => setSelectedProduct(product)}
+            >
+              {/* Image placeholder */}
+              <div className="relative aspect-square bg-radial flex items-center justify-center overflow-hidden">
+                <Image
+                  src="/logos/a-mark-sm.png"
+                  alt={product.name}
+                  width={120}
+                  height={120}
+                  className="object-contain opacity-10 group-hover:opacity-20 group-hover:scale-105 transition-all duration-500"
+                />
+              </div>
+
+              <div className="p-5">
+                <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/25 mb-1.5">{product.category}</div>
+                <h3 className="text-sm font-bold uppercase tracking-wide mb-2 group-hover:text-[#17FC13] transition-colors">{product.name}</h3>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-white/80">${product.price}</span>
+                  <div className="flex items-center gap-1.5">
+                    {product.colors.map((color) => (
+                      <span key={color} className="text-[9px] text-white/25 uppercase">{color}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── PRODUCT MODAL ── */}
+      {selectedProduct && (
+        <div
+          className="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setSelectedProduct(null)}
+        >
+          <div
+            className="relative w-full max-w-2xl border border-[#171717] bg-black max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedProduct(null)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-white/40 hover:text-white border border-[#171717] bg-black transition-colors cursor-pointer text-lg"
+              aria-label="Close"
+            >
+              &times;
+            </button>
+
+            <div className="relative aspect-[4/3] bg-radial flex items-center justify-center">
+              <Image src="/logos/a-mark-sm.png" alt={selectedProduct.name} width={160} height={160} className="object-contain opacity-15" />
+            </div>
+
+            <div className="p-6 md:p-10">
+              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/25 mb-2">{selectedProduct.category}</div>
+              <h2 className="text-2xl md:text-3xl uppercase font-bold mb-2">{selectedProduct.name}</h2>
+              <div className="text-xl font-bold text-[#17FC13] mb-6">${selectedProduct.price}</div>
+
+              <p className="text-[14px] text-white/50 leading-[1.8] mb-8">{selectedProduct.description}</p>
+
+              <div className="mb-6">
+                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-3">Colors</div>
+                <div className="flex items-center gap-2">
+                  {selectedProduct.colors.map((color) => (
+                    <span key={color} className="px-4 py-2 border border-[#171717] text-xs font-bold uppercase text-white/50 hover:border-[#17FC13]/30 transition-colors cursor-pointer">
+                      {color}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-8">
+                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-3">Size</div>
+                <div className="flex flex-wrap gap-2">
+                  {["XS", "S", "M", "L", "XL", "2XL"].map((size) => (
+                    <span key={size} className="w-12 h-10 flex items-center justify-center border border-[#171717] text-xs font-bold text-white/50 hover:border-[#17FC13]/30 hover:text-white transition-all cursor-pointer">
+                      {size}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <Button href={`mailto:${CONTACT.email}?subject=Order: ${selectedProduct.name}`}>
+                Order Now — ${selectedProduct.price}
+              </Button>
+              <p className="text-[11px] text-white/20 mt-4">Contact us to place your order. Custom sizing available.</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}

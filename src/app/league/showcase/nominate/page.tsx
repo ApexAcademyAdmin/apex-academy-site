@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { FadeIn } from "@/components/FadeIn";
 import { Section } from "@/components/Section";
 import { Button } from "@/components/Button";
 
@@ -90,7 +89,7 @@ export default function NominatePage() {
           <div className="max-w-[1280px] mx-auto px-6 md:px-10">{breadcrumb}</div>
         </div>
         <Section size="lg">
-          <FadeIn>
+          <div>
             <div className="text-center max-w-md mx-auto">
               <div className="w-12 h-12 rounded-full bg-[#17FC13]/10 border border-[#17FC13]/20 flex items-center justify-center mx-auto mb-4">
                 <span className="text-[#17FC13] text-lg">&#10003;</span>
@@ -104,7 +103,7 @@ export default function NominatePage() {
                 <Button variant="secondary" href="#" onClick={() => { setSubmitted(false); setForm({ ...EMPTY }); }}>Nominate Another</Button>
               </div>
             </div>
-          </FadeIn>
+          </div>
         </Section>
       </main>
     );
@@ -126,7 +125,7 @@ export default function NominatePage() {
       </div>
 
       <Section border="top">
-        <FadeIn>
+        <div>
           <form onSubmit={handleSubmit} className="max-w-2xl">
             {/* COACH INFO */}
             <div className="mb-8">
@@ -225,7 +224,7 @@ export default function NominatePage() {
               <span className="text-[11px] text-white/30">* Required fields</span>
             </div>
           </form>
-        </FadeIn>
+        </div>
       </Section>
     </main>
   );

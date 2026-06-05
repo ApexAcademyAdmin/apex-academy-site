@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FadeIn } from "@/components/FadeIn";
+
 import { Section } from "@/components/Section";
 import { Button } from "@/components/Button";
 import { LEAGUE_META, STANDINGS, UPCOMING_GAMES, RECENT_RESULTS } from "@/lib/league-data";
@@ -15,35 +15,35 @@ function Header() {
   return (
     <div className="pt-24 md:pt-32 pb-8 md:pb-12">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
-        <FadeIn>
+        <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#17FC13]/20 bg-[#17FC13]/5 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] animate-pulse" />
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/80">{LEAGUE_META.season} — Registration Open</span>
           </div>
-        </FadeIn>
+        </div>
 
-        <FadeIn delay={0.05}>
+        <div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl uppercase font-bold leading-[0.85] mb-5 max-w-3xl">
             Community Baseball<br /><span className="accent-text">Built Different</span>
           </h1>
-        </FadeIn>
+        </div>
 
-        <FadeIn delay={0.1}>
+        <div>
           <p className="text-base md:text-lg text-white/50 max-w-2xl leading-relaxed mb-4">
             The Apex League is a weekday baseball league for players ages 8–18 across Greater Boston. Games are played exclusively on Wednesdays, Thursdays, and Fridays — keeping weekends free for travel tournaments. Development-focused. Affordable for every family.
           </p>
           <p className="text-sm text-white/30 mb-8">
             {LEAGUE_META.seasonStart} — {LEAGUE_META.seasonEnd} &middot; {LEAGUE_META.registrationFee} per team &middot; {LEAGUE_META.location}
           </p>
-        </FadeIn>
+        </div>
 
-        <FadeIn delay={0.15}>
+        <div>
           <div className="flex flex-wrap gap-3">
             <Button href="/league/register">Register a Team</Button>
             <Button variant="secondary" href="#standings">View Standings</Button>
             <Button variant="secondary" href="/league/schedule">View Schedule</Button>
           </div>
-        </FadeIn>
+        </div>
       </div>
     </div>
   );
@@ -62,21 +62,21 @@ function HowItWorks() {
 
   return (
     <Section border="bottom">
-      <FadeIn>
+      <div>
         <div className="mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">How It Works</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold">The <span className="accent-text">Format</span></h2>
         </div>
-      </FadeIn>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {points.map((p, i) => (
-          <FadeIn key={p.title} delay={i * 0.05}>
+          <div key={p.title}>
             <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5">
               <div className="text-sm font-bold text-white/80 mb-1.5">{p.title}</div>
               <div className="text-[12px] text-white/40 leading-relaxed">{p.desc}</div>
             </div>
-          </FadeIn>
+          </div>
         ))}
       </div>
     </Section>
@@ -112,7 +112,7 @@ function WhoItsFor() {
 
   return (
     <Section border="bottom">
-      <FadeIn>
+      <div>
         <div className="mb-4">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Who It&apos;s For</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">Built for Every Level of <span className="accent-text">Baseball</span></h2>
@@ -120,17 +120,17 @@ function WhoItsFor() {
             Whether you&apos;re looking for additional game reps, affordable competition, or a professionally operated league experience, the Apex League was designed to serve players, families, teams, and organizations throughout Greater Boston and New England.
           </p>
         </div>
-      </FadeIn>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {audiences.map((a, i) => (
-          <FadeIn key={a.title} delay={i * 0.05}>
+          <div key={a.title}>
             <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 h-full">
               <div className="text-sm font-bold text-white/80 mb-2">{a.title}</div>
               <div className="text-[12px] text-white/40 leading-relaxed mb-3">{a.desc}</div>
               <div className="text-[11px] text-white/60 font-medium leading-relaxed">{a.note}</div>
             </div>
-          </FadeIn>
+          </div>
         ))}
       </div>
     </Section>
@@ -150,15 +150,15 @@ function LeagueActivity() {
 
   return (
     <Section id="standings" border="bottom">
-      <FadeIn>
+      <div>
         <div className="mb-6">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">League Activity</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold">Standings, Scores & <span className="accent-text">Schedule</span></h2>
         </div>
-      </FadeIn>
+      </div>
 
       {/* STANDINGS */}
-      <FadeIn delay={0.05}>
+      <div>
         <div className="flex items-center justify-between mb-3">
           <div className="flex gap-1">
             {AGE_GROUPS.map(age => (
@@ -194,10 +194,10 @@ function LeagueActivity() {
             </div>
           ))}
         </div>
-      </FadeIn>
+      </div>
 
       {/* RESULTS + SCHEDULE side by side */}
-      <FadeIn delay={0.1}>
+      <div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Recent Results */}
           <div className="bg-[#0d1117] rounded-lg border border-white/[0.04]">
@@ -249,7 +249,7 @@ function LeagueActivity() {
             ))}
           </div>
         </div>
-      </FadeIn>
+      </div>
     </Section>
   );
 }
@@ -267,7 +267,7 @@ function QuickAccess() {
 
   return (
     <Section size="sm" border="bottom">
-      <FadeIn>
+      <div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {links.map(l => (
             <a key={l.label} href={l.href} className="bg-[#0d1117] rounded-lg border border-white/[0.04] px-4 py-3.5 hover:border-[#17FC13]/10 transition-all no-underline group">
@@ -276,7 +276,7 @@ function QuickAccess() {
             </a>
           ))}
         </div>
-      </FadeIn>
+      </div>
     </Section>
   );
 }
@@ -287,7 +287,7 @@ function QuickAccess() {
 function FeaturedEvent() {
   return (
     <Section border="bottom">
-      <FadeIn>
+      <div>
         <div className="bg-[#0d1117] rounded-2xl border border-[#17FC13]/10 p-6 md:p-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
@@ -306,7 +306,7 @@ function FeaturedEvent() {
             </div>
           </div>
         </div>
-      </FadeIn>
+      </div>
     </Section>
   );
 }
@@ -317,7 +317,7 @@ function FeaturedEvent() {
 function RegistrationCTA() {
   return (
     <Section size="lg">
-      <FadeIn>
+      <div>
         <div className="text-center">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Registration Open</div>
           <h2 className="text-2xl md:text-3xl font-bold uppercase mb-3 leading-[0.9]">
@@ -331,7 +331,7 @@ function RegistrationCTA() {
             <Button variant="secondary" href="mailto:apexsportsgg@gmail.com">Contact Us</Button>
           </div>
         </div>
-      </FadeIn>
+      </div>
     </Section>
   );
 }

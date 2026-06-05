@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { FadeIn } from "@/components/FadeIn";
 import { Section } from "@/components/Section";
 import { Button } from "@/components/Button";
 
@@ -188,16 +187,16 @@ function ScheduleRow({ event }: { event: ScheduleEvent }) {
 function Schedule() {
   return (
     <Section id="schedule" border="bottom">
-      <FadeIn>
+      <div>
         <div className="text-center mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Event Schedule</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-2">Two Days. <span className="accent-text">Full Evaluation.</span></h2>
           <p className="text-[11px] text-white/30">Hover or tap any session for details.</p>
         </div>
-      </FadeIn>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <FadeIn>
+        <div>
           <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04]">
             <div className="px-4 py-3 border-b border-white/[0.05] rounded-t-2xl">
               <div className="text-xs font-bold uppercase tracking-wider text-[#17FC13]/60">Day One — Saturday</div>
@@ -207,9 +206,9 @@ function Schedule() {
               <ScheduleRow key={i} event={e} />
             ))}
           </div>
-        </FadeIn>
+        </div>
 
-        <FadeIn delay={0.1}>
+        <div>
           <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04]">
             <div className="px-4 py-3 border-b border-white/[0.05] rounded-t-2xl">
               <div className="text-xs font-bold uppercase tracking-wider text-[#17FC13]/60">Day Two — Sunday</div>
@@ -219,7 +218,7 @@ function Schedule() {
               <ScheduleRow key={i} event={e} />
             ))}
           </div>
-        </FadeIn>
+        </div>
       </div>
     </Section>
   );
@@ -251,14 +250,14 @@ function CollegeCoaches() {
 
   return (
     <Section id="coaches" border="bottom">
-      <FadeIn>
+      <div>
         <div className="mb-6">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Attending Programs</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold">College <span className="accent-text">Coaches</span></h2>
         </div>
-      </FadeIn>
+      </div>
 
-      <FadeIn delay={0.1}>
+      <div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {schools.map(s => (
             <div key={s.name} className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-3.5 hover:border-[#17FC13]/10 transition-all">
@@ -271,7 +270,7 @@ function CollegeCoaches() {
             </div>
           ))}
         </div>
-      </FadeIn>
+      </div>
     </Section>
   );
 }
@@ -282,24 +281,24 @@ function CollegeCoaches() {
 function Partnership() {
   return (
     <Section border="bottom">
-      <FadeIn>
+      <div>
         <div className="mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Official Partners</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold">In Partnership With <span className="accent-text">The Academy</span></h2>
         </div>
-      </FadeIn>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
-        <FadeIn delay={0.05}>
+        <div>
           <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 h-full">
             <div className="text-sm font-bold text-white/90 mb-2">The Academy</div>
             <p className="text-[12px] text-white/50 leading-relaxed">
               All participants will have verified profiles uploaded directly to The Academy app — giving college coaches access to verified metrics, evaluations, and recruiting data in one place.
             </p>
           </div>
-        </FadeIn>
+        </div>
 
-        <FadeIn delay={0.1}>
+        <div>
           <div className="bg-[#0d1117] rounded-xl border border-[#17FC13]/10 p-5 h-full">
             <div className="text-sm font-bold text-white/90 mb-2">Rising Prospects Combine</div>
             <p className="text-[12px] text-white/50 leading-relaxed mb-3">
@@ -307,7 +306,7 @@ function Partnership() {
             </p>
             <div className="text-[10px] text-[#17FC13]/60 uppercase tracking-wider font-bold">Coach-voted &middot; Free entry &middot; Elite exposure</div>
           </div>
-        </FadeIn>
+        </div>
       </div>
     </Section>
   );
@@ -319,14 +318,14 @@ function Partnership() {
 function WhatYouLeaveWith() {
   return (
     <Section border="bottom">
-      <FadeIn>
+      <div>
         <div className="text-center mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">After the Event</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold">Every Prospect <span className="accent-text">Leaves With</span></h2>
         </div>
-      </FadeIn>
+      </div>
 
-      <FadeIn delay={0.1}>
+      <div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto">
           <div className="bg-[#0d1117] rounded-2xl border border-[#17FC13]/10 p-5">
             <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/50 mb-3">Verified Prospect Report</div>
@@ -351,7 +350,7 @@ function WhatYouLeaveWith() {
             </div>
           </div>
         </div>
-      </FadeIn>
+      </div>
     </Section>
   );
 }
@@ -362,7 +361,7 @@ function WhatYouLeaveWith() {
 function Registration() {
   return (
     <Section id="register" size="lg">
-      <FadeIn>
+      <div>
         <div className="text-center">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-4">Limited to 80 Prospects</div>
           <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4 leading-[0.9]">
@@ -376,7 +375,7 @@ function Registration() {
             <Button variant="secondary" href="/league/showcase/nominate">Nominate a Prospect</Button>
           </div>
         </div>
-      </FadeIn>
+      </div>
     </Section>
   );
 }
@@ -398,7 +397,7 @@ function FAQ() {
 
   return (
     <Section border="top">
-      <FadeIn>
+      <div>
         <div className="max-w-2xl mx-auto">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Questions</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-6">FAQ</h2>
@@ -415,7 +414,7 @@ function FAQ() {
             </div>
           ))}
         </div>
-      </FadeIn>
+      </div>
     </Section>
   );
 }

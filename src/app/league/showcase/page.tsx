@@ -4,59 +4,7 @@ import { useState } from "react";
 import { FadeIn } from "@/components/FadeIn";
 import { Section } from "@/components/Section";
 import { Button } from "@/components/Button";
-
-// ═══════════════════════════════════════
-// HERO
-// ═══════════════════════════════════════
-function Hero() {
-  return (
-    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-[#020805] to-black" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(23,252,19,0.06)_0%,transparent_50%)]" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#17FC13]/40 to-transparent" />
-
-      <div className="relative z-10 text-center max-w-5xl mx-auto px-6">
-        <FadeIn>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#17FC13]/20 bg-[#17FC13]/5 mb-10">
-            <span className="w-2 h-2 rounded-full bg-[#17FC13] animate-pulse" />
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/80">August 2026 — Greater Boston</span>
-          </div>
-        </FadeIn>
-
-        <FadeIn delay={0.1}>
-          <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-white/40 mb-5">Apex Academy</div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl uppercase font-bold leading-[0.85] mb-3 tracking-tight">
-            Prospect Combine<br /><span className="accent-text">& Showcase</span>
-          </h1>
-        </FadeIn>
-
-        <FadeIn delay={0.15}>
-          <div className="w-16 h-px bg-[#17FC13]/30 mx-auto my-6" />
-        </FadeIn>
-
-        <FadeIn delay={0.2}>
-          <p className="text-base md:text-lg text-white/80 max-w-2xl mx-auto mb-2">
-            The Premier College Exposure Event in New England
-          </p>
-          <p className="text-sm text-white/40 mb-3">16U &middot; 17U &middot; 18U</p>
-          <p className="text-[13px] text-white/40 max-w-lg mx-auto mb-10 leading-relaxed">
-            Verified metrics. Professional evaluations. College coach exposure. Recruiting education. Live game evaluation.
-          </p>
-        </FadeIn>
-
-        <FadeIn delay={0.3}>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Button href="#register">Register</Button>
-            <Button variant="secondary" href="#schedule">Full Schedule</Button>
-            <Button variant="secondary" href="#coaches">College Coaches</Button>
-          </div>
-        </FadeIn>
-      </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black to-transparent" />
-    </section>
-  );
-}
+import { PageHeader } from "@/components/PageHeader";
 
 // ═══════════════════════════════════════
 // OVERVIEW
@@ -481,7 +429,17 @@ function FAQ() {
 export default function ShowcasePage() {
   return (
     <main>
-      <Hero />
+      <PageHeader
+        title="Prospect Combine"
+        accent="& Showcase"
+        subtitle="The Premier College Exposure Event in New England — 16U · 17U · 18U — August 2026, Greater Boston"
+        breadcrumb={[{ label: "League", href: "/league" }]}
+        actions={[
+          { label: "Register", href: "#register", variant: "primary" },
+          { label: "Full Schedule", href: "#schedule" },
+          { label: "College Coaches", href: "#coaches" },
+        ]}
+      />
       <Overview />
       <Schedule />
       <CollegeCoaches />

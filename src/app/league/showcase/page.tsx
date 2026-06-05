@@ -253,9 +253,8 @@ function ScheduleRow({ event }: { event: ScheduleEvent }) {
       </div>
 
       {show && event.detail && (
-        <div className="absolute z-50 left-4 right-4 mt-0 animate-in fade-in zoom-in-95 duration-150">
-          <div className="bg-[#161b22] rounded-xl border border-[#17FC13]/15 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_0_1px_rgba(23,252,19,0.05)]">
-            <div className="absolute -top-1.5 left-8 w-3 h-3 bg-[#161b22] border-l border-t border-[#17FC13]/15 rotate-45" />
+        <div className="absolute z-[100] left-4 right-4 bottom-full mb-2 animate-in fade-in zoom-in-95 duration-150 pointer-events-none">
+          <div className="bg-[#161b22] rounded-xl border border-[#17FC13]/15 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_0_1px_rgba(23,252,19,0.08)]">
             <p className="text-[12px] text-white/70 leading-relaxed mb-2">{event.detail.description}</p>
             {event.detail.items && (
               <div className="flex flex-wrap gap-1.5 mb-2">
@@ -267,6 +266,7 @@ function ScheduleRow({ event }: { event: ScheduleEvent }) {
             {event.detail.note && (
               <p className="text-[10px] text-[#17FC13]/60 uppercase tracking-wider font-bold mt-1">{event.detail.note}</p>
             )}
+            <div className="absolute -bottom-1.5 left-8 w-3 h-3 bg-[#161b22] border-r border-b border-[#17FC13]/15 rotate-45" />
           </div>
         </div>
       )}
@@ -290,8 +290,8 @@ function Schedule() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <FadeIn>
-          <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04] overflow-hidden">
-            <div className="px-4 py-3 border-b border-white/[0.05]">
+          <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04]">
+            <div className="px-4 py-3 border-b border-white/[0.05] rounded-t-2xl">
               <div className="text-xs font-bold uppercase tracking-wider text-[#17FC13]/60">Day One — Saturday</div>
               <div className="text-[10px] text-white/30 mt-0.5">Combine & Recruiting Day</div>
             </div>
@@ -302,8 +302,8 @@ function Schedule() {
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04] overflow-hidden">
-            <div className="px-4 py-3 border-b border-white/[0.05]">
+          <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04]">
+            <div className="px-4 py-3 border-b border-white/[0.05] rounded-t-2xl">
               <div className="text-xs font-bold uppercase tracking-wider text-[#17FC13]/60">Day Two — Sunday</div>
               <div className="text-[10px] text-white/30 mt-0.5">Showcase Game Day</div>
             </div>

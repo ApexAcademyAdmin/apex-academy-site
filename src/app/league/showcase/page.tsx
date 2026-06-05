@@ -321,9 +321,6 @@ function Schedule() {
 // COLLEGE COACHES
 // ═══════════════════════════════════════
 function CollegeCoaches() {
-  const [filter, setFilter] = useState("All");
-  const divisions = ["All", "NCAA D1", "NCAA D2", "NCAA D3", "NAIA", "NJCAA"];
-
   const schools = [
     { name: "Boston College", division: "NCAA D1", conference: "ACC", location: "Chestnut Hill, MA" },
     { name: "Northeastern University", division: "NCAA D1", conference: "CAA", location: "Boston, MA" },
@@ -344,8 +341,6 @@ function CollegeCoaches() {
     { name: "Bristol CC", division: "NJCAA", conference: "Region 21", location: "Fall River, MA" },
   ];
 
-  const filtered = filter === "All" ? schools : schools.filter(s => s.division === filter);
-
   return (
     <Section id="coaches" border="bottom">
       <FadeIn>
@@ -355,20 +350,9 @@ function CollegeCoaches() {
         </div>
       </FadeIn>
 
-      <FadeIn delay={0.05}>
-        <div className="flex gap-1.5 mb-5 flex-wrap">
-          {divisions.map(d => (
-            <button key={d} onClick={() => setFilter(d)}
-              className={`px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all ${filter === d ? "bg-[#17FC13]/10 text-[#17FC13] border border-[#17FC13]/25" : "text-white/50 border border-white/[0.04] hover:border-white/[0.08]"}`}>
-              {d}
-            </button>
-          ))}
-        </div>
-      </FadeIn>
-
       <FadeIn delay={0.1}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {filtered.map(s => (
+          {schools.map(s => (
             <div key={s.name} className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-3.5 hover:border-[#17FC13]/10 transition-all">
               <div className="text-[13px] font-bold text-white/90">{s.name}</div>
               <div className="flex items-center gap-2 text-[11px] text-white/40 mt-0.5">

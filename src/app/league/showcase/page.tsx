@@ -277,6 +277,43 @@ function CollegeCoaches() {
 }
 
 // ═══════════════════════════════════════
+// PARTNERSHIP
+// ═══════════════════════════════════════
+function Partnership() {
+  return (
+    <Section border="bottom">
+      <FadeIn>
+        <div className="mb-8">
+          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Official Partners</div>
+          <h2 className="text-2xl md:text-3xl uppercase font-bold">In Partnership With <span className="accent-text">The Academy</span></h2>
+        </div>
+      </FadeIn>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
+        <FadeIn delay={0.05}>
+          <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 h-full">
+            <div className="text-sm font-bold text-white/90 mb-2">The Academy</div>
+            <p className="text-[12px] text-white/50 leading-relaxed">
+              All participants will have verified profiles uploaded directly to The Academy app — giving college coaches access to verified metrics, evaluations, and recruiting data in one place.
+            </p>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          <div className="bg-[#0d1117] rounded-xl border border-[#17FC13]/10 p-5 h-full">
+            <div className="text-sm font-bold text-white/90 mb-2">Rising Prospects Combine</div>
+            <p className="text-[12px] text-white/50 leading-relaxed mb-3">
+              The Event MVP — voted on by attending college coaches — will receive a free invitation to the Rising Prospects Combine.
+            </p>
+            <div className="text-[10px] text-[#17FC13]/60 uppercase tracking-wider font-bold">Coach-voted &middot; Free entry &middot; Elite exposure</div>
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+  );
+}
+
+// ═══════════════════════════════════════
 // WHAT YOU LEAVE WITH
 // ═══════════════════════════════════════
 function WhatYouLeaveWith() {
@@ -299,13 +336,13 @@ function WhatYouLeaveWith() {
                 {item}
               </div>
             ))}
-            <p className="text-[10px] text-white/30 mt-3 leading-relaxed">Reports integrate directly into Apex Player Profiles and are accessible to attending college coaches.</p>
+            <p className="text-[10px] text-white/30 mt-3 leading-relaxed">Reports integrate directly into Apex Player Profiles and The Academy app, accessible to attending college coaches.</p>
           </div>
 
           <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04] p-5">
             <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/50 mb-3">Awards Ceremony</div>
             <div className="grid grid-cols-1 gap-1.5">
-              {["Top Prospect", "Event MVP", "Top Position Player", "Top Pitcher", "Fastest Runner", "Highest Exit Velocity", "Highest Pitching Velocity", "Top Catcher", "Defensive Excellence"].map(a => (
+              {["Top Prospect", "Event MVP — Rising Prospects Combine Invite", "Top Position Player", "Top Pitcher", "Fastest Runner", "Highest Exit Velocity", "Highest Pitching Velocity", "Top Catcher", "Defensive Excellence"].map(a => (
                 <div key={a} className="flex items-center gap-2 text-[12px] text-white/60">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] flex-shrink-0" />
                   {a}
@@ -428,6 +465,7 @@ export default function ShowcasePage() {
       <NominateHeader />
       <Schedule />
       <CollegeCoaches />
+      <Partnership />
       <WhatYouLeaveWith />
       <Registration />
       <FAQ />

@@ -435,7 +435,7 @@ function NominateHeader() {
           <span className="text-white/10">/</span>
           <a href="/league" className="text-white/25 no-underline hover:text-white/50 transition-colors">League</a>
           <span className="text-white/10">/</span>
-          <span className="text-[#17FC13]/60">Showcase</span>
+          <span className="text-[#17FC13]/60">Prospect Combine & Showcase</span>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">

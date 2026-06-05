@@ -18,6 +18,21 @@ export const NAV_LINKS: NavLink[] = [
     ],
   },
   {
+    title: "League",
+    href: "/league",
+    children: [
+      { title: "League Home", href: "/league" },
+      { title: "Standings", href: "/league/standings" },
+      { title: "Schedule", href: "/league/schedule" },
+      { title: "Results", href: "/league/results" },
+      { title: "League Rules", href: "/league/rules" },
+      { title: "Field Locations", href: "/league/fields" },
+      { title: "Submit Result", href: "/league/submit-result" },
+      { title: "Prospect Combine & Showcase", href: "/league/showcase" },
+      { title: "Register Team", href: "/league/register" },
+    ],
+  },
+  {
     title: "Events",
     href: "/events",
     children: [

@@ -41,7 +41,7 @@ function Header() {
           <div className="flex flex-wrap gap-3">
             <Button href="/league/register">Register a Team</Button>
             <Button variant="secondary" href="#standings">View Standings</Button>
-            <Button variant="secondary" href="/live">Watch Live</Button>
+            <Button variant="secondary" href="/league/schedule">View Schedule</Button>
           </div>
         </FadeIn>
       </div>
@@ -95,12 +95,12 @@ function WhoItsFor() {
     },
     {
       title: "Recreational Players",
-      desc: "Organized, competitive baseball in a development-focused environment. Players benefit from a professionally run league with certified umpires, enforced pitch counts, tracked standings and statistics, live scoring, streaming through Apex Live, and opportunities to be recognized through player profiles and league events.",
+      desc: "Organized, competitive baseball in a development-focused environment. Players benefit from a professionally run league with certified umpires, enforced pitch counts, tracked standings, and opportunities to be recognized through player profiles and league events.",
       note: "An affordable way for families to experience organized baseball without sacrificing quality.",
     },
     {
       title: "Teams & Organizations",
-      desc: "Bring your roster. We\u2019ll handle the rest. The Apex League provides scheduling, fields, umpires, standings, statistics, live scoring, streaming, and league operations, allowing coaches and organizations to focus on player development and competition.",
+      desc: "Bring your roster. We\u2019ll handle the rest. The Apex League provides scheduling, fields, umpires, standings, and league operations, allowing coaches and organizations to focus on player development and competition.",
       note: "A turnkey solution for programs seeking a professional league experience.",
     },
     {
@@ -238,9 +238,6 @@ function LeagueActivity() {
                   <span className="text-[10px] font-mono text-white/20">{g.date} &middot; {g.time}</span>
                   <div className="flex items-center gap-2">
                     <span className="text-[9px] font-bold uppercase tracking-wider text-white/25">{g.ageGroup} {g.division}</span>
-                    {g.streamAvailable && (
-                      <span className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#17FC13]/10 text-[#17FC13]/50">Stream</span>
-                    )}
                   </div>
                 </div>
                 <div className="text-[12px] text-white/60">
@@ -265,7 +262,7 @@ function QuickAccess() {
     { label: "Rules & Format", desc: "By age division", href: "/league/rules" },
     { label: "Field Locations", desc: "169+ approved fields", href: "/league/fields" },
     { label: "Submit Result", desc: "Post-game reporting", href: "/league/submit-result" },
-    { label: "Apex Live", desc: "Live streaming", href: "/live" },
+    { label: "Register Team", desc: LEAGUE_META.registrationFee, href: "/league/register" },
   ];
 
   return (

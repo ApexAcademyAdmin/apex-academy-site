@@ -88,26 +88,47 @@ function HowItWorks() {
 // ═══════════════════════════════════════
 function WhoItsFor() {
   const audiences = [
-    { title: "Travel Players", desc: "Get more at-bats and innings during the week without conflicting with weekend tournaments. Stay sharp between showcase events." },
-    { title: "Recreational Players", desc: "Competitive, organized baseball with real umpires, pitch counts, and standings — at a price families can afford." },
-    { title: "New Teams & Programs", desc: "Register your team or organization. We provide the schedule, fields, umpires, live scoring, and streaming. You bring the players." },
+    {
+      title: "Travel Players",
+      desc: "Stay game-ready between tournaments and showcase events. The Apex League provides meaningful weekday competition, helping players accumulate valuable at-bats, innings, and defensive reps without interfering with weekend travel schedules.",
+      note: "Ideal for athletes looking to continue developing throughout the season while maintaining their tournament commitments.",
+    },
+    {
+      title: "Recreational Players",
+      desc: "Competitive baseball in a structured, development-focused environment. Players receive the benefits of a professionally operated league, including certified umpires, pitch count enforcement, standings, statistics, live scoring, and player recognition opportunities.",
+      note: "An affordable way for families to experience organized baseball without sacrificing quality.",
+    },
+    {
+      title: "Teams & Organizations",
+      desc: "Bring your roster. We\u2019ll handle the rest. The Apex League provides scheduling, fields, umpires, standings, statistics, live scoring, streaming, and league operations, allowing coaches and organizations to focus on player development and competition.",
+      note: "A turnkey solution for programs seeking a professional league experience.",
+    },
+    {
+      title: "Future Prospects",
+      desc: "More opportunities to compete. More opportunities to be seen. League participants gain access to player profiles, statistical tracking, media exposure, and eligibility for events such as the All-New England Prospect Games and other Apex recruiting initiatives.",
+      note: "Because development is about more than games \u2014 it\u2019s about creating opportunities for the next level.",
+    },
   ];
 
   return (
     <Section border="bottom">
       <FadeIn>
-        <div className="mb-8">
+        <div className="mb-4">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Who It&apos;s For</div>
-          <h2 className="text-2xl md:text-3xl uppercase font-bold">Built for <span className="accent-text">Every Player</span></h2>
+          <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">Built for Every Level of <span className="accent-text">Baseball</span></h2>
+          <p className="text-sm text-white/40 max-w-2xl leading-relaxed">
+            Whether you&apos;re looking for additional game reps, affordable competition, or a professionally operated league experience, the Apex League was designed to serve players, families, teams, and organizations throughout Greater Boston and New England.
+          </p>
         </div>
       </FadeIn>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {audiences.map((a, i) => (
           <FadeIn key={a.title} delay={i * 0.05}>
             <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 h-full">
-              <div className="text-sm font-bold text-white/80 mb-1.5">{a.title}</div>
-              <div className="text-[12px] text-white/40 leading-relaxed">{a.desc}</div>
+              <div className="text-sm font-bold text-white/80 mb-2">{a.title}</div>
+              <div className="text-[12px] text-white/40 leading-relaxed mb-3">{a.desc}</div>
+              <div className="text-[11px] text-white/60 font-medium leading-relaxed">{a.note}</div>
             </div>
           </FadeIn>
         ))}

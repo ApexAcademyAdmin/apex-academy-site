@@ -435,12 +435,12 @@ function NominateHeader() {
           <span className="text-white/10">/</span>
           <a href="/league" className="text-white/25 no-underline hover:text-white/50 transition-colors">League</a>
           <span className="text-white/10">/</span>
-          <span className="text-[#17FC13]/60">Prospect Combine & Showcase</span>
+          <span className="text-[#17FC13]/60">All-New England Prospect Games</span>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-2">Prospect Combine & Showcase</div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-2">All-New England Prospect Games</div>
             <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-3">
               Know a Player Who <span className="accent-text">Deserves to Be Seen?</span>
             </h1>

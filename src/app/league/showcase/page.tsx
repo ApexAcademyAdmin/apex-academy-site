@@ -227,48 +227,47 @@ const dayTwo: ScheduleEvent[] = [
 ];
 
 // ═══════════════════════════════════════
-// SCHEDULE ROW — with hover detail
+// SCHEDULE ROW — with hover popup bubble
 // ═══════════════════════════════════════
 function ScheduleRow({ event }: { event: ScheduleEvent }) {
-  const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(false);
   const hasDetail = !!event.detail;
 
   return (
     <div
-      className="group"
-      onMouseEnter={() => hasDetail && setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      className="relative"
+      onMouseEnter={() => hasDetail && setShow(true)}
+      onMouseLeave={() => setShow(false)}
     >
-      <button
-        type="button"
-        onClick={() => hasDetail && setOpen(o => !o)}
-        className={`w-full flex items-start gap-4 px-4 py-3 border-b border-white/[0.03] text-left transition-colors ${event.accent ? "bg-[#17FC13]/[0.02]" : ""} ${hasDetail ? "hover:bg-white/[0.02] cursor-pointer" : "cursor-default"}`}
+      <div
+        onClick={() => hasDetail && setShow(s => !s)}
+        className={`flex items-start gap-4 px-4 py-3 border-b border-white/[0.03] transition-colors ${event.accent ? "bg-[#17FC13]/[0.02]" : ""} ${hasDetail ? "hover:bg-white/[0.02] cursor-pointer" : ""}`}
       >
         <span className="text-[11px] font-mono text-[#17FC13]/50 w-16 flex-shrink-0 pt-0.5">{event.time}</span>
         <span className={`text-[12px] flex-1 ${event.accent ? "font-bold text-white/80" : "text-white/60"}`}>
           {event.title}
         </span>
         {hasDetail && (
-          <span className={`text-[10px] text-white/20 flex-shrink-0 pt-0.5 transition-transform ${open ? "rotate-180" : ""}`}>&#9660;</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]/30 flex-shrink-0 mt-1.5" />
         )}
-      </button>
+      </div>
 
-      {open && event.detail && (
-        <div className="px-4 pb-4 pt-1 pl-24 border-b border-white/[0.03] bg-white/[0.01] animate-in fade-in duration-150">
-          <p className="text-[12px] text-white/50 leading-relaxed mb-2">{event.detail.description}</p>
-          {event.detail.items && (
-            <div className="flex flex-wrap gap-x-3 gap-y-1 mb-2">
-              {event.detail.items.map(item => (
-                <span key={item} className="flex items-center gap-1.5 text-[11px] text-white/40">
-                  <span className="w-1 h-1 rounded-full bg-[#17FC13]/30 flex-shrink-0" />
-                  {item}
-                </span>
-              ))}
-            </div>
-          )}
-          {event.detail.note && (
-            <p className="text-[10px] text-[#17FC13]/50 uppercase tracking-wider font-bold">{event.detail.note}</p>
-          )}
+      {show && event.detail && (
+        <div className="absolute z-50 left-4 right-4 mt-0 animate-in fade-in zoom-in-95 duration-150">
+          <div className="bg-[#161b22] rounded-xl border border-[#17FC13]/15 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_0_1px_rgba(23,252,19,0.05)]">
+            <div className="absolute -top-1.5 left-8 w-3 h-3 bg-[#161b22] border-l border-t border-[#17FC13]/15 rotate-45" />
+            <p className="text-[12px] text-white/70 leading-relaxed mb-2">{event.detail.description}</p>
+            {event.detail.items && (
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {event.detail.items.map(item => (
+                  <span key={item} className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-white/50">{item}</span>
+                ))}
+              </div>
+            )}
+            {event.detail.note && (
+              <p className="text-[10px] text-[#17FC13]/60 uppercase tracking-wider font-bold mt-1">{event.detail.note}</p>
+            )}
+          </div>
         </div>
       )}
     </div>

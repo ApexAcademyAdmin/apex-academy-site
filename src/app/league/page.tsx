@@ -9,88 +9,90 @@ import { LEAGUE_META, STANDINGS, UPCOMING_GAMES, RECENT_RESULTS } from "@/lib/le
 const AGE_GROUPS = ["10U", "12U", "14U", "16U", "18U"];
 
 // ═══════════════════════════════════════
-// HEADER — compact, informational
+// HEADER — what is the league
 // ═══════════════════════════════════════
 function Header() {
   return (
-    <div className="pt-24 md:pt-32 pb-6">
+    <div className="pt-24 md:pt-32 pb-8 md:pb-12">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
-          <div>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#17FC13]/20 bg-[#17FC13]/5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] animate-pulse" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/80">{LEAGUE_META.season}</span>
-              </div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">{LEAGUE_META.seasonStart} — {LEAGUE_META.seasonEnd}</span>
-            </div>
-            <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-2">
-              Apex <span className="accent-text">League</span>
-            </h1>
-            <p className="text-sm text-white/40 max-w-md">
-              {LEAGUE_META.divisions.length} divisions &middot; {LEAGUE_META.totalTeams} teams &middot; Weekday games only &middot; Greater Boston
-            </p>
+        <FadeIn>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#17FC13]/20 bg-[#17FC13]/5 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] animate-pulse" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/80">{LEAGUE_META.season} — Registration Open</span>
           </div>
+        </FadeIn>
 
-          <div className="flex flex-wrap gap-2">
-            <Button href="/league/register" size="small">Register Team</Button>
-            <Button variant="secondary" href="/live" size="small">Watch Live</Button>
-            <Button variant="secondary" href="/league/submit-result" size="small">Submit Result</Button>
+        <FadeIn delay={0.05}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl uppercase font-bold leading-[0.85] mb-5 max-w-3xl">
+            Community Baseball<br /><span className="accent-text">Built Different</span>
+          </h1>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          <p className="text-base md:text-lg text-white/50 max-w-2xl leading-relaxed mb-4">
+            The Apex League is a weekday baseball league for players ages 8–18 across Greater Boston. Games are played exclusively on Wednesdays, Thursdays, and Fridays — keeping weekends free for travel tournaments. Development-focused. Affordable for every family.
+          </p>
+          <p className="text-sm text-white/30 mb-8">
+            {LEAGUE_META.seasonStart} — {LEAGUE_META.seasonEnd} &middot; {LEAGUE_META.registrationFee} per team &middot; {LEAGUE_META.location}
+          </p>
+        </FadeIn>
+
+        <FadeIn delay={0.15}>
+          <div className="flex flex-wrap gap-3">
+            <Button href="/league/register">Register a Team</Button>
+            <Button variant="secondary" href="#standings">View Standings</Button>
+            <Button variant="secondary" href="/live">Watch Live</Button>
           </div>
-        </div>
+        </FadeIn>
       </div>
     </div>
   );
 }
 
 // ═══════════════════════════════════════
-// UPCOMING GAMES — what's next
+// HOW IT WORKS — the league explained
 // ═══════════════════════════════════════
-function UpcomingGames() {
-  const games = UPCOMING_GAMES.slice(0, 6);
-
-  // Group by date
-  const grouped: Record<string, typeof games> = {};
-  for (const g of games) {
-    if (!grouped[g.date]) grouped[g.date] = [];
-    grouped[g.date].push(g);
-  }
+function HowItWorks() {
+  const points = [
+    { title: "5 Age Divisions", desc: "10U, 12U, 14U, 16U, and 18U — two divisions per age group. Every team plays 14 regular season games." },
+    { title: "Weekday Games Only", desc: "All games are on Wednesday, Thursday, and Friday evenings. Weekends stay open for travel tournaments, showcases, and family time." },
+    { title: "Real Baseball Rules", desc: "MLB-style rules adjusted by age. Pitch counts, rest requirements, leadoffs, stealing, dropped third strike — all enforced." },
+    { title: "Playoffs & Championship", desc: "Top 2 teams per division qualify for single-elimination playoffs. Championship Weekend: August 22–23." },
+  ];
 
   return (
-    <Section size="sm" border="bottom">
+    <Section border="bottom">
       <FadeIn>
-        <div className="flex items-center justify-between mb-4">
-          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50">Upcoming Games</div>
-          <a href="/league/schedule" className="text-[10px] font-bold uppercase tracking-wider text-white/30 hover:text-[#17FC13]/60 transition-colors no-underline">Full Schedule →</a>
+        <div className="mb-8">
+          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">How It Works</div>
+          <h2 className="text-2xl md:text-3xl uppercase font-bold">The <span className="accent-text">Format</span></h2>
         </div>
       </FadeIn>
 
-      <FadeIn delay={0.05}>
-        <div className="space-y-4">
-          {Object.entries(grouped).map(([date, dateGames]) => (
-            <div key={date}>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/20 mb-2">{date}</div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                {dateGames.map(g => (
-                  <div key={g.id} className="bg-[#0d1117] rounded-lg border border-white/[0.04] px-4 py-3 hover:border-[#17FC13]/10 transition-all">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-white/[0.04] text-white/40">{g.ageGroup} {g.division}</span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono text-white/30">{g.time}</span>
-                        {g.streamAvailable && (
-                          <a href="/live" className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#17FC13]/10 text-[#17FC13]/60 no-underline hover:bg-[#17FC13]/20 transition-colors">Stream</a>
-                        )}
-                      </div>
-                    </div>
-                    <div className="text-[12px] text-white/70">
-                      <span className="font-medium">{g.away}</span>
-                      <span className="text-white/20 mx-1.5">@</span>
-                      <span className="font-medium">{g.home}</span>
-                    </div>
-                    <div className="text-[10px] text-white/20 mt-1">{g.location}</div>
-                  </div>
-                ))}
-              </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {points.map((p, i) => (
+          <FadeIn key={p.title} delay={i * 0.05}>
+            <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5">
+              <div className="text-sm font-bold text-white/80 mb-1.5">{p.title}</div>
+              <div className="text-[12px] text-white/40 leading-relaxed">{p.desc}</div>
+            </div>
+          </FadeIn>
+        ))}
+      </div>
+
+      <FadeIn delay={0.2}>
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-3 mt-6">
+          {[
+            { value: String(LEAGUE_META.totalTeams), label: "Teams" },
+            { value: `${LEAGUE_META.totalPlayers}+`, label: "Players" },
+            { value: String(LEAGUE_META.totalGames), label: "Games" },
+            { value: String(LEAGUE_META.divisions.length), label: "Divisions" },
+            { value: "Wed–Fri", label: "Game Days" },
+            { value: "Aug 22", label: "Championship" },
+          ].map(s => (
+            <div key={s.label} className="text-center py-3">
+              <div className="text-lg font-bold accent-text">{s.value}</div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/30">{s.label}</div>
             </div>
           ))}
         </div>
@@ -100,112 +102,152 @@ function UpcomingGames() {
 }
 
 // ═══════════════════════════════════════
-// STANDINGS — tabbed by age group
+// WHO IT'S FOR
 // ═══════════════════════════════════════
-function StandingsPreview() {
-  const [activeAge, setActiveAge] = useState("12U");
+function WhoItsFor() {
+  const audiences = [
+    { title: "Travel Players", desc: "Get more at-bats and innings during the week without conflicting with weekend tournaments. Stay sharp between showcase events." },
+    { title: "Recreational Players", desc: "Competitive, organized baseball with real umpires, pitch counts, and standings — at a price families can afford." },
+    { title: "New Teams & Programs", desc: "Register your team or organization. We provide the schedule, fields, umpires, live scoring, and streaming. You bring the players." },
+  ];
 
+  return (
+    <Section border="bottom">
+      <FadeIn>
+        <div className="mb-8">
+          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Who It&apos;s For</div>
+          <h2 className="text-2xl md:text-3xl uppercase font-bold">Built for <span className="accent-text">Every Player</span></h2>
+        </div>
+      </FadeIn>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {audiences.map((a, i) => (
+          <FadeIn key={a.title} delay={i * 0.05}>
+            <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 h-full">
+              <div className="text-sm font-bold text-white/80 mb-1.5">{a.title}</div>
+              <div className="text-[12px] text-white/40 leading-relaxed">{a.desc}</div>
+            </div>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+// ═══════════════════════════════════════
+// LEAGUE ACTIVITY — standings + results + schedule
+// ═══════════════════════════════════════
+function LeagueActivity() {
+  const [activeAge, setActiveAge] = useState("12U");
   const divA = STANDINGS[`${activeAge}-A`] || [];
   const divB = STANDINGS[`${activeAge}-B`] || [];
 
-  function MiniTable({ rows, label }: { rows: typeof divA; label: string }) {
-    return (
-      <div className="bg-[#0d1117] rounded-lg border border-white/[0.04]">
-        <div className="px-4 py-2.5 border-b border-white/[0.04]">
-          <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50">{label}</span>
-        </div>
-        {rows.map((t, i) => (
-          <div key={t.team} className={`flex items-center gap-3 px-4 py-2.5 ${i < rows.length - 1 ? "border-b border-white/[0.02]" : ""}`}>
-            <div className="flex items-center gap-1.5 w-5">
-              {t.playoffBound && <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]" />}
-              <span className="text-[11px] font-mono text-white/40">{t.rank}</span>
-            </div>
-            <span className="text-[12px] font-medium text-white/80 flex-1">
-              {t.teamId ? <a href={`/teams/${t.teamId}`} className="text-[#17FC13]/80 hover:text-[#17FC13] no-underline transition-colors">{t.team}</a> : t.team}
-            </span>
-            <span className="text-[11px] font-mono text-white/40 w-10 text-right">{t.w}-{t.l}{t.t ? `-${t.t}` : ""}</span>
-            <span className="text-[11px] font-mono font-bold text-white/60 w-10 text-right">{t.pct}</span>
-            <span className={`text-[10px] font-mono font-bold w-8 text-right ${t.streak.startsWith("W") ? "text-[#17FC13]/60" : "text-red-400/50"}`}>{t.streak}</span>
-          </div>
-        ))}
-      </div>
-    );
-  }
+  const nextGames = UPCOMING_GAMES.slice(0, 4);
+  const recentResults = RECENT_RESULTS.slice(0, 4);
 
   return (
-    <Section border="bottom">
+    <Section id="standings" border="bottom">
       <FadeIn>
-        <div className="flex items-center justify-between mb-4">
-          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50">Standings</div>
-          <a href="/league/standings" className="text-[10px] font-bold uppercase tracking-wider text-white/30 hover:text-[#17FC13]/60 transition-colors no-underline">All Divisions →</a>
+        <div className="mb-6">
+          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">League Activity</div>
+          <h2 className="text-2xl md:text-3xl uppercase font-bold">Standings, Scores & <span className="accent-text">Schedule</span></h2>
         </div>
       </FadeIn>
 
+      {/* STANDINGS */}
       <FadeIn delay={0.05}>
-        <div className="flex gap-1 mb-5">
-          {AGE_GROUPS.map(age => (
-            <button key={age} onClick={() => setActiveAge(age)}
-              className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all ${activeAge === age ? "bg-[#17FC13]/10 text-[#17FC13] border border-[#17FC13]/25" : "text-white/40 border border-white/[0.04] hover:border-white/[0.08]"}`}>
-              {age}
-            </button>
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex gap-1">
+            {AGE_GROUPS.map(age => (
+              <button key={age} onClick={() => setActiveAge(age)}
+                className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all ${activeAge === age ? "bg-[#17FC13]/10 text-[#17FC13] border border-[#17FC13]/25" : "text-white/40 border border-white/[0.04] hover:border-white/[0.08]"}`}>
+                {age}
+              </button>
+            ))}
+          </div>
+          <a href="/league/standings" className="text-[10px] font-bold uppercase tracking-wider text-white/30 hover:text-[#17FC13]/60 transition-colors no-underline">All Standings →</a>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-8">
+          {[{ rows: divA, label: "Division A" }, { rows: divB, label: "Division B" }].map(({ rows, label }) => (
+            <div key={label} className="bg-[#0d1117] rounded-lg border border-white/[0.04]">
+              <div className="px-4 py-2 border-b border-white/[0.04]">
+                <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50">{label}</span>
+              </div>
+              {rows.map((t, i) => (
+                <div key={t.team} className={`flex items-center gap-3 px-4 py-2 ${i < rows.length - 1 ? "border-b border-white/[0.02]" : ""}`}>
+                  <div className="flex items-center gap-1.5 w-5">
+                    {t.playoffBound && <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]" />}
+                    <span className="text-[11px] font-mono text-white/40">{t.rank}</span>
+                  </div>
+                  <span className="text-[12px] font-medium text-white/80 flex-1">
+                    {t.teamId ? <a href={`/teams/${t.teamId}`} className="text-[#17FC13]/80 hover:text-[#17FC13] no-underline transition-colors">{t.team}</a> : t.team}
+                  </span>
+                  <span className="text-[11px] font-mono text-white/40 w-10 text-right">{t.w}-{t.l}{t.t ? `-${t.t}` : ""}</span>
+                  <span className="text-[11px] font-mono font-bold text-white/60 w-10 text-right">{t.pct}</span>
+                  <span className={`text-[10px] font-mono font-bold w-8 text-right ${t.streak.startsWith("W") ? "text-[#17FC13]/60" : "text-red-400/50"}`}>{t.streak}</span>
+                </div>
+              ))}
+            </div>
           ))}
         </div>
       </FadeIn>
 
+      {/* RESULTS + SCHEDULE side by side */}
       <FadeIn delay={0.1}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <MiniTable rows={divA} label={`Division A`} />
-          <MiniTable rows={divB} label={`Division B`} />
-        </div>
-      </FadeIn>
-
-      <FadeIn delay={0.15}>
-        <div className="flex items-center gap-3 mt-3 text-[10px] text-white/20">
-          <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]" /> Playoff qualifier</span>
-          <span>Top 2 per division advance</span>
-        </div>
-      </FadeIn>
-    </Section>
-  );
-}
-
-// ═══════════════════════════════════════
-// RECENT RESULTS — last games played
-// ═══════════════════════════════════════
-function Results() {
-  return (
-    <Section border="bottom">
-      <FadeIn>
-        <div className="flex items-center justify-between mb-4">
-          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50">Recent Results</div>
-          <a href="/league/results" className="text-[10px] font-bold uppercase tracking-wider text-white/30 hover:text-[#17FC13]/60 transition-colors no-underline">All Results →</a>
-        </div>
-      </FadeIn>
-
-      <FadeIn delay={0.05}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {RECENT_RESULTS.slice(0, 6).map(r => {
-            const awayWin = r.awayScore > r.homeScore;
-            return (
-              <div key={r.id} className="bg-[#0d1117] rounded-lg border border-white/[0.04] px-4 py-3">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-mono text-white/25">{r.date}</span>
-                  <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-white/[0.04] text-white/40">{r.division}</span>
-                </div>
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className={`text-[12px] ${awayWin ? "font-bold text-white/90" : "text-white/50"}`}>{r.away}</span>
-                    <span className={`text-[13px] font-mono ${awayWin ? "font-bold text-white/90" : "text-white/40"}`}>{r.awayScore}</span>
+          {/* Recent Results */}
+          <div className="bg-[#0d1117] rounded-lg border border-white/[0.04]">
+            <div className="px-4 py-2.5 border-b border-white/[0.04] flex items-center justify-between">
+              <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50">Recent Results</span>
+              <a href="/league/results" className="text-[10px] text-white/25 hover:text-[#17FC13]/50 transition-colors no-underline">View All →</a>
+            </div>
+            {recentResults.map((r, i) => {
+              const awayWin = r.awayScore > r.homeScore;
+              return (
+                <div key={r.id} className={`px-4 py-2.5 ${i < recentResults.length - 1 ? "border-b border-white/[0.02]" : ""}`}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[10px] font-mono text-white/20">{r.date}</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-white/25">{r.division}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className={`text-[12px] ${!awayWin ? "font-bold text-white/90" : "text-white/50"}`}>{r.home}</span>
-                    <span className={`text-[13px] font-mono ${!awayWin ? "font-bold text-white/90" : "text-white/40"}`}>{r.homeScore}</span>
+                    <span className={`text-[12px] ${awayWin ? "font-bold text-white/80" : "text-white/40"}`}>{r.away}</span>
+                    <span className={`text-[12px] font-mono ${awayWin ? "font-bold text-white/80" : "text-white/30"}`}>{r.awayScore}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className={`text-[12px] ${!awayWin ? "font-bold text-white/80" : "text-white/40"}`}>{r.home}</span>
+                    <span className={`text-[12px] font-mono ${!awayWin ? "font-bold text-white/80" : "text-white/30"}`}>{r.homeScore}</span>
                   </div>
                 </div>
-                <div className="text-[9px] text-white/15 uppercase tracking-wider mt-2">Final</div>
+              );
+            })}
+          </div>
+
+          {/* Upcoming Games */}
+          <div className="bg-[#0d1117] rounded-lg border border-white/[0.04]">
+            <div className="px-4 py-2.5 border-b border-white/[0.04] flex items-center justify-between">
+              <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50">Upcoming Games</span>
+              <a href="/league/schedule" className="text-[10px] text-white/25 hover:text-[#17FC13]/50 transition-colors no-underline">Full Schedule →</a>
+            </div>
+            {nextGames.map((g, i) => (
+              <div key={g.id} className={`px-4 py-2.5 ${i < nextGames.length - 1 ? "border-b border-white/[0.02]" : ""}`}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[10px] font-mono text-white/20">{g.date} &middot; {g.time}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-white/25">{g.ageGroup} {g.division}</span>
+                    {g.streamAvailable && (
+                      <span className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#17FC13]/10 text-[#17FC13]/50">Stream</span>
+                    )}
+                  </div>
+                </div>
+                <div className="text-[12px] text-white/60">
+                  <span>{g.away}</span>
+                  <span className="text-white/20 mx-1.5">@</span>
+                  <span>{g.home}</span>
+                </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </FadeIn>
     </Section>
@@ -217,10 +259,10 @@ function Results() {
 // ═══════════════════════════════════════
 function QuickAccess() {
   const links = [
-    { label: "Rules & Format", desc: "By division", href: "/league/rules" },
-    { label: "Field Locations", desc: "169+ fields", href: "/league/fields" },
-    { label: "Register Team", desc: LEAGUE_META.registrationFee, href: "/league/register" },
-    { label: "Submit Result", desc: "Post-game", href: "/league/submit-result" },
+    { label: "Rules & Format", desc: "By age division", href: "/league/rules" },
+    { label: "Field Locations", desc: "169+ approved fields", href: "/league/fields" },
+    { label: "Submit Result", desc: "Post-game reporting", href: "/league/submit-result" },
+    { label: "Apex Live", desc: "Live streaming", href: "/live" },
   ];
 
   return (
@@ -229,8 +271,8 @@ function QuickAccess() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {links.map(l => (
             <a key={l.label} href={l.href} className="bg-[#0d1117] rounded-lg border border-white/[0.04] px-4 py-3.5 hover:border-[#17FC13]/10 transition-all no-underline group">
-              <div className="text-[12px] font-bold text-white/80 group-hover:text-[#17FC13] transition-colors">{l.label}</div>
-              <div className="text-[10px] text-white/30 mt-0.5">{l.desc}</div>
+              <div className="text-[12px] font-bold text-white/70 group-hover:text-[#17FC13] transition-colors">{l.label}</div>
+              <div className="text-[10px] text-white/25 mt-0.5">{l.desc}</div>
             </a>
           ))}
         </div>
@@ -270,52 +312,6 @@ function FeaturedEvent() {
 }
 
 // ═══════════════════════════════════════
-// LEAGUE INFO — season details
-// ═══════════════════════════════════════
-function LeagueInfo() {
-  return (
-    <Section size="sm" border="bottom">
-      <FadeIn>
-        <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
-          <div className="flex-1">
-            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-2">About the League</div>
-            <p className="text-[13px] text-white/50 leading-relaxed">
-              {LEAGUE_META.divisions.length} age divisions from 10U through 18U. Two divisions per age group. Games played exclusively on Wednesdays, Thursdays, and Fridays — weekends stay free for travel tournaments. Development-focused, affordable for every family.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-3 flex-shrink-0">
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/20 mb-0.5">Teams</div>
-              <div className="text-sm font-bold text-white/70">{LEAGUE_META.totalTeams}</div>
-            </div>
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/20 mb-0.5">Players</div>
-              <div className="text-sm font-bold text-white/70">{LEAGUE_META.totalPlayers}+</div>
-            </div>
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/20 mb-0.5">Games</div>
-              <div className="text-sm font-bold text-white/70">{LEAGUE_META.totalGames}</div>
-            </div>
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/20 mb-0.5">Fee</div>
-              <div className="text-sm font-bold text-white/70">{LEAGUE_META.registrationFee}</div>
-            </div>
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/20 mb-0.5">Championship</div>
-              <div className="text-sm font-bold text-white/70">Aug 22-23</div>
-            </div>
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/20 mb-0.5">Game Days</div>
-              <div className="text-sm font-bold text-white/70">Wed-Fri</div>
-            </div>
-          </div>
-        </div>
-      </FadeIn>
-    </Section>
-  );
-}
-
-// ═══════════════════════════════════════
 // REGISTRATION CTA
 // ═══════════════════════════════════════
 function RegistrationCTA() {
@@ -328,10 +324,10 @@ function RegistrationCTA() {
             Join the <span className="accent-text">League</span>
           </h2>
           <p className="text-sm text-white/40 max-w-md mx-auto mb-6">
-            Ages 8-18. All skill levels. {LEAGUE_META.registrationFee} per team. Deadline: {LEAGUE_META.registrationDeadline}.
+            Ages 8–18. All skill levels. {LEAGUE_META.registrationFee} per team. Registration deadline: {LEAGUE_META.registrationDeadline}.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            <Button href="/league/register">Register Now</Button>
+            <Button href="/league/register">Register a Team</Button>
             <Button variant="secondary" href="mailto:apexsportsgg@gmail.com">Contact Us</Button>
           </div>
         </div>
@@ -347,12 +343,11 @@ export default function LeaguePage() {
   return (
     <main>
       <Header />
-      <UpcomingGames />
-      <StandingsPreview />
-      <Results />
+      <HowItWorks />
+      <WhoItsFor />
+      <LeagueActivity />
       <QuickAccess />
       <FeaturedEvent />
-      <LeagueInfo />
       <RegistrationCTA />
     </main>
   );

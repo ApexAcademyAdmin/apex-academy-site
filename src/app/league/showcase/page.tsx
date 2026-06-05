@@ -4,46 +4,6 @@ import { useState } from "react";
 import { FadeIn } from "@/components/FadeIn";
 import { Section } from "@/components/Section";
 import { Button } from "@/components/Button";
-import { PageHeader } from "@/components/PageHeader";
-
-// ═══════════════════════════════════════
-// OVERVIEW
-// ═══════════════════════════════════════
-function Overview() {
-  const stats = [
-    { value: "80", label: "Prospects" },
-    { value: "30+", label: "College Coaches" },
-    { value: "12+", label: "Verified Metrics" },
-    { value: "2", label: "Showcase Games" },
-    { value: "2", label: "Days" },
-    { value: "D1–JUCO", label: "All Divisions" },
-  ];
-
-  return (
-    <Section border="bottom">
-      <FadeIn>
-        <div className="text-center mb-8">
-          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Event Overview</div>
-          <h2 className="text-2xl md:text-3xl uppercase font-bold mb-4">Verified. Evaluated. <span className="accent-text">Exposed.</span></h2>
-          <p className="text-sm text-white/60 max-w-2xl mx-auto leading-relaxed">
-            A two-day prospect evaluation modeled after the MLB Draft Combine and elite recruiting showcases. Hosted annually at a select college facility in Greater Boston.
-          </p>
-        </div>
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-          {stats.map(s => (
-            <div key={s.label} className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-3 text-center">
-              <div className="text-xl font-bold accent-text mb-0.5">{s.value}</div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/40">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </FadeIn>
-    </Section>
-  );
-}
 
 // ═══════════════════════════════════════
 // SCHEDULE DATA
@@ -426,21 +386,46 @@ function FAQ() {
 // ═══════════════════════════════════════
 // MAIN PAGE
 // ═══════════════════════════════════════
+// ═══════════════════════════════════════
+// NOMINATE HEADER
+// ═══════════════════════════════════════
+function NominateHeader() {
+  return (
+    <div className="pt-24 md:pt-32 pb-6 md:pb-8">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+        <div className="flex items-center gap-2 mb-6 text-[10px] font-medium uppercase tracking-[0.2em]">
+          <a href="/" className="text-white/25 no-underline hover:text-white/50 transition-colors">Home</a>
+          <span className="text-white/10">/</span>
+          <a href="/league" className="text-white/25 no-underline hover:text-white/50 transition-colors">League</a>
+          <span className="text-white/10">/</span>
+          <span className="text-[#17FC13]/60">Showcase</span>
+        </div>
+
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-2">Prospect Combine & Showcase</div>
+            <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-3">
+              Know a Player Who <span className="accent-text">Deserves to Be Seen?</span>
+            </h1>
+            <p className="text-sm text-white/50 max-w-lg leading-relaxed">
+              Nominate a prospect for the premier college exposure event in New England. 16U &middot; 17U &middot; 18U.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3 flex-shrink-0">
+            <Button href="mailto:apexsportsgg@gmail.com">Nominate a Prospect</Button>
+            <Button variant="secondary" href="#register">Register</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ShowcasePage() {
   return (
     <main>
-      <PageHeader
-        title="Prospect Combine"
-        accent="& Showcase"
-        subtitle="The Premier College Exposure Event in New England — 16U · 17U · 18U — August 2026, Greater Boston"
-        breadcrumb={[{ label: "League", href: "/league" }]}
-        actions={[
-          { label: "Register", href: "#register", variant: "primary" },
-          { label: "Full Schedule", href: "#schedule" },
-          { label: "College Coaches", href: "#coaches" },
-        ]}
-      />
-      <Overview />
+      <NominateHeader />
       <Schedule />
       <CollegeCoaches />
       <WhatYouLeaveWith />

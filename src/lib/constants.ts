@@ -28,7 +28,7 @@ export const NAV_LINKS: NavLink[] = [
       { title: "League Rules", href: "/league/rules" },
       { title: "Field Locations", href: "/league/fields" },
       { title: "Submit Result", href: "/league/submit-result" },
-      { title: "All-New England Prospect Games", href: "/league/showcase" },
+      { title: "Prospect Games", href: "/league/showcase" },
       { title: "Register Team", href: "/league/register" },
     ],
   },

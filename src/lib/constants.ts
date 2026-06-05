@@ -41,7 +41,7 @@ export const NAV_LINKS: NavLink[] = [
     ],
   },
   { title: "Partners", href: "/partners" },
-  { title: "Apex Live", href: "/live" },
+  { title: "Results", href: "/league/results" },
   { title: "Shop", href: "/shop" },
 ];
 

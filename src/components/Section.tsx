@@ -8,9 +8,9 @@ type Props = {
 };
 
 const PAD = {
-  sm: "py-16 md:py-20",
-  md: "py-20 md:py-28",
-  lg: "py-28 md:py-36",
+  sm: "py-6 md:py-8",
+  md: "py-8 md:py-10",
+  lg: "py-10 md:py-14",
 };
 
 const BORDER = {
@@ -26,7 +26,7 @@ export function Section({ size = "md", border = "none", bg = "default", id, clas
       id={id}
       className={`${PAD[size]} ${BORDER[border]} ${bg === "radial" ? "bg-radial" : ""} ${className}`}
     >
-      <div className="max-w-[1120px] mx-auto px-6">{children}</div>
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10">{children}</div>
     </section>
   );
 }

@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Apex Academy | Creating Opportunities Through Baseball",
+  title: "Apex Academy — Creating Opportunities Through Baseball",
   description: "Baseball development in Boston. Hitting, pitching, strength, speed, recruiting — built for the next level.",
   icons: { icon: "/logos/favicon-192.png" },
 };

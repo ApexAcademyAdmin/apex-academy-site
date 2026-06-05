@@ -95,7 +95,7 @@ function WhoItsFor() {
     },
     {
       title: "Recreational Players",
-      desc: "Competitive baseball in a structured, development-focused environment. Players receive the benefits of a professionally operated league, including certified umpires, pitch count enforcement, standings, statistics, live scoring, and player recognition opportunities.",
+      desc: "Organized, competitive baseball in a development-focused environment. Players benefit from a professionally run league with certified umpires, enforced pitch counts, tracked standings and statistics, live scoring, streaming through Apex Live, and opportunities to be recognized through player profiles and league events.",
       note: "An affordable way for families to experience organized baseball without sacrificing quality.",
     },
     {

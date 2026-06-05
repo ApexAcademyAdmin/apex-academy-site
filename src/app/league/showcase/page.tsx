@@ -373,7 +373,7 @@ function Registration() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button href="/join">Register Now</Button>
-            <Button variant="secondary" href="mailto:apexsportsgg@gmail.com">Nominate a Prospect</Button>
+            <Button variant="secondary" href="/league/showcase/nominate">Nominate a Prospect</Button>
           </div>
         </div>
       </FadeIn>
@@ -450,7 +450,7 @@ function NominateHeader() {
           </div>
 
           <div className="flex flex-wrap gap-3 flex-shrink-0">
-            <Button href="mailto:apexsportsgg@gmail.com">Nominate a Prospect</Button>
+            <Button href="/league/showcase/nominate">Nominate a Prospect</Button>
             <Button variant="secondary" href="#register">Register</Button>
           </div>
         </div>

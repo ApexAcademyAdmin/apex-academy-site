@@ -54,10 +54,10 @@ function Header() {
 // ═══════════════════════════════════════
 function HowItWorks() {
   const points = [
-    { title: "5 Age Divisions", desc: "10U, 12U, 14U, 16U, and 18U — two divisions per age group. Every team plays 14 regular season games." },
-    { title: "Weekday Games Only", desc: "All games are on Wednesday, Thursday, and Friday evenings. Weekends stay open for travel tournaments, showcases, and family time." },
+    { title: "Age-Based Divisions", desc: "Multiple age groups from youth through high school, each with their own division structure and age-appropriate rules." },
+    { title: "Weekday Games Only", desc: "All games are scheduled on weekday evenings. Weekends stay open for travel tournaments, showcases, and family time." },
     { title: "Real Baseball Rules", desc: "MLB-style rules adjusted by age. Pitch counts, rest requirements, leadoffs, stealing, dropped third strike — all enforced." },
-    { title: "Playoffs & Championship", desc: "Top 2 teams per division qualify for single-elimination playoffs. Championship Weekend: August 22–23." },
+    { title: "Playoffs & Championship", desc: "Top teams from each division qualify for single-elimination playoffs leading to a season-ending Championship Weekend." },
   ];
 
   return (
@@ -79,24 +79,6 @@ function HowItWorks() {
           </FadeIn>
         ))}
       </div>
-
-      <FadeIn delay={0.2}>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-3 mt-6">
-          {[
-            { value: String(LEAGUE_META.totalTeams), label: "Teams" },
-            { value: `${LEAGUE_META.totalPlayers}+`, label: "Players" },
-            { value: String(LEAGUE_META.totalGames), label: "Games" },
-            { value: String(LEAGUE_META.divisions.length), label: "Divisions" },
-            { value: "Wed–Fri", label: "Game Days" },
-            { value: "Aug 22", label: "Championship" },
-          ].map(s => (
-            <div key={s.label} className="text-center py-3">
-              <div className="text-lg font-bold accent-text">{s.value}</div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/30">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </FadeIn>
     </Section>
   );
 }

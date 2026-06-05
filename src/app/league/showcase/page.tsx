@@ -95,10 +95,10 @@ const dayTwo: ScheduleEvent[] = [
   },
   {
     time: "9:30 AM",
-    title: "Showcase Game One — Team American vs Team National",
+    title: "All-New England Prospect Game I — Team American vs Team National",
     accent: true,
     detail: {
-      description: "Initial live evaluation. College coaches evaluate athleticism, baseball actions, competitiveness, instincts, and approach.",
+      description: "Initial live prospect evaluation in front of attending college coaches. Athleticism, baseball actions, competitiveness, instincts, and approach are assessed under game conditions.",
       items: ["Apex Live Broadcast", "Live Box Score", "Play-by-Play Coverage", "Statistics Tracking", "Recruiting Notes"],
     },
   },
@@ -108,12 +108,12 @@ const dayTwo: ScheduleEvent[] = [
   },
   {
     time: "1:30 PM",
-    title: "Showcase Game Two — Team American vs Team National",
+    title: "All-New England Prospect Game II — Team American vs Team National",
     accent: true,
     detail: {
-      description: "Second live evaluation. Coaches evaluate consistency, adjustments, baseball IQ, and performance under pressure.",
+      description: "Second prospect evaluation under game conditions. Coaches assess consistency, adjustments, baseball IQ, and performance under pressure.",
       items: ["Apex Live Broadcast", "Live Box Score", "Statistics Tracking", "Recruiting Evaluations"],
-      note: "Every prospect plays in both games — this is not an invite-only selection",
+      note: "Every prospect participates in both games",
     },
   },
   {
@@ -213,7 +213,7 @@ function Schedule() {
           <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04]">
             <div className="px-4 py-3 border-b border-white/[0.05] rounded-t-2xl">
               <div className="text-xs font-bold uppercase tracking-wider text-[#17FC13]/60">Day Two — Sunday</div>
-              <div className="text-[10px] text-white/30 mt-0.5">Showcase Game Day</div>
+              <div className="text-[10px] text-white/30 mt-0.5">All-New England Prospect Games</div>
             </div>
             {dayTwo.map((e, i) => (
               <ScheduleRow key={i} event={e} />
@@ -332,7 +332,7 @@ function Registration() {
             Where Opportunity<br />Meets <span className="accent-text">Preparation</span>
           </h2>
           <p className="text-[13px] text-white/40 max-w-md mx-auto mb-8 leading-relaxed">
-            Verified metrics. Professional evaluations. College coach exposure. Two showcase games. One weekend built for the next level.
+            Verified metrics. Professional evaluations. College coach exposure. Two prospect games. One weekend built for the next level.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button href="/join">Register Now</Button>
@@ -351,10 +351,10 @@ function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
   const faqs = [
     { q: "Who is eligible?", a: "The combine is open to 16U, 17U, and 18U prospects selected through coach nomination, league evaluation, or direct registration." },
-    { q: "Do all prospects play in both games?", a: "Yes. Every participant receives two full game opportunities. This is not an invite-only selection." },
+    { q: "Do all prospects play in both games?", a: "Yes. Every participant plays in both All-New England Prospect Games. This is not an invite-only selection." },
     { q: "Are metrics professionally verified?", a: "Yes. All combine testing uses professional-grade equipment. Every metric is verified and uploaded directly to the player's Apex Profile." },
     { q: "Which college coaches attend?", a: "Coaches from NCAA D1, D2, D3, NAIA, and NJCAA programs across New England. The attending list is updated as confirmations come in." },
-    { q: "Will the games be streamed?", a: "Yes. Both showcase games are broadcast live on Apex Live with scorekeeping, box scores, and play-by-play." },
+    { q: "Will the games be streamed?", a: "Yes. Both All-New England Prospect Games are broadcast live on Apex Live with scorekeeping, box scores, and play-by-play." },
     { q: "What does the prospect report include?", a: "Athletic metrics, baseball metrics, position evaluations, event statistics, and recruiting notes — all integrated into your Apex Player Profile." },
     { q: "What should prospects bring?", a: "Full uniform, glove, bat, cleats, and any personal catching or pitching gear. All testing equipment is provided." },
   ];

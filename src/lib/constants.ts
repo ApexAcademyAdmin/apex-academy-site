@@ -37,8 +37,7 @@ export const NAV_LINKS: NavLink[] = [
     title: "Events",
     href: "/events",
     children: [
-      { title: "Rising Prospects", href: "/events/rising-prospects" },
-      { title: "Sandlot League", href: "/events/sandlot-league" },
+      { title: "Rising Prospects Combine", href: "/events/rising-prospects" },
     ],
   },
   { title: "Partners", href: "/partners" },

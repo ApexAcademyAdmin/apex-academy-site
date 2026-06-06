@@ -1,5 +1,5 @@
 /**
- * Apex League — Mock Data
+ * Apex Academy League — Mock Data
  * Structured for future Supabase migration
  */
 
@@ -8,7 +8,7 @@
 // ═══════════════════════════════════════
 
 export const LEAGUE_META = {
-  name: "Apex League",
+  name: "Apex Academy League",
   season: "Summer 2026",
   seasonStart: "June 14, 2026",
   seasonEnd: "August 16, 2026",

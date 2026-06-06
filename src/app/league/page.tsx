@@ -30,7 +30,7 @@ function Header() {
 
         <div>
           <p className="text-base md:text-lg text-white/50 max-w-2xl leading-relaxed mb-4">
-            The Apex League is a weekday baseball league for players ages 8–18 across Greater Boston. Games are played exclusively on Wednesdays, Thursdays, and Fridays — keeping weekends free for travel tournaments. Development-focused. Affordable for every family.
+            The Apex Academy League is a weekday baseball league for players ages 8–18 across Greater Boston. Games are played exclusively on Wednesdays, Thursdays, and Fridays — keeping weekends free for travel tournaments. Development-focused. Affordable for every family.
           </p>
           <p className="text-sm text-white/30 mb-8">
             {LEAGUE_META.seasonStart} — {LEAGUE_META.seasonEnd} &middot; {LEAGUE_META.registrationFee} per team &middot; {LEAGUE_META.location}
@@ -90,7 +90,7 @@ function WhoItsFor() {
   const audiences = [
     {
       title: "Travel Players",
-      desc: "Stay game-ready between tournaments and showcase events. The Apex League provides meaningful weekday competition, helping players accumulate valuable at-bats, innings, and defensive reps without interfering with weekend travel schedules.",
+      desc: "Stay game-ready between tournaments and showcase events. The Apex Academy League provides meaningful weekday competition, helping players accumulate valuable at-bats, innings, and defensive reps without interfering with weekend travel schedules.",
       note: "Ideal for athletes looking to continue developing throughout the season while maintaining their tournament commitments.",
     },
     {
@@ -100,7 +100,7 @@ function WhoItsFor() {
     },
     {
       title: "Teams & Organizations",
-      desc: "Bring your roster. We\u2019ll handle the rest. The Apex League provides scheduling, fields, umpires, standings, and league operations, allowing coaches and organizations to focus on player development and competition.",
+      desc: "Bring your roster. We\u2019ll handle the rest. The Apex Academy League provides scheduling, fields, umpires, standings, and league operations, allowing coaches and organizations to focus on player development and competition.",
       note: "A turnkey solution for programs seeking a professional league experience.",
     },
     {
@@ -117,7 +117,7 @@ function WhoItsFor() {
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Who It&apos;s For</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">Built for Every Level of <span className="accent-text">Baseball</span></h2>
           <p className="text-sm text-white/40 max-w-2xl leading-relaxed">
-            Whether you&apos;re looking for additional game reps, affordable competition, or a professionally operated league experience, the Apex League was designed to serve players, families, teams, and organizations throughout Greater Boston and New England.
+            Whether you&apos;re looking for additional game reps, affordable competition, or a professionally operated league experience, the Apex Academy League was designed to serve players, families, teams, and organizations throughout Greater Boston and New England.
           </p>
         </div>
       </div>

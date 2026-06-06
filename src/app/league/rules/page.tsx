@@ -62,7 +62,7 @@ export default function RulesPage() {
       <PageHeader
         title="League"
         accent="Rules"
-        subtitle="Apex League Special Rules and Regulations. All games governed by MLB rules as supplemented below."
+        subtitle="Apex Academy League — Special Rules and Regulations. All games governed by MLB rules as supplemented below."
         breadcrumb={[{ label: "League", href: "/league" }]}
       />
 
@@ -70,9 +70,9 @@ export default function RulesPage() {
         {/* Header block */}
         <div>
           <div className="text-center mb-10 pb-6 border-b border-white/[0.06]">
-            <div className="text-xl md:text-2xl font-bold uppercase tracking-wide mb-1">Apex League</div>
+            <div className="text-xl md:text-2xl font-bold uppercase tracking-wide mb-1">Apex Academy League</div>
             <div className="text-[11px] text-white uppercase tracking-[0.2em] mb-3">Special Rules and Regulations</div>
-            <div className="text-[10px] text-white">www.apexacademyofficial.com &middot; Updated June 2026</div>
+            <div className="text-[10px] text-white">apexacademyofficial.com &middot; Updated June 2026</div>
           </div>
         </div>
 
@@ -202,7 +202,7 @@ export default function RulesPage() {
             <div className="ml-11 mt-4 bg-[#17FC13]/[0.03] rounded-lg border border-[#17FC13]/10 p-4">
               <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50 mb-2">League Philosophy</div>
               <div className="text-[13px] text-white leading-relaxed">
-                The Apex League prioritizes <B>long-term player development</B>, <B>arm health</B>, <B>injury prevention</B>, and <B>proper workload management</B>. Winning games should never come at the expense of a player's future development.
+                The Apex Academy League prioritizes <B>long-term player development</B>, <B>arm health</B>, <B>injury prevention</B>, and <B>proper workload management</B>. Winning games should never come at the expense of a player's future development.
               </div>
             </div>
           </RuleSection>

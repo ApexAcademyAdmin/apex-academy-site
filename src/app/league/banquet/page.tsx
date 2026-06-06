@@ -46,7 +46,7 @@ export default function BanquetPage() {
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Annual Event</div>
             <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">The Apex Academy <span className="accent-text">Banquet</span></h2>
             <p className="text-sm text-white/50 leading-relaxed mb-4">
-              The culmination of the Apex League season. Championships are celebrated. Individual excellence is honored. Development and leadership are recognized. Every award is earned through performance on the field and character off of it.
+              The culmination of the Apex Academy League season. Championships are celebrated. Individual excellence is honored. Development and leadership are recognized. Every award is earned through performance on the field and character off of it.
             </p>
             <p className="text-[12px] text-white/30 leading-relaxed">
               The banquet brings together players, families, coaches, and the baseball community to celebrate a season of competition, growth, and achievement across the Premier and Prospect Divisions.

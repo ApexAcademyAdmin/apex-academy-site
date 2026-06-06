@@ -503,7 +503,7 @@ export default function RegisterPage() {
             <h1 className="text-2xl md:text-3xl uppercase font-bold leading-[0.9] mb-1">
               Team <span className="accent-text">Registration</span>
             </h1>
-            <p className="text-[11px] text-white mb-4">Register your team for the Apex League. Takes about 10 minutes.</p>
+            <p className="text-[11px] text-white mb-4">Register your team for the Apex Academy League. Takes about 10 minutes.</p>
           </div>
 
           {/* Progress */}

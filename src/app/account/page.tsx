@@ -56,7 +56,7 @@ export default function DashboardHome() {
       const ctx = await loadDashboardContext();
       if (!ctx) return;
       setRole(ctx.role);
-      setName(ctx.displayName);
+      setName(ctx.firstName);
 
       const supabase = createClient();
       if (ctx.role === "coach") {

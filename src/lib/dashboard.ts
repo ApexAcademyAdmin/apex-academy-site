@@ -7,6 +7,7 @@ export type DashboardContext = {
   user: User;
   role: DashboardRole;
   displayName: string;
+  firstName: string;
   teamStatus?: string;
 };
 
@@ -28,7 +29,7 @@ export async function loadDashboardContext(): Promise<DashboardContext | null> {
   const [adminRes, teamRes, playerRes, profileRes] = await Promise.all([
     supabase.from("admin_profiles").select("role").eq("user_id", user.id).maybeSingle(),
     supabase.from("teams").select("status").eq("user_id", user.id).maybeSingle(),
-    supabase.from("player_profiles").select("id").eq("user_id", user.id).maybeSingle(),
+    supabase.from("player_profiles").select("id, first_name").eq("user_id", user.id).maybeSingle(),
     supabase.from("user_profiles").select("display_name").eq("user_id", user.id).maybeSingle(),
   ]);
 
@@ -49,5 +50,12 @@ export async function loadDashboardContext(): Promise<DashboardContext | null> {
     user.email?.split("@")[0] ||
     "Member";
 
-  return { user, role, displayName, teamStatus };
+  // Prefer the player's actual first name; otherwise the first token of the
+  // display name (or email local-part).
+  const firstName =
+    playerRes.data?.first_name?.trim() ||
+    displayName.split(/\s+/)[0] ||
+    "Member";
+
+  return { user, role, displayName, firstName, teamStatus };
 }

@@ -206,20 +206,28 @@ function LeagueActivity() {
               <a href="/league/results" className="text-[10px] text-white/25 hover:text-[#17FC13]/50 transition-colors no-underline">View All →</a>
             </div>
             {recentResults.map((r, i) => {
-              const awayWin = r.awayScore > r.homeScore;
+              const homeWin = r.homeScore > r.awayScore;
               return (
                 <div key={r.id} className={`px-4 py-2.5 ${i < recentResults.length - 1 ? "border-b border-white/[0.02]" : ""}`}>
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] font-mono text-white/20">{r.date}</span>
+                  <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[9px] font-bold uppercase tracking-wider text-white/25">{r.division}</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-white/[0.04] text-white/30">Final</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className={`text-[12px] ${awayWin ? "font-bold text-white/80" : "text-white/40"}`}>{r.away}</span>
-                    <span className={`text-[12px] font-mono ${awayWin ? "font-bold text-white/80" : "text-white/30"}`}>{r.awayScore}</span>
+                  <div className={`flex items-center justify-between ${!homeWin ? "" : "opacity-50"}`}>
+                    <div className="flex items-center gap-2">
+                      {!homeWin && <span className="w-0.5 h-3.5 rounded-full bg-[#17FC13]" />}
+                      {homeWin && <span className="w-0.5 h-3.5 rounded-full bg-transparent" />}
+                      <span className="text-[13px] font-bold text-white">{r.away}</span>
+                    </div>
+                    <span className="text-[14px] font-bold font-mono text-white tabular-nums">{r.awayScore}</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className={`text-[12px] ${!awayWin ? "font-bold text-white/80" : "text-white/40"}`}>{r.home}</span>
-                    <span className={`text-[12px] font-mono ${!awayWin ? "font-bold text-white/80" : "text-white/30"}`}>{r.homeScore}</span>
+                  <div className={`flex items-center justify-between ${homeWin ? "" : "opacity-50"}`}>
+                    <div className="flex items-center gap-2">
+                      {homeWin && <span className="w-0.5 h-3.5 rounded-full bg-[#17FC13]" />}
+                      {!homeWin && <span className="w-0.5 h-3.5 rounded-full bg-transparent" />}
+                      <span className="text-[13px] font-bold text-white">{r.home}</span>
+                    </div>
+                    <span className="text-[14px] font-bold font-mono text-white tabular-nums">{r.homeScore}</span>
                   </div>
                 </div>
               );

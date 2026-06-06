@@ -16,7 +16,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         router.push("/signin");
         return;
       }
-      if (result.role !== "admin") {
+      if (result.realRole !== "admin") {
         router.push("/account");
         return;
       }
@@ -37,6 +37,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     <DashboardLayout
       user={{ email: ctx.user.email || "", display_name: ctx.displayName }}
       role={ctx.role}
+      realRole={ctx.realRole}
       teamStatus={ctx.teamStatus}
     >
       {children}

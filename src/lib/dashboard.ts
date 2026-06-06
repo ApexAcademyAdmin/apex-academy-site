@@ -5,11 +5,29 @@ export type DashboardRole = "admin" | "coach" | "player" | "applicant";
 
 export type DashboardContext = {
   user: User;
+  /** The role the dashboard renders as (may be an admin preview override). */
   role: DashboardRole;
+  /** The user's true role, before any admin "View as" preview. */
+  realRole: DashboardRole;
   displayName: string;
   firstName: string;
   teamStatus?: string;
 };
+
+const PREVIEW_KEY = "apex_preview_role";
+
+/** Admin-only "View as" override, persisted for the browser session. */
+export function getPreviewRole(): DashboardRole | null {
+  if (typeof window === "undefined") return null;
+  const v = window.sessionStorage.getItem(PREVIEW_KEY);
+  return v === "coach" || v === "player" || v === "applicant" ? v : null;
+}
+
+export function setPreviewRole(role: DashboardRole | null) {
+  if (typeof window === "undefined") return;
+  if (!role || role === "admin") window.sessionStorage.removeItem(PREVIEW_KEY);
+  else window.sessionStorage.setItem(PREVIEW_KEY, role);
+}
 
 /**
  * Loads the signed-in user and derives their dashboard role.
@@ -33,17 +51,21 @@ export async function loadDashboardContext(): Promise<DashboardContext | null> {
     supabase.from("user_profiles").select("display_name").eq("user_id", user.id).maybeSingle(),
   ]);
 
-  let role: DashboardRole = "applicant";
+  let realRole: DashboardRole = "applicant";
   let teamStatus: string | undefined;
 
   if (adminRes.data) {
-    role = "admin";
+    realRole = "admin";
   } else if (teamRes.data) {
-    role = "coach";
+    realRole = "coach";
     teamStatus = teamRes.data.status;
   } else if (playerRes.data) {
-    role = "player";
+    realRole = "player";
   }
+
+  // Admins can preview other roles via the "View as" switcher.
+  const preview = getPreviewRole();
+  const role = realRole === "admin" && preview ? preview : realRole;
 
   const displayName =
     profileRes.data?.display_name?.trim() ||
@@ -57,5 +79,5 @@ export async function loadDashboardContext(): Promise<DashboardContext | null> {
     displayName.split(/\s+/)[0] ||
     "Member";
 
-  return { user, role, displayName, firstName, teamStatus };
+  return { user, role, realRole, displayName, firstName, teamStatus };
 }

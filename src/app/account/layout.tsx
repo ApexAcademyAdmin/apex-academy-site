@@ -33,6 +33,7 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
     <DashboardLayout
       user={{ email: ctx.user.email || "", display_name: ctx.displayName }}
       role={ctx.role}
+      realRole={ctx.realRole}
       teamStatus={ctx.teamStatus}
     >
       {children}

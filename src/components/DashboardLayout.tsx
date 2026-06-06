@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { setPreviewRole, type DashboardRole } from "@/lib/dashboard";
 
 type NavItem = {
   label: string;
@@ -14,6 +15,7 @@ type Props = {
   children: ReactNode;
   user: { email: string; display_name?: string };
   role: string;
+  realRole?: string;
   teamStatus?: string;
 };
 
@@ -67,6 +69,12 @@ const icons = {
       <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
     </svg>
   ),
+  site: (
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18M12 3a15 15 0 000 18" />
+    </svg>
+  ),
   menu: (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path d="M4 6h16M4 12h16M4 18h16" />
@@ -111,16 +119,25 @@ function getNavItems(role: string): NavItem[] {
   return items;
 }
 
-export function DashboardLayout({ children, user, role, teamStatus }: Props) {
+export function DashboardLayout({ children, user, role, realRole, teamStatus }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const navItems = getNavItems(role);
   const badgeColor = roleBadgeColors[role] || roleBadgeColors.applicant;
 
+  const isAdmin = realRole === "admin";
+  const previewing = isAdmin && role !== "admin";
+
   async function handleSignOut() {
     const supabase = createClient();
     await supabase.auth.signOut();
     window.location.href = "/";
+  }
+
+  function changePreview(value: string) {
+    setPreviewRole(value === "admin" ? null : (value as DashboardRole));
+    // Reload onto the dashboard home so every page re-reads the new role.
+    window.location.href = "/account";
   }
 
   const sidebarContent = (
@@ -144,6 +161,23 @@ export function DashboardLayout({ children, user, role, teamStatus }: Props) {
         </div>
       </div>
 
+      {/* Admin "View as" switcher */}
+      {isAdmin && (
+        <div className="px-5 py-4 border-b border-white/[0.04]">
+          <label className="block text-[9px] font-bold uppercase tracking-[0.2em] text-white/20 mb-2">View as</label>
+          <select
+            value={role}
+            onChange={(e) => changePreview(e.target.value)}
+            className="w-full bg-[#0d1117] border border-white/[0.06] rounded-lg px-3 py-2 text-[12px] text-white/80 focus:outline-none focus:border-[#17FC13]/30 cursor-pointer"
+          >
+            <option value="admin">Admin (you)</option>
+            <option value="coach">Coach</option>
+            <option value="player">Player</option>
+            <option value="applicant">Applicant</option>
+          </select>
+        </div>
+      )}
+
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
         {navItems.map((item) => {
@@ -165,8 +199,15 @@ export function DashboardLayout({ children, user, role, teamStatus }: Props) {
         })}
       </nav>
 
-      {/* Sign out */}
-      <div className="px-3 pb-6">
+      {/* Footer actions */}
+      <div className="px-3 pb-6 border-t border-white/[0.04] pt-3 mt-2">
+        <a
+          href="/"
+          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-[13px] font-medium text-white/40 hover:text-[#17FC13] hover:bg-white/[0.02] no-underline transition-colors"
+        >
+          {icons.site}
+          Back to Site
+        </a>
         <button
           onClick={handleSignOut}
           className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-[13px] font-medium text-white/30 hover:text-white/50 bg-transparent border-none cursor-pointer transition-colors"
@@ -210,6 +251,21 @@ export function DashboardLayout({ children, user, role, teamStatus }: Props) {
 
       {/* Main content */}
       <main className="lg:ml-64 min-h-screen pt-14 lg:pt-0">
+        {previewing && (
+          <div className="bg-[#17FC13]/[0.06] border-b border-[#17FC13]/20">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-3">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#17FC13]/70">
+                Previewing as {role}
+              </span>
+              <button
+                onClick={() => changePreview("admin")}
+                className="text-[10px] font-bold uppercase tracking-wider text-white/50 hover:text-white bg-transparent border-none cursor-pointer transition-colors"
+              >
+                Exit preview →
+              </button>
+            </div>
+          </div>
+        )}
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {children}
         </div>

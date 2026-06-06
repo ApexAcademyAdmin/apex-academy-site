@@ -1,7 +1,17 @@
+"use client";
+
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { NAV_LINKS, CONTACT } from "@/lib/constants";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  // The dashboard (account/admin) provides its own shell — hide marketing chrome.
+  if (pathname?.startsWith("/account") || pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="bg-radial border-t border-[#171717]">
       <div className="max-w-[1120px] mx-auto px-6">

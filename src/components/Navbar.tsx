@@ -2,12 +2,14 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { NAV_LINKS } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "./Button";
 import type { User } from "@supabase/supabase-js";
 
 export function Navbar() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -47,6 +49,11 @@ export function Navbar() {
 
   function closeDropdown() {
     timeoutRef.current = setTimeout(() => setDropdown(null), 150);
+  }
+
+  // The dashboard (account/admin) provides its own shell — hide marketing chrome.
+  if (pathname?.startsWith("/account") || pathname?.startsWith("/admin")) {
+    return null;
   }
 
   return (

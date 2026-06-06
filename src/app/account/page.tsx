@@ -1,174 +1,211 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { Section } from "@/components/Section";
-import { Button } from "@/components/Button";
-import type { User } from "@supabase/supabase-js";
+import { loadDashboardContext, type DashboardRole } from "@/lib/dashboard";
 
-type Team = {
-  id: string;
-  team_name: string;
-  org_name: string | null;
-  status: string;
-  division: string | null;
-  primary_color: string | null;
-  secondary_color: string | null;
-  home_field: string | null;
-  logo_url: string | null;
-  contact_name: string | null;
-  contact_email: string | null;
-  contact_phone: string | null;
+type Team = { id: string; team_name: string; status: string; division: string | null; age_group: string | null };
+type PlayerProfile = { id: string; status: string; first_name: string | null; last_name: string | null; primary_position: string | null };
+
+const statusStyles: Record<string, string> = {
+  active: "bg-[#17FC13]/[0.08] text-[#17FC13]/80 border-[#17FC13]/20",
+  approved: "bg-[#17FC13]/[0.08] text-[#17FC13]/80 border-[#17FC13]/20",
+  published: "bg-[#17FC13]/[0.08] text-[#17FC13]/80 border-[#17FC13]/20",
+  pending: "bg-yellow-500/[0.08] text-yellow-400/80 border-yellow-500/20",
+  submitted: "bg-yellow-500/[0.08] text-yellow-400/80 border-yellow-500/20",
+  under_review: "bg-yellow-500/[0.08] text-yellow-400/80 border-yellow-500/20",
+  draft: "bg-white/[0.04] text-white/40 border-white/10",
+  needs_changes: "bg-orange-500/[0.08] text-orange-400/80 border-orange-500/20",
+  rejected: "bg-red-500/[0.08] text-red-400/80 border-red-500/20",
 };
 
-export default function AccountPage() {
-  const [user, setUser] = useState<User | null>(null);
+function StatusBadge({ status }: { status: string }) {
+  const cls = statusStyles[status] || statusStyles.draft;
+  return (
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider border ${cls}`}>
+      {status.replace(/_/g, " ")}
+    </span>
+  );
+}
+
+function Card({ children }: { children: React.ReactNode }) {
+  return <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-6">{children}</div>;
+}
+
+function ActionLink({ href, label, sub }: { href: string; label: string; sub?: string }) {
+  return (
+    <a href={href} className="flex items-center justify-between py-3 px-4 rounded-lg bg-white/[0.02] border border-white/[0.04] no-underline group hover:border-[#17FC13]/20 transition-colors">
+      <div>
+        <div className="text-[13px] font-medium text-white/70 group-hover:text-white/90 transition-colors">{label}</div>
+        {sub && <div className="text-[11px] text-white/30 mt-0.5">{sub}</div>}
+      </div>
+      <svg className="w-3.5 h-3.5 text-white/15 group-hover:text-[#17FC13]/50 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M9 5l7 7-7 7" /></svg>
+    </a>
+  );
+}
+
+export default function DashboardHome() {
+  const [role, setRole] = useState<DashboardRole>("applicant");
+  const [name, setName] = useState("");
   const [team, setTeam] = useState<Team | null>(null);
+  const [player, setPlayer] = useState<PlayerProfile | null>(null);
   const [loaded, setLoaded] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     async function load() {
+      const ctx = await loadDashboardContext();
+      if (!ctx) return;
+      setRole(ctx.role);
+      setName(ctx.displayName);
+
       const supabase = createClient();
-      const { data: { user: authUser } } = await supabase.auth.getUser();
-
-      if (!authUser) {
-        router.push("/signin");
-        return;
+      if (ctx.role === "coach") {
+        const { data } = await supabase
+          .from("teams")
+          .select("id, team_name, status, division, age_group")
+          .eq("user_id", ctx.user.id)
+          .maybeSingle();
+        if (data) setTeam(data as Team);
+      } else if (ctx.role === "player") {
+        const { data } = await supabase
+          .from("player_profiles")
+          .select("id, status, first_name, last_name, primary_position")
+          .eq("user_id", ctx.user.id)
+          .maybeSingle();
+        if (data) setPlayer(data as PlayerProfile);
       }
-
-      setUser(authUser);
-
-      // Fetch team for this user
-      const { data: teamData } = await supabase
-        .from("teams")
-        .select("*")
-        .eq("user_id", authUser.id)
-        .single();
-
-      if (teamData) setTeam(teamData as Team);
       setLoaded(true);
     }
-
     load();
-  }, [router]);
-
-  async function handleSignOut() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/");
-  }
+  }, []);
 
   if (!loaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black">
+      <div className="flex items-center justify-center py-20">
         <div className="w-5 h-5 border-2 border-[#17FC13]/30 border-t-[#17FC13] rounded-full animate-spin" />
       </div>
     );
   }
 
-  if (!user) return null;
-
   return (
-    <>
-      {/* Header */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,_rgba(23,252,19,0.04)_0%,_transparent_55%)]" />
+    <div className="space-y-8">
+      {/* Heading */}
+      <div>
+        <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/40 mb-2">Dashboard</div>
+        <h1 className="text-2xl md:text-3xl font-bold text-white">Welcome back, {name}</h1>
+        <p className="text-[13px] text-white/30 mt-1.5 capitalize">{role} account</p>
+      </div>
 
-        <div className="relative max-w-[1120px] mx-auto px-6 pt-28 md:pt-36 pb-10">
-          <div className="flex items-center gap-2 mb-6 text-[10px] font-medium uppercase tracking-[0.2em]">
-            <a href="/" className="text-white/20 no-underline hover:text-white/40">Home</a>
-            <span className="text-white/10">/</span>
-            <span className="text-[#17FC13]/50">Account</span>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/40 mb-2">Account</div>
-              <h1 className="text-2xl md:text-3xl uppercase font-bold">{user.email}</h1>
-            </div>
-            <button
-              onClick={handleSignOut}
-              className="px-4 py-2 text-[10px] font-bold uppercase tracking-wider border border-[#171717] text-white/30 cursor-pointer bg-transparent hover:text-white/50 hover:border-white/10 transition-colors"
-            >
-              Sign Out
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Content */}
-      <Section size="md" border="top">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Team Info */}
-          <div className="border border-[#171717] p-6">
+      {/* Coach view */}
+      {role === "coach" && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card>
             <div className="flex items-center justify-between mb-4">
-              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15">Team Details</div>
-              {team && (
-                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider ${
-                  team.status === "active"
-                    ? "bg-[#17FC13]/[0.08] text-[#17FC13]/80 border border-[#17FC13]/20"
-                    : "bg-yellow-500/[0.08] text-yellow-400/80 border border-yellow-500/20"
-                }`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${team.status === "active" ? "bg-[#17FC13]" : "bg-yellow-400"}`} />
-                  {team.status === "active" ? "Active" : "Pending Review"}
-                </span>
-              )}
+              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15">Your Team</div>
+              {team && <StatusBadge status={team.status} />}
             </div>
-
             {team ? (
-              <div className="space-y-3">
-                {[
-                  { l: "Team Name", v: team.team_name },
-                  ...(team.org_name ? [{ l: "Organization", v: team.org_name }] : []),
-                  ...(team.division ? [{ l: "Division", v: team.division }] : []),
-                  ...(team.home_field ? [{ l: "Home Field", v: team.home_field }] : []),
-                  ...(team.contact_name ? [{ l: "Contact", v: team.contact_name }] : []),
-                  ...(team.contact_email ? [{ l: "Contact Email", v: team.contact_email }] : []),
-                  ...(team.contact_phone ? [{ l: "Contact Phone", v: team.contact_phone }] : []),
-                ].map((r) => (
-                  <div key={r.l} className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/20">{r.l}</span>
-                    <span className="text-xs text-white/55">{r.v}</span>
-                  </div>
-                ))}
-
-                <div className="pt-3 mt-3 border-t border-[#171717]">
-                  <Button href="/account/team" size="small" variant="secondary">Edit Team</Button>
+              <>
+                <div className="text-lg font-bold text-white/90 mb-1">{team.team_name}</div>
+                <div className="text-[12px] text-white/35">
+                  {[team.age_group, team.division].filter(Boolean).join(" · ") || "Division pending assignment"}
                 </div>
-              </div>
+                <div className="mt-5 space-y-2">
+                  <ActionLink href="/account/team" label="Edit Team Details" sub="Name, colors, field, staff" />
+                  <ActionLink href="/account/roster" label="Manage Roster" sub="Add and edit players" />
+                </div>
+              </>
             ) : (
-              <div className="text-center py-6">
-                <p className="text-xs text-white/25 mb-4">No team registered yet.</p>
-                <Button href="/league/register" size="small">Register a Team</Button>
-              </div>
+              <p className="text-xs text-white/25">No team found.</p>
             )}
-          </div>
+          </Card>
 
-          {/* Quick Links */}
-          <div className="border border-[#171717] p-6">
+          <Card>
             <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-4">Quick Links</div>
             <div className="space-y-2">
-              {[
-                { label: "Teams", href: "/teams" },
-                { label: "Apex Live", href: "/live" },
-                { label: "Events", href: "/events" },
-                { label: "Shop", href: "/shop" },
-                { label: "League Schedule", href: "/league/schedule" },
-                { label: "Standings", href: "/league/standings" },
-              ].map((l) => (
-                <a key={l.href} href={l.href} className="flex items-center justify-between py-2.5 no-underline group">
-                  <span className="text-xs font-bold uppercase text-white/45 group-hover:text-[#17FC13] transition-colors">{l.label}</span>
-                  <svg className="w-3.5 h-3.5 text-white/10 group-hover:text-[#17FC13]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M9 5l7 7-7 7" /></svg>
-                </a>
-              ))}
+              <ActionLink href="/league/rules" label="League Rules" />
+              <ActionLink href="/league/schedule" label="Schedule" />
+              <ActionLink href="/league/standings" label="Standings" />
+              <ActionLink href="/account/settings" label="Account Settings" />
             </div>
-          </div>
+          </Card>
         </div>
-      </Section>
-    </>
+      )}
+
+      {/* Player view */}
+      {role === "player" && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card>
+            <div className="flex items-center justify-between mb-4">
+              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15">Player Profile</div>
+              {player && <StatusBadge status={player.status} />}
+            </div>
+            {player ? (
+              <>
+                <div className="text-lg font-bold text-white/90 mb-1">
+                  {[player.first_name, player.last_name].filter(Boolean).join(" ") || "Unnamed Player"}
+                </div>
+                <div className="text-[12px] text-white/35">{player.primary_position || "Position not set"}</div>
+                <div className="mt-5 space-y-2">
+                  <ActionLink href="/account/profile" label="Edit My Profile" sub="Metrics, media, academics" />
+                  <ActionLink href="/account/team-view" label="View My Team" />
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="text-xs text-white/30 mb-4">You haven&apos;t built your player profile yet.</p>
+                <ActionLink href="/account/profile" label="Create My Profile" sub="Get started" />
+              </>
+            )}
+          </Card>
+
+          <Card>
+            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-4">Quick Links</div>
+            <div className="space-y-2">
+              <ActionLink href="/teams" label="Teams" />
+              <ActionLink href="/events" label="Events" />
+              <ActionLink href="/account/settings" label="Account Settings" />
+            </div>
+          </Card>
+        </div>
+      )}
+
+      {/* Admin view */}
+      {role === "admin" && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card>
+            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-4">Administration</div>
+            <div className="space-y-2">
+              <ActionLink href="/admin/teams" label="Team Management" sub="Review, approve, assign divisions" />
+              <ActionLink href="/admin" label="League Admin" sub="Overview & tools" />
+            </div>
+          </Card>
+          <Card>
+            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-4">Quick Links</div>
+            <div className="space-y-2">
+              <ActionLink href="/league/standings" label="Standings" />
+              <ActionLink href="/league/schedule" label="Schedule" />
+              <ActionLink href="/account/settings" label="Account Settings" />
+            </div>
+          </Card>
+        </div>
+      )}
+
+      {/* Applicant view */}
+      {role === "applicant" && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card>
+            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-4">Coaches</div>
+            <p className="text-xs text-white/30 mb-4">Register your team to join the Apex Academy League.</p>
+            <ActionLink href="/league/register" label="Register a Team" sub="Start your application" />
+          </Card>
+          <Card>
+            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-4">Players</div>
+            <p className="text-xs text-white/30 mb-4">Build your player profile to showcase your game.</p>
+            <ActionLink href="/account/profile" label="Create Player Profile" sub="Get started" />
+          </Card>
+        </div>
+      )}
+    </div>
   );
 }

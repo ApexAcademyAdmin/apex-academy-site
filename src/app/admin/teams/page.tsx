@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Section } from "@/components/Section";
 
 type Team = {
   id: string;
@@ -78,32 +77,24 @@ export default function AdminTeamsPage() {
 
   if (loading) {
     return (
-      <main>
-        <div className="pt-32 text-center text-white/30 text-sm">Loading...</div>
-      </main>
+      <div className="flex items-center justify-center py-20">
+        <div className="w-5 h-5 border-2 border-[#17FC13]/30 border-t-[#17FC13] rounded-full animate-spin" />
+      </div>
     );
   }
 
   if (!isAdmin) return null;
 
   return (
-    <main>
-      <div className="pt-24 md:pt-32 pb-6">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10">
-          <div className="flex items-center gap-2 mb-6 text-[10px] font-medium uppercase tracking-[0.2em]">
-            <a href="/" className="text-white/25 no-underline hover:text-white/50 transition-colors">Home</a>
-            <span className="text-white/10">/</span>
-            <span className="text-[#17FC13]/60">Admin — Team Management</span>
-          </div>
-
-          <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-2">
-            Team <span className="accent-text">Management</span>
-          </h1>
-          <p className="text-sm text-white/40">Review registrations, activate teams, assign divisions.</p>
-        </div>
+    <div>
+      {/* Heading */}
+      <div className="mb-8">
+        <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/40 mb-2">Admin</div>
+        <h1 className="text-2xl md:text-3xl font-bold text-white mb-1.5">Team Management</h1>
+        <p className="text-[13px] text-white/30">Review registrations, activate teams, assign divisions.</p>
       </div>
 
-      <Section border="top">
+      <div>
         {/* Filter tabs */}
         <div className="flex gap-1.5 mb-6">
           {(["all", "pending", "active", "rejected"] as const).map(f => (
@@ -212,7 +203,7 @@ export default function AdminTeamsPage() {
             </div>
           ))}
         </div>
-      </Section>
-    </main>
+      </div>
+    </div>
   );
 }

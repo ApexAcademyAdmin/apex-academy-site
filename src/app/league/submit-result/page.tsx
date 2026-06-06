@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { PageHeader } from "@/components/PageHeader";
+import { Section } from "@/components/Section";
 import { UPCOMING_GAMES } from "@/lib/league-data";
 
 // ═══════════════════════════════════════
@@ -11,29 +13,74 @@ type PitcherEntry = { name: string; pitchCount: string; inningsPitched: string }
 type SelectedGame = typeof UPCOMING_GAMES[0] | null;
 
 const EMPTY_PITCHER: PitcherEntry = { name: "", pitchCount: "", inningsPitched: "" };
-
-// Mock: games that haven't been submitted yet (in production, filter by status)
 const UNSUBMITTED_GAMES = UPCOMING_GAMES;
 
 // ═══════════════════════════════════════
-// SHARED UI
+// SHARED
 // ═══════════════════════════════════════
 
-const inputCls = "w-full bg-[#0d1117] border border-white/[0.06] rounded-lg px-3 py-2 text-xs text-white placeholder:text-white focus:outline-none focus:border-[#17FC13]/30 focus:ring-1 focus:ring-[#17FC13]/10 transition-all";
-const labelCls = "block text-[9px] font-bold uppercase tracking-[0.12em] text-white mb-1";
+const inputCls = "w-full bg-[#0d1117] border border-white/[0.06] rounded-lg px-4 py-2.5 text-[13px] text-white/90 placeholder-white/20 focus:outline-none focus:border-[#17FC13]/30 transition-colors";
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><label className={labelCls}>{label}</label>{children}</div>;
+// ═══════════════════════════════════════
+// STEP 1 — GAME SELECTION
+// ═══════════════════════════════════════
+
+function GameSelection({ onSelect }: { onSelect: (g: typeof UPCOMING_GAMES[0]) => void }) {
+  // Group by date
+  const grouped: Record<string, typeof UPCOMING_GAMES> = {};
+  for (const g of UNSUBMITTED_GAMES) {
+    if (!grouped[g.date]) grouped[g.date] = [];
+    grouped[g.date].push(g);
+  }
+
+  return (
+    <Section>
+      <div className="max-w-2xl">
+        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-2">Step 1</div>
+        <h2 className="text-xl font-bold uppercase mb-1">Select <span className="accent-text">Game</span></h2>
+        <p className="text-[12px] text-white/30 mb-6">Choose the game you are reporting results for.</p>
+
+        <div className="space-y-6">
+          {Object.entries(grouped).map(([date, games]) => (
+            <div key={date}>
+              <div className="text-[10px] font-bold uppercase tracking-wider text-white/20 mb-2">{date}</div>
+              <div className="space-y-2">
+                {games.map(g => (
+                  <button key={g.id} onClick={() => onSelect(g)}
+                    className="w-full text-left bg-[#0d1117] rounded-xl border border-white/[0.04] p-4 hover:border-[#17FC13]/15 transition-all group">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/[0.04] text-white/40">{g.ageGroup} {g.division}</span>
+                      <span className="text-[11px] font-mono text-white/25">{g.time}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[14px] font-bold text-white/80 group-hover:text-white transition-colors">{g.away}</span>
+                      <span className="text-[11px] text-white/20 uppercase">at</span>
+                      <span className="text-[14px] font-bold text-white/80 group-hover:text-white transition-colors">{g.home}</span>
+                    </div>
+                    <div className="text-[11px] text-white/20 mt-1">{g.location}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {UNSUBMITTED_GAMES.length === 0 && (
+          <div className="text-center py-12 text-sm text-white/30">No games pending submission.</div>
+        )}
+      </div>
+    </Section>
+  );
 }
 
 // ═══════════════════════════════════════
-// PITCHER SECTION
+// PITCHER LOG
 // ═══════════════════════════════════════
 
-function PitcherSection({ label, pitchers, onChange }: {
-  label: string;
+function PitcherLog({ teamName, pitchers, onChange }: {
+  teamName: string;
   pitchers: PitcherEntry[];
-  onChange: (pitchers: PitcherEntry[]) => void;
+  onChange: (p: PitcherEntry[]) => void;
 }) {
   const update = (i: number, field: keyof PitcherEntry, val: string) => {
     const updated = [...pitchers];
@@ -45,43 +92,48 @@ function PitcherSection({ label, pitchers, onChange }: {
   const totalPitches = pitchers.reduce((sum, p) => sum + (parseInt(p.pitchCount) || 0), 0);
 
   return (
-    <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-4">
-      <div className="flex items-center justify-between mb-3">
-        <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50">{label}</div>
-        <div className="text-[10px] font-mono text-white">
-          Total: <span className={`font-bold ${totalPitches > 105 ? "text-red-400" : "text-[#17FC13]"}`}>{totalPitches}</span> pitches
-        </div>
+    <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] overflow-hidden">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-white/[0.04]">
+        <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/50">{teamName}</span>
+        <span className="text-[11px] font-mono text-white/40">
+          Total: <span className={`font-bold ${totalPitches > 105 ? "text-red-400" : "text-[#17FC13]/70"}`}>{totalPitches}</span> pitches
+        </span>
       </div>
-      <div className="grid grid-cols-[1fr_80px_80px_32px] gap-2 mb-1.5">
-        <span className={labelCls}>Pitcher Name</span>
-        <span className={labelCls}>Pitches</span>
-        <span className={labelCls}>IP</span>
-        <span></span>
-      </div>
-      {pitchers.map((p, i) => (
-        <div key={i} className="grid grid-cols-[1fr_80px_80px_32px] gap-2 mb-1.5">
-          <input className={inputCls} placeholder="Full name" value={p.name} onChange={e => update(i, "name", e.target.value)} />
-          <input className={inputCls} type="number" placeholder="0" value={p.pitchCount} onChange={e => update(i, "pitchCount", e.target.value)} />
-          <input className={inputCls} placeholder="e.g. 3.1" value={p.inningsPitched} onChange={e => update(i, "inningsPitched", e.target.value)} />
-          {pitchers.length > 1 ? (
-            <button type="button" onClick={() => remove(i)} className="text-red-400/30 hover:text-red-400/60 text-xs transition-colors">x</button>
-          ) : <span />}
+
+      <div className="p-4 space-y-2">
+        {/* Column headers */}
+        <div className="grid grid-cols-[1fr_80px_80px_28px] gap-3 px-1">
+          <span className="text-[9px] font-bold uppercase tracking-wider text-white/20">Name</span>
+          <span className="text-[9px] font-bold uppercase tracking-wider text-white/20">Pitches</span>
+          <span className="text-[9px] font-bold uppercase tracking-wider text-white/20">IP</span>
+          <span />
         </div>
-      ))}
-      <button type="button" onClick={add}
-        className="w-full py-2 mt-1 rounded-lg border border-dashed border-white/[0.06] text-[10px] font-bold uppercase tracking-wider text-white hover:text-white hover:border-white/[0.1] transition-all">
-        + Add Pitcher
-      </button>
+
+        {pitchers.map((p, i) => (
+          <div key={i} className="grid grid-cols-[1fr_80px_80px_28px] gap-3 items-center">
+            <input className={inputCls} placeholder="Pitcher name" value={p.name} onChange={e => update(i, "name", e.target.value)} />
+            <input className={`${inputCls} text-center`} type="number" placeholder="0" value={p.pitchCount} onChange={e => update(i, "pitchCount", e.target.value)} />
+            <input className={`${inputCls} text-center`} placeholder="0.0" value={p.inningsPitched} onChange={e => update(i, "inningsPitched", e.target.value)} />
+            {pitchers.length > 1 ? (
+              <button type="button" onClick={() => remove(i)} className="w-7 h-7 rounded-lg flex items-center justify-center text-white/15 hover:text-red-400/60 hover:bg-red-400/5 transition-all text-xs">✕</button>
+            ) : <span />}
+          </div>
+        ))}
+
+        <button type="button" onClick={add}
+          className="w-full py-2.5 mt-1 rounded-lg border border-dashed border-white/[0.06] text-[10px] font-bold uppercase tracking-wider text-white/20 hover:text-white/40 hover:border-white/[0.12] transition-all">
+          + Add Pitcher
+        </button>
+      </div>
     </div>
   );
 }
 
 // ═══════════════════════════════════════
-// MAIN PAGE
+// STEP 2 — ENTER RESULT
 // ═══════════════════════════════════════
 
-export default function SubmitResultPage() {
-  const [selectedGame, setSelectedGame] = useState<SelectedGame>(null);
+function EnterResult({ game, onBack }: { game: typeof UPCOMING_GAMES[0]; onBack: () => void }) {
   const [homeScore, setHomeScore] = useState("");
   const [awayScore, setAwayScore] = useState("");
   const [homePitchers, setHomePitchers] = useState<PitcherEntry[]>([{ ...EMPTY_PITCHER }]);
@@ -93,178 +145,176 @@ export default function SubmitResultPage() {
 
   const homePitchersValid = homePitchers.some(p => p.name.trim() && p.pitchCount.trim());
   const awayPitchersValid = awayPitchers.some(p => p.name.trim() && p.pitchCount.trim());
-  const isValid = selectedGame && homeScore && awayScore && homePitchersValid && awayPitchersValid && submittedBy;
+  const isValid = homeScore && awayScore && homePitchersValid && awayPitchersValid && submittedBy;
 
   const handleSubmit = () => {
     if (!isValid) return;
-    console.log("Game result submitted:", { selectedGame, homeScore, awayScore, homePitchers, awayPitchers, notes, submittedBy });
+    console.log("Game result submitted:", { game, homeScore, awayScore, homePitchers, awayPitchers, notes, submittedBy, submittedEmail });
     setSubmitted(true);
   };
 
-  // ── Confirmation ──
-  if (submitted && selectedGame) {
+  if (submitted) {
+    const homeWin = parseInt(homeScore) > parseInt(awayScore);
     return (
-      <main>
-        <div className="pt-24 md:pt-32 pb-16">
-          <div className="max-w-[640px] mx-auto px-6 text-center">
-            <div className="w-14 h-14 rounded-full bg-[#17FC13]/10 border border-[#17FC13]/30 flex items-center justify-center mx-auto mb-5">
-              <svg className="w-7 h-7 text-[#17FC13]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
+      <Section>
+        <div className="max-w-md mx-auto text-center py-8">
+          <div className="w-14 h-14 rounded-full bg-[#17FC13]/10 border border-[#17FC13]/25 flex items-center justify-center mx-auto mb-5">
+            <svg className="w-7 h-7 text-[#17FC13]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold uppercase mb-2">Result <span className="accent-text">Submitted</span></h2>
+          <p className="text-sm text-white/40 mb-8">Pitch counts and scores have been recorded. Standings will be updated within 24 hours.</p>
+
+          <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04] overflow-hidden mb-8">
+            <div className="flex items-center justify-between px-5 py-2.5 border-b border-white/[0.03]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-white/30">{game.ageGroup} {game.division}</span>
+              <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/[0.06] text-white/50">Final</span>
             </div>
-            <h2 className="text-2xl font-bold uppercase mb-2">Result <span className="accent-text">Submitted</span></h2>
-            <p className="text-sm text-white mb-6">Game result and pitch counts have been submitted. The commissioner will update standings within 24 hours.</p>
-            <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 mb-6">
-              <div className="text-center text-lg font-bold mb-2">
-                {selectedGame.away} <span className="font-mono">{awayScore}</span>
-                <span className="text-white mx-2">—</span>
-                <span className="font-mono">{homeScore}</span> {selectedGame.home}
+            <div className="px-5 py-4 space-y-1.5">
+              <div className={`flex items-center justify-between ${!homeWin ? "" : "opacity-50"}`}>
+                <div className="flex items-center gap-2">
+                  {!homeWin && <span className="w-1 h-5 rounded-full bg-[#17FC13]" />}
+                  {homeWin && <span className="w-1 h-5 rounded-full bg-transparent" />}
+                  <span className="text-lg font-bold text-white">{game.away}</span>
+                </div>
+                <span className="text-2xl font-bold font-mono text-white">{awayScore}</span>
               </div>
-              <div className="text-[10px] text-white text-center">{selectedGame.division} &middot; {selectedGame.date} &middot; {selectedGame.location}</div>
+              <div className={`flex items-center justify-between ${homeWin ? "" : "opacity-50"}`}>
+                <div className="flex items-center gap-2">
+                  {homeWin && <span className="w-1 h-5 rounded-full bg-[#17FC13]" />}
+                  {!homeWin && <span className="w-1 h-5 rounded-full bg-transparent" />}
+                  <span className="text-lg font-bold text-white">{game.home}</span>
+                </div>
+                <span className="text-2xl font-bold font-mono text-white">{homeScore}</span>
+              </div>
             </div>
-            <a href="/league" className="text-xs font-bold uppercase tracking-wider text-[#17FC13]/50 hover:text-[#17FC13] no-underline transition-colors">← Back to League</a>
+          </div>
+
+          <div className="flex justify-center gap-3">
+            <a href="/league" className="inline-flex items-center justify-center px-5 py-2 rounded-full border border-[#17FC13] bg-[#17FC13]/10 text-white text-[13px] font-bold uppercase tracking-wide no-underline hover:shadow-[0_0_20px_rgba(23,252,19,0.15)] transition-all">League Home</a>
+            <a href="/league/results" className="inline-flex items-center justify-center px-5 py-2 rounded-full border border-white/[0.08] text-white/60 text-[13px] font-bold uppercase tracking-wide no-underline hover:border-white/[0.15] transition-all">View Results</a>
           </div>
         </div>
-      </main>
+      </Section>
     );
   }
 
   return (
-    <main>
-      <div className="pt-24 md:pt-32 pb-16">
-        <div className="max-w-[640px] mx-auto px-6">
-          {/* Header */}
-          <div>
-            <div className="flex items-center gap-2 mb-4 text-[10px] font-medium uppercase tracking-[0.2em]">
-              <a href="/" className="text-white no-underline hover:text-white transition-colors">Home</a>
-              <span className="text-white/10">/</span>
-              <a href="/league" className="text-white no-underline hover:text-white transition-colors">League</a>
-              <span className="text-white/10">/</span>
-              <span className="text-[#17FC13]/60">Submit Result</span>
+    <Section>
+      <div className="max-w-2xl">
+        {/* Selected game header */}
+        <div className="bg-[#0d1117] rounded-2xl border border-[#17FC13]/10 p-5 mb-8">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#17FC13]/10 text-[#17FC13]/50">{game.ageGroup} {game.division}</span>
+              <span className="text-[11px] font-mono text-white/30">{game.date} &middot; {game.time}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl uppercase font-bold leading-[0.9] mb-1">
-              Submit Game <span className="accent-text">Result</span>
-            </h1>
-            <p className="text-[11px] text-white mb-6">
-              Select the game, enter the final score, and log all pitchers with pitch counts for both teams.
-            </p>
+            <button onClick={onBack} className="text-[10px] font-bold uppercase tracking-wider text-white/25 hover:text-white/50 transition-colors">Change Game</button>
           </div>
+          <div className="flex items-center gap-2">
+            <span className="text-base font-bold text-white/90">{game.away}</span>
+            <span className="text-[11px] text-white/20 uppercase">at</span>
+            <span className="text-base font-bold text-white/90">{game.home}</span>
+          </div>
+          <div className="text-[11px] text-white/20 mt-1">{game.location}</div>
+        </div>
 
-          {/* ── STEP 1: Select Game ── */}
-          {!selectedGame ? (
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50 mb-3">Select Game</div>
-              <div className="space-y-2">
-                {UNSUBMITTED_GAMES.map(g => (
-                  <button
-                    key={g.id}
-                    onClick={() => setSelectedGame(g)}
-                    className="w-full text-left bg-[#0d1117] rounded-xl border border-white/[0.04] p-4 hover:border-[#17FC13]/20 transition-all group"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/[0.04] text-white">{g.ageGroup} Div {g.division}</span>
-                        <span className="text-[11px] font-mono text-white">{g.date}</span>
-                        <span className="text-[11px] font-mono text-[#17FC13]/50">{g.time}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm font-bold text-white">{g.away}</span>
-                      <span className="text-[10px] text-white uppercase">at</span>
-                      <span className="text-sm font-bold text-white">{g.home}</span>
-                    </div>
-                    <div className="text-[10px] text-white mt-1">{g.location}</div>
-                  </button>
-                ))}
+        {/* Score entry */}
+        <div className="mb-8">
+          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-4">Final Score</div>
+          <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5">
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <div className="text-[11px] font-bold uppercase tracking-wider text-white/40 mb-1">{game.away} <span className="text-white/20 font-normal">(Away)</span></div>
+                <input className={`${inputCls} text-center text-2xl font-bold font-mono py-4`} type="number" placeholder="0" value={awayScore} onChange={e => setAwayScore(e.target.value)} />
               </div>
-              {UNSUBMITTED_GAMES.length === 0 && (
-                <div className="text-center py-10 text-sm text-white">No games pending submission.</div>
-              )}
-            </div>
-          ) : (
-            /* ── STEP 2: Enter Result ── */
-            <div>
-              <div className="space-y-4">
-
-                {/* Selected game card */}
-                <div className="bg-[#0d1117] rounded-xl border border-[#17FC13]/15 p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#17FC13]/10 text-[#17FC13]/60">{selectedGame.division}</span>
-                      <span className="text-[11px] font-mono text-white">{selectedGame.date} &middot; {selectedGame.time}</span>
-                    </div>
-                    <button onClick={() => { setSelectedGame(null); setHomeScore(""); setAwayScore(""); setHomePitchers([{ ...EMPTY_PITCHER }]); setAwayPitchers([{ ...EMPTY_PITCHER }]); }}
-                      className="text-[10px] font-bold uppercase tracking-wider text-white hover:text-white/60 transition-colors">
-                      Change Game
-                    </button>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-bold text-white">{selectedGame.away}</span>
-                    <span className="text-[10px] text-white uppercase">at</span>
-                    <span className="text-sm font-bold text-white">{selectedGame.home}</span>
-                  </div>
-                  <div className="text-[10px] text-white mt-1">{selectedGame.location}</div>
-                </div>
-
-                {/* Score entry */}
-                <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-4">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50 mb-3">Final Score</div>
-                  <div className="grid grid-cols-[1fr_60px_auto_60px_1fr] gap-2 items-end">
-                    <div>
-                      <div className={labelCls}>{selectedGame.away}</div>
-                      <div className="text-xs font-bold text-white">(Away)</div>
-                    </div>
-                    <input className={`${inputCls} text-center font-bold text-lg`} type="number" placeholder="0" value={awayScore} onChange={e => setAwayScore(e.target.value)} />
-                    <div className="pb-2 text-white text-sm font-bold text-center">—</div>
-                    <input className={`${inputCls} text-center font-bold text-lg`} type="number" placeholder="0" value={homeScore} onChange={e => setHomeScore(e.target.value)} />
-                    <div className="text-right">
-                      <div className={labelCls}>{selectedGame.home}</div>
-                      <div className="text-xs font-bold text-white">(Home)</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Pitchers */}
-                <PitcherSection label={`${selectedGame.away} Pitchers`} pitchers={awayPitchers} onChange={setAwayPitchers} />
-                <PitcherSection label={`${selectedGame.home} Pitchers`} pitchers={homePitchers} onChange={setHomePitchers} />
-
-                {/* Notes */}
-                <Field label="Game Notes (optional)">
-                  <textarea className={`${inputCls} min-h-[50px] resize-none`} placeholder="Ejections, injuries, protests, weather delays..." value={notes} onChange={e => setNotes(e.target.value)} />
-                </Field>
-
-                {/* Submitted by */}
-                <Field label="Submitted By (Coach Name)">
-                  <input className={inputCls} placeholder="Your name" value={submittedBy} onChange={e => setSubmittedBy(e.target.value)} />
-                </Field>
-
-                {/* Validation */}
-                {!isValid && (
-                  <div className="text-[10px] text-red-400/50">
-                    Required: score for both teams, at least one pitcher with pitch count per team, and your name.
-                  </div>
-                )}
-
-                {/* Submit */}
-                <div className="pt-4 border-t border-white/[0.04] flex items-center justify-between">
-                  <button onClick={() => setSelectedGame(null)} className="text-xs font-bold uppercase tracking-wider text-white hover:text-white/60 transition-colors">← Back</button>
-                  <button
-                    onClick={handleSubmit}
-                    disabled={!isValid}
-                    className={`px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-                      isValid
-                        ? "bg-[#17FC13]/10 border border-[#17FC13]/25 text-[#17FC13] hover:bg-[#17FC13]/15 hover:shadow-[0_0_20px_rgba(23,252,19,0.1)]"
-                        : "bg-white/[0.02] border border-white/[0.04] text-white cursor-not-allowed"
-                    }`}
-                  >
-                    Submit Result
-                  </button>
-                </div>
+              <div>
+                <div className="text-[11px] font-bold uppercase tracking-wider text-white/40 mb-1">{game.home} <span className="text-white/20 font-normal">(Home)</span></div>
+                <input className={`${inputCls} text-center text-2xl font-bold font-mono py-4`} type="number" placeholder="0" value={homeScore} onChange={e => setHomeScore(e.target.value)} />
               </div>
             </div>
-          )}
+          </div>
+        </div>
+
+        {/* Pitching logs */}
+        <div className="mb-8">
+          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-4">Pitching Log</div>
+          <div className="space-y-4">
+            <PitcherLog teamName={game.away} pitchers={awayPitchers} onChange={setAwayPitchers} />
+            <PitcherLog teamName={game.home} pitchers={homePitchers} onChange={setHomePitchers} />
+          </div>
+        </div>
+
+        {/* Additional info */}
+        <div className="mb-8">
+          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-4">Additional Information</div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-white/30 mb-1.5">Submitted By *</div>
+                <input className={inputCls} placeholder="Coach name" value={submittedBy} onChange={e => setSubmittedBy(e.target.value)} />
+              </div>
+              <div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-white/30 mb-1.5">Email</div>
+                <input className={inputCls} type="email" placeholder="coach@email.com" value={submittedEmail} onChange={e => setSubmittedEmail(e.target.value)} />
+              </div>
+            </div>
+            <div>
+              <div className="text-[10px] font-bold uppercase tracking-wider text-white/30 mb-1.5">Game Notes <span className="text-white/15">(optional)</span></div>
+              <textarea className={`${inputCls} resize-none min-h-[70px]`} placeholder="Ejections, injuries, weather delays, protests..." value={notes} onChange={e => setNotes(e.target.value)} />
+            </div>
+          </div>
+        </div>
+
+        {/* Validation + Submit */}
+        {!isValid && (homeScore || awayScore) && (
+          <div className="mb-4 px-4 py-2.5 rounded-lg bg-red-500/5 border border-red-500/10 text-[11px] text-red-400/60">
+            Please enter scores for both teams, at least one pitcher with pitch count per team, and your name.
+          </div>
+        )}
+
+        <div className="flex items-center justify-between pt-6 border-t border-white/[0.04]">
+          <button onClick={onBack} className="text-[11px] font-bold uppercase tracking-wider text-white/25 hover:text-white/50 transition-colors">← Select Different Game</button>
+          <button onClick={handleSubmit} disabled={!isValid}
+            className={`px-8 py-3 rounded-full text-[12px] font-bold uppercase tracking-wider transition-all ${
+              isValid
+                ? "bg-gradient-to-t from-[#17FC13]/20 to-transparent border border-[#17FC13] text-white hover:shadow-[0_0_20px_rgba(23,252,19,0.15)]"
+                : "bg-white/[0.02] border border-white/[0.06] text-white/20 cursor-not-allowed"
+            }`}>
+            Submit Result
+          </button>
         </div>
       </div>
+    </Section>
+  );
+}
+
+// ═══════════════════════════════════════
+// MAIN PAGE
+// ═══════════════════════════════════════
+
+export default function SubmitResultPage() {
+  const [selectedGame, setSelectedGame] = useState<SelectedGame>(null);
+
+  return (
+    <main>
+      <PageHeader
+        title="Submit Game"
+        accent="Result"
+        subtitle="Report the final score and pitching log for a completed game. Pitch counts are required for both teams."
+        breadcrumb={[{ label: "League", href: "/league" }]}
+        actions={[
+          { label: "Results", href: "/league/results" },
+          { label: "Standings", href: "/league/standings" },
+        ]}
+      />
+
+      {!selectedGame ? (
+        <GameSelection onSelect={setSelectedGame} />
+      ) : (
+        <EnterResult game={selectedGame} onBack={() => setSelectedGame(null)} />
+      )}
     </main>
   );
 }

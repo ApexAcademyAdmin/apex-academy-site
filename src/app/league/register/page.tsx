@@ -50,6 +50,8 @@ type FormState = {
   players: Player[];
   // Step 5: League
   preferredDays: string[]; preferredHomeGames: string; travelLimit: string; specialRequests: string;
+  // Account
+  password: string; confirmPassword: string;
 };
 
 const EMPTY_COACH: Coach = { name: "", email: "", phone: "", role: "" };
@@ -66,6 +68,7 @@ const INITIAL: FormState = {
   players: Array.from({ length: 3 }, () => ({ ...EMPTY_PLAYER })),
   preferredDays: ["Tuesday", "Wednesday", "Thursday"],
   preferredHomeGames: "", travelLimit: "", specialRequests: "",
+  password: "", confirmPassword: "",
 };
 
 // ═══════════════════════════════════════
@@ -355,13 +358,30 @@ function Step5({ form, set }: { form: FormState; set: (f: Partial<FormState>) =>
   );
 }
 
-function Step6({ form }: { form: FormState }) {
+function Step6({ form, set }: { form: FormState; set: (f: Partial<FormState>) => void }) {
   const playerCount = form.players.filter(p => p.name.trim()).length;
   const coachCount = form.coaches.filter(c => c.name.trim()).length;
 
   return (
     <>
-      <StepHeader title="Review & Submit" desc="Review your registration details before submitting." />
+      <StepHeader title="Review & Submit" desc="Review your registration details and create your team account." />
+
+      {/* Account creation */}
+      <div className="bg-[#0d1117] rounded-2xl border border-[#17FC13]/10 p-5 mb-4">
+        <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/40 mb-3">Create Your Account</div>
+        <p className="text-[11px] text-white/40 mb-3">Your contact email ({form.contactEmail || "—"}) will be your login. Create a password to access your team dashboard.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          <Field label="Password">
+            <input className={inputCls} type="password" placeholder="Minimum 6 characters" value={form.password} onChange={e => set({ password: e.target.value })} />
+          </Field>
+          <Field label="Confirm Password">
+            <input className={inputCls} type="password" placeholder="Confirm password" value={form.confirmPassword} onChange={e => set({ confirmPassword: e.target.value })} />
+          </Field>
+        </div>
+        {form.password && form.confirmPassword && form.password !== form.confirmPassword && (
+          <div className="text-[10px] text-red-400/60 mt-2">Passwords do not match.</div>
+        )}
+      </div>
       <div className="space-y-4">
         {[
           { label: "Organization", items: [form.orgName, form.city + ", " + form.state, form.contactName, form.contactEmail] },
@@ -415,7 +435,7 @@ function Step7() {
         </svg>
       </div>
       <h2 className="text-3xl font-bold uppercase mb-2">Team <span className="accent-text">Registered</span></h2>
-      <p className="text-sm text-white mb-8 max-w-md mx-auto">Your registration has been submitted. Our league operations team will review and confirm within 48 hours.</p>
+      <p className="text-sm text-white mb-8 max-w-md mx-auto">Your registration has been submitted and your account has been created. Sign in to manage your team while our league operations team reviews your registration.</p>
 
       <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04] p-6 max-w-sm mx-auto mb-8 text-left">
         <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/40 mb-3">Confirmation</div>
@@ -483,9 +503,52 @@ export default function RegisterPage() {
   const [step, setStep] = useState(1);
   const [form, setForm] = useState<FormState>(INITIAL);
 
+  const [submitting, setSubmitting] = useState(false);
+  const [regError, setRegError] = useState("");
+
   const set = (partial: Partial<FormState>) => setForm(prev => ({ ...prev, ...partial }));
-  const next = () => setStep(s => Math.min(s + 1, 6));
   const back = () => setStep(s => Math.max(s - 1, 1));
+
+  const next = async () => {
+    if (step === 5) {
+      // Validate password
+      if (!form.password || form.password.length < 6) {
+        setRegError("Password must be at least 6 characters.");
+        return;
+      }
+      if (form.password !== form.confirmPassword) {
+        setRegError("Passwords do not match.");
+        return;
+      }
+      if (!form.contactEmail) {
+        setRegError("Contact email is required.");
+        return;
+      }
+
+      setSubmitting(true);
+      setRegError("");
+
+      try {
+        const res = await fetch("/api/register-team", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          setRegError(data.error || "Registration failed.");
+          setSubmitting(false);
+          return;
+        }
+        setStep(6);
+      } catch {
+        setRegError("Something went wrong. Please try again.");
+      }
+      setSubmitting(false);
+      return;
+    }
+    setStep(s => Math.min(s + 1, 6));
+  };
 
   return (
     <main className="min-h-screen">
@@ -522,7 +585,7 @@ export default function RegisterPage() {
               {step === 2 && <Step2 form={form} set={set} />}
               {step === 3 && <Step3 form={form} set={set} />}
               {step === 4 && <Step4 form={form} set={set} />}
-              {step === 5 && <Step6 form={form} />}
+              {step === 5 && <Step6 form={form} set={set} />}
               {step === 6 && <Step7 />}
             </motion.div>
           </AnimatePresence>
@@ -535,17 +598,24 @@ export default function RegisterPage() {
                   ← Back
                 </button>
               ) : <div />}
+              {regError && step === 5 && (
+                <div className="text-[10px] text-red-400/60">{regError}</div>
+              )}
               <button
                 onClick={next}
-                className="px-6 py-2.5 rounded-lg bg-[#17FC13]/10 border border-[#17FC13]/25 text-xs font-bold uppercase tracking-wider text-[#17FC13] hover:bg-[#17FC13]/15 hover:shadow-[0_0_20px_rgba(23,252,19,0.1)] transition-all"
+                disabled={submitting}
+                className="px-6 py-2.5 rounded-lg bg-[#17FC13]/10 border border-[#17FC13]/25 text-xs font-bold uppercase tracking-wider text-[#17FC13] hover:bg-[#17FC13]/15 hover:shadow-[0_0_20px_rgba(23,252,19,0.1)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {step === 5 ? "Submit Registration" : "Continue"}
+                {submitting ? "Creating Account..." : step === 5 ? "Submit Registration" : "Continue"}
               </button>
             </div>
           )}
 
           {step === 6 && (
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center gap-3 mt-8">
+              <a href="/signin" className="px-6 py-2.5 rounded-xl border border-[#17FC13]/25 bg-[#17FC13]/10 text-xs font-bold uppercase tracking-wider text-[#17FC13] no-underline hover:bg-[#17FC13]/15 transition-all">
+                Sign In
+              </a>
               <a href="/league" className="px-6 py-2.5 rounded-xl border border-white/[0.06] text-xs font-bold uppercase tracking-wider text-white hover:text-white no-underline transition-all">
                 Back to League
               </a>

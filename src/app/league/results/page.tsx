@@ -51,7 +51,7 @@ function GameCard({ r }: { r: typeof RECENT_RESULTS[0] }) {
               <div key={side.label}>
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">{side.label}</span>
-                  {side.isWinner && <span className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#17FC13]/10 text-[#17FC13]/50">W</span>}
+                  <span className={`text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${side.isWinner ? "bg-[#17FC13]/10 text-[#17FC13]/50" : "bg-red-500/10 text-red-400/50"}`}>{side.isWinner ? "W" : "L"}</span>
                 </div>
                 <div className="space-y-1">
                   {side.pitchers.map((p, pi) => (

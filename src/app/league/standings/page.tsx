@@ -67,7 +67,7 @@ export default function StandingsPage() {
         breadcrumb={[{ label: "League", href: "/league" }]}
         actions={[
           { label: "Schedule", href: "/league/schedule" },
-          { label: "Watch Live", href: "/live" },
+          { label: "Results", href: "/league/results" },
         ]}
       />
 

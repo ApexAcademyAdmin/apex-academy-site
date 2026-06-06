@@ -381,7 +381,7 @@ function Step6({ form }: { form: FormState }) {
         <div className="bg-[#0d1117] rounded-2xl border border-[#17FC13]/10 p-5">
           <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/40 mb-3">Registration Includes</div>
           <div className="grid grid-cols-2 gap-2 text-xs text-white">
-            {["Team Page", "League Standings", "Live Scoring", "Apex Live Streaming", "Player Profiles", "Schedule Management", "Statistics Tracking", "Season Awards"].map(f => (
+            {["Team Page", "League Standings", "Player Profiles", "Schedule Management", "Certified Umpires", "Pitch Count Enforcement", "Field Coordination", "Season Awards"].map(f => (
               <div key={f} className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]/50" />
                 {f}

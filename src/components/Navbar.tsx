@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { NAV_LINKS } from "@/lib/constants";
-import { getCurrentUser, type User } from "@/lib/auth-store";
+import { createClient } from "@/lib/supabase/client";
 import { Button } from "./Button";
+import type { User } from "@supabase/supabase-js";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -16,8 +17,22 @@ export function Navbar() {
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", fn, { passive: true });
-    setUser(getCurrentUser());
-    return () => window.removeEventListener("scroll", fn);
+
+    // Check Supabase auth state
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user: authUser } }) => {
+      setUser(authUser);
+    });
+
+    // Listen for auth state changes (login/logout)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", fn);
+      subscription.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
@@ -90,7 +105,7 @@ export function Navbar() {
               </li>
               <li>
                 {user ? (
-                  <a href="/account" className="text-white/50 hover:text-[#17FC13] transition-colors no-underline">{user.name.split(" ")[0]}</a>
+                  <a href="/account" className="text-white/50 hover:text-[#17FC13] transition-colors no-underline">Account</a>
                 ) : (
                   <a href="/signin" className="text-white/40 hover:text-white transition-colors no-underline">Sign In</a>
                 )}
@@ -133,7 +148,7 @@ export function Navbar() {
             </div>
           ))}
           {user ? (
-            <a href="/account" onClick={() => setOpen(false)} className="text-lg font-bold uppercase text-[#17FC13] no-underline">{user.name}</a>
+            <a href="/account" onClick={() => setOpen(false)} className="text-lg font-bold uppercase text-[#17FC13] no-underline">Account</a>
           ) : (
             <a href="/signin" onClick={() => setOpen(false)} className="text-lg font-bold uppercase text-white/50 no-underline">Sign In</a>
           )}

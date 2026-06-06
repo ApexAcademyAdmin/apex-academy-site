@@ -2,24 +2,36 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { signIn } from "@/lib/auth-store";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const router = useRouter();
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!email || !password) { setError("Please fill in all fields."); return; }
-    const result = signIn(email, password);
-    if (!result.success) { setError(result.error || "Something went wrong."); return; }
+    setLoading(true);
+    setError("");
+
+    const supabase = createClient();
+    const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (authError) {
+      setError(authError.message);
+      setLoading(false);
+      return;
+    }
+
     setSuccess(true);
-    setTimeout(() => { window.location.href = "/account"; }, 1200);
+    setTimeout(() => { router.push("/account"); }, 1200);
   }
 
-  // Success state
   if (success) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black">
@@ -36,20 +48,15 @@ export default function SignInPage() {
 
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
-      {/* ── LEFT: Cinematic Side ── */}
+      {/* LEFT: Cinematic Side */}
       <div className="hidden lg:flex relative items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,_rgba(23,252,19,0.06)_0%,_transparent_60%)]" />
-
-        {/* Grid texture */}
         <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-
-        {/* Logo watermark */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <Image src="/logos/apex-a-mark.png" alt="" width={400} height={400} className="object-contain opacity-[0.04]" />
         </div>
 
-        {/* Content */}
         <div className="relative z-10 px-16 max-w-lg">
           <Image src="/logos/decal-lg.png" alt="Apex Academy" width={200} height={80} className="h-12 w-auto object-contain mb-10 opacity-80" />
           <h1 className="text-4xl md:text-5xl uppercase font-bold leading-[0.85] mb-5">
@@ -58,19 +65,15 @@ export default function SignInPage() {
           <p className="text-[14px] text-white/30 leading-[1.7]">
             Access Apex Live, team pages, player profiles, stats, streaming, and the full Apex Academy ecosystem.
           </p>
-
-          {/* Accent line */}
           <div className="w-12 h-[2px] bg-[#17FC13]/30 mt-8" />
         </div>
 
-        {/* Corner accents */}
         <div className="absolute bottom-8 left-8 text-[9px] font-bold uppercase tracking-[0.3em] text-white/10">Boston, Massachusetts</div>
       </div>
 
-      {/* ── RIGHT: Auth Form ── */}
+      {/* RIGHT: Auth Form */}
       <div className="flex items-center justify-center px-6 py-28 lg:py-16 bg-black lg:bg-[#0A0A0A]">
         <div className="w-full max-w-sm">
-          {/* Mobile logo */}
           <div className="flex justify-center mb-8 lg:hidden">
             <Image src="/logos/decal-sm.png" alt="Apex Academy" width={160} height={60} className="h-10 w-auto object-contain opacity-70" />
           </div>
@@ -123,9 +126,10 @@ export default function SignInPage() {
             {/* Submit */}
             <button
               onClick={handleSubmit}
-              className="w-full py-4 bg-[#17FC13] text-black text-xs font-bold uppercase tracking-[0.2em] cursor-pointer transition-all hover:shadow-[0_0_30px_rgba(23,252,19,0.25)] hover:brightness-110 active:scale-[0.98]"
+              disabled={loading}
+              className="w-full py-4 bg-[#17FC13] text-black text-xs font-bold uppercase tracking-[0.2em] cursor-pointer transition-all hover:shadow-[0_0_30px_rgba(23,252,19,0.25)] hover:brightness-110 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sign In
+              {loading ? "Signing In..." : "Sign In"}
             </button>
 
             {/* Divider */}

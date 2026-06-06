@@ -284,3 +284,66 @@ export const RECENT_RESULTS: GameResult[] = [
     awayPitchers: [{ name: "Cole Davidson", ip: "6.0", pitches: 94 }, { name: "Matt Singh", ip: "0.2", pitches: 11 }] },
 ];
 
+// ═══════════════════════════════════════
+// AWARDS & RECOGNITION
+// ═══════════════════════════════════════
+
+export type AwardCategory = {
+  id: string;
+  name: string;
+  description: string;
+  perDivision: boolean;
+  phase: "regular" | "playoff" | "prospect-games";
+};
+
+export const REGULAR_SEASON_AWARDS: AwardCategory[] = [
+  { id: "mvp", name: "Most Valuable Player", description: "Awarded to the player who demonstrated the greatest overall impact during the regular season.", perDivision: true, phase: "regular" },
+  { id: "cy-young", name: "Cy Young Award", description: "Awarded to the league's top pitcher based on performance, consistency, and dominance on the mound.", perDivision: true, phase: "regular" },
+  { id: "rookie", name: "Rookie of the Year", description: "Awarded to the most impactful first-year league player.", perDivision: true, phase: "regular" },
+  { id: "most-improved", name: "Most Improved Player", description: "Awarded to the player who demonstrated the greatest development and growth throughout the season.", perDivision: true, phase: "regular" },
+  { id: "coach", name: "Coach of the Year", description: "Awarded to the coach who demonstrated outstanding leadership, player development, sportsmanship, and positive impact.", perDivision: true, phase: "regular" },
+];
+
+export const POSITIONAL_AWARDS: { id: string; name: string; positions: string[] }[] = [
+  { id: "silver-slugger", name: "Silver Slugger Award", positions: ["Catcher", "First Base", "Second Base", "Third Base", "Shortstop", "Outfield", "Outfield", "Outfield", "Designated Hitter"] },
+  { id: "gold-glove", name: "Gold Glove Award", positions: ["Catcher", "First Base", "Second Base", "Third Base", "Shortstop", "Outfield", "Outfield", "Outfield"] },
+];
+
+export const PLAYOFF_AWARDS: AwardCategory[] = [
+  { id: "playoff-mvp", name: "Playoff MVP", description: "Awarded to the player with the greatest overall impact throughout the playoffs.", perDivision: true, phase: "playoff" },
+  { id: "championship-mvp", name: "Championship Game MVP", description: "Awarded to the most impactful player in the championship game.", perDivision: true, phase: "playoff" },
+  { id: "playoff-cy-young", name: "Playoff Cy Young", description: "Awarded to the most outstanding pitcher during postseason play.", perDivision: true, phase: "playoff" },
+];
+
+export const TEAM_AWARDS = [
+  { id: "premier-rs-champ", name: "Premier Division Regular Season Champion", phase: "regular" as const },
+  { id: "prospect-rs-champ", name: "Prospect Division Regular Season Champion", phase: "regular" as const },
+  { id: "premier-champ", name: "Premier Division Champion", phase: "playoff" as const },
+  { id: "prospect-champ", name: "Prospect Division Champion", phase: "playoff" as const },
+];
+
+export const PROSPECT_GAMES_AWARDS: AwardCategory[] = [
+  { id: "pg-selection", name: "All-New England Prospect Games Selection", description: "Selection to the All-New England Prospect Games is one of the highest honors in the league.", perDivision: false, phase: "prospect-games" },
+  { id: "pg-mvp", name: "Prospect Games MVP", description: "Awarded to the most valuable player across both prospect games, voted on by attending college coaches.", perDivision: false, phase: "prospect-games" },
+  { id: "pg-top-position", name: "Top Position Player", description: "Awarded to the top overall position player at the prospect games.", perDivision: false, phase: "prospect-games" },
+  { id: "pg-top-pitcher", name: "Top Pitcher", description: "Awarded to the top pitcher at the prospect games.", perDivision: false, phase: "prospect-games" },
+  { id: "pg-top-prospect", name: "Top Prospect", description: "Awarded to the player identified as the top overall prospect by attending college coaches.", perDivision: false, phase: "prospect-games" },
+];
+
+export const BANQUET_CEREMONY_ORDER = [
+  "Welcome & Opening Remarks",
+  "Season Recap",
+  "Regular Season Champions",
+  "All-New England Prospect Games Recognition",
+  "Gold Glove Awards",
+  "Silver Slugger Awards",
+  "Rookie of the Year",
+  "Most Improved Player",
+  "Coach of the Year",
+  "Cy Young Awards",
+  "Playoff Awards",
+  "Division Champions",
+  "Most Valuable Player Awards",
+  "Closing Remarks",
+];
+

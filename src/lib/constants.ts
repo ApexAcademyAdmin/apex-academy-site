@@ -29,6 +29,7 @@ export const NAV_LINKS: NavLink[] = [
       { title: "Field Locations", href: "/league/fields" },
       { title: "Submit Result", href: "/league/submit-result" },
       { title: "Prospect Games", href: "/league/showcase" },
+      { title: "Awards & Banquet", href: "/league/banquet" },
       { title: "Register Team", href: "/league/register" },
     ],
   },

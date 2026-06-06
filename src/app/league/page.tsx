@@ -261,7 +261,7 @@ function QuickAccess() {
   const links = [
     { label: "Rules & Format", desc: "By age division", href: "/league/rules" },
     { label: "Field Locations", desc: "169+ approved fields", href: "/league/fields" },
-    { label: "Submit Result", desc: "Post-game reporting", href: "/league/submit-result" },
+    { label: "Awards & Banquet", desc: "Annual recognition", href: "/league/banquet" },
     { label: "Register Team", desc: LEAGUE_META.registrationFee, href: "/league/register" },
   ];
 

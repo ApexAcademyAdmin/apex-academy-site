@@ -81,14 +81,17 @@ create table if not exists public.player_profiles (
 -- RLS for user_profiles
 alter table public.user_profiles enable row level security;
 
+drop policy if exists "Users can view their own profile" on public.user_profiles;
 create policy "Users can view their own profile"
   on public.user_profiles for select
   using (auth.uid() = user_id);
 
+drop policy if exists "Users can update their own profile" on public.user_profiles;
 create policy "Users can update their own profile"
   on public.user_profiles for update
   using (auth.uid() = user_id);
 
+drop policy if exists "Users can insert their own profile" on public.user_profiles;
 create policy "Users can insert their own profile"
   on public.user_profiles for insert
   to authenticated
@@ -97,28 +100,34 @@ create policy "Users can insert their own profile"
 -- RLS for player_profiles
 alter table public.player_profiles enable row level security;
 
+drop policy if exists "Published player profiles are public" on public.player_profiles;
 create policy "Published player profiles are public"
   on public.player_profiles for select
   using (status = 'published');
 
+drop policy if exists "Players can view their own profile" on public.player_profiles;
 create policy "Players can view their own profile"
   on public.player_profiles for select
   using (auth.uid() = user_id);
 
+drop policy if exists "Players can update their own profile" on public.player_profiles;
 create policy "Players can update their own profile"
   on public.player_profiles for update
   using (auth.uid() = user_id);
 
+drop policy if exists "Players can insert their own profile" on public.player_profiles;
 create policy "Players can insert their own profile"
   on public.player_profiles for insert
   to authenticated
   with check (auth.uid() = user_id);
 
 -- Triggers
+drop trigger if exists user_profiles_updated_at on public.user_profiles;
 create trigger user_profiles_updated_at
   before update on public.user_profiles
   for each row execute function public.update_updated_at();
 
+drop trigger if exists player_profiles_updated_at on public.player_profiles;
 create trigger player_profiles_updated_at
   before update on public.player_profiles
   for each row execute function public.update_updated_at();

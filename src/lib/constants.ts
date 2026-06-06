@@ -42,7 +42,6 @@ export const NAV_LINKS: NavLink[] = [
     ],
   },
   { title: "Partners", href: "/partners" },
-  { title: "Results", href: "/league/results" },
   { title: "Shop", href: "/shop" },
 ];
 

@@ -1,16 +1,9 @@
-"use client";
-
-import { useState } from "react";
 import { Section } from "@/components/Section";
 import { PageHeader } from "@/components/PageHeader";
 import { RECENT_RESULTS } from "@/lib/league-data";
 
 function GameCard({ r }: { r: typeof RECENT_RESULTS[0] }) {
-  const [expanded, setExpanded] = useState(false);
   const homeWin = r.homeScore > r.awayScore;
-  const winner = homeWin ? r.home : r.away;
-  const winningPitchers = homeWin ? r.homePitchers : r.awayPitchers;
-  const starPitcher = winningPitchers[0];
 
   return (
     <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04] overflow-hidden hover:border-[#17FC13]/10 transition-all">
@@ -48,25 +41,8 @@ function GameCard({ r }: { r: typeof RECENT_RESULTS[0] }) {
         </div>
       </div>
 
-      {/* Player of the game + expand */}
-      <div className="px-5 py-3 border-t border-white/[0.03] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <span className="text-[9px] font-bold uppercase tracking-wider text-[#17FC13]/50">Winning Pitcher</span>
-          <span className="text-[13px] font-medium text-white/80">{starPitcher.name}</span>
-          <span className="text-[11px] font-mono text-white/30">{starPitcher.ip} IP &middot; {starPitcher.pitches} P</span>
-        </div>
-
-        <button
-          onClick={() => setExpanded(e => !e)}
-          className="text-[10px] font-bold uppercase tracking-wider text-white/25 hover:text-[#17FC13]/50 transition-colors"
-        >
-          {expanded ? "Hide Details" : "Pitching Details"}
-        </button>
-      </div>
-
-      {/* Expandable pitching logs */}
-      {expanded && (
-        <div className="px-5 py-4 border-t border-white/[0.03] bg-white/[0.01]">
+      {/* Pitching logs — always visible */}
+      <div className="px-5 py-4 border-t border-white/[0.03] bg-white/[0.01]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {[
               { label: r.away, pitchers: r.awayPitchers, isWinner: !homeWin },
@@ -92,7 +68,6 @@ function GameCard({ r }: { r: typeof RECENT_RESULTS[0] }) {
             ))}
           </div>
         </div>
-      )}
     </div>
   );
 }

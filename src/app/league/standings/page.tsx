@@ -63,7 +63,7 @@ export default function StandingsPage() {
       <PageHeader
         title="League"
         accent="Standings"
-        subtitle="Current season standings across all divisions. Top 2 teams in each division qualify for playoffs."
+        subtitle="Current season standings across all Premier and Prospect divisions. Top 2 teams in each division qualify for playoffs."
         breadcrumb={[{ label: "League", href: "/league" }]}
         actions={[
           { label: "Schedule", href: "/league/schedule" },
@@ -92,15 +92,15 @@ export default function StandingsPage() {
                 <div className="flex items-center gap-4 mb-5">
                   <div className="flex items-center gap-3">
                     <span className="text-2xl md:text-3xl font-bold uppercase tracking-tight">{age}</span>
-                    <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white">Division</span>
+                    <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white">Premier &amp; Prospect</span>
                   </div>
                   <div className="flex-1 h-px bg-gradient-to-r from-white/[0.06] to-transparent" />
                 </div>
 
                 {/* Division A & B */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                  <DivisionTable rows={STANDINGS[`${age}-A`] || []} label="Division A" />
-                  <DivisionTable rows={STANDINGS[`${age}-B`] || []} label="Division B" />
+                  <DivisionTable rows={STANDINGS[`${age}-Premier`] || []} label="Premier Division" />
+                  <DivisionTable rows={STANDINGS[`${age}-Prospect`] || []} label="Prospect Division" />
                 </div>
               </div>
             </div>

@@ -24,8 +24,8 @@ const AGE_DIVISIONS = [
   { label: "18U", ages: "Ages 17-18", group: "High School" },
 ];
 const LEAGUE_LEVELS = [
-  { value: "Division A", desc: "Strong competition — experienced teams looking for a competitive schedule" },
-  { value: "Division B", desc: "Developmental — teams focused on growth, learning, and building experience" },
+  { value: "Premier Division", desc: "The highest level of competition — established travel programs and experienced rosters" },
+  { value: "Prospect Division", desc: "Development-focused competition — growing programs, emerging players, and building experience" },
 ];
 const POSITIONS = ["C", "1B", "2B", "SS", "3B", "LF", "CF", "RF", "RHP", "LHP", "DH", "UTIL"];
 const BATS_THROWS = ["R", "L", "S"];
@@ -59,7 +59,7 @@ const INITIAL: FormState = {
   orgName: "", orgEmail: "", orgWebsite: "",
   contactName: "", contactEmail: "", contactPhone: "",
   city: "", state: "MA", orgDescription: "",
-  teamName: "", ageDivision: "12U", leagueLevel: "Division A",
+  teamName: "", ageDivision: "12U", leagueLevel: "Premier Division",
   primaryColor: "#000000", secondaryColor: "#ffffff",
   homeField: "", homeFieldAddress: "",
   coaches: [{ ...EMPTY_COACH, role: "Head Coach" }, { ...EMPTY_COACH, role: "Assistant Coach" }],

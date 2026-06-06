@@ -47,7 +47,7 @@ export default function SchedulePage() {
                       <div className="flex flex-col md:flex-row md:items-center gap-5">
                         {/* Division + Time */}
                         <div className="flex items-center gap-3 md:w-32 flex-shrink-0">
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/[0.04] text-white">{g.ageGroup} Div {g.division}</span>
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/[0.04] text-white">{g.ageGroup} {g.division}</span>
                           <span className="text-sm font-bold text-[#17FC13]/70 font-mono">{g.time}</span>
                         </div>
 
@@ -67,9 +67,6 @@ export default function SchedulePage() {
                         {/* Meta */}
                         <div className="flex items-center gap-3 md:w-48 flex-shrink-0 md:justify-end">
                           <span className="text-[11px] text-white">{g.location}</span>
-                          {g.streamAvailable && (
-                            <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#17FC13]/10 text-[#17FC13]/50 border border-[#17FC13]/10">Stream</span>
-                          )}
                         </div>
                       </div>
                     </div>

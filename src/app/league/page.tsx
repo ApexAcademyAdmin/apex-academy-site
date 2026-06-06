@@ -142,8 +142,8 @@ function WhoItsFor() {
 // ═══════════════════════════════════════
 function LeagueActivity() {
   const [activeAge, setActiveAge] = useState("12U");
-  const divA = STANDINGS[`${activeAge}-A`] || [];
-  const divB = STANDINGS[`${activeAge}-B`] || [];
+  const divA = STANDINGS[`${activeAge}-Premier`] || [];
+  const divB = STANDINGS[`${activeAge}-Prospect`] || [];
 
   const nextGames = UPCOMING_GAMES.slice(0, 4);
   const recentResults = RECENT_RESULTS.slice(0, 4);
@@ -172,7 +172,7 @@ function LeagueActivity() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-8">
-          {[{ rows: divA, label: "Division A" }, { rows: divB, label: "Division B" }].map(({ rows, label }) => (
+          {[{ rows: divA, label: "Premier Division" }, { rows: divB, label: "Prospect Division" }].map(({ rows, label }) => (
             <div key={label} className="bg-[#0d1117] rounded-lg border border-white/[0.04]">
               <div className="px-4 py-2 border-b border-white/[0.04]">
                 <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50">{label}</span>

@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/PageHeader";
 // ═══════════════════════════════════════
 
 const TOC = [
-  { id: "1", title: "Format & Season" },
+  { id: "1", title: "Format & Season / Division Structure" },
   { id: "2", title: "Playing Conditions" },
   { id: "3", title: "Umpires" },
   { id: "4", title: "Rosters & Uniforms" },
@@ -95,10 +95,11 @@ export default function RulesPage() {
 
           <RuleSection id="1" title="Format & Season">
             <Rule num="1.1">The league will consist of five (5) age divisions: <B>10U</B> (ages 9-10), <B>12U</B> (ages 11-12), <B>14U</B> (ages 13-14), <B>16U</B> (ages 15-16), and <B>18U</B> (ages 17-18). Age is determined by the <B>school year cutoff date (September 1)</B> to align with the college recruiting classification process. A player's age as of September 1 of the current year determines their division.</Rule>
-            <Rule num="1.2">Each age division will have <B>Division A</B> and <B>Division B</B> to balance competition levels. Division placement is determined by the league based on team strength and coach input.</Rule>
-            <Rule num="1.3">All league games are scheduled on <B>Wednesday, Thursday, and Friday</B> evenings only. Weekends are kept free to avoid conflicts with travel baseball tournaments.</Rule>
-            <Rule num="1.4">At the conclusion of the regular season, the top two (2) teams from each division will qualify for the <B>Playoff Championship</B> held in August.</Rule>
-            <Rule num="1.5">The regular season runs from <B>mid-June through mid-August</B>. Championship weekend is held the final weekend of August.</Rule>
+            <Rule num="1.2">Each age division will have a <B>Premier Division</B> and a <B>Prospect Division</B> to ensure competitive balance and appropriate team placement. The Premier Division features the league's most competitive teams. The Prospect Division provides development-focused competition. Division placement is determined by league administration based on team strength, experience, and coach input.</Rule>
+            <Rule num="1.3">League administration reserves the right to place teams in the division that best supports competitive balance and player development. Division placement is reviewed annually.</Rule>
+            <Rule num="1.4">All league games are scheduled on <B>Wednesday, Thursday, and Friday</B> evenings only. Weekends are kept free to avoid conflicts with travel baseball tournaments.</Rule>
+            <Rule num="1.5">At the conclusion of the regular season, the top two (2) teams from each division will qualify for the <B>Playoff Championship</B> held in August.</Rule>
+            <Rule num="1.6">The regular season runs from <B>mid-June through mid-August</B>. Championship weekend is held the final weekend of August.</Rule>
           </RuleSection>
 
           <RuleSection id="2" title="Playing Conditions">
@@ -247,7 +248,7 @@ export default function RulesPage() {
           </RuleSection>
 
           <RuleSection id="13" title="Playoffs & Championship">
-            <Rule num="13.1">The top <B>two (2) teams</B> from each division (A and B) qualify for the playoffs — four teams per age group.</Rule>
+            <Rule num="13.1">The top <B>two (2) teams</B> from each division (Premier and Prospect) qualify for the playoffs — four teams per age group.</Rule>
             <Rule num="13.2">Seeding is determined by: 1) Win percentage 2) Head-to-head record 3) Run differential 4) Coin flip.</Rule>
             <Rule num="13.3">The higher seed is the home team throughout the playoffs. Championship game home team is determined by coin flip.</Rule>
             <Rule num="13.4"><B>Semifinals:</B> Single elimination. Held on the first day of championship weekend (Saturday).</Rule>

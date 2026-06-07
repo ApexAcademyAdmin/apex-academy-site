@@ -105,7 +105,7 @@ export default function ShopPage() {
               onClick={() => setSelectedProduct(product)}
             >
               {/* Product image */}
-              <div className={`relative aspect-square flex items-center justify-center overflow-hidden ${product.image ? (product.dark ? "bg-product" : "bg-black") : "bg-radial"}`}>
+              <div className={`relative aspect-square flex items-center justify-center overflow-hidden ${product.image ? "bg-black" : "bg-radial"}`}>
                 {product.image ? (
                   <Image
                     src={product.image}
@@ -160,7 +160,7 @@ export default function ShopPage() {
               &times;
             </button>
 
-            <div className={`relative aspect-[4/3] flex items-center justify-center overflow-hidden ${selectedProduct.image ? (selectedProduct.dark ? "bg-product" : "bg-black") : "bg-radial"}`}>
+            <div className={`relative aspect-[4/3] flex items-center justify-center overflow-hidden ${selectedProduct.image ? "bg-black" : "bg-radial"}`}>
               {selectedProduct.image ? (
                 <Image src={selectedProduct.image} alt={selectedProduct.name} fill sizes="(max-width: 768px) 100vw, 672px" className="object-contain" />
               ) : (

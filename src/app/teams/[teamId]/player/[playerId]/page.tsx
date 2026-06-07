@@ -44,7 +44,7 @@ export default function PlayerProfilePage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,_rgba(23,252,19,0.04)_0%,_transparent_55%)]" />
         <div className="absolute top-1/2 right-[-5%] -translate-y-1/2 text-[25vw] font-bold text-white/[0.015] leading-none select-none pointer-events-none" style={{ fontFamily: "var(--font-perf)" }}>{player.number}</div>
 
-        <div className="relative max-w-[1120px] mx-auto px-6 pt-28 md:pt-36 pb-6">
+        <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-6">
           <div className="flex items-center gap-2 mb-5 text-[10px] font-medium uppercase tracking-[0.2em]">
             <a href={`/teams/${teamId}`} className="text-white/20 no-underline hover:text-white/40">{team.age} Roster</a>
             <span className="text-white/10">/</span>

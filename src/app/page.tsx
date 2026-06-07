@@ -27,7 +27,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
          HERO — The first impression
          ══════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[72vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,_rgba(23,252,19,0.05)_0%,_transparent_55%)]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none">
@@ -78,7 +78,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
          WHY APEX — The pitch to families
          ══════════════════════════════════════ */}
-      <div className="max-w-[1120px] mx-auto px-6 py-16 md:py-20">
+      <div className="max-w-[1120px] mx-auto px-6 py-12 md:py-16">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <FadeIn>
             <div className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#17FC13]/40 mb-4">Why Apex Academy</div>
@@ -113,7 +113,7 @@ export default function Home() {
          WHAT WE DO — Programs overview
          ══════════════════════════════════════ */}
       <div className="border-y border-[#171717]">
-        <div className="max-w-[1120px] mx-auto px-6 py-16 md:py-20">
+        <div className="max-w-[1120px] mx-auto px-6 py-12 md:py-16">
           <div className="text-[9px] font-bold uppercase tracking-[0.35em] text-white/15 mb-8 text-center">What We Provide</div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
@@ -136,7 +136,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
          THE APEX STANDARD — Culture pillars
          ══════════════════════════════════════ */}
-      <div className="max-w-[1120px] mx-auto px-6 py-16 md:py-20">
+      <div className="max-w-[1120px] mx-auto px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <FadeIn>
             <div>
@@ -167,7 +167,7 @@ export default function Home() {
          TEAMS — Quick access
          ══════════════════════════════════════ */}
       <div className="border-y border-[#171717] bg-radial">
-        <div className="max-w-[1120px] mx-auto px-6 py-16 md:py-20">
+        <div className="max-w-[1120px] mx-auto px-6 py-12 md:py-16">
           <div className="flex items-center justify-between mb-8">
             <div>
               <div className="text-[9px] font-bold uppercase tracking-[0.35em] text-white/15 mb-2">Our Teams</div>
@@ -198,7 +198,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
          ALUMNI — Social proof
          ══════════════════════════════════════ */}
-      <div className="max-w-[1120px] mx-auto px-6 py-16 md:py-20">
+      <div className="max-w-[1120px] mx-auto px-6 py-12 md:py-16">
         <div className="text-center mb-10">
           <FadeIn>
             <div className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#17FC13]/40 mb-4">Where Our Players Go</div>
@@ -246,7 +246,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
          CTA — Final impression
          ══════════════════════════════════════ */}
-      <div className="max-w-[1120px] mx-auto px-6 py-20 md:py-28">
+      <div className="max-w-[1120px] mx-auto px-6 py-14 md:py-20">
         <div className="max-w-xl mx-auto text-center">
           <FadeIn>
             <h2 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-5">

@@ -39,7 +39,7 @@ export default function LivePage() {
       {/* Header */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-black" />
-        <div className="relative max-w-[1120px] mx-auto px-6 pt-28 md:pt-36 pb-6">
+        <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-6">
           <div className="flex items-center gap-2 mb-5 text-[10px] font-medium uppercase tracking-[0.2em]">
             <a href="/" className="text-white/20 no-underline hover:text-white/40">Home</a>
             <span className="text-white/10">/</span>

@@ -29,7 +29,7 @@ export default function TeamLayout({
           <Image src="/logos/apex-a-mark.png" alt="" width={500} height={500} className="w-[350px] h-[350px] object-contain opacity-[0.05]" />
         </div>
 
-        <div className="relative max-w-[1120px] mx-auto px-6 pt-28 md:pt-36 pb-10 md:pb-14">
+        <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-8 md:pb-10">
           <div className="flex items-center gap-2 mb-6 text-[10px] font-medium uppercase tracking-[0.2em]">
             <a href="/teams" className="text-white/20 no-underline hover:text-white/40">Teams</a>
             <span className="text-white/10">/</span>

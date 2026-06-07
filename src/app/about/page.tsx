@@ -10,7 +10,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_40%_30%,_rgba(23,252,19,0.04)_0%,_transparent_60%)]" />
 
-        <div className="relative max-w-[1120px] mx-auto px-6 pt-28 md:pt-36 pb-8">
+        <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-8">
           <div className="flex items-center gap-2 mb-5 text-[10px] font-medium uppercase tracking-[0.2em]">
             <a href="/" className="text-white/20 no-underline hover:text-white/40">Home</a>
             <span className="text-white/10">/</span>

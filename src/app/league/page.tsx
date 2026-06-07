@@ -13,7 +13,7 @@ const AGE_GROUPS = ["10U", "12U", "14U", "16U", "18U"];
 // ═══════════════════════════════════════
 function Header() {
   return (
-    <div className="pt-24 md:pt-32 pb-8 md:pb-12">
+    <div className="pt-24 md:pt-28 pb-8 md:pb-12">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#17FC13]/20 bg-[#17FC13]/5 mb-6">
@@ -23,7 +23,7 @@ function Header() {
         </div>
 
         <div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl uppercase font-bold leading-[0.85] mb-5 max-w-3xl">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl uppercase font-bold leading-[0.85] mb-5 max-w-3xl">
             Community Baseball<br /><span className="accent-text">Built Different</span>
           </h1>
         </div>

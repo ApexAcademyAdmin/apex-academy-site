@@ -80,7 +80,7 @@ export default function TeamsPage() {
   return (
     <main>
       {/* HEADER */}
-      <div className="pt-24 md:pt-32 pb-8 md:pb-10">
+      <div className="pt-24 md:pt-28 pb-8 md:pb-10">
         <div className="max-w-[1280px] mx-auto px-6 md:px-10">
           <div className="flex items-center gap-2 mb-6 text-[10px] font-medium uppercase tracking-[0.2em]">
             <a href="/" className="text-white/25 no-underline hover:text-white/50 transition-colors">Home</a>
@@ -88,7 +88,7 @@ export default function TeamsPage() {
             <span className="text-[#17FC13]/60">Teams</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl uppercase font-bold leading-[0.85] mb-4">
+          <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.85] mb-4">
             Our <span className="accent-text">Teams</span>
           </h1>
           <p className="text-base text-white/50 max-w-2xl leading-relaxed">

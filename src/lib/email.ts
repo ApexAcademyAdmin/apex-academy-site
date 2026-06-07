@@ -16,15 +16,15 @@ import { createAdminClient } from "@/lib/supabase/admin";
 const C = {
   green: "#17FC13",
   black: "#000000",
-  bg: "#0F1115",        // charcoal — outer/email surface
-  surface: "#161B22",   // dark surface — cards
-  surfaceSoft: "#1B2027",
-  border: "#252C36",
-  borderSoft: "#1E242C",
+  bg: "#0A0A0A",        // near-black — outer/email surface
+  surface: "#141414",   // black surface — cards
+  surfaceSoft: "#1A1A1A",
+  border: "#2A2A2A",
+  borderSoft: "#1F1F1F",
   white: "#FFFFFF",
-  text: "#EAEDF1",
-  muted: "#B0B7C3",     // neutral gray — body copy
-  faint: "#6B7480",
+  text: "#FFFFFF",      // primary copy — pure white
+  muted: "#D4D4D4",     // secondary copy — neutral light gray
+  faint: "#9A9A9A",     // labels / footer — neutral mid gray
 };
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://apex-academy-site.vercel.app").replace(/\/$/, "");

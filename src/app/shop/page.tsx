@@ -23,7 +23,6 @@ const PRODUCTS: Product[] = [
   // Jerseys
   { id: "jersey-home", name: "Home Jersey", category: "Jerseys", price: 90, colors: ["White"], description: "Official Apex Academy home jersey. White New Balance full button-down with the Apex Academy mark, green and black piping, and a pro-cut fit.", image: "/shop/jersey-home.png" },
   { id: "jersey-away", name: "Away Jersey", category: "Jerseys", price: 90, colors: ["Black"], description: "Official Apex Academy away jersey. Black New Balance full button-down with the Apex Academy mark and green piping. Pro-cut fit.", image: "/shop/jersey-away.png", dark: true },
-  { id: "jersey-alt", name: "Alternative Jersey", category: "Jerseys", price: 90, colors: ["White/Navy/Red"], description: "Alternative Apex Academy jersey. White New Balance full button-down with navy and red trim and the Apex Academy mark.", image: "/shop/jersey-alt.png" },
 
   // Pants & Bottoms
   { id: "pants-game", name: "New Balance Game Pants", category: "Pants & Bottoms", price: 55, colors: ["White", "Black"], description: "Official New Balance game pants. Pro-length with reinforced knees, belt-loop waist, and black piping. Performance fit.", image: "/shop/pants-game.png" },
@@ -34,7 +33,6 @@ const PRODUCTS: Product[] = [
   { id: "tee-performance", name: "Performance T-Shirt", category: "Performance", price: 30, colors: ["Black"], description: "Moisture-wicking black performance tee with the Apex Academy mark. Athletic fit. Built for training.", image: "/shop/tee-performance.png" },
   { id: "hoodie-apex", name: "Apex Hoodie", category: "Performance", price: 65, colors: ["Black"], description: "Premium heavyweight black hoodie with the Apex Academy mark. Fleece-lined. Cold weather essential.", image: "/shop/hoodie-apex.png" },
   { id: "jacket-apex", name: "Apex Team Jacket", category: "Performance", price: 75, colors: ["Black"], description: "Black quarter-zip team jacket with the Apex Academy mark and green accents. Warm-up and travel.", image: "/shop/jacket-apex.png" },
-  { id: "jersey-practice", name: "Practice Jersey", category: "Performance", price: 35, colors: ["Black", "Green"], description: "Lightweight mesh practice jersey. Sublimated Apex branding. Breathable and durable for daily training." },
 
   // Equipment
   { id: "bag-equipment", name: "Apex Equipment Bag", category: "Equipment", price: 85, colors: ["Black"], description: "Full-size equipment bag with bat compartment, cleat pocket, and Apex Academy branding. Padded straps." },

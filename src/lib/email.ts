@@ -67,7 +67,7 @@ function row(label: string, value: string): string {
   return `<tr><td style="padding:4px 0;color:#6b727a;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;">${label}</td><td style="padding:4px 0;color:#e6e9ec;font-size:14px;text-align:right;">${value || "—"}</td></tr>`;
 }
 
-type Reg = { teamName: string; ageGroup: string; coachName: string; coachEmail: string; coachPhone: string; notes?: string };
+type Reg = { teamName: string; ageGroup: string; conference?: string; coachName: string; coachEmail: string; coachPhone: string; notes?: string };
 
 // ── Templates ────────────────────────────────────────────────
 
@@ -95,6 +95,7 @@ export function adminNotificationEmail(r: Reg, reviewUrl: string) {
       `<table style="width:100%;border-collapse:collapse;margin:0 0 18px;">
          ${row("Team / Town", r.teamName)}
          ${row("Age Group", r.ageGroup)}
+         ${row("Conference", r.conference || "")}
          ${row("Head Coach", r.coachName)}
          ${row("Email", r.coachEmail)}
          ${row("Phone", r.coachPhone)}

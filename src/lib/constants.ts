@@ -51,11 +51,18 @@ export const CONTACT = {
   instagramHandle: "@ApexAcademy",
 } as const;
 
-// League age groups offered for town-team registration (NOT the Apex travel
-// program's Prospects/Premier divisions). Centralized so the list can be
-// adjusted in one place, and later moved to an admin-editable setting.
+// League age groups offered for town-team registration. Centralized so the
+// list can be adjusted in one place, and later moved to an admin-editable
+// setting. (Separate from the Apex travel program.)
 export const AGE_GROUPS = [
-  "10U", "12U", "14U",
+  "10U", "12U", "14U", "16U", "18U",
+] as const;
+
+// Each age group runs two conferences (competitive tier) — think Varsity vs JV.
+// Stored in the teams.division column.
+export const CONFERENCES = [
+  { value: "Premier", desc: "Competitive conference" },
+  { value: "Prospect", desc: "Development conference" },
 ] as const;
 
 // Team registration review lifecycle.

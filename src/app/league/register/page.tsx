@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import { AGE_GROUPS } from "@/lib/constants";
+import { AGE_GROUPS, CONFERENCES } from "@/lib/constants";
 
 // ═══════════════════════════════════════
 // TYPES & HELPERS
@@ -14,6 +14,7 @@ const STEPS = ["Team Info", "Coach Contact", "Review"];
 type FormState = {
   teamName: string;
   ageGroup: string;
+  conference: string;
   coachName: string;
   coachEmail: string;
   coachPhone: string;
@@ -22,7 +23,7 @@ type FormState = {
 };
 
 const INITIAL: FormState = {
-  teamName: "", ageGroup: "", coachName: "", coachEmail: "", coachPhone: "", notes: "", company: "",
+  teamName: "", ageGroup: "", conference: "", coachName: "", coachEmail: "", coachPhone: "", notes: "", company: "",
 };
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
@@ -40,8 +41,8 @@ const phoneDigits = (v: string) => v.replace(/\D/g, "");
 // SHARED UI
 // ═══════════════════════════════════════
 
-const labelCls = "block text-[11px] font-bold uppercase tracking-[0.12em] text-white/70 mb-2";
-const baseInput = "w-full bg-black/40 border rounded-xl px-4 py-3.5 text-[15px] text-white placeholder:text-white/25 focus:outline-none transition-all";
+const labelCls = "block text-[11px] font-bold uppercase tracking-[0.12em] text-white mb-2";
+const baseInput = "w-full bg-black/40 border rounded-xl px-4 py-3.5 text-[15px] text-white placeholder:text-white/50 focus:outline-none transition-all";
 
 function TextField({
   label, value, onChange, placeholder, type = "text", error, inputMode, autoFocus, autoComplete,
@@ -88,12 +89,32 @@ function StepTeam({ form, set, errors }: { form: FormState; set: (f: Partial<For
         <select
           value={form.ageGroup}
           onChange={(e) => set({ ageGroup: e.target.value })}
-          className={`${baseInput} appearance-none ${errors.ageGroup ? "border-red-500/40" : "border-white/[0.08] focus:border-[#17FC13]/40"} ${form.ageGroup ? "text-white" : "text-white/25"}`}
+          className={`${baseInput} appearance-none ${errors.ageGroup ? "border-red-500/40" : "border-white/[0.08] focus:border-[#17FC13]/40"} ${form.ageGroup ? "text-white" : "text-white/50"}`}
         >
           <option value="" disabled>Select an age group</option>
           {AGE_GROUPS.map((a) => <option key={a} value={a} className="text-white bg-[#0d1117]">{a}</option>)}
         </select>
         {errors.ageGroup && <p className="mt-1.5 text-[12px] text-red-400/80">{errors.ageGroup}</p>}
+      </div>
+      <div>
+        <label className={labelCls}>Conference</label>
+        <div className="grid grid-cols-2 gap-2.5">
+          {CONFERENCES.map((c) => {
+            const selected = form.conference === c.value;
+            return (
+              <button
+                key={c.value}
+                type="button"
+                onClick={() => set({ conference: c.value })}
+                className={`text-left px-4 py-3 rounded-xl border transition-all ${selected ? "bg-[#17FC13]/10 border-[#17FC13]/40" : "bg-black/40 border-white/[0.08] hover:border-white/[0.2]"}`}
+              >
+                <div className={`text-[13px] font-bold uppercase tracking-wide ${selected ? "text-[#17FC13]" : "text-white"}`}>{c.value}</div>
+                <div className="text-[11px] text-white/70 mt-0.5">{c.desc}</div>
+              </button>
+            );
+          })}
+        </div>
+        {errors.conference && <p className="mt-1.5 text-[12px] text-red-400/80">{errors.conference}</p>}
       </div>
     </div>
   );
@@ -132,7 +153,7 @@ function StepCoach({ form, set, errors }: { form: FormState; set: (f: Partial<Fo
         autoComplete="tel"
       />
       <div>
-        <label className={labelCls}>Notes <span className="text-white/25 font-medium normal-case tracking-normal">(optional)</span></label>
+        <label className={labelCls}>Notes <span className="text-white/50 font-medium normal-case tracking-normal">(optional)</span></label>
         <textarea
           value={form.notes}
           onChange={(e) => set({ notes: e.target.value })}
@@ -148,8 +169,8 @@ function StepCoach({ form, set, errors }: { form: FormState; set: (f: Partial<Fo
 function ReviewRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-start justify-between gap-4 py-2.5 border-b border-white/[0.05] last:border-0">
-      <span className="text-[11px] font-bold uppercase tracking-wider text-white/35 shrink-0 pt-0.5">{label}</span>
-      <span className="text-[14px] text-white/90 text-right">{value || "—"}</span>
+      <span className="text-[11px] font-bold uppercase tracking-wider text-white/60 shrink-0 pt-0.5">{label}</span>
+      <span className="text-[14px] text-white text-right">{value || "—"}</span>
     </div>
   );
 }
@@ -160,16 +181,17 @@ function StepReview({ form, goTo }: { form: FormState; goTo: (s: number) => void
       <div className="bg-black/30 border border-white/[0.06] rounded-2xl p-5">
         <div className="flex items-center justify-between mb-1">
           <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#17FC13]/50">Team</span>
-          <button onClick={() => goTo(0)} className="text-[10px] font-bold uppercase tracking-wider text-white/30 hover:text-white bg-transparent border-none cursor-pointer transition-colors">Edit</button>
+          <button onClick={() => goTo(0)} className="text-[10px] font-bold uppercase tracking-wider text-white/60 hover:text-white bg-transparent border-none cursor-pointer transition-colors">Edit</button>
         </div>
         <ReviewRow label="Team / Town" value={form.teamName} />
         <ReviewRow label="Age Group" value={form.ageGroup} />
+        <ReviewRow label="Conference" value={form.conference} />
       </div>
 
       <div className="bg-black/30 border border-white/[0.06] rounded-2xl p-5">
         <div className="flex items-center justify-between mb-1">
           <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#17FC13]/50">Coach</span>
-          <button onClick={() => goTo(1)} className="text-[10px] font-bold uppercase tracking-wider text-white/30 hover:text-white bg-transparent border-none cursor-pointer transition-colors">Edit</button>
+          <button onClick={() => goTo(1)} className="text-[10px] font-bold uppercase tracking-wider text-white/60 hover:text-white bg-transparent border-none cursor-pointer transition-colors">Edit</button>
         </div>
         <ReviewRow label="Head Coach" value={form.coachName} />
         <ReviewRow label="Email" value={form.coachEmail} />
@@ -193,7 +215,7 @@ function Success() {
         </svg>
       </div>
       <h2 className="text-2xl md:text-3xl font-bold uppercase mb-3">Team Registration <span className="accent-text">Submitted</span></h2>
-      <p className="text-[14px] text-white/45 leading-relaxed max-w-md mx-auto mb-8">
+      <p className="text-[14px] text-white/70 leading-relaxed max-w-md mx-auto mb-8">
         Thanks for registering your team. We&apos;ll review your submission and follow up with next steps. Check your email for a confirmation.
       </p>
       <div className="flex justify-center gap-3">
@@ -224,7 +246,7 @@ function Progress({ step }: { step: number }) {
               }`}>
                 {done ? "✓" : i + 1}
               </div>
-              <span className={`text-[11px] font-bold uppercase tracking-wider hidden sm:inline truncate ${active ? "text-white" : done ? "text-[#17FC13]/50" : "text-white/25"}`}>{label}</span>
+              <span className={`text-[11px] font-bold uppercase tracking-wider hidden sm:inline truncate ${active ? "text-white" : done ? "text-[#17FC13]/60" : "text-white/55"}`}>{label}</span>
             </div>
             {i < STEPS.length - 1 && <div className={`h-px flex-1 ${done ? "bg-[#17FC13]/25" : "bg-white/[0.06]"}`} />}
           </div>
@@ -268,6 +290,7 @@ export default function RegisterPage() {
     if (s === 0) {
       if (!form.teamName.trim()) e.teamName = "Please enter your town/team name.";
       if (!form.ageGroup) e.ageGroup = "Please select an age group.";
+      if (!form.conference) e.conference = "Please select a conference.";
     }
     if (s === 1) {
       if (!form.coachName.trim()) e.coachName = "Please enter the head coach's name.";
@@ -299,6 +322,7 @@ export default function RegisterPage() {
         body: JSON.stringify({
           teamName: form.teamName.trim(),
           ageGroup: form.ageGroup,
+          conference: form.conference,
           coachName: form.coachName.trim(),
           coachEmail: form.coachEmail.trim(),
           coachPhone: form.coachPhone.trim(),
@@ -332,7 +356,7 @@ export default function RegisterPage() {
             <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.95] mb-3">
               Register Your <span className="accent-text">Town Team</span>
             </h1>
-            <p className="text-[13px] md:text-sm text-white/40 leading-relaxed max-w-md mx-auto">
+            <p className="text-[13px] md:text-sm text-white/70 leading-relaxed max-w-md mx-auto">
               Submit your team in under a minute. Rosters, payments, and full team details can be completed later after your profile is created.
             </p>
           </div>
@@ -395,8 +419,8 @@ export default function RegisterPage() {
           </div>
 
           {!done && (
-            <p className="text-center text-[11px] text-white/20 mt-5">
-              Already registered? <a href="/account" className="text-[#17FC13]/60 hover:text-[#17FC13] no-underline">Go to your dashboard</a>
+            <p className="text-center text-[11px] text-white/60 mt-5">
+              Already registered? <a href="/account" className="text-[#17FC13] hover:text-[#17FC13] no-underline">Go to your dashboard</a>
             </p>
           )}
         </div>

@@ -176,7 +176,7 @@ export default function AdminTeamsPage() {
                     </select>
                   </div>
                   <div>
-                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/25 mb-1">Division</div>
+                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/25 mb-1">Conference</div>
                     <select value={team.division || ""} onChange={(e) => patch(team.id, { division: e.target.value || null })}
                       className="bg-black/30 border border-white/[0.08] rounded-lg px-3 py-1.5 text-[12px] text-white/80 focus:outline-none focus:border-[#17FC13]/30">
                       <option value="">Unassigned</option>

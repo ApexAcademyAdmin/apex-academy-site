@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { AGE_GROUPS } from "@/lib/constants";
+import { AGE_GROUPS, CONFERENCES } from "@/lib/constants";
 import { sendEmail, adminEmail, coachConfirmationEmail, adminNotificationEmail } from "@/lib/email";
 
 // ── Best-effort in-memory rate limit (per IP) ────────────────
@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
     // ── Validate ──
     const teamName = clean(body.teamName, 120);
     const ageGroup = clean(body.ageGroup, 8);
+    const conference = clean(body.conference, 16);
     const coachName = clean(body.coachName, 120);
     const coachEmail = clean(body.coachEmail, 160).toLowerCase();
     const coachPhone = clean(body.coachPhone, 40);
@@ -48,6 +49,8 @@ export async function POST(req: NextRequest) {
     if (!teamName) return NextResponse.json({ error: "Please enter your town/team name." }, { status: 400 });
     if (!AGE_GROUPS.includes(ageGroup as (typeof AGE_GROUPS)[number]))
       return NextResponse.json({ error: "Please select a valid age group." }, { status: 400 });
+    if (!CONFERENCES.some((c) => c.value === conference))
+      return NextResponse.json({ error: "Please select a conference." }, { status: 400 });
     if (!coachName) return NextResponse.json({ error: "Please enter the head coach's name." }, { status: 400 });
     if (!isEmail(coachEmail)) return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
     if (coachPhone.replace(/\D/g, "").length !== 10)
@@ -91,6 +94,7 @@ export async function POST(req: NextRequest) {
         team_name: teamName,
         org_name: teamName,
         age_group: ageGroup,
+        division: conference,
         contact_name: coachName,
         contact_email: coachEmail,
         contact_phone: coachPhone,
@@ -104,7 +108,7 @@ export async function POST(req: NextRequest) {
     }
 
     // ── Notifications (non-blocking on failure) ──
-    const reg = { teamName, ageGroup, coachName, coachEmail, coachPhone, notes };
+    const reg = { teamName, ageGroup, conference, coachName, coachEmail, coachPhone, notes };
     const reviewUrl = `${req.nextUrl.origin}/admin/teams`;
 
     const coachMsg = coachConfirmationEmail(reg);

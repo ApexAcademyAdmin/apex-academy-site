@@ -41,7 +41,7 @@ const PRODUCTS: Product[] = [
   { id: "belt-black", name: "Black Belt", category: "Accessories", price: 15, colors: ["Black"], description: "Standard black baseball belt. Adjustable clasp closure.", image: "/shop/belt-black.png" },
   { id: "socks-black", name: "Black Socks", category: "Accessories", price: 12, colors: ["Black"], description: "Performance baseball socks. Moisture-wicking fabric. Over-the-calf length.", image: "/shop/socks-black.png" },
   { id: "helmet-black", name: "Black Batting Helmet", category: "Accessories", price: 45, colors: ["Black"], description: "Approved batting helmet in matte black finish. Meets NOCSAE standards." },
-  { id: "helmet-decal", name: "Apex Helmet Decal", category: "Accessories", price: 5, colors: ["Green/Black"], description: "Official Apex Academy helmet decal. Adhesive-backed. Weather-resistant." },
+  { id: "helmet-decal", name: "Apex Helmet Decal", category: "Accessories", price: 5, colors: ["Green/Black"], description: "Official Apex Academy helmet decal. Adhesive-backed. Weather-resistant.", image: "/shop/helmet-decal.png" },
 ];
 
 const CATEGORIES = ["All", "Hats", "Jerseys", "Pants & Bottoms", "Performance", "Equipment", "Accessories"];

@@ -31,7 +31,7 @@ const PRODUCTS: Product[] = [
   { id: "sweats-apex", name: "Apex Sweatpants", category: "Pants & Bottoms", price: 55, colors: ["Black"], description: "Premium black sweatpants with the embroidered Apex Academy mark. Tapered leg. Comfortable off-field wear.", image: "/shop/sweats-apex.png" },
 
   // Performance Wear
-  { id: "tee-performance", name: "Performance T-Shirt", category: "Performance", price: 30, colors: ["Black"], description: "Moisture-wicking performance tee with Apex Academy branding. Athletic fit. Built for training." },
+  { id: "tee-performance", name: "Performance T-Shirt", category: "Performance", price: 30, colors: ["Black"], description: "Moisture-wicking black performance tee with the Apex Academy mark. Athletic fit. Built for training.", image: "/shop/tee-performance.png" },
   { id: "hoodie-apex", name: "Apex Hoodie", category: "Performance", price: 65, colors: ["Black"], description: "Premium heavyweight hoodie with embroidered Apex Academy crest. Fleece-lined. Cold weather essential." },
   { id: "jacket-apex", name: "Apex Team Jacket", category: "Performance", price: 75, colors: ["Black"], description: "Full-zip team jacket with Apex Academy branding. Water-resistant shell. Warm-up and travel." },
   { id: "jersey-practice", name: "Practice Jersey", category: "Performance", price: 35, colors: ["Black", "Green"], description: "Lightweight mesh practice jersey. Sublimated Apex branding. Breathable and durable for daily training." },
@@ -49,7 +49,7 @@ const PRODUCTS: Product[] = [
 const CATEGORIES = ["All", "Hats", "Jerseys", "Pants & Bottoms", "Performance", "Equipment", "Accessories"];
 
 // Bump when product images are replaced to bust browser/CDN cache.
-const IMG_V = "4";
+const IMG_V = "5";
 const img = (src: string) => `${src}?v=${IMG_V}`;
 
 export default function ShopPage() {

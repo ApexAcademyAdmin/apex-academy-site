@@ -1,45 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createServerSupabase } from "@/lib/supabase/server";
 
 export async function POST(req: NextRequest) {
   try {
+    const supabase = await createServerSupabase();
+
+    // Registration attaches a team to the SIGNED-IN account — no new account.
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: "You must be signed in to register a team." }, { status: 401 });
+    }
+
+    // One team per account.
+    const { data: existing } = await supabase
+      .from("teams")
+      .select("id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    if (existing) {
+      return NextResponse.json({ error: "You already have a team registered." }, { status: 400 });
+    }
+
     const body = await req.json();
-    const admin = createAdminClient();
+    const coaches = Array.isArray(body.coaches) ? body.coaches : [];
+    const head = coaches[0] || {};
 
-    // 1. Create auth user with contact email
-    const email = body.contactEmail;
-    const password = body.password;
-
-    if (!email || !password) {
-      return NextResponse.json({ error: "Email and password are required" }, { status: 400 });
-    }
-
-    const { data: authData, error: authError } = await admin.auth.admin.createUser({
-      email,
-      password,
-      email_confirm: true,
-    });
-
-    if (authError) {
-      if (authError.message?.includes("already been registered")) {
-        return NextResponse.json({ error: "An account with this email already exists. Please sign in." }, { status: 400 });
-      }
-      return NextResponse.json({ error: authError.message }, { status: 400 });
-    }
-
-    const userId = authData.user.id;
-
-    // 2. Create team record with status=pending
-    const { error: teamError } = await admin.from("teams").insert({
-      user_id: userId,
+    const { error: teamError } = await supabase.from("teams").insert({
+      user_id: user.id,
       status: "pending",
       team_name: body.teamName || "Unnamed Team",
       org_name: body.orgName || "",
-      org_email: body.orgEmail || "",
+      org_email: user.email,
       org_website: body.orgWebsite || "",
-      contact_name: body.contactName || "",
-      contact_email: email,
-      contact_phone: body.contactPhone || "",
+      // The head coach is the team's primary contact; login email is the contact email.
+      contact_name: head.name || "",
+      contact_email: user.email,
+      contact_phone: head.phone || "",
       city: body.city || "",
       state: body.state || "MA",
       age_group: body.ageDivision || null,
@@ -48,8 +44,8 @@ export async function POST(req: NextRequest) {
       home_field_address: body.homeFieldAddress || "",
       primary_color: body.primaryColor || "#000000",
       secondary_color: body.secondaryColor || "#ffffff",
-      roster: body.players || [],
-      coaches: body.coaches || [],
+      roster: [], // roster is added later from the dashboard
+      coaches,
       preferred_days: body.preferredDays || [],
       travel_limit: body.travelLimit || "",
       special_requests: body.specialRequests || "",
@@ -59,7 +55,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: teamError.message }, { status: 500 });
     }
 
-    return NextResponse.json({ success: true, userId });
+    return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Registration failed" }, { status: 500 });
   }

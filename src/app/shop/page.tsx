@@ -28,7 +28,7 @@ const PRODUCTS: Product[] = [
   // Pants & Bottoms
   { id: "pants-game", name: "New Balance Game Pants", category: "Pants & Bottoms", price: 55, colors: ["White", "Black"], description: "Official New Balance game pants. Pro-length with reinforced knees, belt-loop waist, and black piping. Performance fit.", image: "/shop/pants-game.png" },
   { id: "shorts-training", name: "Training Shorts", category: "Pants & Bottoms", price: 40, colors: ["Black"], description: "Lightweight black performance training shorts with the Apex Academy mark. Athletic fit for training and warmups.", image: "/shop/shorts-training.png", dark: true },
-  { id: "sweats-apex", name: "Apex Sweatpants", category: "Pants & Bottoms", price: 55, colors: ["Black"], description: "Premium black sweatpants with embroidered Apex branding. Tapered leg. Comfortable off-field wear." },
+  { id: "sweats-apex", name: "Apex Sweatpants", category: "Pants & Bottoms", price: 55, colors: ["Black"], description: "Premium black sweatpants with the embroidered Apex Academy mark. Tapered leg. Comfortable off-field wear.", image: "/shop/sweats-apex.png" },
 
   // Performance Wear
   { id: "tee-performance", name: "Performance T-Shirt", category: "Performance", price: 30, colors: ["Black"], description: "Moisture-wicking performance tee with Apex Academy branding. Athletic fit. Built for training." },
@@ -49,7 +49,7 @@ const PRODUCTS: Product[] = [
 const CATEGORIES = ["All", "Hats", "Jerseys", "Pants & Bottoms", "Performance", "Equipment", "Accessories"];
 
 // Bump when product images are replaced to bust browser/CDN cache.
-const IMG_V = "3";
+const IMG_V = "4";
 const img = (src: string) => `${src}?v=${IMG_V}`;
 
 export default function ShopPage() {

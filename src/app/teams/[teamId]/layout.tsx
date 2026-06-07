@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import { ALL_TEAMS } from "@/lib/team-data";
-import Image from "next/image";
 
 export default function TeamLayout({
   children,
@@ -25,9 +24,6 @@ export default function TeamLayout({
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,_rgba(23,252,19,0.07)_0%,_transparent_50%)]" />
-        <div className="absolute top-1/2 right-[-8%] -translate-y-1/2 hidden lg:block">
-          <Image src="/logos/apex-a-mark.png" alt="" width={500} height={500} className="w-[350px] h-[350px] object-contain opacity-[0.05]" />
-        </div>
 
         <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-8 md:pb-10">
           <div className="flex items-center gap-2 mb-6 text-[10px] font-medium uppercase tracking-[0.2em]">

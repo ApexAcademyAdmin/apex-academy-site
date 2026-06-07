@@ -91,7 +91,7 @@ const SCHEDULE_18U: GameResult[] = [
 
 export const ALL_TEAMS: Record<string, TeamData> = {
   "premier": {
-    id: "premier", age: "Premier", name: "Apex Premier", tagline: "The Flagship", record: "42-12", ranking: "#3 NE",
+    id: "premier", age: "Premier", name: "Apex Premier", tagline: "The Flagship", record: "0-0", ranking: "—",
     description: "Our flagship program. College-ready athletes competing in top national tournaments and showcase events. Direct recruiting exposure and professional-level development. The Premier program represents the peak of the Apex Academy development pathway.",
     roster: [
       { number: "4", name: "Joel Rojas", pos: "—", year: "2026", bats: "—", throws: "—", ht: "—", wt: "—", hometown: "—" },
@@ -111,12 +111,12 @@ export const ALL_TEAMS: Record<string, TeamData> = {
       { name: "Gary Meskell", role: "Head Coach", bio: "" },
       { name: "Brandon McMahon", role: "Assistant Coach", bio: "" },
     ],
-    schedule: SCHEDULE_18U,
+    schedule: [],
     battingLeaders: [],
     pitchingLeaders: [],
   },
   "prospects": {
-    id: "prospects", age: "Prospects", name: "Apex Prospects", tagline: "Next Up", record: "38-15", ranking: "#8 NE",
+    id: "prospects", age: "Prospects", name: "Apex Prospects", tagline: "Next Up", record: "0-0", ranking: "—",
     description: "High-level competition and recruiting preparation. Building the bridge between development and showcase-level play.",
     roster: [
       { number: "1", name: "Nick Young", pos: "—", year: "2029", bats: "—", throws: "—", ht: "—", wt: "—", hometown: "—" },
@@ -135,7 +135,7 @@ export const ALL_TEAMS: Record<string, TeamData> = {
       { name: "Gary Meskell", role: "Head Coach", bio: "" },
       { name: "Brandon McMahon", role: "Assistant Coach", bio: "" },
     ],
-    schedule: SCHEDULE_18U, battingLeaders: [{ name: "—", stat: "AVG", value: ".385" }], pitchingLeaders: [{ name: "—", stat: "ERA", value: "2.10" }],
+    schedule: [], battingLeaders: [], pitchingLeaders: [],
   },
   "14u": {
     id: "14u", age: "14U", name: "Apex 14U Youth", tagline: "The Future", record: "—", ranking: "—",

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import { ALL_TEAMS } from "@/lib/team-data";
 import { getGames, isCoachSession } from "@/lib/game-store";
 import { computeTeamBatting } from "@/lib/stat-calculator";
@@ -43,7 +42,6 @@ export default function TeamPage() {
     return (
       <Section size="lg">
         <div className="max-w-md mx-auto text-center">
-          <Image src="/logos/a-mark-sm.png" alt="" width={60} height={60} className="mx-auto mb-6 opacity-20" />
           <h2 className="text-3xl md:text-4xl uppercase font-bold mb-3">
             {team.age} <span className="accent-text">Coming Soon</span>
           </h2>
@@ -243,9 +241,6 @@ export default function TeamPage() {
           {team.coaches.map((c, i) => (
             <FadeIn key={i} delay={i * 0.06}>
               <div className="border border-[#171717] p-6 hover:border-[#17FC13]/10 transition-colors">
-                <div className="w-12 h-12 border border-[#171717] bg-black flex items-center justify-center mb-4 rounded-full">
-                  <Image src="/logos/a-mark-sm.png" alt="" width={20} height={20} className="object-contain opacity-20" />
-                </div>
                 <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/40 mb-1">{c.role}</div>
                 <h3 className="text-sm uppercase font-bold mb-2">{c.name}</h3>
                 <p className="text-[12px] text-white/75 leading-[1.7]">{c.bio}</p>

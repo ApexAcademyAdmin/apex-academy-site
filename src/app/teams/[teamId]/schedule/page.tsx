@@ -62,20 +62,20 @@ export default function SchedulePage() {
               {(["all", "upcoming", "live", "final"] as const).map((f) => (
                 <button key={f} onClick={() => setFilter(f)}
                   className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider border cursor-pointer transition-all ${
-                    filter === f ? "border-[#17FC13]/40 text-[#17FC13] bg-[#17FC13]/[0.05]" : "border-[#171717] text-white/30 hover:text-white/50"
+                    filter === f ? "border-[#17FC13]/40 text-[#17FC13] bg-[#17FC13]/[0.05]" : "border-[#171717] text-white/70 hover:text-white/90"
                   }`}>{f}</button>
               ))}
             </div>
             {isCoach ? (
               <button onClick={() => setShowAddGame(true)} className="px-4 py-1.5 text-[10px] font-bold uppercase tracking-wider border border-[#17FC13]/40 text-[#17FC13] bg-[#17FC13]/[0.05] cursor-pointer hover:bg-[#17FC13]/[0.1] transition-all">+ Add Game</button>
             ) : (
-              <button onClick={() => setShowLogin(true)} className="px-4 py-1.5 text-[10px] font-bold uppercase tracking-wider border border-[#171717] text-white/30 cursor-pointer hover:text-white/50 transition-colors">Coach Login</button>
+              <button onClick={() => setShowLogin(true)} className="px-4 py-1.5 text-[10px] font-bold uppercase tracking-wider border border-[#171717] text-white/70 cursor-pointer hover:text-white/90 transition-colors">Coach Login</button>
             )}
           </div>
         </div>
 
         {filtered.length === 0 ? (
-          <div className="border border-[#171717] px-6 py-16 text-center text-sm text-white/25">No games found.</div>
+          <div className="border border-[#171717] px-6 py-16 text-center text-sm text-white/65">No games found.</div>
         ) : (
           <div className="space-y-3">
             {filtered.map((g) => (
@@ -84,22 +84,22 @@ export default function SchedulePage() {
                   {/* Status */}
                   <div className="md:col-span-2 flex items-center gap-2">
                     {g.status === "live" && <span className="inline-flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-[#17FC13]"><span className="w-1.5 h-1.5 bg-[#17FC13] rounded-full animate-pulse" />Live</span>}
-                    {g.status === "final" && g.result && <span className={`text-xs font-bold uppercase ${g.result === "W" ? "text-[#17FC13]" : "text-white/40"}`}>{g.result}</span>}
-                    {g.status === "upcoming" && <span className="text-[9px] font-bold uppercase tracking-wider text-white/20">Upcoming</span>}
+                    {g.status === "final" && g.result && <span className={`text-xs font-bold uppercase ${g.result === "W" ? "text-[#17FC13]" : "text-white/80"}`}>{g.result}</span>}
+                    {g.status === "upcoming" && <span className="text-[9px] font-bold uppercase tracking-wider text-white/60">Upcoming</span>}
                     {g.status === "canceled" && <span className="text-[9px] font-bold uppercase tracking-wider text-red-400/60">Canceled</span>}
                     {g.status === "postponed" && <span className="text-[9px] font-bold uppercase tracking-wider text-yellow-400/60">Postponed</span>}
                   </div>
 
                   {/* Date + Type */}
                   <div className="md:col-span-2">
-                    <div className="text-xs text-white/50">{g.date}{g.time ? ` · ${g.time}` : ""}</div>
-                    <div className="text-[9px] text-white/20 uppercase tracking-wider mt-0.5">{GAME_TYPE_LABELS[g.gameType]}</div>
+                    <div className="text-xs text-white/90">{g.date}{g.time ? ` · ${g.time}` : ""}</div>
+                    <div className="text-[9px] text-white/60 uppercase tracking-wider mt-0.5">{GAME_TYPE_LABELS[g.gameType]}</div>
                   </div>
 
                   {/* Opponent */}
                   <div className="md:col-span-3">
                     <div className="text-sm font-bold uppercase">{g.opponent}</div>
-                    {g.eventName && <div className="text-[10px] text-white/20 uppercase tracking-wider mt-0.5">{g.eventName}</div>}
+                    {g.eventName && <div className="text-[10px] text-white/60 uppercase tracking-wider mt-0.5">{g.eventName}</div>}
                   </div>
 
                   {/* Score */}
@@ -114,11 +114,11 @@ export default function SchedulePage() {
                         rel="noopener noreferrer"
                         className="block no-underline group/venue"
                       >
-                        <div className="text-[10px] text-white/30 truncate group-hover/venue:text-[#17FC13] transition-colors">{g.venue.name}</div>
-                        <div className="text-[9px] text-white/15 truncate group-hover/venue:text-white/25 transition-colors">{g.venue.address}</div>
+                        <div className="text-[10px] text-white/70 truncate group-hover/venue:text-[#17FC13] transition-colors">{g.venue.name}</div>
+                        <div className="text-[9px] text-white/55 truncate group-hover/venue:text-white/65 transition-colors">{g.venue.address}</div>
                       </a>
                     ) : (
-                      <span className="text-[10px] text-white/15">—</span>
+                      <span className="text-[10px] text-white/55">—</span>
                     )}
                   </div>
 
@@ -128,19 +128,19 @@ export default function SchedulePage() {
                       <a href={`/teams/${teamId}/game/${g.id}/score`} className="text-[10px] font-bold uppercase tracking-wider text-[#17FC13] no-underline hover:underline">Score</a>
                     )}
                     {!g.isStatic && g.status === "live" && (
-                      <a href={`/teams/${teamId}/game/${g.id}`} className="text-[10px] font-bold uppercase tracking-wider text-white/40 no-underline hover:text-white/60">Watch</a>
+                      <a href={`/teams/${teamId}/game/${g.id}`} className="text-[10px] font-bold uppercase tracking-wider text-white/80 no-underline hover:text-white/60">Watch</a>
                     )}
                     {!g.isStatic && g.status === "upcoming" && isCoach && (
-                      <a href={`/teams/${teamId}/game/${g.id}`} className="text-[10px] font-bold uppercase tracking-wider text-white/40 no-underline hover:text-white/60">Manage</a>
+                      <a href={`/teams/${teamId}/game/${g.id}`} className="text-[10px] font-bold uppercase tracking-wider text-white/80 no-underline hover:text-white/60">Manage</a>
                     )}
                     {!g.isStatic && g.status === "final" && (
-                      <a href={`/teams/${teamId}/game/${g.id}`} className="text-[10px] font-bold uppercase tracking-wider text-white/25 no-underline hover:text-white/40">Box Score</a>
+                      <a href={`/teams/${teamId}/game/${g.id}`} className="text-[10px] font-bold uppercase tracking-wider text-white/65 no-underline hover:text-white/80">Box Score</a>
                     )}
 
                     {/* Coach menu — available for upcoming, live, postponed, and final games */}
                     {!g.isStatic && isCoach && g.status !== "canceled" && (
                       <div className="relative">
-                        <button onClick={() => setMenuOpen(menuOpen === g.id ? null : g.id)} className="w-6 h-6 flex items-center justify-center text-white/20 hover:text-white/50 cursor-pointer bg-transparent border-none text-sm">&#8942;</button>
+                        <button onClick={() => setMenuOpen(menuOpen === g.id ? null : g.id)} className="w-6 h-6 flex items-center justify-center text-white/60 hover:text-white/90 cursor-pointer bg-transparent border-none text-sm">&#8942;</button>
                         {menuOpen === g.id && (
                           <div className="absolute right-0 top-8 z-20 border border-[#171717] bg-black min-w-[160px] py-1">
                             {g.status === "live" && (

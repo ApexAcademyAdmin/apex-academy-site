@@ -42,7 +42,7 @@ const phoneDigits = (v: string) => v.replace(/\D/g, "");
 // ═══════════════════════════════════════
 
 const labelCls = "block text-[11px] font-bold uppercase tracking-[0.12em] text-white mb-2";
-const baseInput = "w-full bg-black/40 border rounded-xl px-4 py-3.5 text-[15px] text-white placeholder:text-white/50 focus:outline-none transition-all";
+const baseInput = "w-full bg-black/40 border rounded-xl px-4 py-3.5 text-[15px] text-white placeholder:text-white/90 focus:outline-none transition-all";
 
 function TextField({
   label, value, onChange, placeholder, type = "text", error, inputMode, autoFocus, autoComplete,
@@ -89,7 +89,7 @@ function StepTeam({ form, set, errors }: { form: FormState; set: (f: Partial<For
         <select
           value={form.ageGroup}
           onChange={(e) => set({ ageGroup: e.target.value })}
-          className={`${baseInput} appearance-none ${errors.ageGroup ? "border-red-500/40" : "border-white/[0.08] focus:border-[#17FC13]/40"} ${form.ageGroup ? "text-white" : "text-white/50"}`}
+          className={`${baseInput} appearance-none ${errors.ageGroup ? "border-red-500/40" : "border-white/[0.08] focus:border-[#17FC13]/40"} ${form.ageGroup ? "text-white" : "text-white/90"}`}
         >
           <option value="" disabled>Select an age group</option>
           {AGE_GROUPS.map((a) => <option key={a} value={a} className="text-white bg-[#0d1117]">{a}</option>)}
@@ -153,7 +153,7 @@ function StepCoach({ form, set, errors }: { form: FormState; set: (f: Partial<Fo
         autoComplete="tel"
       />
       <div>
-        <label className={labelCls}>Notes <span className="text-white/50 font-medium normal-case tracking-normal">(optional)</span></label>
+        <label className={labelCls}>Notes <span className="text-white/90 font-medium normal-case tracking-normal">(optional)</span></label>
         <textarea
           value={form.notes}
           onChange={(e) => set({ notes: e.target.value })}
@@ -242,7 +242,7 @@ function Progress({ step }: { step: number }) {
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 transition-all ${
                 done ? "bg-[#17FC13]/20 text-[#17FC13] border border-[#17FC13]/40" :
                 active ? "bg-[#17FC13] text-black" :
-                "bg-white/[0.04] text-white/30 border border-white/[0.06]"
+                "bg-white/[0.04] text-white/70 border border-white/[0.06]"
               }`}>
                 {done ? "✓" : i + 1}
               </div>
@@ -414,7 +414,7 @@ export default function RegisterPage() {
                 {/* Desktop nav */}
                 <div className="hidden md:flex items-center justify-between mt-7 pt-5 border-t border-white/[0.05]">
                   {step > 0 ? (
-                    <button onClick={() => setStep((s) => s - 1)} className="text-xs font-bold uppercase tracking-wider text-white/40 hover:text-white bg-transparent border-none cursor-pointer transition-colors">← Back</button>
+                    <button onClick={() => setStep((s) => s - 1)} className="text-xs font-bold uppercase tracking-wider text-white/80 hover:text-white bg-transparent border-none cursor-pointer transition-colors">← Back</button>
                   ) : <div />}
                   {step < 2 ? (
                     <button onClick={next} className="px-7 py-3 rounded-xl bg-[#17FC13] text-black text-xs font-bold uppercase tracking-[0.12em] cursor-pointer hover:brightness-110 hover:shadow-[0_0_28px_rgba(23,252,19,0.25)] active:scale-[0.98] transition-all">Continue</button>

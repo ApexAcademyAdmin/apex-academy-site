@@ -140,7 +140,7 @@ export default function TeamEditPage() {
   if (!team) {
     return (
       <div className="text-center py-12">
-        <p className="text-[13px] text-white/30 mb-6">You don&apos;t have a team registered yet.</p>
+        <p className="text-[13px] text-white/70 mb-6">You don&apos;t have a team registered yet.</p>
         <a href="/league/register" className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#17FC13] bg-gradient-to-t from-[#17FC13]/20 to-transparent text-white text-xs font-bold uppercase tracking-wide no-underline hover:shadow-[0_0_20px_rgba(23,252,19,0.15)] transition-all">
           Register a Team
         </a>
@@ -149,7 +149,7 @@ export default function TeamEditPage() {
   }
 
   const inputCls = "w-full bg-[#0d1117] border border-white/[0.06] rounded-lg px-4 py-2.5 text-[13px] text-white/90 placeholder-white/20 focus:outline-none focus:border-[#17FC13]/30 transition-colors";
-  const labelCls = "block text-[10px] font-bold uppercase tracking-wider text-white/30 mb-1.5";
+  const labelCls = "block text-[10px] font-bold uppercase tracking-wider text-white/70 mb-1.5";
 
   return (
     <div>
@@ -170,12 +170,12 @@ export default function TeamEditPage() {
               </span>
             );
           })()}
-          <p className="text-[10px] text-white/20 mt-2">Team status is managed by league administrators.</p>
+          <p className="text-[10px] text-white/60 mt-2">Team status is managed by league administrators.</p>
         </div>
 
         {/* Team Info */}
         <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-6 mb-6">
-          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 mb-5">Team Information</h3>
+          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 mb-5">Team Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className={labelCls}>Team Name <span className="text-[#17FC13]/40">*</span></label>
@@ -207,8 +207,8 @@ export default function TeamEditPage() {
         {/* Roster — managed on its own page */}
         <a href="/account/roster" className="flex items-center justify-between bg-[#0d1117] rounded-xl border border-white/[0.04] p-6 mb-6 no-underline group hover:border-[#17FC13]/20 transition-colors">
           <div>
-            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50 mb-1">Roster</h3>
-            <p className="text-[12px] text-white/40">Add players, dates of birth, and parent contacts.</p>
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/90 mb-1">Roster</h3>
+            <p className="text-[12px] text-white/80">Add players, dates of birth, and parent contacts.</p>
           </div>
           <span className="text-[11px] font-bold uppercase tracking-wider text-[#17FC13]/70 group-hover:text-[#17FC13] flex items-center gap-1.5">
             Manage Roster
@@ -219,12 +219,12 @@ export default function TeamEditPage() {
         {/* Coaches */}
         <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-6 mb-6">
           <div className="flex items-center justify-between mb-5">
-            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20">Coaches ({coaches.length})</h3>
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">Coaches ({coaches.length})</h3>
             <button onClick={addCoach} className="text-[10px] font-bold uppercase tracking-wider text-[#17FC13]/60 bg-transparent border-none cursor-pointer hover:text-[#17FC13] transition-colors">+ Add Coach</button>
           </div>
 
           {coaches.length === 0 ? (
-            <p className="text-xs text-white/20 text-center py-4">No coaches added yet.</p>
+            <p className="text-xs text-white/60 text-center py-4">No coaches added yet.</p>
           ) : (
             <div className="space-y-3">
               {coaches.map((c, i) => (

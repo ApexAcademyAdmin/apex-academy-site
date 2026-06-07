@@ -22,7 +22,7 @@ type Props = {
 const roleBadgeColors: Record<string, string> = {
   admin: "bg-green-500/20 text-green-400 border-green-500/30",
   coach: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  applicant: "bg-white/10 text-white/50 border-white/10",
+  applicant: "bg-white/10 text-white/90 border-white/10",
 };
 
 /* ---- icons (inline SVG, no deps) ---- */
@@ -156,7 +156,7 @@ export function DashboardLayout({ children, user, role, realRole, teamStatus }: 
       {/* Admin "View as" switcher */}
       {isAdmin && (
         <div className="px-5 py-4 border-b border-white/[0.04]">
-          <label className="block text-[9px] font-bold uppercase tracking-[0.2em] text-white/20 mb-2">View as</label>
+          <label className="block text-[9px] font-bold uppercase tracking-[0.2em] text-white/60 mb-2">View as</label>
           <select
             value={role}
             onChange={(e) => changePreview(e.target.value)}
@@ -180,7 +180,7 @@ export function DashboardLayout({ children, user, role, realRole, teamStatus }: 
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium no-underline transition-colors ${
                 active
                   ? "text-[#17FC13] bg-[#17FC13]/5"
-                  : "text-white/40 hover:text-white/60 hover:bg-white/[0.02]"
+                  : "text-white/80 hover:text-white/60 hover:bg-white/[0.02]"
               }`}
             >
               {item.icon}
@@ -194,14 +194,14 @@ export function DashboardLayout({ children, user, role, realRole, teamStatus }: 
       <div className="px-3 pb-6 border-t border-white/[0.04] pt-3 mt-2">
         <a
           href="/"
-          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-[13px] font-medium text-white/40 hover:text-[#17FC13] hover:bg-white/[0.02] no-underline transition-colors"
+          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-[13px] font-medium text-white/80 hover:text-[#17FC13] hover:bg-white/[0.02] no-underline transition-colors"
         >
           {icons.site}
           Back to Site
         </a>
         <button
           onClick={handleSignOut}
-          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-[13px] font-medium text-white/30 hover:text-white/50 bg-transparent border-none cursor-pointer transition-colors"
+          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-[13px] font-medium text-white/70 hover:text-white/90 bg-transparent border-none cursor-pointer transition-colors"
         >
           {icons.signout}
           Sign Out
@@ -217,7 +217,7 @@ export function DashboardLayout({ children, user, role, realRole, teamStatus }: 
         <span className="text-white font-bold text-sm uppercase tracking-[0.15em]">Apex Academy</span>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="text-white/50 bg-transparent border-none cursor-pointer p-1"
+          className="text-white/90 bg-transparent border-none cursor-pointer p-1"
         >
           {sidebarOpen ? icons.close : icons.menu}
         </button>
@@ -250,7 +250,7 @@ export function DashboardLayout({ children, user, role, realRole, teamStatus }: 
               </span>
               <button
                 onClick={() => changePreview("admin")}
-                className="text-[10px] font-bold uppercase tracking-wider text-white/50 hover:text-white bg-transparent border-none cursor-pointer transition-colors"
+                className="text-[10px] font-bold uppercase tracking-wider text-white/90 hover:text-white bg-transparent border-none cursor-pointer transition-colors"
               >
                 Exit preview →
               </button>

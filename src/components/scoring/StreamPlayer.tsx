@@ -34,7 +34,7 @@ export function StreamPlayer({ streamUrl, teamName, opponent, isLive }: Props) {
 
       <div className="absolute top-3 right-3 z-10 flex items-center gap-2 px-3 py-1.5 bg-black/80 backdrop-blur-sm border border-[#171717]">
         <span className="text-[10px] font-bold uppercase text-white/60">{opponent}</span>
-        <span className="text-[10px] text-white/20">vs</span>
+        <span className="text-[10px] text-white/60">vs</span>
         <span className="text-[10px] font-bold uppercase text-[#17FC13]">{teamName}</span>
       </div>
 
@@ -71,11 +71,11 @@ export function StreamSetupModal({ onSave, onCancel, existingUrl }: {
       <div className="w-full max-w-md border border-[#171717] bg-black" onClick={(e) => e.stopPropagation()}>
         <div className="px-6 pt-6 pb-4 border-b border-[#171717]">
           <h2 className="text-lg uppercase font-bold mb-1">Stream Setup</h2>
-          <p className="text-[10px] text-white/25">Paste a YouTube Live or video URL to stream on the game page.</p>
+          <p className="text-[10px] text-white/65">Paste a YouTube Live or video URL to stream on the game page.</p>
         </div>
 
         <div className="px-6 py-5">
-          <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-2">YouTube URL *</label>
+          <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 mb-2">YouTube URL *</label>
           <input
             value={url}
             onChange={(e) => setUrl(e.target.value)}
@@ -83,14 +83,14 @@ export function StreamSetupModal({ onSave, onCancel, existingUrl }: {
             className="w-full bg-transparent border border-[#171717] px-4 py-3 text-sm text-white placeholder-white/15 focus:border-[#17FC13]/40 focus:outline-none"
             autoFocus
           />
-          <p className="text-[9px] text-white/15 mt-1.5">Supports YouTube Live, YouTube videos, or any embeddable URL</p>
+          <p className="text-[9px] text-white/55 mt-1.5">Supports YouTube Live, YouTube videos, or any embeddable URL</p>
         </div>
 
         <div className="px-6 py-4 border-t border-[#171717] flex gap-3">
           <button onClick={() => url && onSave(url)} disabled={!url} className="flex-1 py-3 border border-[#17FC13]/50 bg-[#17FC13]/[0.06] text-[#17FC13] text-xs font-bold uppercase tracking-wider cursor-pointer hover:bg-[#17FC13]/[0.1] disabled:opacity-20 disabled:cursor-not-allowed">
             {existingUrl ? "Update" : "Set Stream"}
           </button>
-          <button onClick={onCancel} className="px-6 py-3 border border-[#171717] text-white/40 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:text-white/60">Cancel</button>
+          <button onClick={onCancel} className="px-6 py-3 border border-[#171717] text-white/80 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:text-white/60">Cancel</button>
         </div>
       </div>
     </div>

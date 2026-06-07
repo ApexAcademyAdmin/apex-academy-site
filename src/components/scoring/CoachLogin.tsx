@@ -37,7 +37,7 @@ export function CoachLogin({ teamId, onSuccess, onCancel }: Props) {
         <h2 className="text-xl uppercase font-bold mb-2">
           {isSetup ? "Set Coach Password" : "Coach Login"}
         </h2>
-        <p className="text-xs text-white/35 mb-6">
+        <p className="text-xs text-white/75 mb-6">
           {isSetup
             ? "Create a password for your coaching staff to manage games and scoring."
             : "Enter your team password to access scoring."
@@ -65,7 +65,7 @@ export function CoachLogin({ teamId, onSuccess, onCancel }: Props) {
           </button>
           <button
             onClick={onCancel}
-            className="px-6 py-3 border border-[#171717] text-white/40 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:text-white/60 transition-colors"
+            className="px-6 py-3 border border-[#171717] text-white/80 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:text-white/60 transition-colors"
           >
             Cancel
           </button>

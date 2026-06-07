@@ -166,7 +166,7 @@ function ScheduleRow({ event }: { event: ScheduleEvent }) {
             {event.detail.items && (
               <div className="flex flex-wrap gap-1.5 mb-2">
                 {event.detail.items.map(item => (
-                  <span key={item} className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-white/50">{item}</span>
+                  <span key={item} className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-white/90">{item}</span>
                 ))}
               </div>
             )}
@@ -191,7 +191,7 @@ function Schedule() {
         <div className="text-center mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Event Schedule</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-2">Two Days. <span className="accent-text">Full Evaluation.</span></h2>
-          <p className="text-[11px] text-white/30">Hover or tap any session for details.</p>
+          <p className="text-[11px] text-white/70">Hover or tap any session for details.</p>
         </div>
       </div>
 
@@ -200,7 +200,7 @@ function Schedule() {
           <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04]">
             <div className="px-4 py-3 border-b border-white/[0.05] rounded-t-2xl">
               <div className="text-xs font-bold uppercase tracking-wider text-[#17FC13]/60">Day One — Saturday</div>
-              <div className="text-[10px] text-white/30 mt-0.5">Combine & Recruiting Day</div>
+              <div className="text-[10px] text-white/70 mt-0.5">Combine & Recruiting Day</div>
             </div>
             {dayOne.map((e, i) => (
               <ScheduleRow key={i} event={e} />
@@ -212,7 +212,7 @@ function Schedule() {
           <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04]">
             <div className="px-4 py-3 border-b border-white/[0.05] rounded-t-2xl">
               <div className="text-xs font-bold uppercase tracking-wider text-[#17FC13]/60">Day Two — Sunday</div>
-              <div className="text-[10px] text-white/30 mt-0.5">All-New England Prospect Games</div>
+              <div className="text-[10px] text-white/70 mt-0.5">All-New England Prospect Games</div>
             </div>
             {dayTwo.map((e, i) => (
               <ScheduleRow key={i} event={e} />
@@ -262,10 +262,10 @@ function CollegeCoaches() {
           {schools.map(s => (
             <div key={s.name} className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-3.5 hover:border-[#17FC13]/10 transition-all">
               <div className="text-[13px] font-bold text-white/90">{s.name}</div>
-              <div className="flex items-center gap-2 text-[11px] text-white/40 mt-0.5">
+              <div className="flex items-center gap-2 text-[11px] text-white/80 mt-0.5">
                 <span className="px-1.5 py-0.5 rounded bg-white/[0.04] text-[9px] font-bold uppercase tracking-wider">{s.division}</span>
                 <span>{s.conference}</span>
-                <span className="text-white/20">{s.location}</span>
+                <span className="text-white/60">{s.location}</span>
               </div>
             </div>
           ))}
@@ -292,7 +292,7 @@ function Partnership() {
         <div>
           <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 h-full">
             <div className="text-sm font-bold text-white/90 mb-2">The Academy</div>
-            <p className="text-[12px] text-white/50 leading-relaxed">
+            <p className="text-[12px] text-white/90 leading-relaxed">
               All participants will have verified profiles uploaded directly to The Academy app — giving college coaches access to verified metrics, evaluations, and recruiting data in one place.
             </p>
           </div>
@@ -301,7 +301,7 @@ function Partnership() {
         <div>
           <div className="bg-[#0d1117] rounded-xl border border-[#17FC13]/10 p-5 h-full">
             <div className="text-sm font-bold text-white/90 mb-2">Rising Prospects Combine</div>
-            <p className="text-[12px] text-white/50 leading-relaxed mb-3">
+            <p className="text-[12px] text-white/90 leading-relaxed mb-3">
               The Event MVP — voted on by attending college coaches — will receive a free invitation to the Rising Prospects Combine.
             </p>
             <div className="text-[10px] text-[#17FC13]/60 uppercase tracking-wider font-bold">Coach-voted &middot; Free entry &middot; Elite exposure</div>
@@ -335,7 +335,7 @@ function WhatYouLeaveWith() {
                 {item}
               </div>
             ))}
-            <p className="text-[10px] text-white/30 mt-3 leading-relaxed">Reports integrate directly into Apex Player Profiles and The Academy app, accessible to attending college coaches.</p>
+            <p className="text-[10px] text-white/70 mt-3 leading-relaxed">Reports integrate directly into Apex Player Profiles and The Academy app, accessible to attending college coaches.</p>
           </div>
 
           <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04] p-5">
@@ -367,7 +367,7 @@ function Registration() {
           <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4 leading-[0.9]">
             Where Opportunity<br />Meets <span className="accent-text">Preparation</span>
           </h2>
-          <p className="text-[13px] text-white/40 max-w-md mx-auto mb-8 leading-relaxed">
+          <p className="text-[13px] text-white/80 max-w-md mx-auto mb-8 leading-relaxed">
             Verified metrics. Professional evaluations. College coach exposure. Two prospect games. One weekend built for the next level.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
@@ -406,10 +406,10 @@ function FAQ() {
             <div key={i} className="border-b border-white/[0.04]">
               <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between py-3.5 text-left group">
                 <span className="text-[13px] font-bold text-white/80 group-hover:text-[#17FC13] transition-colors pr-4">{f.q}</span>
-                <span className={`text-white/40 text-lg transition-transform flex-shrink-0 ${open === i ? "rotate-45" : ""}`}>+</span>
+                <span className={`text-white/80 text-lg transition-transform flex-shrink-0 ${open === i ? "rotate-45" : ""}`}>+</span>
               </button>
               {open === i && (
-                <div className="pb-3.5 text-[12px] text-white/50 leading-relaxed">{f.a}</div>
+                <div className="pb-3.5 text-[12px] text-white/90 leading-relaxed">{f.a}</div>
               )}
             </div>
           ))}
@@ -430,9 +430,9 @@ function NominateHeader() {
     <div className="pt-24 md:pt-32 pb-6 md:pb-8">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         <div className="flex items-center gap-2 mb-6 text-[10px] font-medium uppercase tracking-[0.2em]">
-          <a href="/" className="text-white/25 no-underline hover:text-white/50 transition-colors">Home</a>
+          <a href="/" className="text-white/65 no-underline hover:text-white/90 transition-colors">Home</a>
           <span className="text-white/10">/</span>
-          <a href="/league" className="text-white/25 no-underline hover:text-white/50 transition-colors">League</a>
+          <a href="/league" className="text-white/65 no-underline hover:text-white/90 transition-colors">League</a>
           <span className="text-white/10">/</span>
           <span className="text-[#17FC13]/60">All-New England Prospect Games</span>
         </div>
@@ -443,7 +443,7 @@ function NominateHeader() {
             <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-3">
               Know a Player Who <span className="accent-text">Deserves to Be Seen?</span>
             </h1>
-            <p className="text-sm text-white/50 max-w-lg leading-relaxed">
+            <p className="text-sm text-white/90 max-w-lg leading-relaxed">
               Nominate a prospect for the premier college exposure event in New England. 16U &middot; 17U &middot; 18U.
             </p>
           </div>

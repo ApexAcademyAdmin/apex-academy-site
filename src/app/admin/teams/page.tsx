@@ -104,14 +104,14 @@ export default function AdminTeamsPage() {
       <div className="mb-8">
         <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/40 mb-2">Admin</div>
         <h1 className="text-2xl md:text-3xl font-bold text-white mb-1.5">Team Registrations</h1>
-        <p className="text-[13px] text-white/30">Review submissions, request info, approve, and publish teams.</p>
+        <p className="text-[13px] text-white/70">Review submissions, request info, approve, and publish teams.</p>
       </div>
 
       {/* Filter tabs */}
       <div className="flex flex-wrap gap-1.5 mb-6">
         {FILTERS.map((f) => (
           <button key={f} onClick={() => setFilter(f)}
-            className={`px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all ${filter === f ? "bg-[#17FC13]/10 text-[#17FC13] border border-[#17FC13]/25" : "text-white/40 border border-white/[0.05] hover:border-white/[0.1]"}`}>
+            className={`px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all ${filter === f ? "bg-[#17FC13]/10 text-[#17FC13] border border-[#17FC13]/25" : "text-white/80 border border-white/[0.05] hover:border-white/[0.1]"}`}>
             {filterLabel(f)} ({counts[f]})
           </button>
         ))}
@@ -120,7 +120,7 @@ export default function AdminTeamsPage() {
       {/* Teams */}
       <div className="space-y-4">
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-sm text-white/30">No registrations in this view.</div>
+          <div className="text-center py-12 text-sm text-white/70">No registrations in this view.</div>
         )}
 
         {filtered.map((team) => {
@@ -134,33 +134,33 @@ export default function AdminTeamsPage() {
                   <span className="text-base font-bold text-white/90">{team.team_name}</span>
                   <StatusBadge status={team.status} />
                 </div>
-                <span className="text-[10px] font-mono text-white/20">{new Date(team.created_at).toLocaleDateString()}</span>
+                <span className="text-[10px] font-mono text-white/60">{new Date(team.created_at).toLocaleDateString()}</span>
               </div>
 
               {/* Details */}
               <div className="px-5 py-4">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                   <div>
-                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/25 mb-1">Age Group</div>
+                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/65 mb-1">Age Group</div>
                     <div className="text-[13px] text-white/70">{team.age_group || "—"}</div>
                   </div>
                   <div>
-                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/25 mb-1">Head Coach</div>
+                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/65 mb-1">Head Coach</div>
                     <div className="text-[13px] text-white/70">{team.contact_name || "—"}</div>
                   </div>
                   <div>
-                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/25 mb-1">Email</div>
+                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/65 mb-1">Email</div>
                     <div className="text-[13px] text-white/70 break-all">{team.contact_email || "—"}</div>
                   </div>
                   <div>
-                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/25 mb-1">Phone</div>
+                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/65 mb-1">Phone</div>
                     <div className="text-[13px] text-white/70">{team.contact_phone || "—"}</div>
                   </div>
                 </div>
 
                 {team.notes && (
                   <div className="mb-4">
-                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/25 mb-1">Coach Notes</div>
+                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/65 mb-1">Coach Notes</div>
                     <div className="text-[13px] text-white/60 bg-black/30 border border-white/[0.05] rounded-lg px-3 py-2">{team.notes}</div>
                   </div>
                 )}
@@ -168,7 +168,7 @@ export default function AdminTeamsPage() {
                 {/* Assignment */}
                 <div className="flex flex-wrap items-end gap-3 pt-4 border-t border-white/[0.04]">
                   <div>
-                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/25 mb-1">Age Group</div>
+                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/65 mb-1">Age Group</div>
                     <select value={team.age_group || ""} onChange={(e) => patch(team.id, { age_group: e.target.value || null })}
                       className="bg-black/30 border border-white/[0.08] rounded-lg px-3 py-1.5 text-[12px] text-white/80 focus:outline-none focus:border-[#17FC13]/30">
                       <option value="">Unassigned</option>
@@ -176,7 +176,7 @@ export default function AdminTeamsPage() {
                     </select>
                   </div>
                   <div>
-                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/25 mb-1">Conference</div>
+                    <div className="text-[9px] font-bold uppercase tracking-wider text-white/65 mb-1">Conference</div>
                     <select value={team.division || ""} onChange={(e) => patch(team.id, { division: e.target.value || null })}
                       className="bg-black/30 border border-white/[0.08] rounded-lg px-3 py-1.5 text-[12px] text-white/80 focus:outline-none focus:border-[#17FC13]/30">
                       <option value="">Unassigned</option>
@@ -187,16 +187,16 @@ export default function AdminTeamsPage() {
 
                 {/* Admin notes (also sent to the coach on Needs Info / Reject) */}
                 <div className="mt-4">
-                  <div className="text-[9px] font-bold uppercase tracking-wider text-white/25 mb-1">Admin Notes / Message to Coach</div>
+                  <div className="text-[9px] font-bold uppercase tracking-wider text-white/65 mb-1">Admin Notes / Message to Coach</div>
                   <textarea
                     value={draft}
                     onChange={(e) => setNotesDraft((p) => ({ ...p, [team.id]: e.target.value }))}
                     rows={2}
                     placeholder="Internal notes — included in Needs Info / Rejection emails."
-                    className="w-full bg-black/30 border border-white/[0.08] rounded-lg px-3 py-2 text-[12px] text-white/80 placeholder:text-white/20 focus:outline-none focus:border-[#17FC13]/30 resize-none"
+                    className="w-full bg-black/30 border border-white/[0.08] rounded-lg px-3 py-2 text-[12px] text-white/80 placeholder:text-white/60 focus:outline-none focus:border-[#17FC13]/30 resize-none"
                   />
                   <button onClick={() => patch(team.id, { admin_notes: draft || null })} disabled={busy}
-                    className="mt-1.5 text-[10px] font-bold uppercase tracking-wider text-white/40 hover:text-white/70 bg-transparent border-none cursor-pointer transition-colors disabled:opacity-50">
+                    className="mt-1.5 text-[10px] font-bold uppercase tracking-wider text-white/80 hover:text-white/70 bg-transparent border-none cursor-pointer transition-colors disabled:opacity-50">
                     Save Notes
                   </button>
                 </div>
@@ -233,7 +233,7 @@ export default function AdminTeamsPage() {
                       Reject
                     </button>
                   )}
-                  {busy && <span className="text-[10px] text-white/30 ml-1">Saving…</span>}
+                  {busy && <span className="text-[10px] text-white/70 ml-1">Saving…</span>}
                 </div>
               </div>
             </div>

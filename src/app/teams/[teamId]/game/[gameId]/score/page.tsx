@@ -68,9 +68,9 @@ export default function ScoringPage() {
     return (
       <div className="max-w-[1120px] mx-auto px-6 pt-32 pb-20 text-center">
         <h2 className="text-2xl font-bold uppercase mb-4">Coach Access Required</h2>
-        <p className="text-sm text-white/40 mb-6">Log in to access the scoring interface.</p>
+        <p className="text-sm text-white/80 mb-6">Log in to access the scoring interface.</p>
         <CoachLoginInline teamId={teamId} onSuccess={() => { setAuthorized(true); const g = getGame(teamId, gameId); if (g) setGame(g); }} />
-        <a href={`/teams/${teamId}/game/${gameId}`} className="block mt-6 text-xs text-white/25 no-underline hover:text-white/40">Back to game view</a>
+        <a href={`/teams/${teamId}/game/${gameId}`} className="block mt-6 text-xs text-white/65 no-underline hover:text-white/80">Back to game view</a>
       </div>
     );
   }
@@ -130,14 +130,14 @@ export default function ScoringPage() {
       {/* ── TOP BAR ── */}
       <div className="border-b border-[#171717] bg-radial">
         <div className="max-w-[1120px] mx-auto px-4 py-2.5 flex items-center justify-between gap-2 flex-wrap">
-          <a href={`/teams/${teamId}/game/${gameId}`} className="text-[10px] text-white/25 no-underline hover:text-white/50">&larr; Live View</a>
+          <a href={`/teams/${teamId}/game/${gameId}`} className="text-[10px] text-white/65 no-underline hover:text-white/90">&larr; Live View</a>
           <div className="text-[11px] font-bold uppercase tracking-wider">
-            <span className="text-[#17FC13]">{team.name}</span> <span className="text-white/15">vs</span> {game.opponent}
+            <span className="text-[#17FC13]">{team.name}</span> <span className="text-white/55">vs</span> {game.opponent}
           </div>
           <div className="flex items-center gap-1.5">
-            <button onClick={() => setShowLineup(true)} className="px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider border border-[#171717] text-white/30 cursor-pointer bg-transparent hover:text-white/50">Our Lineup</button>
-            <button onClick={() => setShowOppLineup(true)} className="px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider border border-[#171717] text-white/30 cursor-pointer bg-transparent hover:text-white/50">Opponent Lineup</button>
-            <button onClick={() => setShowManual(true)} className="px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider border border-[#171717] text-white/30 cursor-pointer bg-transparent hover:text-white/50">Edit</button>
+            <button onClick={() => setShowLineup(true)} className="px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider border border-[#171717] text-white/70 cursor-pointer bg-transparent hover:text-white/90">Our Lineup</button>
+            <button onClick={() => setShowOppLineup(true)} className="px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider border border-[#171717] text-white/70 cursor-pointer bg-transparent hover:text-white/90">Opponent Lineup</button>
+            <button onClick={() => setShowManual(true)} className="px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider border border-[#171717] text-white/70 cursor-pointer bg-transparent hover:text-white/90">Edit</button>
             <button onClick={() => setShowEndConfirm(true)} className="px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider border border-red-500/20 text-red-400/40 cursor-pointer bg-transparent hover:text-red-400">End</button>
           </div>
         </div>
@@ -147,11 +147,11 @@ export default function ScoringPage() {
         {/* ── SCORE + INNING ── */}
         <div className="grid grid-cols-3 gap-3">
           <div className="border border-[#171717] p-4 text-center">
-            <div className="text-[9px] font-bold uppercase tracking-wider text-white/20 mb-1">{game.opponent}</div>
+            <div className="text-[9px] font-bold uppercase tracking-wider text-white/60 mb-1">{game.opponent}</div>
             <div className="text-3xl font-bold leading-none">{ls.awayRuns}</div>
           </div>
           <div className="border border-[#171717] p-4 text-center">
-            <div className="text-[9px] font-bold uppercase tracking-wider text-white/20 mb-1">{ls.isTopHalf ? "Top" : "Bot"} {ls.currentInning}</div>
+            <div className="text-[9px] font-bold uppercase tracking-wider text-white/60 mb-1">{ls.isTopHalf ? "Top" : "Bot"} {ls.currentInning}</div>
             <div className="flex items-center justify-center gap-2 mt-1">
               {[0, 1, 2].map((o) => (
                 <div key={o} className={`w-4 h-4 rounded-full border-2 transition-colors ${o < ls.outs ? "bg-[#17FC13] border-[#17FC13]" : "border-[#404040]"}`} />
@@ -181,12 +181,12 @@ export default function ScoringPage() {
             {batter ? (
               <>
                 <div className="text-[9px] font-bold uppercase tracking-wider text-[#17FC13]/40 mb-1">{isHome ? "Apex" : game.opponent} Batting</div>
-                <div className="text-sm font-bold uppercase mb-3">{batter.name} <span className="text-white/25">— {batter.pos}</span></div>
-                {onDeck && <div className="text-[10px] text-white/25"><span className="text-white/15 mr-1">On Deck:</span> {onDeck}</div>}
-                {inHole && <div className="text-[10px] text-white/20"><span className="text-white/10 mr-1">In Hole:</span> {inHole}</div>}
+                <div className="text-sm font-bold uppercase mb-3">{batter.name} <span className="text-white/65">— {batter.pos}</span></div>
+                {onDeck && <div className="text-[10px] text-white/65"><span className="text-white/55 mr-1">On Deck:</span> {onDeck}</div>}
+                {inHole && <div className="text-[10px] text-white/60"><span className="text-white/10 mr-1">In Hole:</span> {inHole}</div>}
               </>
             ) : (
-              <div className="text-sm text-white/25">
+              <div className="text-sm text-white/65">
                 {needsLineup ? "Set lineup to start" : "No active batters"}
               </div>
             )}
@@ -207,7 +207,7 @@ export default function ScoringPage() {
         {batter && (
           <>
             <div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/20 mb-2">At-Bat Result</div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/60 mb-2">At-Bat Result</div>
               <div className="grid grid-cols-6 gap-1.5">
                 {BATTING_RESULTS.map((r) => {
                   const cat = resultCategory(r.result);
@@ -217,9 +217,9 @@ export default function ScoringPage() {
                       onClick={() => handlePlay(r.result)}
                       className={`py-3 text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all border ${
                         cat === "hit" ? "border-[#17FC13]/25 text-[#17FC13]/70 hover:bg-[#17FC13]/[0.08] hover:border-[#17FC13]/50"
-                        : cat === "onbase" ? "border-white/10 text-white/50 hover:bg-white/[0.04] hover:border-white/20"
+                        : cat === "onbase" ? "border-white/10 text-white/90 hover:bg-white/[0.04] hover:border-white/20"
                         : cat === "error" ? "border-red-500/15 text-red-400/50 hover:bg-red-500/[0.04] hover:border-red-500/30"
-                        : "border-[#171717] text-white/30 hover:bg-white/[0.02] hover:border-white/10"
+                        : "border-[#171717] text-white/70 hover:bg-white/[0.02] hover:border-white/10"
                       }`}
                     >
                       {r.label}
@@ -230,13 +230,13 @@ export default function ScoringPage() {
             </div>
 
             <div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/20 mb-2">Running Events</div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/60 mb-2">Running Events</div>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
                 {RUNNING_EVENTS.map((r) => (
                   <button
                     key={r.result}
                     onClick={() => handlePlay(r.result)}
-                    className="py-2.5 text-[10px] font-bold uppercase tracking-wider cursor-pointer border border-[#171717] text-white/25 hover:bg-white/[0.02] hover:border-white/10 transition-all"
+                    className="py-2.5 text-[10px] font-bold uppercase tracking-wider cursor-pointer border border-[#171717] text-white/65 hover:bg-white/[0.02] hover:border-white/10 transition-all"
                   >
                     {r.label}
                   </button>
@@ -257,7 +257,7 @@ export default function ScoringPage() {
           </button>
           <button
             onClick={() => { manualAdvanceInning(teamId, gameId); refresh(); }}
-            className="py-3 border border-[#171717] text-white/30 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:text-white/50 transition-colors"
+            className="py-3 border border-[#171717] text-white/70 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:text-white/90 transition-colors"
           >
             Force Next Inning
           </button>
@@ -269,16 +269,16 @@ export default function ScoringPage() {
         {/* ── PLAY LOG ── */}
         {recentPlays.length > 0 && (
           <div>
-            <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/15 mb-2">Play Log</div>
+            <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/55 mb-2">Play Log</div>
             <div className="border border-[#171717] divide-y divide-[#171717]">
               {recentPlays.map((ab) => (
                 <div key={ab.id} className="px-4 py-2.5 flex items-center gap-3 text-[13px]">
                   <span className="text-[9px] font-bold uppercase tracking-wider text-white/12 w-10 shrink-0">{ab.isTopHalf ? "T" : "B"}{ab.inning}</span>
-                  <span className="text-white/50">
+                  <span className="text-white/90">
                     <span className="font-bold text-white/70">{ab.playerName}</span>{" "}
                     {resultLabel(ab.result).toLowerCase()}
                     {ab.rbis > 0 && <span className="text-[#17FC13]"> ({ab.rbis} RBI)</span>}
-                    {ab.runnersAdvanced?.length > 0 && <span className="text-white/25"> — {ab.runnersAdvanced.join(", ")} scored</span>}
+                    {ab.runnersAdvanced?.length > 0 && <span className="text-white/65"> — {ab.runnersAdvanced.join(", ")} scored</span>}
                   </span>
                 </div>
               ))}
@@ -349,10 +349,10 @@ export default function ScoringPage() {
       {showEndConfirm && (
         <Modal onClose={() => setShowEndConfirm(false)}>
           <h3 className="text-xl font-bold uppercase mb-3">End Game?</h3>
-          <p className="text-sm text-white/40 mb-6">{game.opponent} {ls.awayRuns} — {team.name} {ls.homeRuns}</p>
+          <p className="text-sm text-white/80 mb-6">{game.opponent} {ls.awayRuns} — {team.name} {ls.homeRuns}</p>
           <div className="flex gap-3">
             <button onClick={() => { endGame(teamId, gameId); window.location.href = `/teams/${teamId}/game/${gameId}`; }} className="flex-1 py-3 border border-red-500/40 text-red-400 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:bg-red-500/[0.06]">End Game</button>
-            <button onClick={() => setShowEndConfirm(false)} className="flex-1 py-3 border border-[#171717] text-white/40 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">Cancel</button>
+            <button onClick={() => setShowEndConfirm(false)} className="flex-1 py-3 border border-[#171717] text-white/80 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">Cancel</button>
           </div>
         </Modal>
       )}
@@ -413,7 +413,7 @@ function LineupModal({ title, players, existing, game, teamId, gameId, onSave, o
         {/* Header */}
         <div className="px-6 pt-6 pb-4 border-b border-[#171717]">
           <h2 className="text-lg uppercase font-bold mb-1">{title}</h2>
-          <p className="text-[10px] text-white/25">
+          <p className="text-[10px] text-white/65">
             {subbing ? "Select a player from the bench to substitute in" : "Tap to add/remove. Arrow to reorder. Swap icon to substitute."}
           </p>
         </div>
@@ -427,23 +427,23 @@ function LineupModal({ title, players, existing, game, teamId, gameId, onSave, o
               </div>
               {selected.map((p, i) => (
                 <div key={p.id} className={`flex items-center gap-2 px-3 py-2.5 mb-1 border ${subbing === p.id ? "border-yellow-400/30 bg-yellow-400/[0.04]" : "border-[#17FC13]/15 bg-[#17FC13]/[0.02]"}`}>
-                  {!isLive && <button onClick={() => moveUp(i)} className="text-white/15 hover:text-white/40 cursor-pointer bg-transparent border-none text-sm leading-none">&#9650;</button>}
+                  {!isLive && <button onClick={() => moveUp(i)} className="text-white/55 hover:text-white/80 cursor-pointer bg-transparent border-none text-sm leading-none">&#9650;</button>}
                   <span className="text-[10px] font-bold text-[#17FC13] w-4">{i + 1}</span>
                   <span className="text-sm font-bold uppercase flex-1">{p.name}</span>
-                  <span className="text-[10px] text-white/25">{p.pos}</span>
+                  <span className="text-[10px] text-white/65">{p.pos}</span>
                   {/* Substitute button (swap icon) — only during live games */}
                   {isLive && bench.length > 0 && (
                     <button
                       onClick={() => setSubbing(subbing === p.id ? null : p.id)}
                       title="Substitute"
-                      className={`text-[10px] px-2 py-1 border cursor-pointer bg-transparent transition-colors ${subbing === p.id ? "border-yellow-400/40 text-yellow-400" : "border-[#171717] text-white/20 hover:text-yellow-400/60 hover:border-yellow-400/20"}`}
+                      className={`text-[10px] px-2 py-1 border cursor-pointer bg-transparent transition-colors ${subbing === p.id ? "border-yellow-400/40 text-yellow-400" : "border-[#171717] text-white/60 hover:text-yellow-400/60 hover:border-yellow-400/20"}`}
                     >
                       SUB
                     </button>
                   )}
                   {/* Remove — only pre-game */}
                   {!isLive && (
-                    <button onClick={() => toggle(p)} className="text-white/15 hover:text-red-400 cursor-pointer bg-transparent border-none text-sm leading-none">&#10005;</button>
+                    <button onClick={() => toggle(p)} className="text-white/55 hover:text-red-400 cursor-pointer bg-transparent border-none text-sm leading-none">&#10005;</button>
                   )}
                 </div>
               ))}
@@ -453,7 +453,7 @@ function LineupModal({ title, players, existing, game, teamId, gameId, onSave, o
           {/* Bench / Available */}
           {bench.length > 0 && (
             <div className="mb-5">
-              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-2">
+              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/55 mb-2">
                 {subbing ? "Select Replacement" : "Bench / Available"}
               </div>
               <div className="space-y-1">
@@ -465,8 +465,8 @@ function LineupModal({ title, players, existing, game, teamId, gameId, onSave, o
                       subbing ? "border-yellow-400/15 hover:border-yellow-400/30 hover:bg-yellow-400/[0.03]" : "border-[#171717] hover:border-white/10"
                     }`}
                   >
-                    <span className="text-sm font-bold uppercase flex-1 text-white/50">{p.name}</span>
-                    <span className="text-[10px] text-white/20">{p.pos}</span>
+                    <span className="text-sm font-bold uppercase flex-1 text-white/90">{p.name}</span>
+                    <span className="text-[10px] text-white/60">{p.pos}</span>
                     {subbing && <span className="text-[9px] text-yellow-400/50 font-bold uppercase">Sub In</span>}
                   </button>
                 ))}
@@ -475,7 +475,7 @@ function LineupModal({ title, players, existing, game, teamId, gameId, onSave, o
           )}
 
           {subbing && (
-            <button onClick={() => setSubbing(null)} className="w-full py-2 border border-[#171717] text-white/25 text-[10px] font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:text-white/40 mb-4">
+            <button onClick={() => setSubbing(null)} className="w-full py-2 border border-[#171717] text-white/65 text-[10px] font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:text-white/80 mb-4">
               Cancel Substitution
             </button>
           )}
@@ -488,7 +488,7 @@ function LineupModal({ title, players, existing, game, teamId, gameId, onSave, o
               Save Lineup ({selected.length})
             </button>
           )}
-          <button onClick={onCancel} className="px-6 py-3 border border-[#171717] text-white/40 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">
+          <button onClick={onCancel} className="px-6 py-3 border border-[#171717] text-white/80 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">
             {subbing ? "Close" : "Cancel"}
           </button>
         </div>
@@ -538,7 +538,7 @@ function OpponentLineupModal({ opponent, existing, game, teamId, gameId, onSave,
       <div className="w-full max-w-lg border border-[#171717] bg-black my-8 max-h-[85vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         <div className="px-6 pt-6 pb-4 border-b border-[#171717]">
           <h2 className="text-lg uppercase font-bold mb-1">Opponent Lineup</h2>
-          <p className="text-[10px] text-white/25">{opponent} — {hasLineup && isLive ? "manage lineup and substitutions" : "enter in batting order"}</p>
+          <p className="text-[10px] text-white/65">{opponent} — {hasLineup && isLive ? "manage lineup and substitutions" : "enter in batting order"}</p>
         </div>
 
         <div className="px-6 py-5">
@@ -550,12 +550,12 @@ function OpponentLineupModal({ opponent, existing, game, teamId, gameId, onSave,
                 {activePlayers.map((p, i) => (
                   <div key={p.id} className={`flex items-center gap-2 px-3 py-2.5 border ${subbing === p.id ? "border-yellow-400/30 bg-yellow-400/[0.04]" : "border-[#17FC13]/15 bg-[#17FC13]/[0.02]"}`}>
                     <span className="text-[10px] font-bold text-[#17FC13] w-4">{i + 1}</span>
-                    <span className="text-[10px] text-white/25 w-6 text-center">{p.number}</span>
+                    <span className="text-[10px] text-white/65 w-6 text-center">{p.number}</span>
                     <span className="text-sm font-bold uppercase flex-1">{p.name}</span>
-                    <span className="text-[10px] text-white/25">{p.pos}</span>
+                    <span className="text-[10px] text-white/65">{p.pos}</span>
                     <button
                       onClick={() => setSubbing(subbing === p.id ? null : p.id)}
-                      className={`text-[10px] px-2 py-1 border cursor-pointer bg-transparent transition-colors ${subbing === p.id ? "border-yellow-400/40 text-yellow-400" : "border-[#171717] text-white/20 hover:text-yellow-400/60 hover:border-yellow-400/20"}`}
+                      className={`text-[10px] px-2 py-1 border cursor-pointer bg-transparent transition-colors ${subbing === p.id ? "border-yellow-400/40 text-yellow-400" : "border-[#171717] text-white/60 hover:text-yellow-400/60 hover:border-yellow-400/20"}`}
                     >
                       SUB
                     </button>
@@ -579,7 +579,7 @@ function OpponentLineupModal({ opponent, existing, game, teamId, gameId, onSave,
                   </div>
                   <div className="flex gap-2">
                     <button onClick={doSub} disabled={!subName} className="flex-1 py-2 border border-yellow-400/40 text-yellow-400 text-[10px] font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:bg-yellow-400/[0.04] disabled:opacity-20 disabled:cursor-not-allowed">Confirm Sub</button>
-                    <button onClick={() => { setSubbing(null); setSubName(""); setSubNumber(""); setSubPos(""); }} className="px-4 py-2 border border-[#171717] text-white/30 text-[10px] font-bold uppercase tracking-wider cursor-pointer bg-transparent">Cancel</button>
+                    <button onClick={() => { setSubbing(null); setSubName(""); setSubNumber(""); setSubPos(""); }} className="px-4 py-2 border border-[#171717] text-white/70 text-[10px] font-bold uppercase tracking-wider cursor-pointer bg-transparent">Cancel</button>
                   </div>
                 </div>
               )}
@@ -589,7 +589,7 @@ function OpponentLineupModal({ opponent, existing, game, teamId, gameId, onSave,
                 <div className="mb-4">
                   <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/12 mb-2">Removed</div>
                   {subbedOut.map((p) => (
-                    <div key={p.id} className="flex items-center gap-2 px-3 py-1.5 text-white/15">
+                    <div key={p.id} className="flex items-center gap-2 px-3 py-1.5 text-white/55">
                       <span className="text-[10px] w-6 text-center">{p.number}</span>
                       <span className="text-xs uppercase flex-1 line-through">{p.name}</span>
                       <span className="text-[10px]">{p.pos}</span>
@@ -604,7 +604,7 @@ function OpponentLineupModal({ opponent, existing, game, teamId, gameId, onSave,
               <div className="space-y-1.5 mb-4">
                 {entryPlayers.map((p, i) => (
                   <div key={p.id} className="grid grid-cols-12 gap-1.5 items-center">
-                    <span className="col-span-1 text-[10px] font-bold text-white/15 text-center">{i + 1}</span>
+                    <span className="col-span-1 text-[10px] font-bold text-white/55 text-center">{i + 1}</span>
                     <input value={p.number} onChange={(e) => upd(i, "number", e.target.value)} placeholder="#" className="col-span-2 bg-transparent border border-[#171717] px-2 py-2 text-xs text-white placeholder-white/10 focus:border-[#17FC13]/40 focus:outline-none text-center" />
                     <input value={p.name} onChange={(e) => upd(i, "name", e.target.value)} placeholder="Name" className="col-span-6 bg-transparent border border-[#171717] px-3 py-2 text-xs text-white placeholder-white/10 focus:border-[#17FC13]/40 focus:outline-none" />
                     <select value={p.pos} onChange={(e) => upd(i, "pos", e.target.value)} className="col-span-3 bg-black border border-[#171717] px-1 py-2 text-xs text-white focus:border-[#17FC13]/40 focus:outline-none cursor-pointer appearance-none">
@@ -614,7 +614,7 @@ function OpponentLineupModal({ opponent, existing, game, teamId, gameId, onSave,
                   </div>
                 ))}
               </div>
-              <button onClick={() => setEntryPlayers([...entryPlayers, { id: uid(), name: "", number: "", pos: "", battingOrder: entryPlayers.length + 1, active: true }])} className="w-full py-2 border border-[#171717] text-white/20 text-[10px] font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:text-white/35 mb-4">+ Add Player</button>
+              <button onClick={() => setEntryPlayers([...entryPlayers, { id: uid(), name: "", number: "", pos: "", battingOrder: entryPlayers.length + 1, active: true }])} className="w-full py-2 border border-[#171717] text-white/60 text-[10px] font-bold uppercase tracking-wider cursor-pointer bg-transparent hover:text-white/75 mb-4">+ Add Player</button>
             </>
           )}
         </div>
@@ -625,7 +625,7 @@ function OpponentLineupModal({ opponent, existing, game, teamId, gameId, onSave,
               Save Lineup
             </button>
           )}
-          <button onClick={onCancel} className="px-6 py-3 border border-[#171717] text-white/40 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">
+          <button onClick={onCancel} className="px-6 py-3 border border-[#171717] text-white/80 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">
             {subbing ? "Close" : "Cancel"}
           </button>
         </div>
@@ -652,29 +652,29 @@ function ManualModal({ game, team, teamId, gameId, onDone, onCancel }: { game: G
       <h2 className="text-lg uppercase font-bold mb-4">Manual Adjustments</h2>
       <div className="space-y-4">
         <div>
-          <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/25 mb-2">Outs</label>
+          <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/65 mb-2">Outs</label>
           <div className="flex gap-2">
             {[0, 1, 2, 3].map((o) => (
-              <button key={o} onClick={() => setOuts(o)} className={`flex-1 py-2.5 border text-xs font-bold cursor-pointer ${outs === o ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]" : "border-[#171717] text-white/30"}`}>{o}</button>
+              <button key={o} onClick={() => setOuts(o)} className={`flex-1 py-2.5 border text-xs font-bold cursor-pointer ${outs === o ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]" : "border-[#171717] text-white/70"}`}>{o}</button>
             ))}
           </div>
         </div>
         <div>
-          <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/25 mb-2">1st Base</label>
+          <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/65 mb-2">1st Base</label>
           <input value={first} onChange={(e) => setFirst(e.target.value)} placeholder="Empty" className="w-full bg-transparent border border-[#171717] px-4 py-2.5 text-sm text-white placeholder-white/10 focus:border-[#17FC13]/40 focus:outline-none" />
         </div>
         <div>
-          <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/25 mb-2">2nd Base</label>
+          <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/65 mb-2">2nd Base</label>
           <input value={second} onChange={(e) => setSecond(e.target.value)} placeholder="Empty" className="w-full bg-transparent border border-[#171717] px-4 py-2.5 text-sm text-white placeholder-white/10 focus:border-[#17FC13]/40 focus:outline-none" />
         </div>
         <div>
-          <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/25 mb-2">3rd Base</label>
+          <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/65 mb-2">3rd Base</label>
           <input value={third} onChange={(e) => setThird(e.target.value)} placeholder="Empty" className="w-full bg-transparent border border-[#171717] px-4 py-2.5 text-sm text-white placeholder-white/10 focus:border-[#17FC13]/40 focus:outline-none" />
         </div>
       </div>
       <div className="flex gap-3 mt-6">
         <button onClick={save} className="flex-1 py-3 border border-[#17FC13]/50 bg-[#17FC13]/[0.06] text-[#17FC13] text-xs font-bold uppercase tracking-wider cursor-pointer">Save</button>
-        <button onClick={onCancel} className="px-6 py-3 border border-[#171717] text-white/40 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">Cancel</button>
+        <button onClick={onCancel} className="px-6 py-3 border border-[#171717] text-white/80 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">Cancel</button>
       </div>
     </Modal>
   );
@@ -739,44 +739,44 @@ function RunnerAdvancementModal({ result, bases, batterName, isHome, onConfirm, 
     <div className="fixed inset-0 z-[70] bg-black/95 flex items-center justify-center p-4" onClick={onCancel}>
       <div className="w-full max-w-sm border border-[#17FC13]/20 bg-black p-6" onClick={(e) => e.stopPropagation()}>
         <h3 className="text-lg font-bold uppercase mb-1">Runner Advancement</h3>
-        <p className="text-[10px] text-white/30 mb-5">{batterName} — {resultLabel(result)}</p>
+        <p className="text-[10px] text-white/70 mb-5">{batterName} — {resultLabel(result)}</p>
 
         <div className="space-y-4">
           {bases.third && (
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/25 mb-2">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-white/65 mb-2">
                 3rd — <span className="text-white/60">{bases.third}</span>
               </div>
               <div className="flex gap-1.5">
                 {destOptions.filter((d) => d.value === "hold" || d.value === "score" || d.value === "out").map((d) => (
                   <button key={d.value} onClick={() => setThirdDest(d.value)}
-                    className={`flex-1 py-2.5 text-[10px] font-bold uppercase border cursor-pointer transition-all ${thirdDest === d.value ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]" : "border-[#171717] text-white/30"}`}>{d.label}</button>
+                    className={`flex-1 py-2.5 text-[10px] font-bold uppercase border cursor-pointer transition-all ${thirdDest === d.value ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]" : "border-[#171717] text-white/70"}`}>{d.label}</button>
                 ))}
               </div>
             </div>
           )}
           {bases.second && (
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/25 mb-2">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-white/65 mb-2">
                 2nd — <span className="text-white/60">{bases.second}</span>
               </div>
               <div className="flex gap-1.5">
                 {destOptions.filter((d) => d.value === "hold" || d.value === "third" || d.value === "score" || d.value === "out").map((d) => (
                   <button key={d.value} onClick={() => setSecondDest(d.value)}
-                    className={`flex-1 py-2.5 text-[10px] font-bold uppercase border cursor-pointer transition-all ${secondDest === d.value ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]" : "border-[#171717] text-white/30"}`}>{d.label}</button>
+                    className={`flex-1 py-2.5 text-[10px] font-bold uppercase border cursor-pointer transition-all ${secondDest === d.value ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]" : "border-[#171717] text-white/70"}`}>{d.label}</button>
                 ))}
               </div>
             </div>
           )}
           {bases.first && (
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/25 mb-2">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-white/65 mb-2">
                 1st — <span className="text-white/60">{bases.first}</span>
               </div>
               <div className="flex gap-1.5">
                 {destOptions.filter((d) => d.value !== "score" || true).map((d) => (
                   <button key={d.value} onClick={() => setFirstDest(d.value)}
-                    className={`flex-1 py-2.5 text-[10px] font-bold uppercase border cursor-pointer transition-all ${firstDest === d.value ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]" : "border-[#171717] text-white/30"}`}>{d.label}</button>
+                    className={`flex-1 py-2.5 text-[10px] font-bold uppercase border cursor-pointer transition-all ${firstDest === d.value ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]" : "border-[#171717] text-white/70"}`}>{d.label}</button>
                 ))}
               </div>
             </div>
@@ -787,7 +787,7 @@ function RunnerAdvancementModal({ result, bases, batterName, isHome, onConfirm, 
           <button onClick={confirm} className="flex-1 py-3 border border-[#17FC13]/50 bg-[#17FC13]/[0.06] text-[#17FC13] text-xs font-bold uppercase tracking-wider cursor-pointer">
             Confirm
           </button>
-          <button onClick={onCancel} className="px-6 py-3 border border-[#171717] text-white/40 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">Cancel</button>
+          <button onClick={onCancel} className="px-6 py-3 border border-[#171717] text-white/80 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">Cancel</button>
         </div>
       </div>
     </div>
@@ -813,7 +813,7 @@ function RunnerSelectModal({ event, bases, onConfirm, onCancel }: {
     <div className="fixed inset-0 z-[70] bg-black/95 flex items-center justify-center p-4" onClick={onCancel}>
       <div className="w-full max-w-sm border border-[#17FC13]/20 bg-black p-6" onClick={(e) => e.stopPropagation()}>
         <h3 className="text-lg font-bold uppercase mb-1">{label}</h3>
-        <p className="text-[10px] text-white/30 mb-5">Select which runner</p>
+        <p className="text-[10px] text-white/70 mb-5">Select which runner</p>
 
         <div className="space-y-2">
           {runners.map((r) => (
@@ -824,7 +824,7 @@ function RunnerSelectModal({ event, bases, onConfirm, onCancel }: {
             >
               <div>
                 <span className="text-sm font-bold uppercase text-white/80">{r.name}</span>
-                <span className="text-[10px] text-white/25 ml-2">
+                <span className="text-[10px] text-white/65 ml-2">
                   on {r.base === "first" ? "1st" : r.base === "second" ? "2nd" : "3rd"}
                 </span>
               </div>
@@ -836,10 +836,10 @@ function RunnerSelectModal({ event, bases, onConfirm, onCancel }: {
         </div>
 
         {runners.length === 0 && (
-          <p className="text-sm text-white/25 text-center py-4">No runners on base.</p>
+          <p className="text-sm text-white/65 text-center py-4">No runners on base.</p>
         )}
 
-        <button onClick={onCancel} className="w-full mt-4 py-3 border border-[#171717] text-white/30 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">Cancel</button>
+        <button onClick={onCancel} className="w-full mt-4 py-3 border border-[#171717] text-white/70 text-xs font-bold uppercase tracking-wider cursor-pointer bg-transparent">Cancel</button>
       </div>
     </div>
   );

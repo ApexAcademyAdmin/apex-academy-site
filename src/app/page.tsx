@@ -41,7 +41,7 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl uppercase font-bold leading-[0.85] mb-6">
             Built For <span className="accent-text">The Players</span>
           </h1>
-          <p className="text-[16px] md:text-[18px] text-white/40 leading-[1.8] max-w-xl mx-auto mb-10">
+          <p className="text-[16px] md:text-[18px] text-white/80 leading-[1.8] max-w-xl mx-auto mb-10">
             A development-first baseball organization in Boston, Massachusetts — providing high-level competition at an affordable cost with player development, opportunity, and inclusion at the center.
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
@@ -85,7 +85,7 @@ export default function Home() {
             <h2 className="text-2xl md:text-3xl uppercase font-bold leading-tight mb-5">
               More Than <span className="accent-text">Baseball</span>
             </h2>
-            <p className="text-[15px] text-white/35 leading-[1.85]">
+            <p className="text-[15px] text-white/75 leading-[1.85]">
               Apex Academy was founded after conversations with families across Greater Boston who felt the travel baseball landscape was changing for the worse. We built something different — competitive, development-focused, and affordable. Because every player deserves access to opportunity, quality instruction, and belief.
             </p>
           </FadeIn>
@@ -101,8 +101,8 @@ export default function Home() {
             <FadeIn key={i} delay={i * 0.06}>
               <div className="border border-[#171717] bg-radial p-5 text-center">
                 <div className="text-2xl md:text-3xl font-bold leading-none text-[#17FC13]">{s.num}</div>
-                <div className="text-[10px] font-bold uppercase tracking-wider text-white/40 mt-2">{s.label}</div>
-                <div className="text-[9px] text-white/15 mt-1">{s.sub}</div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-white/80 mt-2">{s.label}</div>
+                <div className="text-[9px] text-white/55 mt-1">{s.sub}</div>
               </div>
             </FadeIn>
           ))}
@@ -114,7 +114,7 @@ export default function Home() {
          ══════════════════════════════════════ */}
       <div className="border-y border-[#171717]">
         <div className="max-w-[1120px] mx-auto px-6 py-12 md:py-16">
-          <div className="text-[9px] font-bold uppercase tracking-[0.35em] text-white/15 mb-8 text-center">What We Provide</div>
+          <div className="text-[9px] font-bold uppercase tracking-[0.35em] text-white/55 mb-8 text-center">What We Provide</div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
               { title: "Development", desc: "Hitting mechanics, pitching development, position training, video analysis, and metric-driven progression. Every session structured. Every athlete on a plan.", icon: "⚾" },
@@ -125,7 +125,7 @@ export default function Home() {
                 <div className="border border-[#171717] bg-radial p-6 md:p-8 h-full">
                   <div className="text-2xl mb-4">{p.icon}</div>
                   <h3 className="text-lg uppercase font-bold mb-3">{p.title}</h3>
-                  <p className="text-[13px] text-white/35 leading-[1.75]">{p.desc}</p>
+                  <p className="text-[13px] text-white/75 leading-[1.75]">{p.desc}</p>
                 </div>
               </FadeIn>
             ))}
@@ -144,7 +144,7 @@ export default function Home() {
               <h2 className="text-2xl md:text-3xl uppercase font-bold leading-tight mb-5">
                 What We <span className="accent-text">Stand For</span>
               </h2>
-              <p className="text-[14px] text-white/35 leading-[1.8] mb-6">
+              <p className="text-[14px] text-white/75 leading-[1.8] mb-6">
                 No matter how much the program grows, we will always protect what got us here: putting players and families first. The lessons learned through this game carry far beyond the field.
               </p>
               <Button href="/about" variant="secondary" size="small">Our Full Story</Button>
@@ -170,10 +170,10 @@ export default function Home() {
         <div className="max-w-[1120px] mx-auto px-6 py-12 md:py-16">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.35em] text-white/15 mb-2">Our Teams</div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.35em] text-white/55 mb-2">Our Teams</div>
               <h2 className="text-2xl md:text-3xl uppercase font-bold">Five Teams. One <span className="accent-text">Standard.</span></h2>
             </div>
-            <a href="/teams" className="hidden md:block text-[10px] font-bold uppercase tracking-wider text-white/20 no-underline hover:text-[#17FC13]">View All Teams</a>
+            <a href="/teams" className="hidden md:block text-[10px] font-bold uppercase tracking-wider text-white/60 no-underline hover:text-[#17FC13]">View All Teams</a>
           </div>
           <div className="grid grid-cols-5 gap-3">
             {[
@@ -185,12 +185,12 @@ export default function Home() {
             ].map((t) => (
               <a key={t.id} href={`/teams/${t.id}`} className="border border-[#171717] bg-black py-6 md:py-8 text-center no-underline hover:border-[#17FC13]/30 transition-all group">
                 <div className="text-2xl md:text-3xl font-bold text-[#17FC13]/50 group-hover:text-[#17FC13] transition-colors leading-none">{t.age}</div>
-                {t.name && <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/15 mt-1.5">{t.name}</div>}
+                {t.name && <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/55 mt-1.5">{t.name}</div>}
               </a>
             ))}
           </div>
           <div className="mt-4 text-center md:hidden">
-            <a href="/teams" className="text-[10px] font-bold uppercase tracking-wider text-white/20 no-underline hover:text-[#17FC13]">View All Teams</a>
+            <a href="/teams" className="text-[10px] font-bold uppercase tracking-wider text-white/60 no-underline hover:text-[#17FC13]">View All Teams</a>
           </div>
         </div>
       </div>
@@ -203,7 +203,7 @@ export default function Home() {
           <FadeIn>
             <div className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#17FC13]/40 mb-4">Where Our Players Go</div>
             <h2 className="text-2xl md:text-3xl uppercase font-bold mb-4">College Commitments & <span className="accent-text">Beyond</span></h2>
-            <p className="text-[14px] text-white/30 leading-[1.7] max-w-lg mx-auto">
+            <p className="text-[14px] text-white/70 leading-[1.7] max-w-lg mx-auto">
               Our athletes compete at the next level. Every placement is a product of development, discipline, and the work our players put in.
             </p>
           </FadeIn>
@@ -211,7 +211,7 @@ export default function Home() {
         <FadeIn>
           <div className="flex flex-wrap justify-center gap-2 mb-8">
             {["Boston College", "UMass Amherst", "Northeastern", "UConn", "Bryant University", "Holy Cross", "Merrimack", "Bentley"].map((school) => (
-              <span key={school} className="px-4 py-2 border border-[#171717] text-xs font-bold uppercase tracking-wider text-white/40">{school}</span>
+              <span key={school} className="px-4 py-2 border border-[#171717] text-xs font-bold uppercase tracking-wider text-white/80">{school}</span>
             ))}
             <span className="px-4 py-2 border border-[#17FC13]/25 bg-[#17FC13]/[0.03] text-xs font-bold uppercase tracking-wider text-[#17FC13]/70">LA Dodgers (Pro)</span>
           </div>
@@ -236,7 +236,7 @@ export default function Home() {
               <a key={link.href} href={link.href} className={`border p-5 no-underline hover:border-[#17FC13]/25 transition-colors group ${link.accent ? "border-[#17FC13]/15 bg-[#17FC13]/[0.02]" : "border-[#171717]"}`}>
                 {link.accent && <div className="flex items-center gap-1.5 mb-2"><span className="w-1.5 h-1.5 bg-[#17FC13] rounded-full" /><span className="text-[8px] font-bold uppercase tracking-wider text-[#17FC13]/50">Live</span></div>}
                 <h3 className="text-sm uppercase font-bold mb-1 group-hover:text-[#17FC13] transition-colors">{link.title}</h3>
-                <p className="text-[11px] text-white/25 leading-[1.5]">{link.desc}</p>
+                <p className="text-[11px] text-white/65 leading-[1.5]">{link.desc}</p>
               </a>
             ))}
           </div>
@@ -252,7 +252,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-5">
               Ready To <span className="accent-text">Join?</span>
             </h2>
-            <p className="text-[15px] text-white/35 leading-[1.8] mb-8">
+            <p className="text-[15px] text-white/75 leading-[1.8] mb-8">
               Apex Academy is about more than baseball. It&apos;s about helping young athletes build a foundation for success in whatever path they choose next.
             </p>
             <div className="flex items-center justify-center gap-3 flex-wrap mb-10">
@@ -260,7 +260,7 @@ export default function Home() {
               <Button href={`mailto:${CONTACT.email}`} variant="secondary">Contact Us</Button>
               <Button href={CONTACT.instagram} variant="secondary" external>{CONTACT.instagramHandle}</Button>
             </div>
-            <div className="flex items-center justify-center gap-6 text-[11px] text-white/15">
+            <div className="flex items-center justify-center gap-6 text-[11px] text-white/55">
               <span>{CONTACT.email}</span>
               <span>&middot;</span>
               <span>{CONTACT.location}</span>

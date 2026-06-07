@@ -16,11 +16,11 @@ export function PageHeader({ title, accent, subtitle, breadcrumb, actions }: Pro
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 mb-4 text-[10px] font-medium uppercase tracking-[0.2em]">
-          <a href="/" className="text-white/25 no-underline hover:text-white/50 transition-colors">Home</a>
+          <a href="/" className="text-white/65 no-underline hover:text-white/90 transition-colors">Home</a>
           {breadcrumb?.map((b) => (
             <span key={b.href} className="flex items-center gap-2">
               <span className="text-white/10">/</span>
-              <a href={b.href} className="text-white/25 no-underline hover:text-white/50 transition-colors">{b.label}</a>
+              <a href={b.href} className="text-white/65 no-underline hover:text-white/90 transition-colors">{b.label}</a>
             </span>
           ))}
           <span className="text-white/10">/</span>
@@ -32,7 +32,7 @@ export function PageHeader({ title, accent, subtitle, breadcrumb, actions }: Pro
         </h1>
 
         {subtitle && (
-          <p className="text-sm md:text-base text-white/40 leading-relaxed max-w-2xl mb-5">{subtitle}</p>
+          <p className="text-sm md:text-base text-white/80 leading-relaxed max-w-2xl mb-5">{subtitle}</p>
         )}
 
         {actions && actions.length > 0 && (

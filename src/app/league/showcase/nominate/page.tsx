@@ -68,15 +68,15 @@ export default function NominatePage() {
 
   const inputClass = "w-full bg-[#0d1117] border border-white/[0.06] rounded-lg px-4 py-2.5 text-[13px] text-white/90 placeholder-white/20 focus:outline-none focus:border-[#17FC13]/30 transition-colors";
   const selectClass = "w-full bg-[#0d1117] border border-white/[0.06] rounded-lg px-4 py-2.5 text-[13px] text-white/90 focus:outline-none focus:border-[#17FC13]/30 transition-colors appearance-none";
-  const labelClass = "block text-[11px] font-bold uppercase tracking-[0.15em] text-white/40 mb-1.5";
+  const labelClass = "block text-[11px] font-bold uppercase tracking-[0.15em] text-white/80 mb-1.5";
 
   const breadcrumb = (
     <div className="flex items-center gap-2 mb-6 text-[10px] font-medium uppercase tracking-[0.2em]">
-      <a href="/" className="text-white/25 no-underline hover:text-white/50 transition-colors">Home</a>
+      <a href="/" className="text-white/65 no-underline hover:text-white/90 transition-colors">Home</a>
       <span className="text-white/10">/</span>
-      <a href="/league" className="text-white/25 no-underline hover:text-white/50 transition-colors">League</a>
+      <a href="/league" className="text-white/65 no-underline hover:text-white/90 transition-colors">League</a>
       <span className="text-white/10">/</span>
-      <a href="/league/showcase" className="text-white/25 no-underline hover:text-white/50 transition-colors">All-New England Prospect Games</a>
+      <a href="/league/showcase" className="text-white/65 no-underline hover:text-white/90 transition-colors">All-New England Prospect Games</a>
       <span className="text-white/10">/</span>
       <span className="text-[#17FC13]/60">Nominate</span>
     </div>
@@ -95,7 +95,7 @@ export default function NominatePage() {
                 <span className="text-[#17FC13] text-lg">&#10003;</span>
               </div>
               <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">Nomination <span className="accent-text">Received</span></h2>
-              <p className="text-sm text-white/50 mb-6 leading-relaxed">
+              <p className="text-sm text-white/90 mb-6 leading-relaxed">
                 Thank you for nominating a prospect. Our staff will review the submission and follow up with the player and their family.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
@@ -118,7 +118,7 @@ export default function NominatePage() {
           <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-3">
             Nominate a <span className="accent-text">Prospect</span>
           </h1>
-          <p className="text-sm text-white/50 max-w-lg leading-relaxed">
+          <p className="text-sm text-white/90 max-w-lg leading-relaxed">
             Coaches, trainers, and program directors can nominate players for the All-New England Prospect Games. Complete the form below and our staff will review each nomination.
           </p>
         </div>
@@ -221,7 +221,7 @@ export default function NominatePage() {
                 className="inline-flex items-center justify-center gap-2.5 rounded-full border border-[#17FC13] bg-gradient-to-t from-[#17FC13]/20 to-transparent text-white font-bold uppercase px-6 py-2.5 text-[13px] tracking-wide transition-all duration-200 hover:shadow-[0_0_20px_rgba(23,252,19,0.15)] disabled:opacity-50 disabled:cursor-not-allowed">
                 {submitting ? "Submitting..." : "Submit Nomination"}
               </button>
-              <span className="text-[11px] text-white/30">* Required fields</span>
+              <span className="text-[11px] text-white/70">* Required fields</span>
             </div>
           </form>
         </div>

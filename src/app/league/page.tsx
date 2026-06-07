@@ -29,10 +29,10 @@ function Header() {
         </div>
 
         <div>
-          <p className="text-base md:text-lg text-white/50 max-w-2xl leading-relaxed mb-4">
+          <p className="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed mb-4">
             The Apex Academy League is a weekday baseball league for players ages 8–18 across Greater Boston. Games are played exclusively on Wednesdays, Thursdays, and Fridays — keeping weekends free for travel tournaments. Development-focused. Affordable for every family.
           </p>
-          <p className="text-sm text-white/30 mb-8">
+          <p className="text-sm text-white/70 mb-8">
             {LEAGUE_META.seasonStart} — {LEAGUE_META.seasonEnd} &middot; {LEAGUE_META.registrationFee} per team &middot; {LEAGUE_META.location}
           </p>
         </div>
@@ -74,7 +74,7 @@ function HowItWorks() {
           <div key={p.title}>
             <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5">
               <div className="text-sm font-bold text-white/80 mb-1.5">{p.title}</div>
-              <div className="text-[12px] text-white/40 leading-relaxed">{p.desc}</div>
+              <div className="text-[12px] text-white/80 leading-relaxed">{p.desc}</div>
             </div>
           </div>
         ))}
@@ -116,7 +116,7 @@ function WhoItsFor() {
         <div className="mb-4">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Who It&apos;s For</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">Built for Every Level of <span className="accent-text">Baseball</span></h2>
-          <p className="text-sm text-white/40 max-w-2xl leading-relaxed">
+          <p className="text-sm text-white/80 max-w-2xl leading-relaxed">
             Whether you&apos;re looking for additional game reps, affordable competition, or a professionally operated league experience, the Apex Academy League was designed to serve players, families, teams, and organizations throughout Greater Boston and New England.
           </p>
         </div>
@@ -127,7 +127,7 @@ function WhoItsFor() {
           <div key={a.title}>
             <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 h-full">
               <div className="text-sm font-bold text-white/80 mb-2">{a.title}</div>
-              <div className="text-[12px] text-white/40 leading-relaxed mb-3">{a.desc}</div>
+              <div className="text-[12px] text-white/80 leading-relaxed mb-3">{a.desc}</div>
               <div className="text-[11px] text-white/60 font-medium leading-relaxed">{a.note}</div>
             </div>
           </div>
@@ -163,12 +163,12 @@ function LeagueActivity() {
           <div className="flex gap-1">
             {AGE_GROUPS.map(age => (
               <button key={age} onClick={() => setActiveAge(age)}
-                className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all ${activeAge === age ? "bg-[#17FC13]/10 text-[#17FC13] border border-[#17FC13]/25" : "text-white/40 border border-white/[0.04] hover:border-white/[0.08]"}`}>
+                className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all ${activeAge === age ? "bg-[#17FC13]/10 text-[#17FC13] border border-[#17FC13]/25" : "text-white/80 border border-white/[0.04] hover:border-white/[0.08]"}`}>
                 {age}
               </button>
             ))}
           </div>
-          <a href="/league/standings" className="text-[10px] font-bold uppercase tracking-wider text-white/30 hover:text-[#17FC13]/60 transition-colors no-underline">All Standings →</a>
+          <a href="/league/standings" className="text-[10px] font-bold uppercase tracking-wider text-white/70 hover:text-[#17FC13]/60 transition-colors no-underline">All Standings →</a>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-8">
@@ -181,12 +181,12 @@ function LeagueActivity() {
                 <div key={t.team} className={`flex items-center gap-3 px-4 py-2 ${i < rows.length - 1 ? "border-b border-white/[0.02]" : ""}`}>
                   <div className="flex items-center gap-1.5 w-5">
                     {t.playoffBound && <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]" />}
-                    <span className="text-[11px] font-mono text-white/40">{t.rank}</span>
+                    <span className="text-[11px] font-mono text-white/80">{t.rank}</span>
                   </div>
                   <span className="text-[12px] font-medium text-white/80 flex-1">
                     {t.teamId ? <a href={`/teams/${t.teamId}`} className="text-[#17FC13]/80 hover:text-[#17FC13] no-underline transition-colors">{t.team}</a> : t.team}
                   </span>
-                  <span className="text-[11px] font-mono text-white/40 w-10 text-right">{t.w}-{t.l}{t.t ? `-${t.t}` : ""}</span>
+                  <span className="text-[11px] font-mono text-white/80 w-10 text-right">{t.w}-{t.l}{t.t ? `-${t.t}` : ""}</span>
                   <span className="text-[11px] font-mono font-bold text-white/60 w-10 text-right">{t.pct}</span>
                   <span className={`text-[10px] font-mono font-bold w-8 text-right ${t.streak.startsWith("W") ? "text-[#17FC13]/60" : "text-red-400/50"}`}>{t.streak}</span>
                 </div>
@@ -203,15 +203,15 @@ function LeagueActivity() {
           <div className="bg-[#0d1117] rounded-lg border border-white/[0.04]">
             <div className="px-4 py-2.5 border-b border-white/[0.04] flex items-center justify-between">
               <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50">Recent Results</span>
-              <a href="/league/results" className="text-[10px] text-white/25 hover:text-[#17FC13]/50 transition-colors no-underline">View All →</a>
+              <a href="/league/results" className="text-[10px] text-white/65 hover:text-[#17FC13]/50 transition-colors no-underline">View All →</a>
             </div>
             {recentResults.map((r, i) => {
               const homeWin = r.homeScore > r.awayScore;
               return (
                 <div key={r.id} className={`px-4 py-2.5 ${i < recentResults.length - 1 ? "border-b border-white/[0.02]" : ""}`}>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[9px] font-bold uppercase tracking-wider text-white/25">{r.division}</span>
-                    <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-white/[0.04] text-white/30">Final</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-white/65">{r.division}</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-white/[0.04] text-white/70">Final</span>
                   </div>
                   <div className={`flex items-center justify-between ${!homeWin ? "" : "opacity-50"}`}>
                     <div className="flex items-center gap-2">
@@ -238,19 +238,19 @@ function LeagueActivity() {
           <div className="bg-[#0d1117] rounded-lg border border-white/[0.04]">
             <div className="px-4 py-2.5 border-b border-white/[0.04] flex items-center justify-between">
               <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50">Upcoming Games</span>
-              <a href="/league/schedule" className="text-[10px] text-white/25 hover:text-[#17FC13]/50 transition-colors no-underline">Full Schedule →</a>
+              <a href="/league/schedule" className="text-[10px] text-white/65 hover:text-[#17FC13]/50 transition-colors no-underline">Full Schedule →</a>
             </div>
             {nextGames.map((g, i) => (
               <div key={g.id} className={`px-4 py-2.5 ${i < nextGames.length - 1 ? "border-b border-white/[0.02]" : ""}`}>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-[10px] font-mono text-white/20">{g.date} &middot; {g.time}</span>
+                  <span className="text-[10px] font-mono text-white/60">{g.date} &middot; {g.time}</span>
                   <div className="flex items-center gap-2">
-                    <span className="text-[9px] font-bold uppercase tracking-wider text-white/25">{g.ageGroup} {g.division}</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-white/65">{g.ageGroup} {g.division}</span>
                   </div>
                 </div>
                 <div className="text-[12px] text-white/60">
                   <span>{g.away}</span>
-                  <span className="text-white/20 mx-1.5">@</span>
+                  <span className="text-white/60 mx-1.5">@</span>
                   <span>{g.home}</span>
                 </div>
               </div>
@@ -280,7 +280,7 @@ function QuickAccess() {
           {links.map(l => (
             <a key={l.label} href={l.href} className="bg-[#0d1117] rounded-lg border border-white/[0.04] px-4 py-3.5 hover:border-[#17FC13]/10 transition-all no-underline group">
               <div className="text-[12px] font-bold text-white/70 group-hover:text-[#17FC13] transition-colors">{l.label}</div>
-              <div className="text-[10px] text-white/25 mt-0.5">{l.desc}</div>
+              <div className="text-[10px] text-white/65 mt-0.5">{l.desc}</div>
             </a>
           ))}
         </div>
@@ -304,7 +304,7 @@ function FeaturedEvent() {
                 <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#17FC13]/10 text-[#17FC13]/60">August 2026</span>
               </div>
               <h3 className="text-lg md:text-xl font-bold uppercase text-white/90 mb-1">All-New England Prospect Games</h3>
-              <p className="text-[12px] text-white/40 max-w-lg leading-relaxed">
+              <p className="text-[12px] text-white/80 max-w-lg leading-relaxed">
                 Two-day prospect combine and showcase. Verified metrics, college coach exposure, recruiting education, and two prospect games. 16U &middot; 17U &middot; 18U.
               </p>
             </div>
@@ -331,7 +331,7 @@ function RegistrationCTA() {
           <h2 className="text-2xl md:text-3xl font-bold uppercase mb-3 leading-[0.9]">
             Join the <span className="accent-text">League</span>
           </h2>
-          <p className="text-sm text-white/40 max-w-md mx-auto mb-6">
+          <p className="text-sm text-white/80 max-w-md mx-auto mb-6">
             Ages 8–18. All skill levels. {LEAGUE_META.registrationFee} per team. Registration deadline: {LEAGUE_META.registrationDeadline}.
           </p>
           <div className="flex flex-wrap justify-center gap-3">

@@ -70,7 +70,7 @@ export function VenueSearch({ venueName, venueAddress, onSelect }: Props) {
   return (
     <div ref={containerRef} className="space-y-4">
       <div className="relative">
-        <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-2">Field / Venue *</label>
+        <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 mb-2">Field / Venue *</label>
         <input
           value={query}
           onChange={(e) => handleInput(e.target.value)}
@@ -95,7 +95,7 @@ export function VenueSearch({ venueName, venueAddress, onSelect }: Props) {
                 style={{ borderBottom: "1px solid #171717" }}
               >
                 <div className="text-sm text-white/80">{r.name}</div>
-                <div className="text-[11px] text-white/30 mt-0.5">{r.address}</div>
+                <div className="text-[11px] text-white/70 mt-0.5">{r.address}</div>
               </button>
             ))}
           </div>
@@ -103,7 +103,7 @@ export function VenueSearch({ venueName, venueAddress, onSelect }: Props) {
       </div>
 
       <div>
-        <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-2">Address {venueAddress ? "" : "*"}</label>
+        <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 mb-2">Address {venueAddress ? "" : "*"}</label>
         <input
           value={venueAddress}
           onChange={(e) => onSelect(query, e.target.value)}

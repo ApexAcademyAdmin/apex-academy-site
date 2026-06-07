@@ -17,7 +17,7 @@ const EMPTY_PLAYER: RosterPlayer = { name: "", dateOfBirth: "", parentName: "", 
 const MAX_PLAYERS = 20;
 
 const inputCls = "w-full bg-[#0d1117] border border-white/[0.06] rounded-lg px-4 py-2.5 text-[13px] text-white placeholder-white/30 focus:outline-none focus:border-[#17FC13]/30 transition-colors";
-const labelCls = "block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-1.5";
+const labelCls = "block text-[10px] font-bold uppercase tracking-wider text-white/90 mb-1.5";
 
 export default function RosterPage() {
   const [teamId, setTeamId] = useState<string | null>(null);
@@ -94,7 +94,7 @@ export default function RosterPage() {
   if (!teamId) {
     return (
       <div className="text-center py-12">
-        <p className="text-[13px] text-white/50 mb-6">You don&apos;t have a team registered yet.</p>
+        <p className="text-[13px] text-white/90 mb-6">You don&apos;t have a team registered yet.</p>
         <a href="/league/register" className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#17FC13] bg-gradient-to-t from-[#17FC13]/20 to-transparent text-white text-xs font-bold uppercase tracking-wide no-underline hover:shadow-[0_0_20px_rgba(23,252,19,0.15)] transition-all">
           Register a Team
         </a>
@@ -126,27 +126,27 @@ export default function RosterPage() {
 
       <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-6 mb-6">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50">{roster.length} / {MAX_PLAYERS} Players</h3>
+          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/90">{roster.length} / {MAX_PLAYERS} Players</h3>
           <button
             onClick={addPlayer}
             disabled={roster.length >= MAX_PLAYERS}
-            className="text-[10px] font-bold uppercase tracking-wider text-[#17FC13]/70 bg-transparent border-none cursor-pointer hover:text-[#17FC13] transition-colors disabled:text-white/20 disabled:cursor-not-allowed"
+            className="text-[10px] font-bold uppercase tracking-wider text-[#17FC13]/70 bg-transparent border-none cursor-pointer hover:text-[#17FC13] transition-colors disabled:text-white/60 disabled:cursor-not-allowed"
           >
             + Add Player
           </button>
         </div>
         {roster.length >= MAX_PLAYERS && (
-          <p className="text-[11px] text-white/40 -mt-3 mb-4">Roster is full — a maximum of {MAX_PLAYERS} players is allowed.</p>
+          <p className="text-[11px] text-white/80 -mt-3 mb-4">Roster is full — a maximum of {MAX_PLAYERS} players is allowed.</p>
         )}
 
         {roster.length === 0 ? (
-          <p className="text-xs text-white/40 text-center py-6">No players added yet. Click &ldquo;Add Player&rdquo; to start building your roster.</p>
+          <p className="text-xs text-white/80 text-center py-6">No players added yet. Click &ldquo;Add Player&rdquo; to start building your roster.</p>
         ) : (
           <div className="space-y-5">
             {roster.map((p, i) => (
               <div key={i} className="border-b border-white/[0.04] pb-5 last:border-0 last:pb-0">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/40">Player {i + 1}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/80">Player {i + 1}</span>
                   <button onClick={() => removePlayer(i)} className="text-[10px] font-bold uppercase tracking-wider text-red-400/60 bg-transparent border-none cursor-pointer hover:text-red-400 transition-colors">Remove</button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

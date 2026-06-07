@@ -83,7 +83,7 @@ export default function TeamsPage() {
       <div className="pt-24 md:pt-28 pb-8 md:pb-10">
         <div className="max-w-[1280px] mx-auto px-6 md:px-10">
           <div className="flex items-center gap-2 mb-6 text-[10px] font-medium uppercase tracking-[0.2em]">
-            <a href="/" className="text-white/25 no-underline hover:text-white/50 transition-colors">Home</a>
+            <a href="/" className="text-white/65 no-underline hover:text-white/90 transition-colors">Home</a>
             <span className="text-white/10">/</span>
             <span className="text-[#17FC13]/60">Teams</span>
           </div>
@@ -91,7 +91,7 @@ export default function TeamsPage() {
           <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.85] mb-4">
             Our <span className="accent-text">Teams</span>
           </h1>
-          <p className="text-base text-white/50 max-w-2xl leading-relaxed">
+          <p className="text-base text-white/90 max-w-2xl leading-relaxed">
             Five teams. One development system. One standard. From first-time travel players to college-bound athletes, every Apex team follows the same commitment to development, competition, and opportunity.
           </p>
         </div>
@@ -102,7 +102,7 @@ export default function TeamsPage() {
         <div className="mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Player Development</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-2">The <span className="accent-text">Pathway</span></h2>
-          <p className="text-sm text-white/40 max-w-xl">Every player enters the system at the level that fits their development. The goal is always the same — prepare them for the next one.</p>
+          <p className="text-sm text-white/80 max-w-xl">Every player enters the system at the level that fits their development. The goal is always the same — prepare them for the next one.</p>
         </div>
 
         <div className="flex flex-col md:flex-row items-stretch gap-0">
@@ -110,7 +110,7 @@ export default function TeamsPage() {
             <div key={step.label} className="flex-1 flex items-center">
               <div className={`flex-1 text-center py-5 px-3 border border-white/[0.04] ${i === 0 ? "rounded-t-xl md:rounded-l-xl md:rounded-tr-none" : ""} ${i === PATHWAY.length - 1 ? "rounded-b-xl md:rounded-r-xl md:rounded-bl-none border-[#17FC13]/15 bg-[#17FC13]/[0.02]" : ""} ${i > 0 ? "-mt-px md:mt-0 md:-ml-px" : ""}`}>
                 <div className={`text-lg md:text-xl font-bold ${i === PATHWAY.length - 1 ? "text-[#17FC13]" : "text-white/80"}`}>{step.label}</div>
-                <div className="text-[10px] text-white/30 uppercase tracking-wider mt-0.5">{step.sub}</div>
+                <div className="text-[10px] text-white/70 uppercase tracking-wider mt-0.5">{step.sub}</div>
               </div>
               {i < PATHWAY.length - 1 && (
                 <div className="hidden md:flex items-center text-white/10 -mx-1 z-10">
@@ -137,17 +137,17 @@ export default function TeamsPage() {
                 <div className="lg:w-44 flex-shrink-0 px-6 py-6 flex items-center lg:justify-center border-b lg:border-b-0 lg:border-r border-white/[0.04]">
                   <div>
                     <div className="text-3xl md:text-4xl font-bold text-[#17FC13] leading-none">{t.age}</div>
-                    <div className="text-[10px] text-white/20 uppercase tracking-wider mt-1">{t.tagline}</div>
+                    <div className="text-[10px] text-white/60 uppercase tracking-wider mt-1">{t.tagline}</div>
                   </div>
                 </div>
 
                 {/* Main info */}
                 <div className="flex-1 px-6 py-6">
                   <h3 className="text-lg md:text-xl uppercase font-bold mb-2 group-hover:text-[#17FC13] transition-colors">{t.name}</h3>
-                  <p className="text-[13px] text-white/40 leading-relaxed mb-4 max-w-lg">{t.desc}</p>
+                  <p className="text-[13px] text-white/80 leading-relaxed mb-4 max-w-lg">{t.desc}</p>
                   <div className="flex flex-wrap gap-1.5">
                     {t.focus.map(f => (
-                      <span key={f} className="text-[10px] font-medium px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/35">{f}</span>
+                      <span key={f} className="text-[10px] font-medium px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/75">{f}</span>
                     ))}
                   </div>
                 </div>
@@ -157,18 +157,18 @@ export default function TeamsPage() {
                   <div className="flex gap-5">
                     {t.record && (
                       <div>
-                        <div className="text-[9px] font-bold uppercase tracking-wider text-white/20 mb-0.5">Record</div>
+                        <div className="text-[9px] font-bold uppercase tracking-wider text-white/60 mb-0.5">Record</div>
                         <div className="text-lg font-bold font-mono text-white/80">{t.record}</div>
                       </div>
                     )}
                     {t.rosterCount && (
                       <div>
-                        <div className="text-[9px] font-bold uppercase tracking-wider text-white/20 mb-0.5">Roster</div>
+                        <div className="text-[9px] font-bold uppercase tracking-wider text-white/60 mb-0.5">Roster</div>
                         <div className="text-lg font-bold font-mono text-white/80">{t.rosterCount}</div>
                       </div>
                     )}
                     <div>
-                      <div className="text-[9px] font-bold uppercase tracking-wider text-white/20 mb-0.5">Coach</div>
+                      <div className="text-[9px] font-bold uppercase tracking-wider text-white/60 mb-0.5">Coach</div>
                       <div className="text-[13px] font-medium text-white/60">{t.headCoach}</div>
                     </div>
                   </div>
@@ -186,10 +186,10 @@ export default function TeamsPage() {
           <div>
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Results</div>
             <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">College <span className="accent-text">Placement</span></h2>
-            <p className="text-sm text-white/40 leading-relaxed mb-4">
+            <p className="text-sm text-white/80 leading-relaxed mb-4">
               The ultimate measure of a development program is where its players end up. Apex Academy athletes have advanced to programs across NCAA Division I, II, III, NAIA, and NJCAA.
             </p>
-            <p className="text-[12px] text-white/30 leading-relaxed">
+            <p className="text-[12px] text-white/70 leading-relaxed">
               Every team in the organization operates with the same development standards, coaching philosophy, and commitment to preparing players for the next level — whether that means the next age group or a college roster.
             </p>
           </div>
@@ -203,7 +203,7 @@ export default function TeamsPage() {
             ].map(item => (
               <div key={item.title} className="mb-4 last:mb-0">
                 <div className="text-[13px] font-bold text-white/80 mb-1">{item.title}</div>
-                <div className="text-[12px] text-white/35 leading-relaxed">{item.desc}</div>
+                <div className="text-[12px] text-white/75 leading-relaxed">{item.desc}</div>
               </div>
             ))}
           </div>
@@ -217,7 +217,7 @@ export default function TeamsPage() {
           <h2 className="text-2xl md:text-3xl font-bold uppercase mb-3 leading-[0.9]">
             Find Your <span className="accent-text">Team</span>
           </h2>
-          <p className="text-sm text-white/40 max-w-md mx-auto mb-6">
+          <p className="text-sm text-white/80 max-w-md mx-auto mb-6">
             Tryouts and registration for all age groups. Contact us to learn more about joining the Apex Academy program.
           </p>
           <div className="flex flex-wrap justify-center gap-3">

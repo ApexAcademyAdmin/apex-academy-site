@@ -31,7 +31,7 @@ export default function TeamLayout({
 
         <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-8 md:pb-10">
           <div className="flex items-center gap-2 mb-6 text-[10px] font-medium uppercase tracking-[0.2em]">
-            <a href="/teams" className="text-white/20 no-underline hover:text-white/40">Teams</a>
+            <a href="/teams" className="text-white/60 no-underline hover:text-white/80">Teams</a>
             <span className="text-white/10">/</span>
             <span className="text-[#17FC13]/50">{team.name}</span>
           </div>
@@ -43,12 +43,12 @@ export default function TeamLayout({
                 {team.name.split(" ").slice(0, -1).join(" ")}{" "}
                 <span className="accent-text">{team.name.split(" ").pop()}</span>
               </h1>
-              <p className="text-[14px] text-white/35 leading-[1.7] max-w-lg">{team.description}</p>
+              <p className="text-[14px] text-white/75 leading-[1.7] max-w-lg">{team.description}</p>
             </div>
             <div className="flex items-center gap-5 shrink-0">
               {[{ l: "Record", v: team.record }, { l: "Ranking", v: team.ranking }, { l: "Roster", v: String(team.roster.length) }].map((s) => (
                 <div key={s.l} className="text-center">
-                  <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/15 mb-0.5">{s.l}</div>
+                  <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/55 mb-0.5">{s.l}</div>
                   <div className="text-lg font-bold">{s.v}</div>
                 </div>
               ))}
@@ -58,7 +58,7 @@ export default function TeamLayout({
           {/* Team selector */}
           <div className="flex items-center gap-2 mt-6">
             {["10u", "12u", "14u", "prospects", "premier"].map((id) => ALL_TEAMS[id]).filter(Boolean).map((t) => (
-              <a key={t.id} href={`/teams/${t.id}`} className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider no-underline border transition-all ${t.id === teamId ? "border-[#17FC13]/40 text-[#17FC13] bg-[#17FC13]/[0.05]" : "border-[#171717] text-white/20 hover:text-white/40"}`}>{t.age}</a>
+              <a key={t.id} href={`/teams/${t.id}`} className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider no-underline border transition-all ${t.id === teamId ? "border-[#17FC13]/40 text-[#17FC13] bg-[#17FC13]/[0.05]" : "border-[#171717] text-white/60 hover:text-white/80"}`}>{t.age}</a>
             ))}
           </div>
         </div>

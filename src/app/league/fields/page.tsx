@@ -293,7 +293,7 @@ export default function FieldsPage() {
               placeholder="Search by town, field name, or address..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full max-w-md bg-[#0d1117] border border-white/[0.06] rounded-lg px-4 py-2.5 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-[#17FC13]/30 transition-all"
+              className="w-full max-w-md bg-[#0d1117] border border-white/[0.06] rounded-lg px-4 py-2.5 text-xs text-white placeholder:text-white/70 focus:outline-none focus:border-[#17FC13]/30 transition-all"
             />
           </div>
         </div>
@@ -307,7 +307,7 @@ export default function FieldsPage() {
                 <div className="flex items-center gap-3 mb-3">
                   <h3 className="text-lg font-bold uppercase tracking-wide">{town.town}</h3>
                   <div className="flex-1 h-px bg-gradient-to-r from-white/[0.06] to-transparent" />
-                  <span className="text-[10px] font-mono text-white/40">{town.fields.length} field{town.fields.length > 1 ? "s" : ""}</span>
+                  <span className="text-[10px] font-mono text-white/80">{town.fields.length} field{town.fields.length > 1 ? "s" : ""}</span>
                 </div>
 
                 {/* Fields */}
@@ -331,7 +331,7 @@ export default function FieldsPage() {
         </div>
 
         {filtered.length === 0 && (
-          <div className="text-center py-16 text-white/30 text-sm">No fields match your search.</div>
+          <div className="text-center py-16 text-white/70 text-sm">No fields match your search.</div>
         )}
       </Section>
     </main>

@@ -36,7 +36,7 @@ export default function GameViewPage() {
   }, [teamId, gameId]);
 
   if (!team || !game) {
-    return <div className="max-w-[1120px] mx-auto px-6 pt-32 pb-20 text-center"><p className="text-white/30">Game not found.</p><Button href={`/teams/${teamId}/schedule`} variant="secondary" size="small">Back to Schedule</Button></div>;
+    return <div className="max-w-[1120px] mx-auto px-6 pt-32 pb-20 text-center"><p className="text-white/70">Game not found.</p><Button href={`/teams/${teamId}/schedule`} variant="secondary" size="small">Back to Schedule</Button></div>;
   }
 
   // Upcoming
@@ -46,12 +46,12 @@ export default function GameViewPage() {
         <div className="absolute inset-0 bg-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_30%,_rgba(23,252,19,0.04)_0%,_transparent_60%)]" />
         <div className="relative max-w-[1120px] mx-auto px-6 pt-32 md:pt-40 pb-20 md:pb-28 text-center">
-          <div className="text-[10px] font-bold uppercase tracking-[0.35em] text-white/20 mb-6">Upcoming Game</div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.35em] text-white/60 mb-6">Upcoming Game</div>
           <Image src="/logos/a-mark-sm.png" alt="" width={60} height={60} className="mx-auto mb-6 opacity-30" />
-          <h2 className="text-3xl md:text-4xl uppercase font-bold mb-3">{team.name} <span className="text-white/20">vs</span> {game.opponent}</h2>
-          <p className="text-lg text-white/40 mb-1">{game.date} &middot; {game.time}</p>
+          <h2 className="text-3xl md:text-4xl uppercase font-bold mb-3">{team.name} <span className="text-white/60">vs</span> {game.opponent}</h2>
+          <p className="text-lg text-white/80 mb-1">{game.date} &middot; {game.time}</p>
           {game.eventName && <p className="text-xs text-[#17FC13]/40 uppercase tracking-wider mb-1">{game.eventName}</p>}
-          {game.venue?.name && <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(game.venue.name + ", " + game.venue.address)}`} target="_blank" rel="noopener noreferrer" className="inline-block text-xs text-white/25 hover:text-[#17FC13] transition-colors no-underline mb-10">{game.venue.name} — {game.venue.address}</a>}
+          {game.venue?.name && <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(game.venue.name + ", " + game.venue.address)}`} target="_blank" rel="noopener noreferrer" className="inline-block text-xs text-white/65 hover:text-[#17FC13] transition-colors no-underline mb-10">{game.venue.name} — {game.venue.address}</a>}
           {!game.venue?.name && <div className="mb-10" />}
           {isCoach && <button onClick={() => { startGame(teamId, gameId); window.location.href = `/teams/${teamId}/game/${gameId}/score`; }} className="inline-flex items-center gap-2.5 rounded-full border border-[#17FC13] bg-gradient-to-t from-[#17FC13]/20 to-transparent px-8 py-3 text-sm font-bold uppercase tracking-wide text-white cursor-pointer transition-all hover:shadow-[0_0_20px_rgba(23,252,19,0.15)]">Start Game</button>}
         </div>
@@ -87,7 +87,7 @@ export default function GameViewPage() {
               <div className="text-2xl md:text-3xl font-bold leading-none shrink-0">{ls.awayRuns}</div>
               <div className="min-w-0">
                 <div className="text-xs font-bold uppercase truncate">{game.opponent}</div>
-                <div className="text-[9px] text-white/20 uppercase">Away</div>
+                <div className="text-[9px] text-white/60 uppercase">Away</div>
               </div>
             </div>
 
@@ -104,7 +104,7 @@ export default function GameViewPage() {
                   </div>
                 </>
               ) : (
-                <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">Final</span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">Final</span>
               )}
             </div>
 
@@ -122,13 +122,13 @@ export default function GameViewPage() {
         {/* Tabs */}
         <div className="max-w-[1120px] mx-auto px-4 flex items-center gap-0.5 border-t border-[#171717]">
           {TABS.map((t) => (
-            <button key={t.key} onClick={() => setTab(t.key)} className={`py-2.5 px-4 text-[10px] font-bold uppercase tracking-wider border-b-2 cursor-pointer bg-transparent transition-all ${tab === t.key ? "text-[#17FC13] border-[#17FC13]" : "text-white/25 border-transparent hover:text-white/40"}`}>
+            <button key={t.key} onClick={() => setTab(t.key)} className={`py-2.5 px-4 text-[10px] font-bold uppercase tracking-wider border-b-2 cursor-pointer bg-transparent transition-all ${tab === t.key ? "text-[#17FC13] border-[#17FC13]" : "text-white/65 border-transparent hover:text-white/80"}`}>
               {t.label}
             </button>
           ))}
           {isLive && isCoach && (
             <div className="ml-auto flex items-center gap-2">
-              <button onClick={() => setShowStreamSetup(true)} className="px-3 py-1.5 text-[9px] font-bold uppercase tracking-wider border border-[#171717] text-white/25 cursor-pointer bg-transparent hover:text-white/50">
+              <button onClick={() => setShowStreamSetup(true)} className="px-3 py-1.5 text-[9px] font-bold uppercase tracking-wider border border-[#171717] text-white/65 cursor-pointer bg-transparent hover:text-white/90">
                 {game.streamUrl ? "Edit Stream" : "Add Stream"}
               </button>
               <a href={`/teams/${teamId}/game/${gameId}/score`} className="px-3 py-1.5 text-[9px] font-bold uppercase tracking-wider border border-[#17FC13]/30 text-[#17FC13] no-underline hover:bg-[#17FC13]/[0.05]">Score</a>
@@ -165,34 +165,34 @@ export default function GameViewPage() {
                   <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-5 h-5 rotate-45 border-2 border-white/15" />
                 </div>
                 {/* Runner names */}
-                <div className="flex justify-center gap-6 text-[9px] text-white/30">
-                  {bases.third && <span>3B: <span className="text-white/50">{bases.third}</span></span>}
-                  {bases.second && <span>2B: <span className="text-white/50">{bases.second}</span></span>}
-                  {bases.first && <span>1B: <span className="text-white/50">{bases.first}</span></span>}
-                  {!bases.first && !bases.second && !bases.third && <span className="text-white/15">Bases Empty</span>}
+                <div className="flex justify-center gap-6 text-[9px] text-white/70">
+                  {bases.third && <span>3B: <span className="text-white/90">{bases.third}</span></span>}
+                  {bases.second && <span>2B: <span className="text-white/90">{bases.second}</span></span>}
+                  {bases.first && <span>1B: <span className="text-white/90">{bases.first}</span></span>}
+                  {!bases.first && !bases.second && !bases.third && <span className="text-white/55">Bases Empty</span>}
                 </div>
               </div>
 
               {/* Current Matchup */}
               {isLive && batter && (
                 <div className="border border-[#171717] bg-radial p-5">
-                  <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-3">Current At-Bat</div>
+                  <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/55 mb-3">Current At-Bat</div>
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <div className="text-[8px] font-bold uppercase tracking-wider text-[#17FC13]/40 mb-1">Batter</div>
                       <div className="text-sm font-bold uppercase">{batter.name}</div>
-                      <div className="text-[10px] text-white/25">{batter.pos}</div>
+                      <div className="text-[10px] text-white/65">{batter.pos}</div>
                     </div>
                     <div className="text-xl font-bold text-white/10">VS</div>
                     <div className="text-right">
-                      <div className="text-[8px] font-bold uppercase tracking-wider text-white/20 mb-1">Pitcher</div>
+                      <div className="text-[8px] font-bold uppercase tracking-wider text-white/60 mb-1">Pitcher</div>
                       <div className="text-sm font-bold uppercase text-white/60">—</div>
                     </div>
                   </div>
                   {/* Up next */}
                   <div className="border-t border-[#171717] pt-3 flex items-center gap-6">
-                    {upNext.onDeck && <div><span className="text-[8px] font-bold uppercase tracking-wider text-white/15">On Deck </span><span className="text-[11px] text-white/40 uppercase">{upNext.onDeck}</span></div>}
-                    {upNext.inHole && <div><span className="text-[8px] font-bold uppercase tracking-wider text-white/10">In Hole </span><span className="text-[11px] text-white/25 uppercase">{upNext.inHole}</span></div>}
+                    {upNext.onDeck && <div><span className="text-[8px] font-bold uppercase tracking-wider text-white/55">On Deck </span><span className="text-[11px] text-white/80 uppercase">{upNext.onDeck}</span></div>}
+                    {upNext.inHole && <div><span className="text-[8px] font-bold uppercase tracking-wider text-white/10">In Hole </span><span className="text-[11px] text-white/65 uppercase">{upNext.inHole}</span></div>}
                   </div>
                 </div>
               )}
@@ -200,12 +200,12 @@ export default function GameViewPage() {
               {/* Last Play */}
               {recentPlays.length > 0 && (
                 <div className="border border-[#171717] bg-radial p-5">
-                  <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-3">Last Play</div>
+                  <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/55 mb-3">Last Play</div>
                   <div className={`text-[14px] text-white/60 leading-[1.6] ${(recentPlays[0].rbis || 0) > 0 ? "text-[#17FC13]/80" : ""}`}>
                     <span className="font-bold text-white/80">{recentPlays[0].playerName}</span>{" "}
                     {resultLabel(recentPlays[0].result).toLowerCase()}
                     {(recentPlays[0].rbis || 0) > 0 && <span className="text-[#17FC13] font-bold"> ({recentPlays[0].rbis} RBI)</span>}
-                    {recentPlays[0].runnersAdvanced?.length > 0 && <span className="text-white/30"> — {recentPlays[0].runnersAdvanced.join(", ")} scored</span>}
+                    {recentPlays[0].runnersAdvanced?.length > 0 && <span className="text-white/70"> — {recentPlays[0].runnersAdvanced.join(", ")} scored</span>}
                   </div>
                 </div>
               )}
@@ -218,13 +218,13 @@ export default function GameViewPage() {
             <div className="lg:col-span-7">
               <div className="border border-[#171717] bg-radial">
                 <div className="px-5 py-3 border-b border-[#171717] flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/25">Play-by-Play</span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/65">Play-by-Play</span>
                   {isLive && <span className="text-[9px] text-[#17FC13]/40 uppercase tracking-wider">Live Updates</span>}
                 </div>
 
                 <div className="max-h-[600px] overflow-y-auto">
                   {allPlays.length === 0 ? (
-                    <div className="px-5 py-12 text-center text-sm text-white/20">
+                    <div className="px-5 py-12 text-center text-sm text-white/60">
                       {isLive ? "Waiting for first play..." : "No plays recorded."}
                     </div>
                   ) : (
@@ -249,7 +249,7 @@ export default function GameViewPage() {
                                   ) : ab.outs > 0 ? (
                                     <div className="w-5 h-5 bg-red-500/10 flex items-center justify-center text-[9px] font-bold text-red-400/40">X</div>
                                   ) : (
-                                    <div className="w-5 h-5 bg-white/[0.03] flex items-center justify-center text-[9px] text-white/15">·</div>
+                                    <div className="w-5 h-5 bg-white/[0.03] flex items-center justify-center text-[9px] text-white/55">·</div>
                                   )}
                                 </div>
                                 <div className="flex-1 min-w-0">
@@ -286,7 +286,7 @@ export default function GameViewPage() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg uppercase font-bold">{team.name} <span className="accent-text">Batting</span></h3>
-              <span className="text-[10px] text-white/15 uppercase tracking-wider">{battingLines.length} batters</span>
+              <span className="text-[10px] text-white/55 uppercase tracking-wider">{battingLines.length} batters</span>
             </div>
             <BattingBoxScore lines={battingLines} />
           </div>
@@ -298,7 +298,7 @@ export default function GameViewPage() {
               { label: "Opp R", val: ls.awayRuns }, { label: "Opp H", val: ls.awayHits }, { label: "Opp E", val: ls.awayErrors },
             ].map((s) => (
               <div key={s.label} className={`border p-3 text-center ${s.accent ? "border-[#17FC13]/20" : "border-[#171717]"}`}>
-                <div className="text-[8px] font-bold uppercase tracking-[0.15em] text-white/20 mb-1">{s.label}</div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.15em] text-white/60 mb-1">{s.label}</div>
                 <div className={`text-xl font-bold ${s.accent ? "text-[#17FC13]" : ""}`}>{s.val}</div>
               </div>
             ))}
@@ -326,9 +326,9 @@ export default function GameViewPage() {
                 <div className="border border-[#171717] divide-y divide-[#171717]">
                   {sp.map((ab) => (
                     <div key={ab.id} className="px-5 py-3 flex items-center gap-3 text-[13px]">
-                      <span className="text-[9px] font-bold uppercase tracking-wider text-white/15 w-8 shrink-0">{ab.isTopHalf ? "T" : "B"}{ab.inning}</span>
+                      <span className="text-[9px] font-bold uppercase tracking-wider text-white/55 w-8 shrink-0">{ab.isTopHalf ? "T" : "B"}{ab.inning}</span>
                       <div className="w-5 h-5 bg-[#17FC13]/20 flex items-center justify-center text-[9px] font-bold text-[#17FC13] shrink-0">{ab.rbis}</div>
-                      <span className="text-white/50"><span className="font-bold text-white/70">{ab.playerName}</span> {resultLabel(ab.result).toLowerCase()}</span>
+                      <span className="text-white/90"><span className="font-bold text-white/70">{ab.playerName}</span> {resultLabel(ab.result).toLowerCase()}</span>
                     </div>
                   ))}
                 </div>
@@ -342,7 +342,7 @@ export default function GameViewPage() {
       {tab === "plays" && (
         <div className="max-w-[1120px] mx-auto px-4 py-6">
           {allPlays.length === 0 ? (
-            <div className="text-center py-16 text-sm text-white/20">No plays recorded.</div>
+            <div className="text-center py-16 text-sm text-white/60">No plays recorded.</div>
           ) : (
             (() => {
               const innings = new Map<string, typeof allPlays>();
@@ -366,7 +366,7 @@ export default function GameViewPage() {
                           ) : ab.outs > 0 ? (
                             <div className="w-6 h-6 bg-red-500/10 flex items-center justify-center text-[10px] font-bold text-red-400/40">OUT</div>
                           ) : (
-                            <div className="w-6 h-6 bg-white/[0.03] flex items-center justify-center text-[10px] text-white/15">·</div>
+                            <div className="w-6 h-6 bg-white/[0.03] flex items-center justify-center text-[10px] text-white/55">·</div>
                           )}
                         </div>
                         <div className="flex-1">
@@ -402,14 +402,14 @@ export default function GameViewPage() {
                       <div key={p.playerId} className={`flex items-center gap-3 px-4 py-3 border-b border-[#171717] last:border-b-0 ${isCurrent ? "bg-[#17FC13]/[0.04] border-l-2 border-l-[#17FC13]" : ""}`}>
                         <span className="text-[10px] font-bold text-[#17FC13]/40 w-4">{i + 1}</span>
                         <span className="text-sm font-bold uppercase flex-1">{p.playerName}</span>
-                        <span className="text-[10px] text-white/25">{p.pos}</span>
+                        <span className="text-[10px] text-white/65">{p.pos}</span>
                         {isCurrent && <span className="text-[8px] font-bold uppercase tracking-wider text-[#17FC13] bg-[#17FC13]/10 px-2 py-0.5">AB</span>}
                       </div>
                     );
                   })}
                   {/* Subbed out */}
                   {game.homeLineup.filter((p) => !p.active).map((p) => (
-                    <div key={p.playerId} className="flex items-center gap-3 px-4 py-2 text-white/15">
+                    <div key={p.playerId} className="flex items-center gap-3 px-4 py-2 text-white/55">
                       <span className="text-[10px] w-4" />
                       <span className="text-xs uppercase flex-1 line-through">{p.playerName}</span>
                       <span className="text-[9px]">Sub out Inn {p.subbedOutInning}</span>
@@ -417,24 +417,24 @@ export default function GameViewPage() {
                   ))}
                 </div>
               ) : (
-                <div className="border border-[#171717] px-4 py-8 text-center text-sm text-white/20">Lineup not set</div>
+                <div className="border border-[#171717] px-4 py-8 text-center text-sm text-white/60">Lineup not set</div>
               )}
             </div>
 
             {/* Opponent Lineup */}
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 mb-4">{game.opponent} — Batting Order</div>
+              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 mb-4">{game.opponent} — Batting Order</div>
               {(game.opponentLineup || []).length > 0 ? (
                 <div className="border border-[#171717]">
                   {game.opponentLineup.filter((p) => p.active).sort((a, b) => a.battingOrder - b.battingOrder).map((p, i) => {
                     const isCurrent = batter && batter.id === p.id && ls.isTopHalf;
                     return (
                       <div key={p.id} className={`flex items-center gap-3 px-4 py-3 border-b border-[#171717] last:border-b-0 ${isCurrent ? "bg-white/[0.02] border-l-2 border-l-white/20" : ""}`}>
-                        <span className="text-[10px] font-bold text-white/15 w-4">{i + 1}</span>
-                        {p.number && <span className="text-[10px] text-white/20 w-5">#{p.number}</span>}
+                        <span className="text-[10px] font-bold text-white/55 w-4">{i + 1}</span>
+                        {p.number && <span className="text-[10px] text-white/60 w-5">#{p.number}</span>}
                         <span className="text-sm font-bold uppercase flex-1 text-white/60">{p.name}</span>
-                        <span className="text-[10px] text-white/20">{p.pos}</span>
-                        {isCurrent && <span className="text-[8px] font-bold uppercase tracking-wider text-white/40 bg-white/[0.05] px-2 py-0.5">AB</span>}
+                        <span className="text-[10px] text-white/60">{p.pos}</span>
+                        {isCurrent && <span className="text-[8px] font-bold uppercase tracking-wider text-white/80 bg-white/[0.05] px-2 py-0.5">AB</span>}
                       </div>
                     );
                   })}
@@ -446,7 +446,7 @@ export default function GameViewPage() {
                   ))}
                 </div>
               ) : (
-                <div className="border border-[#171717] px-4 py-8 text-center text-sm text-white/15">Lineup not set</div>
+                <div className="border border-[#171717] px-4 py-8 text-center text-sm text-white/55">Lineup not set</div>
               )}
             </div>
           </div>
@@ -455,15 +455,15 @@ export default function GameViewPage() {
 
       {/* ══════ GAME INFO BAR ══════ */}
       <div className="border-t border-[#171717]">
-        <div className="max-w-[1120px] mx-auto px-4 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[10px] text-white/15 uppercase tracking-wider">
+        <div className="max-w-[1120px] mx-auto px-4 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[10px] text-white/55 uppercase tracking-wider">
           <div className="flex items-center gap-3">
             <span>{game.gameType}</span>
             {game.eventName && <span>&middot; {game.eventName}</span>}
             <span>&middot; {game.date} &middot; {game.time}</span>
           </div>
           <div className="flex items-center gap-3">
-            {game.venue?.name && <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(game.venue.name + ", " + game.venue.address)}`} target="_blank" rel="noopener noreferrer" className="text-white/15 hover:text-[#17FC13] transition-colors no-underline">{game.venue.name}</a>}
-            <a href={`/teams/${teamId}/schedule`} className="text-white/15 hover:text-white/30 transition-colors no-underline">Schedule</a>
+            {game.venue?.name && <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(game.venue.name + ", " + game.venue.address)}`} target="_blank" rel="noopener noreferrer" className="text-white/55 hover:text-[#17FC13] transition-colors no-underline">{game.venue.name}</a>}
+            <a href={`/teams/${teamId}/schedule`} className="text-white/55 hover:text-white/70 transition-colors no-underline">Schedule</a>
           </div>
         </div>
       </div>

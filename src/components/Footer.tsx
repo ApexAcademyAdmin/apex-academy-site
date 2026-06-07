@@ -22,13 +22,13 @@ export function Footer() {
 
           <div className="flex items-center gap-6">
             {NAV_LINKS.map((n) => (
-              <a key={n.title} href={n.href} className="text-[10px] font-bold uppercase tracking-wider text-white/25 hover:text-white transition-colors no-underline">
+              <a key={n.title} href={n.href} className="text-[10px] font-bold uppercase tracking-wider text-white/65 hover:text-white transition-colors no-underline">
                 {n.title}
               </a>
             ))}
           </div>
 
-          <span className="text-[10px] text-white/20 uppercase">
+          <span className="text-[10px] text-white/60 uppercase">
             &copy; {new Date().getFullYear()} Apex Academy &middot; {CONTACT.location}
           </span>
         </div>

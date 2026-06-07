@@ -21,13 +21,13 @@ export default function RisingProspectsPage() {
           <div>
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Annual Event</div>
             <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">What Is the Rising Prospects <span className="accent-text">Combine?</span></h2>
-            <p className="text-sm text-white/50 leading-relaxed mb-4">
+            <p className="text-sm text-white/90 leading-relaxed mb-4">
               The Rising Prospects Combine is an annual evaluation and exposure event hosted by Apex Academy. The combine brings together prospects from across the region for professional-level athletic and baseball testing in front of guaranteed attending college coaches.
             </p>
-            <p className="text-[13px] text-white/35 leading-relaxed mb-4">
+            <p className="text-[13px] text-white/75 leading-relaxed mb-4">
               Every participant receives a verified player profile through The Academy app — including all metrics, evaluations, and video collected throughout the event. Profiles are accessible to attending coaches and remain permanently available for recruiting purposes.
             </p>
-            <p className="text-[13px] text-white/35 leading-relaxed">
+            <p className="text-[13px] text-white/75 leading-relaxed">
               Apex Academy athletes participate at no cost. External players are welcome to register for a fee.
             </p>
           </div>
@@ -44,7 +44,7 @@ export default function RisingProspectsPage() {
                 { label: "Profiles", value: "The Academy App" },
               ].map(d => (
                 <div key={d.label} className="flex items-start justify-between py-2 border-b border-white/[0.03] last:border-b-0">
-                  <span className="text-[11px] font-bold text-white/40 uppercase tracking-wider">{d.label}</span>
+                  <span className="text-[11px] font-bold text-white/80 uppercase tracking-wider">{d.label}</span>
                   <span className="text-[12px] text-white/70 text-right">{d.value}</span>
                 </div>
               ))}
@@ -70,7 +70,7 @@ export default function RisingProspectsPage() {
         <div className="mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Combine Testing</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-2">What Gets <span className="accent-text">Measured</span></h2>
-          <p className="text-sm text-white/40 max-w-xl">Professional-grade testing across every measurable category. All results are verified and uploaded directly to player profiles through The Academy app.</p>
+          <p className="text-sm text-white/80 max-w-xl">Professional-grade testing across every measurable category. All results are verified and uploaded directly to player profiles through The Academy app.</p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -87,7 +87,7 @@ export default function RisingProspectsPage() {
             <div key={c.category} className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-4">
               <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/50 mb-2">{c.category}</div>
               {c.metrics.map(m => (
-                <div key={m} className="flex items-center gap-1.5 py-1 text-[12px] text-white/50">
+                <div key={m} className="flex items-center gap-1.5 py-1 text-[12px] text-white/90">
                   <span className="w-1 h-1 rounded-full bg-[#17FC13]/30 flex-shrink-0" />
                   {m}
                 </div>
@@ -103,10 +103,10 @@ export default function RisingProspectsPage() {
           <div>
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Player Profiles</div>
             <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">Powered by <span className="accent-text">The Academy</span></h2>
-            <p className="text-sm text-white/50 leading-relaxed mb-4">
+            <p className="text-sm text-white/90 leading-relaxed mb-4">
               Every participant receives a verified player profile through The Academy app — included with registration at no additional cost.
             </p>
-            <p className="text-[13px] text-white/35 leading-relaxed">
+            <p className="text-[13px] text-white/75 leading-relaxed">
               All metrics, evaluations, and video captured during the combine are uploaded directly to your profile. Attending college coaches have access to verified data in one place — making it easier to evaluate, follow up, and recruit.
             </p>
           </div>
@@ -128,15 +128,15 @@ export default function RisingProspectsPage() {
         <div className="mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Exposure</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-2">College Coach <span className="accent-text">Attendance</span></h2>
-          <p className="text-sm text-white/40 max-w-xl">
+          <p className="text-sm text-white/80 max-w-xl">
             The Rising Prospects Combine guarantees college coach attendance. Programs from NCAA Division I, II, III, NAIA, and NJCAA are invited to evaluate prospects and access verified player data.
           </p>
         </div>
 
         <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 max-w-lg">
-          <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-3">Coaches Receive</div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 mb-3">Coaches Receive</div>
           {["Verified Prospect Metrics", "Player Evaluations", "Video Access via The Academy", "Recruiting Contact Information", "Event Performance Data"].map(item => (
-            <div key={item} className="flex items-center gap-2 py-1.5 text-[12px] text-white/50">
+            <div key={item} className="flex items-center gap-2 py-1.5 text-[12px] text-white/90">
               <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]/30 flex-shrink-0" />
               {item}
             </div>
@@ -159,7 +159,7 @@ export default function RisingProspectsPage() {
           ].map(a => (
             <div key={a.title} className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 h-full">
               <div className="text-sm font-bold text-white/80 mb-2">{a.title}</div>
-              <div className="text-[12px] text-white/40 leading-relaxed">{a.desc}</div>
+              <div className="text-[12px] text-white/80 leading-relaxed">{a.desc}</div>
             </div>
           ))}
         </div>
@@ -172,10 +172,10 @@ export default function RisingProspectsPage() {
           <h2 className="text-2xl md:text-3xl font-bold uppercase mb-3 leading-[0.9]">
             Get <span className="accent-text">Evaluated</span>
           </h2>
-          <p className="text-sm text-white/40 max-w-md mx-auto mb-3">
+          <p className="text-sm text-white/80 max-w-md mx-auto mb-3">
             Professional combine testing. Guaranteed college coach attendance. Verified player profiles through The Academy. One event that puts you on the map.
           </p>
-          <p className="text-[11px] text-white/25 mb-6">Apex Academy athletes participate for free.</p>
+          <p className="text-[11px] text-white/65 mb-6">Apex Academy athletes participate for free.</p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button href="mailto:apexsportsgg@gmail.com">Register Now</Button>
             <Button variant="secondary" href="/events">All Events</Button>

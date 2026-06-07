@@ -120,12 +120,12 @@ export default function JoinPage() {
             />
           </div>
           <div className="max-w-[1120px] mx-auto px-6 py-3 flex items-center justify-between">
-            <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
+            <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
               Step {step} of {STEPS.length - 1}
             </div>
             <div className="flex items-center gap-4">
               {STEPS.slice(1).map((s, i) => (
-                <span key={s} className={`text-[9px] font-bold uppercase tracking-wider hidden md:block ${i + 1 <= step ? "text-[#17FC13]" : "text-white/15"}`}>{s}</span>
+                <span key={s} className={`text-[9px] font-bold uppercase tracking-wider hidden md:block ${i + 1 <= step ? "text-[#17FC13]" : "text-white/55"}`}>{s}</span>
               ))}
             </div>
           </div>
@@ -147,7 +147,7 @@ export default function JoinPage() {
       {step > 0 && (
         <div className="fixed bottom-0 left-0 right-0 border-t border-[#171717] bg-black/95 backdrop-blur-sm z-40">
           <div className="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
-            <button onClick={back} className="text-xs font-bold uppercase tracking-wider text-white/40 hover:text-white transition-colors bg-transparent border-none cursor-pointer">
+            <button onClick={back} className="text-xs font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors bg-transparent border-none cursor-pointer">
               Back
             </button>
             {step < STEPS.length - 1 ? (
@@ -190,11 +190,11 @@ function WelcomeStep({ onStart }: { onStart: () => void }) {
           Earn Your <span className="accent-text">Spot</span>
         </h1>
 
-        <p className="text-[15px] text-white/45 leading-[1.8] max-w-md mx-auto mb-4">
+        <p className="text-[15px] text-white/85 leading-[1.8] max-w-md mx-auto mb-4">
           Apply to become part of one of New England&apos;s premier baseball development programs. Complete the registration below to be evaluated for the upcoming season.
         </p>
 
-        <p className="text-[13px] text-white/25 leading-[1.7] max-w-sm mx-auto mb-12">
+        <p className="text-[13px] text-white/65 leading-[1.7] max-w-sm mx-auto mb-12">
           Registration takes approximately 3-5 minutes. Have your baseball metrics and parent/guardian contact information ready.
         </p>
 
@@ -229,7 +229,7 @@ function PlayerInfoStep({ form, update }: { form: FormData; update: (f: keyof Fo
         </div>
 
         <div className="border-t border-[#171717] pt-8">
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/25 mb-6">Parent / Guardian</div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/65 mb-6">Parent / Guardian</div>
           <div className="space-y-4">
             <Field label="Parent/Guardian Name" value={form.parentName} onChange={(v) => update("parentName", v)} required />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -255,7 +255,7 @@ function BaseballInfoStep({ form, update }: { form: FormData; update: (f: keyof 
       <div className="space-y-8">
         {/* Positions */}
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/30 mb-4">Primary Position *</div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/70 mb-4">Primary Position *</div>
           <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
             {POSITIONS.map((pos) => (
               <button
@@ -264,7 +264,7 @@ function BaseballInfoStep({ form, update }: { form: FormData; update: (f: keyof 
                 className={`py-3 border text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer select-none ${
                   form.primaryPosition === pos
                     ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]"
-                    : "border-[#171717] text-white/40 hover:border-white/15 hover:text-white/60"
+                    : "border-[#171717] text-white/80 hover:border-white/15 hover:text-white/60"
                 }`}
               >
                 {pos}
@@ -274,7 +274,7 @@ function BaseballInfoStep({ form, update }: { form: FormData; update: (f: keyof 
         </div>
 
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/30 mb-4">Secondary Position</div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/70 mb-4">Secondary Position</div>
           <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
             {POSITIONS.filter((p) => p !== form.primaryPosition).map((pos) => (
               <button
@@ -283,7 +283,7 @@ function BaseballInfoStep({ form, update }: { form: FormData; update: (f: keyof 
                 className={`py-3 border text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer select-none ${
                   form.secondaryPosition === pos
                     ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]"
-                    : "border-[#171717] text-white/40 hover:border-white/15 hover:text-white/60"
+                    : "border-[#171717] text-white/80 hover:border-white/15 hover:text-white/60"
                 }`}
               >
                 {pos}
@@ -295,7 +295,7 @@ function BaseballInfoStep({ form, update }: { form: FormData; update: (f: keyof 
         {/* Throws / Bats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/30 mb-4">Throws *</div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/70 mb-4">Throws *</div>
             <div className="flex gap-2">
               {["Right", "Left", "Switch"].map((opt) => (
                 <button
@@ -304,7 +304,7 @@ function BaseballInfoStep({ form, update }: { form: FormData; update: (f: keyof 
                   className={`flex-1 py-3 border text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer select-none ${
                     form.throws === opt
                       ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]"
-                      : "border-[#171717] text-white/40 hover:border-white/15"
+                      : "border-[#171717] text-white/80 hover:border-white/15"
                   }`}
                 >
                   {opt}
@@ -313,7 +313,7 @@ function BaseballInfoStep({ form, update }: { form: FormData; update: (f: keyof 
             </div>
           </div>
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/30 mb-4">Bats *</div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/70 mb-4">Bats *</div>
             <div className="flex gap-2">
               {["Right", "Left", "Switch"].map((opt) => (
                 <button
@@ -322,7 +322,7 @@ function BaseballInfoStep({ form, update }: { form: FormData; update: (f: keyof 
                   className={`flex-1 py-3 border text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer select-none ${
                     form.bats === opt
                       ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]"
-                      : "border-[#171717] text-white/40 hover:border-white/15"
+                      : "border-[#171717] text-white/80 hover:border-white/15"
                   }`}
                 >
                   {opt}
@@ -351,7 +351,7 @@ function DetailsStep({ form, update }: { form: FormData; update: (f: keyof FormD
       <div className="space-y-8">
         {/* Metrics */}
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/25 mb-4">Performance Metrics</div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/65 mb-4">Performance Metrics</div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <Field label="Exit Velo (mph)" value={form.exitVelo} onChange={(v) => update("exitVelo", v)} placeholder="85" />
             <Field label="Pitch Velo (mph)" value={form.pitchingVelo} onChange={(v) => update("pitchingVelo", v)} placeholder="78" />
@@ -365,7 +365,7 @@ function DetailsStep({ form, update }: { form: FormData; update: (f: keyof FormD
 
         {/* Links */}
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/25 mb-4">Media & Links</div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/65 mb-4">Media & Links</div>
           <div className="space-y-4">
             <Field label="Highlight Video URL" value={form.highlightUrl} onChange={(v) => update("highlightUrl", v)} placeholder="YouTube, Hudl, etc." />
             <Field label="Recruiting Profile URL" value={form.profileUrl} onChange={(v) => update("profileUrl", v)} placeholder="Perfect Game, PBR, etc." />
@@ -375,7 +375,7 @@ function DetailsStep({ form, update }: { form: FormData; update: (f: keyof FormD
 
         {/* Notes */}
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/30 mb-3">Anything else we should know?</div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/70 mb-3">Anything else we should know?</div>
           <textarea
             value={form.notes}
             onChange={(e) => update("notes", e.target.value)}
@@ -442,7 +442,7 @@ function ReviewStep({ form }: { form: FormData }) {
             <div className="space-y-3">
               {s.rows.filter(([, v]) => v).map(([label, value]) => (
                 <div key={label} className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-white/25">{label}</span>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-white/65">{label}</span>
                   <span className="text-sm text-white/70">{value}</span>
                 </div>
               ))}
@@ -450,7 +450,7 @@ function ReviewStep({ form }: { form: FormData }) {
           </div>
         ))}
 
-        <p className="text-[12px] text-white/25 text-center leading-relaxed">
+        <p className="text-[12px] text-white/65 text-center leading-relaxed">
           By submitting, you confirm the information above is accurate. Apex Academy coaching staff will review your registration and contact you with next steps.
         </p>
       </div>
@@ -470,11 +470,11 @@ function Confirmation({ name }: { name: string }) {
           Registration <span className="accent-text">Submitted</span>
         </h1>
 
-        <p className="text-[15px] text-white/50 leading-[1.8] mb-4">
+        <p className="text-[15px] text-white/90 leading-[1.8] mb-4">
           {name}, your tryout registration has been submitted. Our coaching staff will review your information and reach out with next steps.
         </p>
 
-        <p className="text-[13px] text-white/30 leading-[1.7] mb-10">
+        <p className="text-[13px] text-white/70 leading-[1.7] mb-10">
           Check your email for a confirmation. If you don&apos;t hear from us within 48 hours, contact us at {CONTACT.email}.
         </p>
 
@@ -497,7 +497,7 @@ function StepHeader({ title, accent, sub }: { title: string; accent: string; sub
       <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">
         {title} <span className="accent-text">{accent}</span>
       </h2>
-      <p className="text-[13px] text-white/35">{sub}</p>
+      <p className="text-[13px] text-white/75">{sub}</p>
     </div>
   );
 }
@@ -507,7 +507,7 @@ function Field({ label, value, onChange, type = "text", placeholder, required }:
 }) {
   return (
     <div>
-      <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-2">
+      <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 mb-2">
         {label}{required && <span className="text-[#17FC13]/50 ml-1">*</span>}
       </label>
       <input
@@ -526,7 +526,7 @@ function SelectField({ label, value, onChange, options, required }: {
 }) {
   return (
     <div>
-      <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-2">
+      <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 mb-2">
         {label}{required && <span className="text-[#17FC13]/50 ml-1">*</span>}
       </label>
       <select

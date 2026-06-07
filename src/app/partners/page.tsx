@@ -44,14 +44,14 @@ export default function PartnersPage() {
         <div className="absolute inset-0 bg-black" />
         <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-6">
           <div className="flex items-center gap-2 mb-5 text-[10px] font-medium uppercase tracking-[0.2em]">
-            <a href="/" className="text-white/20 no-underline hover:text-white/40">Home</a>
+            <a href="/" className="text-white/60 no-underline hover:text-white/80">Home</a>
             <span className="text-white/10">/</span>
             <span className="text-[#17FC13]/50">Partners</span>
           </div>
           <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-2">
             Our <span className="accent-text">Partners</span>
           </h1>
-          <p className="text-[14px] text-white/30 leading-[1.7] max-w-lg">The brands and organizations that power Apex Academy.</p>
+          <p className="text-[14px] text-white/70 leading-[1.7] max-w-lg">The brands and organizations that power Apex Academy.</p>
         </div>
       </section>
 
@@ -105,7 +105,7 @@ export default function PartnersPage() {
               <h2 className="text-base font-bold uppercase">{active.name}</h2>
               <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/40">{active.role}</span>
             </div>
-            <div className="text-[13px] text-white/45 leading-[1.75] whitespace-pre-line">{active.description}</div>
+            <div className="text-[13px] text-white/85 leading-[1.75] whitespace-pre-line">{active.description}</div>
             {active.link && (
               <Button href={active.link} variant="secondary" size="small" external>Visit {active.name}</Button>
             )}
@@ -118,7 +118,7 @@ export default function PartnersPage() {
         <div className="border border-[#171717] bg-radial p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <h3 className="text-sm uppercase font-bold mb-1">Become A Partner</h3>
-            <p className="text-[11px] text-white/25">Interested in partnering with Apex Academy?</p>
+            <p className="text-[11px] text-white/65">Interested in partnering with Apex Academy?</p>
           </div>
           <Button href={`mailto:${CONTACT.email}?subject=Partnership Inquiry`} size="small">Partner Inquiries</Button>
         </div>

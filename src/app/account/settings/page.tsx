@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
 const inputCls = "w-full bg-[#0d1117] border border-white/[0.06] rounded-lg px-4 py-2.5 text-[13px] text-white/90 placeholder-white/20 focus:outline-none focus:border-[#17FC13]/30 transition-colors";
-const labelCls = "block text-[10px] font-bold uppercase tracking-wider text-white/30 mb-1.5";
+const labelCls = "block text-[10px] font-bold uppercase tracking-wider text-white/70 mb-1.5";
 
 function Notice({ kind, text }: { kind: "ok" | "err"; text: string }) {
   const ok = kind === "ok";
@@ -119,7 +119,7 @@ export default function SettingsPage() {
 
       {/* Profile */}
       <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-6">
-        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 mb-5">Profile</h3>
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 mb-5">Profile</h3>
         {profileMsg && <Notice kind={profileMsg.kind} text={profileMsg.text} />}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -145,7 +145,7 @@ export default function SettingsPage() {
 
       {/* Password */}
       <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-6">
-        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 mb-5">Change Password</h3>
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 mb-5">Change Password</h3>
         {passwordMsg && <Notice kind={passwordMsg.kind} text={passwordMsg.text} />}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>

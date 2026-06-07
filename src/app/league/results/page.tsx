@@ -9,10 +9,10 @@ function GameCard({ r }: { r: typeof RECENT_RESULTS[0] }) {
     <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04] overflow-hidden hover:border-[#17FC13]/10 transition-all">
       {/* Top bar — division + status */}
       <div className="flex items-center justify-between px-5 py-2.5 border-b border-white/[0.03]">
-        <span className="text-[10px] font-bold uppercase tracking-wider text-white/30">{r.division}</span>
+        <span className="text-[10px] font-bold uppercase tracking-wider text-white/70">{r.division}</span>
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-mono text-white/20">{r.date}</span>
-          <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/[0.06] text-white/50">Final</span>
+          <span className="text-[10px] font-mono text-white/60">{r.date}</span>
+          <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/[0.06] text-white/90">Final</span>
         </div>
       </div>
 
@@ -50,16 +50,16 @@ function GameCard({ r }: { r: typeof RECENT_RESULTS[0] }) {
             ].map(side => (
               <div key={side.label}>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">{side.label}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">{side.label}</span>
                   <span className={`text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${side.isWinner ? "bg-[#17FC13]/10 text-[#17FC13]/50" : "bg-red-500/10 text-red-400/50"}`}>{side.isWinner ? "W" : "L"}</span>
                 </div>
                 <div className="space-y-1">
                   {side.pitchers.map((p, pi) => (
                     <div key={pi} className="flex items-center justify-between text-[12px]">
                       <span className="text-white/70">{p.name}</span>
-                      <div className="flex items-center gap-3 font-mono text-white/40">
+                      <div className="flex items-center gap-3 font-mono text-white/80">
                         <span>{p.ip} IP</span>
-                        <span className={`font-bold ${p.pitches > 95 ? "text-red-400/70" : "text-white/50"}`}>{p.pitches} P</span>
+                        <span className={`font-bold ${p.pitches > 95 ? "text-red-400/70" : "text-white/90"}`}>{p.pitches} P</span>
                       </div>
                     </div>
                   ))}

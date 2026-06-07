@@ -20,8 +20,8 @@ function AwardCard({ name, description, badge }: { name: string; description: st
         <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#17FC13]/10 text-[#17FC13]/50 mb-3 inline-block">{badge}</span>
       )}
       <div className="text-sm font-bold text-white/90 mb-1.5">{name}</div>
-      <div className="text-[12px] text-white/40 leading-relaxed">{description}</div>
-      <div className="text-[10px] text-white/20 mt-3">Premier Division &middot; Prospect Division</div>
+      <div className="text-[12px] text-white/80 leading-relaxed">{description}</div>
+      <div className="text-[10px] text-white/60 mt-3">Premier Division &middot; Prospect Division</div>
     </div>
   );
 }
@@ -45,10 +45,10 @@ export default function BanquetPage() {
           <div>
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Annual Event</div>
             <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">The Apex Academy <span className="accent-text">Banquet</span></h2>
-            <p className="text-sm text-white/50 leading-relaxed mb-4">
+            <p className="text-sm text-white/90 leading-relaxed mb-4">
               The culmination of the Apex Academy League season. Championships are celebrated. Individual excellence is honored. Development and leadership are recognized. Every award is earned through performance on the field and character off of it.
             </p>
-            <p className="text-[12px] text-white/30 leading-relaxed">
+            <p className="text-[12px] text-white/70 leading-relaxed">
               The banquet brings together players, families, coaches, and the baseball community to celebrate a season of competition, growth, and achievement across the Premier and Prospect Divisions.
             </p>
           </div>
@@ -64,7 +64,7 @@ export default function BanquetPage() {
                 { label: "Format", value: "Dinner, Awards Ceremony, Recognition" },
               ].map(d => (
                 <div key={d.label} className="flex items-start justify-between py-2 border-b border-white/[0.03] last:border-b-0">
-                  <span className="text-[11px] font-bold text-white/40 uppercase tracking-wider">{d.label}</span>
+                  <span className="text-[11px] font-bold text-white/80 uppercase tracking-wider">{d.label}</span>
                   <span className="text-[12px] text-white/70 text-right">{d.value}</span>
                 </div>
               ))}
@@ -78,7 +78,7 @@ export default function BanquetPage() {
         <div className="mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Regular Season</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-2">Individual <span className="accent-text">Awards</span></h2>
-          <p className="text-sm text-white/40 max-w-2xl">Recognizing the top performers across the entire regular season. Each award is presented for both the Premier Division and Prospect Division.</p>
+          <p className="text-sm text-white/80 max-w-2xl">Recognizing the top performers across the entire regular season. Each award is presented for both the Premier Division and Prospect Division.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -93,25 +93,25 @@ export default function BanquetPage() {
         <div className="mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Positional Excellence</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-2">Silver Slugger & <span className="accent-text">Gold Glove</span></h2>
-          <p className="text-sm text-white/40 max-w-2xl">Awarded to the top offensive and defensive performers at each position. Presented for both Premier and Prospect Divisions.</p>
+          <p className="text-sm text-white/80 max-w-2xl">Awarded to the top offensive and defensive performers at each position. Presented for both Premier and Prospect Divisions.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {POSITIONAL_AWARDS.map(award => (
             <div key={award.id} className="bg-[#0d1117] rounded-2xl border border-white/[0.04] p-6">
               <div className="text-sm font-bold text-white/90 mb-1">{award.name}</div>
-              <div className="text-[11px] text-white/30 mb-4">
+              <div className="text-[11px] text-white/70 mb-4">
                 {award.id === "silver-slugger" ? "Top offensive performer at each position" : "Top defensive performer at each position"}
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {award.positions.map((pos, i) => (
-                  <div key={`${pos}-${i}`} className="flex items-center gap-2 text-[12px] text-white/50">
+                  <div key={`${pos}-${i}`} className="flex items-center gap-2 text-[12px] text-white/90">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]/30 flex-shrink-0" />
                     {pos}
                   </div>
                 ))}
               </div>
-              <div className="text-[10px] text-white/20 mt-4">Premier Division &middot; Prospect Division</div>
+              <div className="text-[10px] text-white/60 mt-4">Premier Division &middot; Prospect Division</div>
             </div>
           ))}
         </div>
@@ -127,7 +127,7 @@ export default function BanquetPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {TEAM_AWARDS.map(a => (
             <div key={a.id} className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 hover:border-[#17FC13]/10 transition-all">
-              <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/[0.04] text-white/40 mb-2 inline-block">
+              <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/[0.04] text-white/80 mb-2 inline-block">
                 {a.phase === "regular" ? "Regular Season" : "Postseason"}
               </span>
               <div className="text-sm font-bold text-white/90">{a.name}</div>
@@ -141,7 +141,7 @@ export default function BanquetPage() {
         <div className="mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Postseason</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-2">Playoff <span className="accent-text">Awards</span></h2>
-          <p className="text-sm text-white/40 max-w-2xl">Separate postseason recognition for players who perform at their best when it matters most.</p>
+          <p className="text-sm text-white/80 max-w-2xl">Separate postseason recognition for players who perform at their best when it matters most.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -156,14 +156,14 @@ export default function BanquetPage() {
         <div className="mb-8">
           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">All-New England Prospect Games</div>
           <h2 className="text-2xl md:text-3xl uppercase font-bold mb-2">Prospect Games <span className="accent-text">Honors</span></h2>
-          <p className="text-sm text-white/40 max-w-2xl">Selection to the All-New England Prospect Games is one of the highest honors in the league. Additional awards are presented at the event.</p>
+          <p className="text-sm text-white/80 max-w-2xl">Selection to the All-New England Prospect Games is one of the highest honors in the league. Additional awards are presented at the event.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {PROSPECT_GAMES_AWARDS.map(a => (
             <div key={a.id} className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 h-full hover:border-[#17FC13]/10 transition-all">
               <div className="text-sm font-bold text-white/90 mb-1.5">{a.name}</div>
-              <div className="text-[12px] text-white/40 leading-relaxed">{a.description}</div>
+              <div className="text-[12px] text-white/80 leading-relaxed">{a.description}</div>
             </div>
           ))}
         </div>
@@ -195,7 +195,7 @@ export default function BanquetPage() {
           <h2 className="text-2xl md:text-3xl font-bold uppercase mb-3 leading-[0.9]">
             Every Award is <span className="accent-text">Earned</span>
           </h2>
-          <p className="text-sm text-white/40 max-w-md mx-auto mb-6">
+          <p className="text-sm text-white/80 max-w-md mx-auto mb-6">
             Join the league, compete all season, and be recognized at the annual Apex Academy Banquet.
           </p>
           <div className="flex flex-wrap justify-center gap-3">

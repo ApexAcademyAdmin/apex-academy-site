@@ -61,14 +61,14 @@ export default function ShopPage() {
         <div className="absolute inset-0 bg-black" />
         <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-6">
           <div className="flex items-center gap-2 mb-5 text-[10px] font-medium uppercase tracking-[0.2em]">
-            <a href="/" className="text-white/20 no-underline hover:text-white/40">Home</a>
+            <a href="/" className="text-white/60 no-underline hover:text-white/80">Home</a>
             <span className="text-white/10">/</span>
             <span className="text-[#17FC13]/50">Shop</span>
           </div>
           <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-2">
             Apex <span className="accent-text">Shop</span>
           </h1>
-          <p className="text-[14px] text-white/30 leading-[1.7] max-w-lg">Official Apex Academy apparel and gear.</p>
+          <p className="text-[14px] text-white/70 leading-[1.7] max-w-lg">Official Apex Academy apparel and gear.</p>
         </div>
       </section>
 
@@ -83,7 +83,7 @@ export default function ShopPage() {
               className={`px-4 py-2 text-[11px] font-bold uppercase tracking-wider border transition-all duration-200 cursor-pointer select-none ${
                 activeCategory === cat
                   ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.05]"
-                  : "border-[#171717] text-white/40 hover:border-white/20 hover:text-white/60"
+                  : "border-[#171717] text-white/80 hover:border-white/20 hover:text-white/60"
               }`}
             >
               {cat}
@@ -147,7 +147,7 @@ export default function ShopPage() {
           >
             <button
               onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-white/40 hover:text-white border border-[#171717] bg-black transition-colors cursor-pointer text-lg"
+              className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-white/80 hover:text-white border border-[#171717] bg-black transition-colors cursor-pointer text-lg"
               aria-label="Close"
             >
               &times;
@@ -162,17 +162,17 @@ export default function ShopPage() {
             </div>
 
             <div className="p-6 md:p-10">
-              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/25 mb-2">{selectedProduct.category}</div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/65 mb-2">{selectedProduct.category}</div>
               <h2 className="text-2xl md:text-3xl uppercase font-bold mb-2">{selectedProduct.name}</h2>
               <div className="text-xl font-bold text-[#17FC13] mb-6">${selectedProduct.price}</div>
 
-              <p className="text-[14px] text-white/50 leading-[1.8] mb-8">{selectedProduct.description}</p>
+              <p className="text-[14px] text-white/90 leading-[1.8] mb-8">{selectedProduct.description}</p>
 
               <div className="mb-6">
-                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-3">Colors</div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 mb-3">Colors</div>
                 <div className="flex items-center gap-2">
                   {selectedProduct.colors.map((color) => (
-                    <span key={color} className="px-4 py-2 border border-[#171717] text-xs font-bold uppercase text-white/50 hover:border-[#17FC13]/30 transition-colors cursor-pointer">
+                    <span key={color} className="px-4 py-2 border border-[#171717] text-xs font-bold uppercase text-white/90 hover:border-[#17FC13]/30 transition-colors cursor-pointer">
                       {color}
                     </span>
                   ))}
@@ -180,10 +180,10 @@ export default function ShopPage() {
               </div>
 
               <div className="mb-8">
-                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-3">Size</div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 mb-3">Size</div>
                 <div className="flex flex-wrap gap-2">
                   {["XS", "S", "M", "L", "XL", "2XL"].map((size) => (
-                    <span key={size} className="w-12 h-10 flex items-center justify-center border border-[#171717] text-xs font-bold text-white/50 hover:border-[#17FC13]/30 hover:text-white transition-all cursor-pointer">
+                    <span key={size} className="w-12 h-10 flex items-center justify-center border border-[#171717] text-xs font-bold text-white/90 hover:border-[#17FC13]/30 hover:text-white transition-all cursor-pointer">
                       {size}
                     </span>
                   ))}
@@ -193,7 +193,7 @@ export default function ShopPage() {
               <Button href={`mailto:${CONTACT.email}?subject=Order: ${selectedProduct.name}`}>
                 Order Now — ${selectedProduct.price}
               </Button>
-              <p className="text-[11px] text-white/20 mt-4">Contact us to place your order. Custom sizing available.</p>
+              <p className="text-[11px] text-white/60 mt-4">Contact us to place your order. Custom sizing available.</p>
             </div>
           </div>
         </div>

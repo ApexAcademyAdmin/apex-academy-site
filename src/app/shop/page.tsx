@@ -35,7 +35,7 @@ const PRODUCTS: Product[] = [
   { id: "jacket-apex", name: "Apex Team Jacket", category: "Performance", price: 75, colors: ["Black"], description: "Black quarter-zip team jacket with the Apex Academy mark and green accents. Warm-up and travel.", image: "/shop/jacket-apex.png" },
 
   // Equipment
-  { id: "bag-equipment", name: "Apex Equipment Bag", category: "Equipment", price: 85, colors: ["Black"], description: "Full-size equipment bag with bat compartment, cleat pocket, and Apex Academy branding. Padded straps." },
+  { id: "bag-equipment", name: "Apex Equipment Bag", category: "Equipment", price: 85, colors: ["Black"], description: "Full-size black equipment bag with multiple zippered compartments, green zip pulls, and the Apex Academy mark. Padded straps.", image: "/shop/bag-equipment.png" },
 
   // Accessories
   { id: "belt-black", name: "Black Belt", category: "Accessories", price: 15, colors: ["Black"], description: "Standard black baseball belt. Adjustable clasp closure.", image: "/shop/belt-black.png" },

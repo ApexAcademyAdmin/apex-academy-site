@@ -7,14 +7,14 @@ const AGE_GROUPS = ["10U", "12U", "14U", "16U", "18U"];
 function DivisionTable({ rows, label }: { rows: StandingsEntry[]; label: string }) {
   return (
     <div className="bg-[#0d1117] rounded-2xl border border-white/[0.04] overflow-hidden">
-      <div className="px-6 py-4 border-b border-white/[0.05]">
+      <div className="px-4 py-3 border-b border-white/[0.05]">
         <span className="text-xs font-bold uppercase tracking-[0.15em] text-[#17FC13]/70">{label}</span>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr className="border-b border-white/[0.04]">
-              <th className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-wider text-white w-8"></th>
+              <th className="text-left py-3 px-3 text-[10px] font-bold uppercase tracking-wider text-white w-8"></th>
               <th className="text-left py-3 px-2 text-[10px] font-bold uppercase tracking-wider text-white">Team</th>
               <th className="text-center py-3 px-2 text-[10px] font-bold uppercase tracking-wider text-white w-10">W</th>
               <th className="text-center py-3 px-2 text-[10px] font-bold uppercase tracking-wider text-white w-10">L</th>
@@ -26,7 +26,7 @@ function DivisionTable({ rows, label }: { rows: StandingsEntry[]; label: string 
           <tbody>
             {rows.map((r, i) => (
               <tr key={r.team} className={`${i < rows.length - 1 ? "border-b border-white/[0.02]" : ""} hover:bg-white/[0.01] transition-colors`}>
-                <td className="py-3.5 px-5">
+                <td className="py-3.5 px-3">
                   <div className="flex items-center gap-2">
                     {r.playoffBound && <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]" />}
                     <span className="text-[11px] font-mono text-white">{r.rank}</span>
@@ -74,7 +74,7 @@ export default function StandingsPage() {
       <Section>
         {/* Legend */}
         <div>
-          <div className="flex items-center gap-4 mb-10 text-[10px] text-white uppercase tracking-wider">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-6 text-[10px] text-white uppercase tracking-wider">
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]" /> Playoff qualifier
             </div>
@@ -84,7 +84,7 @@ export default function StandingsPage() {
         </div>
 
         {/* All age groups */}
-        <div className="space-y-14">
+        <div className="space-y-8 md:space-y-12">
           {AGE_GROUPS.map((age, i) => (
             <div key={age}>
               <div>

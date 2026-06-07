@@ -22,10 +22,10 @@ const PRODUCTS: Product[] = [
   // Jerseys
   { id: "jersey-home", name: "Home Jersey", category: "Jerseys", price: 90, colors: ["White"], description: "Official Apex Academy home jersey. White New Balance full button-down with the Apex Academy mark, green and black piping, and a pro-cut fit.", image: "/shop/jersey-home.png" },
   { id: "jersey-away", name: "Away Jersey", category: "Jerseys", price: 90, colors: ["Black"], description: "Official Apex Academy away jersey. Black New Balance full button-down with the Apex Academy mark and green piping. Pro-cut fit.", image: "/shop/jersey-away.png" },
-  { id: "jersey-alt", name: "Alternative Jersey", category: "Jerseys", price: 90, colors: ["Green"], description: "Alternative game day jersey. Bold Apex green colorway with premium detailing." },
+  { id: "jersey-alt", name: "Alternative Jersey", category: "Jerseys", price: 90, colors: ["White/Navy/Red"], description: "Alternative Apex Academy jersey. White New Balance full button-down with navy and red trim and the Apex Academy mark.", image: "/shop/jersey-alt.png" },
 
   // Pants & Bottoms
-  { id: "pants-game", name: "New Balance Game Pants", category: "Pants & Bottoms", price: 55, colors: ["White", "Black"], description: "Official New Balance game pants. Pro-length with reinforced knees. Belt loop waist. Performance fit." },
+  { id: "pants-game", name: "New Balance Game Pants", category: "Pants & Bottoms", price: 55, colors: ["White", "Black"], description: "Official New Balance game pants. Pro-length with reinforced knees, belt-loop waist, and black piping. Performance fit.", image: "/shop/pants-game.png" },
   { id: "shorts-training", name: "Training Shorts", category: "Pants & Bottoms", price: 40, colors: ["Black"], description: "Lightweight performance shorts with zippered pockets. Athletic fit for training and warmups." },
   { id: "sweats-apex", name: "Apex Sweatpants", category: "Pants & Bottoms", price: 55, colors: ["Black"], description: "Premium black sweatpants with embroidered Apex branding. Tapered leg. Comfortable off-field wear." },
 

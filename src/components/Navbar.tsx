@@ -5,7 +5,6 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/client";
-import { Button } from "./Button";
 import type { User } from "@supabase/supabase-js";
 
 export function Navbar() {
@@ -20,16 +19,9 @@ export function Navbar() {
     const fn = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", fn, { passive: true });
 
-    // Check Supabase auth state
     const supabase = createClient();
-    supabase.auth.getUser().then(({ data: { user: authUser } }) => {
-      setUser(authUser);
-    });
-
-    // Listen for auth state changes (login/logout)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+    supabase.auth.getUser().then(({ data: { user: authUser } }) => setUser(authUser));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => setUser(session?.user ?? null));
 
     return () => {
       window.removeEventListener("scroll", fn);
@@ -46,106 +38,168 @@ export function Navbar() {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setDropdown(title);
   }
-
   function closeDropdown() {
-    timeoutRef.current = setTimeout(() => setDropdown(null), 150);
+    timeoutRef.current = setTimeout(() => setDropdown(null), 120);
   }
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname?.startsWith(`${href}/`);
 
   // The dashboard (account/admin) provides its own shell — hide marketing chrome.
-  if (pathname?.startsWith("/account") || pathname?.startsWith("/admin")) {
-    return null;
-  }
+  if (pathname?.startsWith("/account") || pathname?.startsWith("/admin")) return null;
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 flex h-20 w-full items-center border-b transition-all duration-300 ${
-          scrolled ? "bg-black/95 md:bg-black/75 md:backdrop-blur-sm border-[#171717]" : "bg-transparent border-transparent"
+        className={`fixed top-0 left-0 right-0 z-50 flex h-20 w-full items-center border-b transition-colors duration-300 ${
+          scrolled ? "bg-black/90 md:bg-black/70 md:backdrop-blur-md border-white/[0.06]" : "bg-transparent border-transparent"
         }`}
       >
-        <div className="max-w-[1120px] mx-auto px-6 w-full flex items-center justify-between">
-          <a href="/" className="no-underline">
-            <Image src="/logos/decal-lg.png" alt="Apex Academy" width={480} height={320} className="h-14 w-auto object-contain" />
+        <div className="max-w-[1180px] mx-auto px-6 w-full flex items-center justify-between">
+          {/* Logo */}
+          <a href="/" className="no-underline shrink-0 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#17FC13]/60">
+            <Image src="/logos/decal-lg.png" alt="Apex Academy" width={480} height={320} className="h-14 w-auto object-contain" priority />
           </a>
 
+          {/* Desktop nav */}
           <nav className="hidden md:block">
-            <ul className="flex items-center gap-6 text-xs font-bold uppercase list-none">
-              {NAV_LINKS.map((n) => (
-                <li
-                  key={n.title}
-                  className="relative"
-                  onMouseEnter={() => n.children && openDropdown(n.title)}
-                  onMouseLeave={() => n.children && closeDropdown()}
-                >
-                  <a
-                    href={n.href}
-                    className="flex items-center gap-1 text-white/50 hover:text-white transition-colors no-underline py-2"
+            <ul className="flex items-center gap-1 font-display text-[13px] font-semibold uppercase tracking-[0.04em] list-none">
+              {NAV_LINKS.map((n) => {
+                const active = isActive(n.href);
+                const showMenu = dropdown === n.title;
+                return (
+                  <li
+                    key={n.title}
+                    className="group relative"
+                    onMouseEnter={() => n.children && openDropdown(n.title)}
+                    onMouseLeave={() => n.children && closeDropdown()}
                   >
-                    {n.title}
-                    {n.children && (
-                      <svg className="w-3 h-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path d="M19 9l-7 7-7-7" />
-                      </svg>
-                    )}
-                  </a>
+                    <a
+                      href={n.href}
+                      aria-haspopup={n.children ? "true" : undefined}
+                      aria-expanded={n.children ? showMenu : undefined}
+                      className={`relative flex items-center gap-1.5 px-3 py-2 no-underline transition-colors duration-200 ease-out rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#17FC13]/50 ${
+                        active ? "text-white" : "text-white/55 hover:text-white"
+                      }`}
+                    >
+                      {n.title}
+                      {n.children && (
+                        <svg
+                          className={`w-3 h-3 opacity-50 transition-transform duration-200 ease-out ${showMenu ? "rotate-180" : ""}`}
+                          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
+                        >
+                          <path d="M19 9l-7 7-7-7" />
+                        </svg>
+                      )}
+                      {/* Animated underline — grows from center */}
+                      <span
+                        className={`pointer-events-none absolute left-3 right-3 -bottom-0.5 h-[2px] origin-center rounded-full bg-[#17FC13] transition-transform duration-200 ease-out ${
+                          active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                        }`}
+                      />
+                    </a>
 
-                  {/* Dropdown */}
-                  {n.children && dropdown === n.title && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2">
-                      <div className="border border-[#171717] bg-black/95 backdrop-blur-sm min-w-[140px] py-2">
-                        {n.children.map((child) => (
-                          <a
-                            key={child.title}
-                            href={child.href}
-                            className="block px-5 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white/50 hover:text-[#17FC13] hover:bg-white/[0.03] transition-all no-underline"
-                          >
-                            {child.title}
-                          </a>
-                        ))}
+                    {/* Dropdown */}
+                    {n.children && (
+                      <div
+                        className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200 ease-out ${
+                          showMenu
+                            ? "visible opacity-100 translate-y-0 scale-100"
+                            : "invisible opacity-0 -translate-y-1 scale-[0.98]"
+                        } group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:scale-100`}
+                      >
+                        <div className="min-w-[200px] rounded-2xl border border-white/[0.08] bg-[#0a0a0a]/95 backdrop-blur-md p-1.5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)]">
+                          {n.children.map((child) => (
+                            <a
+                              key={child.title}
+                              href={child.href}
+                              className={`block rounded-xl px-4 py-2.5 text-[12px] font-semibold uppercase tracking-wide no-underline transition-colors duration-150 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#17FC13]/50 ${
+                                isActive(child.href) ? "text-[#17FC13] bg-[#17FC13]/[0.06]" : "text-white/55 hover:text-white hover:bg-white/[0.04]"
+                              }`}
+                            >
+                              {child.title}
+                            </a>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </li>
-              ))}
-              <li>
-                <Button href="/join" size="small">Join Apex</Button>
+                    )}
+                  </li>
+                );
+              })}
+
+              {/* Secondary action */}
+              <li className="ml-2">
+                <a
+                  href={user ? "/account" : "/signin"}
+                  className="px-3 py-2 text-white/55 hover:text-white transition-colors duration-200 ease-out no-underline rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#17FC13]/50"
+                >
+                  {user ? "Account" : "Sign In"}
+                </a>
               </li>
+
+              {/* Primary CTA */}
               <li>
-                {user ? (
-                  <a href="/account" className="text-white/50 hover:text-[#17FC13] transition-colors no-underline">Account</a>
-                ) : (
-                  <a href="/signin" className="text-white/40 hover:text-white transition-colors no-underline">Sign In</a>
-                )}
+                <a
+                  href="/join"
+                  className="inline-flex items-center rounded-full border border-[#17FC13]/40 bg-[#17FC13]/10 px-5 py-2 text-[#17FC13] no-underline transition-all duration-200 ease-out hover:bg-[#17FC13]/15 hover:border-[#17FC13]/60 hover:shadow-[0_0_22px_rgba(23,252,19,0.18)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#17FC13]/60"
+                >
+                  Join Apex
+                </a>
               </li>
             </ul>
           </nav>
 
+          {/* Mobile toggle */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden text-white bg-transparent border-none cursor-pointer p-2 text-xl leading-none"
-            aria-label="Menu"
+            className="md:hidden relative w-10 h-10 flex items-center justify-center text-white bg-transparent border-none cursor-pointer"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
           >
-            {open ? "\u2715" : "\u2630"}
+            <span className={`absolute h-[2px] w-6 bg-white rounded transition-all duration-300 ease-out ${open ? "rotate-45" : "-translate-y-1.5"}`} />
+            <span className={`absolute h-[2px] w-6 bg-white rounded transition-all duration-200 ease-out ${open ? "opacity-0" : "opacity-100"}`} />
+            <span className={`absolute h-[2px] w-6 bg-white rounded transition-all duration-300 ease-out ${open ? "-rotate-45" : "translate-y-1.5"}`} />
           </button>
         </div>
       </header>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="fixed inset-0 top-20 bg-black z-40 flex flex-col items-center justify-center gap-6 md:hidden overflow-y-auto py-8">
-          {NAV_LINKS.map((n) => (
-            <div key={n.title} className="flex flex-col items-center gap-3">
-              <a href={n.href} onClick={() => setOpen(false)} className="text-2xl font-bold uppercase text-white no-underline hover:text-[#17FC13] transition-colors">
+      {/* Mobile overlay */}
+      <div
+        onClick={() => setOpen(false)}
+        className={`md:hidden fixed inset-0 z-40 bg-black/60 transition-opacity duration-300 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+      />
+
+      {/* Mobile slide-out panel */}
+      <aside
+        className={`md:hidden fixed top-0 right-0 z-40 h-full w-[82%] max-w-sm bg-[#0a0a0a] border-l border-white/[0.06] transition-transform duration-300 ease-out ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="h-20" />
+        <nav className="flex flex-col px-6 py-4 overflow-y-auto h-[calc(100%-5rem)] font-display">
+          {NAV_LINKS.map((n, i) => (
+            <div
+              key={n.title}
+              className={`py-3 border-b border-white/[0.05] transition-all duration-300 ease-out ${open ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"}`}
+              style={{ transitionDelay: open ? `${80 + i * 45}ms` : "0ms" }}
+            >
+              <a
+                href={n.href}
+                onClick={() => setOpen(false)}
+                className={`block text-xl font-bold uppercase tracking-wide no-underline transition-colors ${isActive(n.href) ? "text-[#17FC13]" : "text-white hover:text-[#17FC13]"}`}
+              >
                 {n.title}
               </a>
               {n.children && (
-                <div className="flex flex-wrap items-center justify-center gap-2">
+                <div className="mt-2.5 flex flex-wrap gap-2">
                   {n.children.map((child) => (
                     <a
                       key={child.title}
                       href={child.href}
                       onClick={() => setOpen(false)}
-                      className="px-4 py-1.5 border border-[#171717] text-xs font-bold uppercase text-white/50 hover:text-[#17FC13] hover:border-[#17FC13]/30 transition-all no-underline"
+                      className={`px-3 py-1.5 rounded-lg border text-[11px] font-semibold uppercase tracking-wide no-underline transition-colors ${
+                        isActive(child.href) ? "border-[#17FC13]/40 text-[#17FC13] bg-[#17FC13]/[0.06]" : "border-white/[0.08] text-white/55 hover:text-white hover:border-white/20"
+                      }`}
                     >
                       {child.title}
                     </a>
@@ -154,14 +208,28 @@ export function Navbar() {
               )}
             </div>
           ))}
-          {user ? (
-            <a href="/account" onClick={() => setOpen(false)} className="text-lg font-bold uppercase text-[#17FC13] no-underline">Account</a>
-          ) : (
-            <a href="/signin" onClick={() => setOpen(false)} className="text-lg font-bold uppercase text-white/50 no-underline">Sign In</a>
-          )}
-          <Button href="/join">Join Apex</Button>
-        </div>
-      )}
+
+          <div
+            className={`mt-6 flex flex-col gap-3 transition-all duration-300 ease-out ${open ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"}`}
+            style={{ transitionDelay: open ? `${80 + NAV_LINKS.length * 45}ms` : "0ms" }}
+          >
+            <a
+              href={user ? "/account" : "/signin"}
+              onClick={() => setOpen(false)}
+              className="text-sm font-bold uppercase tracking-wide text-white/60 hover:text-white no-underline transition-colors"
+            >
+              {user ? "Account" : "Sign In"}
+            </a>
+            <a
+              href="/join"
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center justify-center rounded-full border border-[#17FC13]/50 bg-[#17FC13]/10 px-6 py-3 text-sm font-bold uppercase tracking-wide text-[#17FC13] no-underline transition-all hover:bg-[#17FC13]/15 hover:shadow-[0_0_24px_rgba(23,252,19,0.18)]"
+            >
+              Join Apex
+            </a>
+          </div>
+        </nav>
+      </aside>
     </>
   );
 }

@@ -57,7 +57,7 @@ export async function PATCH(req: NextRequest) {
   // Fetch current team for email context when status changes.
   const { data: team } = await admin
     .from("teams")
-    .select("team_name, age_group, contact_name, contact_email, contact_phone, notes")
+    .select("team_name, age_group, division, contact_name, contact_email, contact_phone, notes")
     .eq("id", teamId)
     .maybeSingle();
 
@@ -69,20 +69,30 @@ export async function PATCH(req: NextRequest) {
     const reg = {
       teamName: team.team_name || "",
       ageGroup: team.age_group || "",
+      conference: team.division || "",
       coachName: team.contact_name || "",
       coachEmail: team.contact_email,
       coachPhone: team.contact_phone || "",
       notes: team.notes || "",
     };
     const origin = req.nextUrl.origin;
-    let msg: { subject: string; html: string } | null = null;
+    const note = message || updates?.admin_notes || "";
+    let msg: { subject: string; html: string; text: string } | null = null;
+    let template = "";
 
-    if (allowed.status === "approved") msg = approvalEmail(reg, `${origin}/account`);
-    else if (allowed.status === "needs_info") msg = needsInfoEmail(reg, message || updates?.admin_notes || "");
-    else if (allowed.status === "rejected") msg = rejectionEmail(reg, message || updates?.admin_notes || "");
+    if (allowed.status === "approved") {
+      msg = approvalEmail(reg, { dashboardUrl: `${origin}/account` });
+      template = "team_approved";
+    } else if (allowed.status === "needs_info") {
+      msg = needsInfoEmail(reg, { message: note, updateUrl: `${origin}/account/team` });
+      template = "team_needs_info";
+    } else if (allowed.status === "rejected") {
+      msg = rejectionEmail(reg, { message: note, contactUrl: `mailto:${adminEmail()}` });
+      template = "team_rejected";
+    }
 
     if (msg) {
-      await sendEmail({ to: reg.coachEmail, subject: msg.subject, html: msg.html, replyTo: adminEmail() });
+      await sendEmail({ to: reg.coachEmail, subject: msg.subject, html: msg.html, text: msg.text, replyTo: adminEmail(), template });
     }
   }
 

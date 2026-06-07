@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { AGE_GROUPS, CONFERENCES } from "@/lib/constants";
-import { sendEmail, adminEmail, coachConfirmationEmail, adminNotificationEmail } from "@/lib/email";
+import { sendEmail, adminEmail, regNumber, coachConfirmationEmail, adminNotificationEmail } from "@/lib/email";
 
 // ── Best-effort in-memory rate limit (per IP) ────────────────
 // Note: serverless instances are ephemeral, so this throttles bursts within a
@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
         contact_phone: coachPhone,
         notes: notes || null,
       })
-      .select("id")
+      .select("id, created_at")
       .single();
 
     if (teamError) {
@@ -109,13 +109,15 @@ export async function POST(req: NextRequest) {
 
     // ── Notifications (non-blocking on failure) ──
     const reg = { teamName, ageGroup, conference, coachName, coachEmail, coachPhone, notes };
-    const reviewUrl = `${req.nextUrl.origin}/admin/teams`;
+    const origin = req.nextUrl.origin;
+    const num = regNumber(team.id);
+    const submittedDate = new Date(team.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
-    const coachMsg = coachConfirmationEmail(reg);
-    const adminMsg = adminNotificationEmail(reg, reviewUrl);
+    const coachMsg = coachConfirmationEmail(reg, { regNumber: num, submittedDate, viewUrl: `${origin}/account` });
+    const adminMsg = adminNotificationEmail(reg, { reviewUrl: `${origin}/admin/teams`, regNumber: num });
     await Promise.allSettled([
-      sendEmail({ to: coachEmail, subject: coachMsg.subject, html: coachMsg.html, replyTo: adminEmail() }),
-      sendEmail({ to: adminEmail(), subject: adminMsg.subject, html: adminMsg.html, replyTo: coachEmail }),
+      sendEmail({ to: coachEmail, subject: coachMsg.subject, html: coachMsg.html, text: coachMsg.text, replyTo: adminEmail(), template: "coach_confirmation" }),
+      sendEmail({ to: adminEmail(), subject: adminMsg.subject, html: adminMsg.html, text: adminMsg.text, replyTo: coachEmail, template: "admin_notification" }),
     ]);
 
     return NextResponse.json({ success: true, teamId: team.id });

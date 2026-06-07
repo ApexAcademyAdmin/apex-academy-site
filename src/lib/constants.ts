@@ -47,8 +47,10 @@ export const NAV_LINKS: NavLink[] = [
 export const CONTACT = {
   email: "apexsportsgg@gmail.com",
   location: "Boston, Massachusetts",
-  instagram: "https://www.instagram.com/apexacademyofficial",
-  instagramHandle: "@ApexAcademy",
+  instagram: "https://www.instagram.com/apexacademybb",
+  instagramHandle: "@apexacademybb",
+  twitter: "https://x.com/apexacademybb",
+  twitterHandle: "@apexacademybb",
 } as const;
 
 // League age groups offered for town-team registration. Centralized so the

@@ -171,6 +171,8 @@ function footer(): string {
       <a href="mailto:${CONTACT.email}" style="color:${C.muted};text-decoration:none;">Support</a>
       &nbsp;·&nbsp;
       <a href="${CONTACT.instagram}" style="color:${C.muted};text-decoration:none;">Instagram</a>
+      &nbsp;·&nbsp;
+      <a href="${CONTACT.twitter}" style="color:${C.muted};text-decoration:none;">X</a>
     </div>
     <div style="font-size:11px;color:${C.faint};margin-top:14px;line-height:1.6;">
       You're receiving this because you registered a team or created an account with the ${LEAGUE}.<br/>

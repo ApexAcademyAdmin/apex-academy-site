@@ -14,6 +14,8 @@ type RosterPlayer = {
 
 const EMPTY_PLAYER: RosterPlayer = { name: "", dateOfBirth: "", parentName: "", contactEmail: "", contactPhone: "" };
 
+const MAX_PLAYERS = 20;
+
 const inputCls = "w-full bg-[#0d1117] border border-white/[0.06] rounded-lg px-4 py-2.5 text-[13px] text-white placeholder-white/30 focus:outline-none focus:border-[#17FC13]/30 transition-colors";
 const labelCls = "block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-1.5";
 
@@ -52,6 +54,7 @@ export default function RosterPage() {
   }, [router]);
 
   function addPlayer() {
+    if (roster.length >= MAX_PLAYERS) return;
     setRoster([...roster, { ...EMPTY_PLAYER }]);
   }
   function updatePlayer(idx: number, field: keyof RosterPlayer, value: string) {
@@ -70,7 +73,9 @@ export default function RosterPage() {
     setSaved(false);
 
     const supabase = createClient();
-    const { error: updateError } = await supabase.from("teams").update({ roster }).eq("id", teamId);
+    // Enforce the cap server-side too, in case the UI guard was bypassed.
+    const capped = roster.slice(0, MAX_PLAYERS);
+    const { error: updateError } = await supabase.from("teams").update({ roster: capped }).eq("id", teamId);
 
     setSaving(false);
     if (updateError) { setError(updateError.message); return; }
@@ -121,9 +126,18 @@ export default function RosterPage() {
 
       <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-6 mb-6">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50">{roster.length} Players</h3>
-          <button onClick={addPlayer} className="text-[10px] font-bold uppercase tracking-wider text-[#17FC13]/70 bg-transparent border-none cursor-pointer hover:text-[#17FC13] transition-colors">+ Add Player</button>
+          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50">{roster.length} / {MAX_PLAYERS} Players</h3>
+          <button
+            onClick={addPlayer}
+            disabled={roster.length >= MAX_PLAYERS}
+            className="text-[10px] font-bold uppercase tracking-wider text-[#17FC13]/70 bg-transparent border-none cursor-pointer hover:text-[#17FC13] transition-colors disabled:text-white/20 disabled:cursor-not-allowed"
+          >
+            + Add Player
+          </button>
         </div>
+        {roster.length >= MAX_PLAYERS && (
+          <p className="text-[11px] text-white/40 -mt-3 mb-4">Roster is full — a maximum of {MAX_PLAYERS} players is allowed.</p>
+        )}
 
         {roster.length === 0 ? (
           <p className="text-xs text-white/40 text-center py-6">No players added yet. Click &ldquo;Add Player&rdquo; to start building your roster.</p>

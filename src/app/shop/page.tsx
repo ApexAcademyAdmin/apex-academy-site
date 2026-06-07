@@ -10,16 +10,14 @@ type Product = {
   name: string;
   category: string;
   price: number;
-
   colors: string[];
   description: string;
+  image?: string;
 };
 
 const PRODUCTS: Product[] = [
   // Hats
-  { id: "hat-home", name: "Home Hat", category: "Hats", price: 35, colors: ["Black/Green"], description: "Official Apex Academy home game fitted cap. Structured crown with raised embroidered A mark. Pro-style curved brim." },
-  { id: "hat-away", name: "Away Hat", category: "Hats", price: 35, colors: ["White/Green"], description: "Official away game fitted cap. Clean white crown with embroidered Apex branding. Performance fabric." },
-  { id: "hat-alt", name: "Alternative Hat", category: "Hats", price: 35, colors: ["Green/Black"], description: "Alternative game day cap. Bold colorway with Apex Academy branding. Structured fit." },
+  { id: "hat", name: "Apex Hat", category: "Hats", price: 35, colors: ["Black/Green"], description: "Official Apex Academy fitted cap. Structured black crown with a raised embroidered A mark, perforated rear panels, and a pro-style curved brim.", image: "/shop/hat.png" },
 
   // Jerseys
   { id: "jersey-home", name: "Home Jersey", category: "Jerseys", price: 90, colors: ["Black"], description: "Official Apex Academy home game jersey. Full button-down with tackle twill lettering. Pro-cut fit." },
@@ -105,15 +103,25 @@ export default function ShopPage() {
               className="border border-[#171717] bg-black hover:border-[#17FC13]/20 transition-all duration-300 group cursor-pointer"
               onClick={() => setSelectedProduct(product)}
             >
-              {/* Image placeholder */}
+              {/* Product image */}
               <div className="relative aspect-square bg-radial flex items-center justify-center overflow-hidden">
-                <Image
-                  src="/logos/a-mark-sm.png"
-                  alt={product.name}
-                  width={120}
-                  height={120}
-                  className="object-contain opacity-10 group-hover:opacity-20 group-hover:scale-105 transition-all duration-500"
-                />
+                {product.image ? (
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <Image
+                    src="/logos/a-mark-sm.png"
+                    alt={product.name}
+                    width={120}
+                    height={120}
+                    className="object-contain opacity-10 group-hover:opacity-20 group-hover:scale-105 transition-all duration-500"
+                  />
+                )}
               </div>
 
               <div className="p-5">
@@ -151,8 +159,12 @@ export default function ShopPage() {
               &times;
             </button>
 
-            <div className="relative aspect-[4/3] bg-radial flex items-center justify-center">
-              <Image src="/logos/a-mark-sm.png" alt={selectedProduct.name} width={160} height={160} className="object-contain opacity-15" />
+            <div className="relative aspect-[4/3] bg-radial flex items-center justify-center overflow-hidden">
+              {selectedProduct.image ? (
+                <Image src={selectedProduct.image} alt={selectedProduct.name} fill sizes="(max-width: 768px) 100vw, 672px" className="object-cover" />
+              ) : (
+                <Image src="/logos/a-mark-sm.png" alt={selectedProduct.name} width={160} height={160} className="object-contain opacity-15" />
+              )}
             </div>
 
             <div className="p-6 md:p-10">

@@ -82,7 +82,7 @@ export default function TeamPage() {
               <a href={`/teams/${teamId}/player/${player.number}`} className="no-underline block border border-[#171717] bg-radial hover:border-[#404040] hover:-translate-y-0.5 transition-all p-4 group">
                 <div className="relative aspect-square bg-black mb-3 flex items-center justify-center overflow-hidden">
                   <Image src="/logos/a-mark-sm.png" alt="" width={50} height={50} className="object-contain opacity-[0.05]" />
-                  <div className="absolute bottom-1 right-2 text-3xl font-bold text-white/[0.04]" style={{ fontFamily: "var(--font-display)" }}>{player.number}</div>
+                  <div className="absolute bottom-1 right-2 text-3xl font-bold text-white/[0.04]" style={{ fontFamily: "var(--font-perf)" }}>{player.number}</div>
                   {player.committed && <div className="absolute top-2 left-2 text-[7px] font-bold uppercase tracking-wider text-[#17FC13] bg-[#17FC13]/[0.08] border border-[#17FC13]/30 px-1.5 py-0.5">Committed</div>}
                 </div>
                 <p className="text-[10px] text-[#17FC13]/50 uppercase tracking-wide">#{player.number} &middot; {player.pos}</p>

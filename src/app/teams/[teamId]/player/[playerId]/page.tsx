@@ -42,7 +42,7 @@ export default function PlayerProfilePage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,_rgba(23,252,19,0.04)_0%,_transparent_55%)]" />
-        <div className="absolute top-1/2 right-[-5%] -translate-y-1/2 text-[25vw] font-bold text-white/[0.015] leading-none select-none pointer-events-none" style={{ fontFamily: "var(--font-display)" }}>{player.number}</div>
+        <div className="absolute top-1/2 right-[-5%] -translate-y-1/2 text-[25vw] font-bold text-white/[0.015] leading-none select-none pointer-events-none" style={{ fontFamily: "var(--font-perf)" }}>{player.number}</div>
 
         <div className="relative max-w-[1120px] mx-auto px-6 pt-28 md:pt-36 pb-6">
           <div className="flex items-center gap-2 mb-5 text-[10px] font-medium uppercase tracking-[0.2em]">
@@ -53,7 +53,7 @@ export default function PlayerProfilePage() {
 
           {/* Player Name + Number */}
           <div className="flex items-end gap-4 mb-6">
-            <div className="text-5xl md:text-6xl font-bold text-[#17FC13] leading-none" style={{ fontFamily: "var(--font-display)" }}>{player.number}</div>
+            <div className="text-5xl md:text-6xl font-bold text-[#17FC13] leading-none" style={{ fontFamily: "var(--font-perf)" }}>{player.number}</div>
             <div>
               <h1 className="text-2xl md:text-3xl lg:text-4xl uppercase font-bold leading-[0.9]">{player.name}</h1>
               {player.committed && (

@@ -130,11 +130,6 @@ export default function ShopPage() {
                 <h3 className="text-sm font-bold uppercase tracking-wide mb-2 group-hover:text-[#17FC13] transition-colors">{product.name}</h3>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-bold text-white/80">${product.price}</span>
-                  <div className="flex items-center gap-1.5">
-                    {product.colors.map((color) => (
-                      <span key={color} className="text-[9px] text-white/25 uppercase">{color}</span>
-                    ))}
-                  </div>
                 </div>
               </div>
             </div>

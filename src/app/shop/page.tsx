@@ -48,10 +48,6 @@ const PRODUCTS: Product[] = [
 
 const CATEGORIES = ["All", "Hats", "Jerseys", "Pants & Bottoms", "Performance", "Equipment", "Accessories"];
 
-// Bump when product images are replaced to bust browser/CDN cache.
-const IMG_V = "5";
-const img = (src: string) => `${src}?v=${IMG_V}`;
-
 export default function ShopPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -112,7 +108,7 @@ export default function ShopPage() {
               <div className={`relative aspect-square flex items-center justify-center overflow-hidden ${product.image ? "bg-black" : "bg-radial"}`}>
                 {product.image ? (
                   <Image
-                    src={img(product.image)}
+                    src={product.image}
                     alt={product.name}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
@@ -166,7 +162,7 @@ export default function ShopPage() {
 
             <div className={`relative aspect-[4/3] flex items-center justify-center overflow-hidden ${selectedProduct.image ? "bg-black" : "bg-radial"}`}>
               {selectedProduct.image ? (
-                <Image src={img(selectedProduct.image)} alt={selectedProduct.name} fill sizes="(max-width: 768px) 100vw, 672px" className="object-contain" />
+                <Image src={selectedProduct.image} alt={selectedProduct.name} fill sizes="(max-width: 768px) 100vw, 672px" className="object-contain" />
               ) : (
                 <Image src="/logos/a-mark-sm.png" alt={selectedProduct.name} width={160} height={160} className="object-contain opacity-15" />
               )}

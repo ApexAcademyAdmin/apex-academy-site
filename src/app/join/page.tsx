@@ -59,7 +59,7 @@ const EMPTY: FormData = {
    ═══════════════════════════════════════════════ */
 
 export default function JoinPage() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1); // skip the welcome screen — open straight to the form
   const [form, setForm] = useState<FormData>(EMPTY);
   const [submitted, setSubmitted] = useState(false);
 
@@ -68,7 +68,7 @@ export default function JoinPage() {
   }
 
   function next() { if (step < STEPS.length - 1) setStep(step + 1); }
-  function back() { if (step > 0) setStep(step - 1); }
+  function back() { if (step > 1) setStep(step - 1); }
 
   function submit() {
     // Build mailto link with form data as body

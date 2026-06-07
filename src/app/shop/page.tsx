@@ -17,6 +17,9 @@ type Product = {
 };
 
 const PRODUCTS: Product[] = [
+  // Bundles
+  { id: "bundle-starters-2", name: "Starters Bundle — 2 Players", category: "Bundles", price: 549, colors: ["Team Colors"], description: "Everything two players need for the season: 2 Apex hats, 1 home jersey, 1 away jersey, 2 game pants, 2 pairs of socks, 1 belt, 1 batting helmet, 1 performance tee, 1 pair of training shorts, and 1 team jacket." },
+
   // Hats
   { id: "hat", name: "Apex Hat", category: "Hats", price: 35, colors: ["Black/Green"], description: "Official Apex Academy fitted cap. Structured black crown with a raised embroidered A mark, perforated rear panels, and a pro-style curved brim.", image: "/shop/hat.png", dark: true },
 
@@ -44,7 +47,7 @@ const PRODUCTS: Product[] = [
   { id: "helmet-decal", name: "Apex Helmet Decal", category: "Accessories", price: 5, colors: ["Green/Black"], description: "Official Apex Academy helmet decal. Adhesive-backed. Weather-resistant.", image: "/shop/helmet-decal.png" },
 ];
 
-const CATEGORIES = ["All", "Hats", "Jerseys", "Pants & Bottoms", "Performance", "Equipment", "Accessories"];
+const CATEGORIES = ["All", "Bundles", "Hats", "Jerseys", "Pants & Bottoms", "Performance", "Equipment", "Accessories"];
 
 export default function ShopPage() {
   const [activeCategory, setActiveCategory] = useState("All");

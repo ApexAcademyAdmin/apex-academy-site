@@ -8,9 +8,9 @@ type Props = {
 };
 
 const PAD = {
-  sm: "py-6 md:py-8",
-  md: "py-8 md:py-10",
-  lg: "py-10 md:py-14",
+  sm: "py-5 md:py-7",
+  md: "py-7 md:py-9",
+  lg: "py-9 md:py-12",
 };
 
 const BORDER = {

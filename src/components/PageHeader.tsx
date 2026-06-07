@@ -12,10 +12,10 @@ type Props = {
 
 export function PageHeader({ title, accent, subtitle, breadcrumb, actions }: Props) {
   return (
-    <div className="pt-24 md:pt-32 pb-4 md:pb-6">
+    <div className="pt-24 md:pt-28 pb-3 md:pb-5">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 mb-8 text-[10px] font-medium uppercase tracking-[0.2em]">
+        <div className="flex items-center gap-2 mb-4 text-[10px] font-medium uppercase tracking-[0.2em]">
           <a href="/" className="text-white/25 no-underline hover:text-white/50 transition-colors">Home</a>
           {breadcrumb?.map((b) => (
             <span key={b.href} className="flex items-center gap-2">
@@ -27,12 +27,12 @@ export function PageHeader({ title, accent, subtitle, breadcrumb, actions }: Pro
           <span className="text-[#17FC13]/60">{accent || title}</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl uppercase font-bold leading-[0.9] mb-5">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl uppercase font-bold leading-[0.95] mb-3">
           {accent ? <>{title} <span className="accent-text">{accent}</span></> : <span className="accent-text">{title}</span>}
         </h1>
 
         {subtitle && (
-          <p className="text-base md:text-lg text-white/35 leading-relaxed max-w-2xl mb-8">{subtitle}</p>
+          <p className="text-sm md:text-base text-white/40 leading-relaxed max-w-2xl mb-5">{subtitle}</p>
         )}
 
         {actions && actions.length > 0 && (

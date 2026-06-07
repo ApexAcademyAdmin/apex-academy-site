@@ -133,7 +133,7 @@ export default function JoinPage() {
       )}
 
       {/* ── Content ── */}
-      <div className={`flex-1 flex items-center justify-center ${step === 0 ? "pt-20" : "pt-36"} pb-12`}>
+      <div className={`flex-1 flex items-center justify-center ${step === 0 ? "pt-20" : "pt-32"} pb-4`}>
         <div className="w-full max-w-2xl mx-auto px-6">
           {step === 0 && <WelcomeStep onStart={() => setStep(1)} />}
           {step === 1 && <PlayerInfoStep form={form} update={update} />}
@@ -214,7 +214,7 @@ function PlayerInfoStep({ form, update }: { form: FormData; update: (f: keyof Fo
   return (
     <div>
       <StepHeader title="Player" accent="Information" sub="Tell us about the athlete." />
-      <div className="space-y-8">
+      <div className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Field label="First Name" value={form.firstName} onChange={(v) => update("firstName", v)} required />
           <Field label="Last Name" value={form.lastName} onChange={(v) => update("lastName", v)} required />
@@ -228,8 +228,8 @@ function PlayerInfoStep({ form, update }: { form: FormData; update: (f: keyof Fo
           <Field label="Player Phone" value={form.phone} onChange={(v) => update("phone", v)} type="tel" />
         </div>
 
-        <div className="border-t border-[#171717] pt-8">
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/65 mb-6">Parent / Guardian</div>
+        <div className="border-t border-[#171717] pt-5">
+          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/65 mb-3">Parent / Guardian</div>
           <div className="space-y-4">
             <Field label="Parent/Guardian Name" value={form.parentName} onChange={(v) => update("parentName", v)} required />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -252,7 +252,7 @@ function BaseballInfoStep({ form, update }: { form: FormData; update: (f: keyof 
   return (
     <div>
       <StepHeader title="Baseball" accent="Information" sub="Position, skills, and throwing/batting preferences." />
-      <div className="space-y-8">
+      <div className="space-y-4">
         {/* Positions */}
         <div>
           <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/70 mb-4">Primary Position *</div>
@@ -348,7 +348,7 @@ function DetailsStep({ form, update }: { form: FormData; update: (f: keyof FormD
   return (
     <div>
       <StepHeader title="Additional" accent="Details" sub="Metrics, media, and current team information. All fields optional." />
-      <div className="space-y-8">
+      <div className="space-y-4">
         {/* Metrics */}
         <div>
           <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/65 mb-4">Performance Metrics</div>
@@ -435,7 +435,7 @@ function ReviewStep({ form }: { form: FormData }) {
   return (
     <div>
       <StepHeader title="Review &" accent="Submit" sub="Confirm your information before submitting." />
-      <div className="space-y-8">
+      <div className="space-y-4">
         {sections.map((s) => (
           <div key={s.title} className="border border-[#171717] p-6">
             <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#17FC13]/50 mb-4">{s.title}</div>
@@ -493,8 +493,8 @@ function Confirmation({ name }: { name: string }) {
 
 function StepHeader({ title, accent, sub }: { title: string; accent: string; sub: string }) {
   return (
-    <div className="mb-10">
-      <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">
+    <div className="mb-5">
+      <h2 className="text-xl md:text-2xl uppercase font-bold mb-1.5">
         {title} <span className="accent-text">{accent}</span>
       </h2>
       <p className="text-[13px] text-white/75">{sub}</p>
@@ -507,7 +507,7 @@ function Field({ label, value, onChange, type = "text", placeholder, required }:
 }) {
   return (
     <div>
-      <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 mb-2">
+      <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 mb-1.5">
         {label}{required && <span className="text-[#17FC13]/50 ml-1">*</span>}
       </label>
       <input
@@ -515,7 +515,7 @@ function Field({ label, value, onChange, type = "text", placeholder, required }:
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-transparent border border-[#171717] px-4 py-3 text-sm text-white placeholder-white/15 focus:border-[#17FC13]/40 focus:outline-none transition-colors"
+        className="w-full bg-transparent border border-[#171717] px-4 py-2.5 text-sm text-white placeholder-white/15 focus:border-[#17FC13]/40 focus:outline-none transition-colors"
       />
     </div>
   );

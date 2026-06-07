@@ -133,7 +133,7 @@ export default function JoinPage() {
       )}
 
       {/* ── Content ── */}
-      <div className={`flex-1 flex items-center justify-center ${step === 0 ? "pt-20" : "pt-36"} pb-20`}>
+      <div className={`flex-1 flex items-center justify-center ${step === 0 ? "pt-20" : "pt-36"} pb-12`}>
         <div className="w-full max-w-2xl mx-auto px-6">
           {step === 0 && <WelcomeStep onStart={() => setStep(1)} />}
           {step === 1 && <PlayerInfoStep form={form} update={update} />}
@@ -145,7 +145,7 @@ export default function JoinPage() {
 
       {/* ── Navigation ── */}
       {step > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 border-t border-[#171717] bg-black/95 backdrop-blur-sm z-40">
+        <div className="border-t border-[#171717] bg-black/95">
           <div className="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
             <button onClick={back} className="text-xs font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors bg-transparent border-none cursor-pointer">
               Back

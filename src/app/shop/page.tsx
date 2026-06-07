@@ -38,7 +38,7 @@ const PRODUCTS: Product[] = [
   { id: "bag-equipment", name: "Apex Equipment Bag", category: "Equipment", price: 85, colors: ["Black"], description: "Full-size equipment bag with bat compartment, cleat pocket, and Apex Academy branding. Padded straps." },
 
   // Accessories
-  { id: "belt-black", name: "Black Belt", category: "Accessories", price: 15, colors: ["Black"], description: "Standard black baseball belt. Adjustable clasp closure." },
+  { id: "belt-black", name: "Black Belt", category: "Accessories", price: 15, colors: ["Black"], description: "Standard black baseball belt. Adjustable clasp closure.", image: "/shop/belt-black.png" },
   { id: "socks-black", name: "Black Socks", category: "Accessories", price: 12, colors: ["Black"], description: "Performance baseball socks. Moisture-wicking fabric. Over-the-calf length.", image: "/shop/socks-black.png" },
   { id: "helmet-black", name: "Black Batting Helmet", category: "Accessories", price: 45, colors: ["Black"], description: "Approved batting helmet in matte black finish. Meets NOCSAE standards." },
   { id: "helmet-decal", name: "Apex Helmet Decal", category: "Accessories", price: 5, colors: ["Green/Black"], description: "Official Apex Academy helmet decal. Adhesive-backed. Weather-resistant." },

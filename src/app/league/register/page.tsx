@@ -268,11 +268,16 @@ export default function RegisterPage() {
   const [submitError, setSubmitError] = useState("");
   const [done, setDone] = useState(false);
 
+  const [signedIn, setSignedIn] = useState(false);
+
   // Pre-fill coach email if the visitor is already signed in.
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getUser().then(({ data: { user } }) => {
-      if (user?.email) setForm((p) => (p.coachEmail ? p : { ...p, coachEmail: user.email! }));
+      if (user) {
+        setSignedIn(true);
+        if (user.email) setForm((p) => (p.coachEmail ? p : { ...p, coachEmail: user.email! }));
+      }
     });
   }, []);
 
@@ -334,6 +339,11 @@ export default function RegisterPage() {
       if (!res.ok) {
         setSubmitError(data.error || "Something went wrong. Please try again.");
         setSubmitting(false);
+        return;
+      }
+      // Signed-in coaches go straight to the roster to start adding players.
+      if (signedIn) {
+        window.location.href = "/account/roster";
         return;
       }
       setDone(true);

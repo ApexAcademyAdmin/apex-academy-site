@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
-export type DashboardRole = "admin" | "coach" | "player" | "applicant";
+export type DashboardRole = "admin" | "coach" | "applicant";
 
 export type DashboardContext = {
   user: User;
@@ -20,7 +20,7 @@ const PREVIEW_KEY = "apex_preview_role";
 export function getPreviewRole(): DashboardRole | null {
   if (typeof window === "undefined") return null;
   const v = window.sessionStorage.getItem(PREVIEW_KEY);
-  return v === "coach" || v === "player" || v === "applicant" ? v : null;
+  return v === "coach" || v === "applicant" ? v : null;
 }
 
 export function setPreviewRole(role: DashboardRole | null) {
@@ -32,11 +32,9 @@ export function setPreviewRole(role: DashboardRole | null) {
 /**
  * Loads the signed-in user and derives their dashboard role.
  *
- * Role precedence: admin (admin_profiles) > coach (owns a team) >
- * player (has a player_profile) > applicant. Display name comes from
- * user_profiles when present, otherwise the email local-part.
- *
- * Returns null when no user is signed in.
+ * Role precedence: admin (admin_profiles) > coach (owns a team) > applicant.
+ * Display name comes from user_profiles when present, otherwise the email
+ * local-part. Returns null when no user is signed in.
  */
 export async function loadDashboardContext(): Promise<DashboardContext | null> {
   const supabase = createClient();
@@ -44,10 +42,9 @@ export async function loadDashboardContext(): Promise<DashboardContext | null> {
   if (!user) return null;
 
   // Run the independent lookups together.
-  const [adminRes, teamRes, playerRes, profileRes] = await Promise.all([
+  const [adminRes, teamRes, profileRes] = await Promise.all([
     supabase.from("admin_profiles").select("role").eq("user_id", user.id).maybeSingle(),
     supabase.from("teams").select("status").eq("user_id", user.id).maybeSingle(),
-    supabase.from("player_profiles").select("id, first_name").eq("user_id", user.id).maybeSingle(),
     supabase.from("user_profiles").select("display_name").eq("user_id", user.id).maybeSingle(),
   ]);
 
@@ -59,8 +56,6 @@ export async function loadDashboardContext(): Promise<DashboardContext | null> {
   } else if (teamRes.data) {
     realRole = "coach";
     teamStatus = teamRes.data.status;
-  } else if (playerRes.data) {
-    realRole = "player";
   }
 
   // Admins can preview other roles via the "View as" switcher.
@@ -72,12 +67,7 @@ export async function loadDashboardContext(): Promise<DashboardContext | null> {
     user.email?.split("@")[0] ||
     "Member";
 
-  // Prefer the player's actual first name; otherwise the first token of the
-  // display name (or email local-part).
-  const firstName =
-    playerRes.data?.first_name?.trim() ||
-    displayName.split(/\s+/)[0] ||
-    "Member";
+  const firstName = displayName.split(/\s+/)[0] || "Member";
 
   return { user, role, realRole, displayName, firstName, teamStatus };
 }

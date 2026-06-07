@@ -5,7 +5,6 @@ import { createClient } from "@/lib/supabase/client";
 import { loadDashboardContext, type DashboardRole } from "@/lib/dashboard";
 
 type Team = { id: string; team_name: string; status: string; division: string | null; age_group: string | null };
-type PlayerProfile = { id: string; status: string; first_name: string | null; last_name: string | null; primary_position: string | null };
 
 const statusStyles: Record<string, string> = {
   active: "bg-[#17FC13]/[0.08] text-[#17FC13]/80 border-[#17FC13]/20",
@@ -48,7 +47,6 @@ export default function DashboardHome() {
   const [role, setRole] = useState<DashboardRole>("applicant");
   const [name, setName] = useState("");
   const [team, setTeam] = useState<Team | null>(null);
-  const [player, setPlayer] = useState<PlayerProfile | null>(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -66,13 +64,6 @@ export default function DashboardHome() {
           .eq("user_id", ctx.user.id)
           .maybeSingle();
         if (data) setTeam(data as Team);
-      } else if (ctx.role === "player") {
-        const { data } = await supabase
-          .from("player_profiles")
-          .select("id, status, first_name, last_name, primary_position")
-          .eq("user_id", ctx.user.id)
-          .maybeSingle();
-        if (data) setPlayer(data as PlayerProfile);
       }
       setLoaded(true);
     }
@@ -132,44 +123,6 @@ export default function DashboardHome() {
         </div>
       )}
 
-      {/* Player view */}
-      {role === "player" && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15">Player Profile</div>
-              {player && <StatusBadge status={player.status} />}
-            </div>
-            {player ? (
-              <>
-                <div className="text-lg font-bold text-white/90 mb-1">
-                  {[player.first_name, player.last_name].filter(Boolean).join(" ") || "Unnamed Player"}
-                </div>
-                <div className="text-[12px] text-white/35">{player.primary_position || "Position not set"}</div>
-                <div className="mt-5 space-y-2">
-                  <ActionLink href="/account/profile" label="Edit My Profile" sub="Metrics, media, academics" />
-                  <ActionLink href="/account/team-view" label="View My Team" />
-                </div>
-              </>
-            ) : (
-              <>
-                <p className="text-xs text-white/30 mb-4">You haven&apos;t built your player profile yet.</p>
-                <ActionLink href="/account/profile" label="Create My Profile" sub="Get started" />
-              </>
-            )}
-          </Card>
-
-          <Card>
-            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-4">Quick Links</div>
-            <div className="space-y-2">
-              <ActionLink href="/teams" label="Teams" />
-              <ActionLink href="/events" label="Events" />
-              <ActionLink href="/account/settings" label="Account Settings" />
-            </div>
-          </Card>
-        </div>
-      )}
-
       {/* Admin view */}
       {role === "admin" && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -196,13 +149,16 @@ export default function DashboardHome() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>
             <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-4">Coaches</div>
-            <p className="text-xs text-white/30 mb-4">Register your team to join the Apex Academy League.</p>
-            <ActionLink href="/league/register" label="Register a Team" sub="Start your application" />
+            <p className="text-xs text-white/30 mb-4">Register your town team to join the Apex Academy League.</p>
+            <ActionLink href="/league/register" label="Register a Team" sub="Submit in under a minute" />
           </Card>
           <Card>
-            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-4">Players</div>
-            <p className="text-xs text-white/30 mb-4">Build your player profile to showcase your game.</p>
-            <ActionLink href="/account/profile" label="Create Player Profile" sub="Get started" />
+            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/15 mb-4">Explore</div>
+            <div className="space-y-2">
+              <ActionLink href="/teams" label="Teams" />
+              <ActionLink href="/shop" label="Shop" />
+              <ActionLink href="/account/settings" label="Account Settings" />
+            </div>
           </Card>
         </div>
       )}

@@ -13,14 +13,6 @@ const STATUS_TONE: Record<string, string> = {
   red: "bg-red-500/[0.08] text-red-400/70 border-red-500/20",
 };
 
-type RosterPlayer = {
-  name: string;
-  position: string;
-  gradYear: string;
-  bats: string;
-  throws: string;
-};
-
 type Coach = {
   name: string;
   role: string;
@@ -37,7 +29,6 @@ type Team = {
   secondary_color: string | null;
   home_field: string | null;
   logo_url: string | null;
-  roster: RosterPlayer[] | null;
   coaches: Coach[] | null;
 };
 
@@ -55,7 +46,6 @@ export default function TeamEditPage() {
   const [secondaryColor, setSecondaryColor] = useState("");
   const [homeField, setHomeField] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
-  const [roster, setRoster] = useState<RosterPlayer[]>([]);
   const [coaches, setCoaches] = useState<Coach[]>([]);
 
   const router = useRouter();
@@ -86,7 +76,6 @@ export default function TeamEditPage() {
       setSecondaryColor(t.secondary_color || "");
       setHomeField(t.home_field || "");
       setLogoUrl(t.logo_url || "");
-      setRoster(Array.isArray(t.roster) ? t.roster : []);
       setCoaches(Array.isArray(t.coaches) ? t.coaches : []);
       setLoaded(true);
     }
@@ -112,7 +101,6 @@ export default function TeamEditPage() {
         secondary_color: secondaryColor.trim() || null,
         home_field: homeField.trim() || null,
         logo_url: logoUrl.trim() || null,
-        roster,
         coaches,
       })
       .eq("id", team.id);
@@ -126,19 +114,6 @@ export default function TeamEditPage() {
 
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
-  }
-
-  // Roster helpers
-  function addPlayer() {
-    setRoster([...roster, { name: "", position: "", gradYear: "", bats: "", throws: "" }]);
-  }
-  function updatePlayer(idx: number, field: keyof RosterPlayer, value: string) {
-    const updated = [...roster];
-    updated[idx] = { ...updated[idx], [field]: value };
-    setRoster(updated);
-  }
-  function removePlayer(idx: number) {
-    setRoster(roster.filter((_, i) => i !== idx));
   }
 
   // Coach helpers
@@ -229,49 +204,17 @@ export default function TeamEditPage() {
           </div>
         </div>
 
-        {/* Roster */}
-        <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-6 mb-6">
-          <div className="flex items-center justify-between mb-5">
-            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20">Roster ({roster.length} players)</h3>
-            <button onClick={addPlayer} className="text-[10px] font-bold uppercase tracking-wider text-[#17FC13]/60 bg-transparent border-none cursor-pointer hover:text-[#17FC13] transition-colors">+ Add Player</button>
+        {/* Roster — managed on its own page */}
+        <a href="/account/roster" className="flex items-center justify-between bg-[#0d1117] rounded-xl border border-white/[0.04] p-6 mb-6 no-underline group hover:border-[#17FC13]/20 transition-colors">
+          <div>
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50 mb-1">Roster</h3>
+            <p className="text-[12px] text-white/40">Add players, dates of birth, and parent contacts.</p>
           </div>
-
-          {roster.length === 0 ? (
-            <p className="text-xs text-white/20 text-center py-4">No players added yet.</p>
-          ) : (
-            <div className="space-y-3">
-              {roster.map((p, i) => (
-                <div key={i} className="grid grid-cols-2 md:grid-cols-6 gap-2 items-end">
-                  <div className="md:col-span-2">
-                    <label className={labelCls}>Name</label>
-                    <input type="text" value={p.name} onChange={(e) => updatePlayer(i, "name", e.target.value)} className={inputCls} placeholder="Player name" />
-                  </div>
-                  <div>
-                    <label className={labelCls}>Position</label>
-                    <input type="text" value={p.position} onChange={(e) => updatePlayer(i, "position", e.target.value)} className={inputCls} placeholder="SS" />
-                  </div>
-                  <div>
-                    <label className={labelCls}>Grad Year</label>
-                    <input type="text" value={p.gradYear} onChange={(e) => updatePlayer(i, "gradYear", e.target.value)} className={inputCls} placeholder="2027" />
-                  </div>
-                  <div>
-                    <label className={labelCls}>Bats/Throws</label>
-                    <input type="text" value={`${p.bats}/${p.throws}`} onChange={(e) => {
-                      const [b, t] = e.target.value.split("/");
-                      updatePlayer(i, "bats", b || "");
-                      if (t !== undefined) updatePlayer(i, "throws", t);
-                    }} className={inputCls} placeholder="R/R" />
-                  </div>
-                  <div className="flex items-end">
-                    <button onClick={() => removePlayer(i)} className="w-full py-2.5 text-[10px] font-bold uppercase text-red-400/50 bg-transparent border border-red-400/10 rounded-lg cursor-pointer hover:text-red-400 hover:border-red-400/30 transition-colors">
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#17FC13]/70 group-hover:text-[#17FC13] flex items-center gap-1.5">
+            Manage Roster
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M9 5l7 7-7 7" /></svg>
+          </span>
+        </a>
 
         {/* Coaches */}
         <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-6 mb-6">

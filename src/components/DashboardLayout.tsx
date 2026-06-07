@@ -22,7 +22,6 @@ type Props = {
 const roleBadgeColors: Record<string, string> = {
   admin: "bg-green-500/20 text-green-400 border-green-500/30",
   coach: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  player: "bg-purple-500/20 text-purple-400 border-purple-500/30",
   applicant: "bg-white/10 text-white/50 border-white/10",
 };
 
@@ -100,13 +99,6 @@ function getNavItems(role: string): NavItem[] {
     );
   }
 
-  if (role === "player") {
-    items.push(
-      { label: "My Profile", href: "/account/profile", icon: icons.profile },
-      { label: "My Team", href: "/account/team-view", icon: icons.team },
-    );
-  }
-
   if (role === "admin") {
     items.push(
       { label: "Team Management", href: "/admin/teams", icon: icons.team },
@@ -172,7 +164,6 @@ export function DashboardLayout({ children, user, role, realRole, teamStatus }: 
           >
             <option value="admin">Admin (you)</option>
             <option value="coach">Coach</option>
-            <option value="player">Player</option>
             <option value="applicant">Applicant</option>
           </select>
         </div>

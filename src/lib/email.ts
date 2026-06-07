@@ -463,6 +463,70 @@ Need help? ${CONTACT.email}`;
   return { subject: `Welcome to the ${LEAGUE}`, html, text };
 }
 
+export function passwordChangedEmail(opt: { manageUrl: string }) {
+  const html = layout(
+    "Your account password was changed.",
+    header() +
+      hero("success", "Security", "Password Updated", "Your account password was just changed.") +
+      spacer(26) +
+      statusCard("success", "Change Confirmed", "If you made this change, you're all set — no action is needed.") +
+      spacer(14) +
+      statusCard("warning", "Didn't do this?", `Secure your account right away: reset your password and contact us at <a href="mailto:${CONTACT.email}" style="color:${C.white};text-decoration:underline;">${CONTACT.email}</a>.`) +
+      button(opt.manageUrl, "Review Account", "secondary") +
+      supportCard() +
+      spacer(22) +
+      footer(),
+  );
+  const text = `PASSWORD UPDATED
+
+Your account password was just changed.
+
+If you made this change, no action is needed.
+If you didn't, reset your password immediately and contact us at ${CONTACT.email}.
+
+Review account: ${opt.manageUrl}`;
+  return { subject: "Your Password Has Been Updated", html, text };
+}
+
+/**
+ * Branded HTML for Supabase Auth's "Confirm signup" email template.
+ * Paste into Supabase → Authentication → Email Templates. The default
+ * url token ({{ .ConfirmationURL }}) is substituted by Supabase at send time.
+ */
+export function verifyEmailHtml(url = "{{ .ConfirmationURL }}") {
+  return layout(
+    "Verify your email to activate your account.",
+    header() +
+      hero("info", "Email Verification", "Verify Your Email", "Confirm your email address to activate your Apex Academy League account.") +
+      spacer(26) +
+      statusCard("info", "Why you're getting this", "Someone used this email to create an account. Verify to finish setting it up.") +
+      button(url, "Verify Email Address") +
+      `<tr><td class="px" style="padding:14px 36px 0;background:${C.bg};"><p style="margin:0;font-size:12px;line-height:1.6;color:${C.faint};">This link expires in 24 hours. If you didn't create an account, you can safely ignore this email.</p></td></tr>` +
+      supportCard() +
+      spacer(22) +
+      footer(),
+  );
+}
+
+/**
+ * Branded HTML for Supabase Auth's "Reset password" email template.
+ * Paste into Supabase → Authentication → Email Templates.
+ */
+export function passwordResetHtml(url = "{{ .ConfirmationURL }}") {
+  return layout(
+    "Reset your Apex Academy League password.",
+    header() +
+      hero("warning", "Password Reset", "Reset Your Password", "We received a request to reset your account password.") +
+      spacer(26) +
+      statusCard("warning", "Secure, Single-Use Link", "This link can only be used once and expires in 1 hour.") +
+      button(url, "Reset Password") +
+      `<tr><td class="px" style="padding:14px 36px 0;background:${C.bg};"><p style="margin:0;font-size:12px;line-height:1.6;color:${C.faint};">If you didn't request this, you can safely ignore this email — your password won't change.</p></td></tr>` +
+      supportCard() +
+      spacer(22) +
+      footer(),
+  );
+}
+
 export function coachAccountReadyEmail(opt: { dashboardUrl: string }) {
   const html = layout(
     "Your coach account is ready.",

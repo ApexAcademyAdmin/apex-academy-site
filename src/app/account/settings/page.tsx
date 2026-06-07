@@ -95,6 +95,8 @@ export default function SettingsPage() {
       setPasswordMsg({ kind: "err", text: error.message });
       return;
     }
+    // Fire the branded "password updated" confirmation (best-effort).
+    fetch("/api/account/password-changed", { method: "POST" }).catch(() => {});
     setNewPassword("");
     setConfirmPassword("");
     setPasswordMsg({ kind: "ok", text: "Password changed." });

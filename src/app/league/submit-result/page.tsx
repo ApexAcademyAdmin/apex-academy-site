@@ -13,7 +13,9 @@ type PitcherEntry = { name: string; pitchCount: string; inningsPitched: string }
 type SelectedGame = typeof UPCOMING_GAMES[0] | null;
 
 const EMPTY_PITCHER: PitcherEntry = { name: "", pitchCount: "", inningsPitched: "" };
-const UNSUBMITTED_GAMES = UPCOMING_GAMES;
+
+// Teams that have games on the league schedule, derived from UPCOMING_GAMES.
+const SCHEDULE_TEAMS = Array.from(new Set(UPCOMING_GAMES.flatMap((g) => [g.home, g.away]))).sort();
 
 // ═══════════════════════════════════════
 // SHARED
@@ -22,13 +24,42 @@ const UNSUBMITTED_GAMES = UPCOMING_GAMES;
 const inputCls = "w-full bg-[#0d1117] border border-white/[0.06] rounded-lg px-4 py-2.5 text-[13px] text-white/90 placeholder-white/20 focus:outline-none focus:border-[#17FC13]/30 transition-colors";
 
 // ═══════════════════════════════════════
-// STEP 1 — GAME SELECTION
+// STEP 1 — TEAM SELECTION
 // ═══════════════════════════════════════
 
-function GameSelection({ onSelect }: { onSelect: (g: typeof UPCOMING_GAMES[0]) => void }) {
-  // Group by date
+function TeamSelection({ onSelect }: { onSelect: (t: string) => void }) {
+  return (
+    <Section>
+      <div className="max-w-2xl">
+        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-2">Step 1</div>
+        <h2 className="text-xl font-bold uppercase mb-1">Select <span className="accent-text">Team</span></h2>
+        <p className="text-[12px] text-white/70 mb-6">Choose your team to report a result for one of its games.</p>
+        {SCHEDULE_TEAMS.length === 0 ? (
+          <div className="text-center py-12 text-sm text-white/70">No scheduled games yet.</div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {SCHEDULE_TEAMS.map((t) => (
+              <button key={t} onClick={() => onSelect(t)}
+                className="bg-[#0d1117] rounded-xl border border-white/[0.04] px-4 py-3 text-[13px] font-semibold text-white/80 hover:text-white hover:border-[#17FC13]/15 transition-all text-left">
+                {t}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </Section>
+  );
+}
+
+// ═══════════════════════════════════════
+// STEP 2 — GAME SELECTION
+// ═══════════════════════════════════════
+
+function GameSelection({ team, onSelect, onBack }: { team: string; onSelect: (g: typeof UPCOMING_GAMES[0]) => void; onBack: () => void }) {
+  // Only games on this team's schedule
+  const teamGames = UPCOMING_GAMES.filter((g) => g.home === team || g.away === team);
   const grouped: Record<string, typeof UPCOMING_GAMES> = {};
-  for (const g of UNSUBMITTED_GAMES) {
+  for (const g of teamGames) {
     if (!grouped[g.date]) grouped[g.date] = [];
     grouped[g.date].push(g);
   }
@@ -36,9 +67,10 @@ function GameSelection({ onSelect }: { onSelect: (g: typeof UPCOMING_GAMES[0]) =
   return (
     <Section>
       <div className="max-w-2xl">
-        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-2">Step 1</div>
+        <button onClick={onBack} className="text-[10px] font-bold uppercase tracking-wider text-white/60 hover:text-white bg-transparent border-none cursor-pointer mb-3">&larr; Change team</button>
+        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-2">Step 2</div>
         <h2 className="text-xl font-bold uppercase mb-1">Select <span className="accent-text">Game</span></h2>
-        <p className="text-[12px] text-white/70 mb-6">Choose the game you are reporting results for.</p>
+        <p className="text-[12px] text-white/70 mb-6">{`Showing games on ${team}'s schedule.`}</p>
 
         <div className="space-y-6">
           {Object.entries(grouped).map(([date, games]) => (
@@ -65,8 +97,8 @@ function GameSelection({ onSelect }: { onSelect: (g: typeof UPCOMING_GAMES[0]) =
           ))}
         </div>
 
-        {UNSUBMITTED_GAMES.length === 0 && (
-          <div className="text-center py-12 text-sm text-white/70">No games pending submission.</div>
+        {teamGames.length === 0 && (
+          <div className="text-center py-12 text-sm text-white/70">{`No games on ${team}'s schedule yet.`}</div>
         )}
       </div>
     </Section>
@@ -295,6 +327,7 @@ function EnterResult({ game, onBack }: { game: typeof UPCOMING_GAMES[0]; onBack:
 // ═══════════════════════════════════════
 
 export default function SubmitResultPage() {
+  const [team, setTeam] = useState<string | null>(null);
   const [selectedGame, setSelectedGame] = useState<SelectedGame>(null);
 
   return (
@@ -310,8 +343,10 @@ export default function SubmitResultPage() {
         ]}
       />
 
-      {!selectedGame ? (
-        <GameSelection onSelect={setSelectedGame} />
+      {!team ? (
+        <TeamSelection onSelect={setTeam} />
+      ) : !selectedGame ? (
+        <GameSelection team={team} onSelect={setSelectedGame} onBack={() => setTeam(null)} />
       ) : (
         <EnterResult game={selectedGame} onBack={() => setSelectedGame(null)} />
       )}

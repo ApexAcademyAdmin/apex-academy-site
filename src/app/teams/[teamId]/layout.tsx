@@ -44,7 +44,7 @@ export default function TeamLayout({
             </div>
             <div className="relative flex items-center justify-center gap-8 shrink-0 py-4">
               <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-visible">
-                <Image src="/logos/apex-a-mark.png" alt="" width={690} height={690} className="w-[690px] max-w-none object-contain opacity-[0.18]" />
+                <Image src="/logos/apex-a-mark.png" alt="" width={560} height={560} className="w-[560px] max-w-none object-contain opacity-[0.18]" />
               </div>
               {[{ l: "Record", v: team.record }, { l: "Roster", v: String(team.roster.length) }].map((s) => (
                 <div key={s.l} className="relative text-center">

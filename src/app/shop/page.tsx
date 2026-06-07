@@ -126,10 +126,10 @@ export default function ShopPage() {
               </div>
 
               <div className="p-5">
-                <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/25 mb-1.5">{product.category}</div>
-                <h3 className="text-sm font-bold uppercase tracking-wide mb-2 group-hover:text-[#17FC13] transition-colors">{product.name}</h3>
+                <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/70 mb-1.5">{product.category}</div>
+                <h3 className="text-sm font-bold uppercase tracking-wide mb-2 text-white group-hover:text-[#17FC13] transition-colors">{product.name}</h3>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold text-white/80">${product.price}</span>
+                  <span className="text-sm font-bold text-white">${product.price}</span>
                 </div>
               </div>
             </div>

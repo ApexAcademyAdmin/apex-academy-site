@@ -111,7 +111,7 @@ export default function ShopPage() {
                     alt={product.name}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-contain group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
                   <Image
@@ -161,7 +161,7 @@ export default function ShopPage() {
 
             <div className="relative aspect-[4/3] bg-radial flex items-center justify-center overflow-hidden">
               {selectedProduct.image ? (
-                <Image src={selectedProduct.image} alt={selectedProduct.name} fill sizes="(max-width: 768px) 100vw, 672px" className="object-cover" />
+                <Image src={selectedProduct.image} alt={selectedProduct.name} fill sizes="(max-width: 768px) 100vw, 672px" className="object-contain" />
               ) : (
                 <Image src="/logos/a-mark-sm.png" alt={selectedProduct.name} width={160} height={160} className="object-contain opacity-15" />
               )}

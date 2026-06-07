@@ -45,7 +45,7 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export const CONTACT = {
-  email: "apexsportsgg@gmail.com",
+  email: "admin@apexacademy.gg",
   location: "Boston, Massachusetts",
   instagram: "https://www.instagram.com/apexacademybb",
   instagramHandle: "@apexacademybb",

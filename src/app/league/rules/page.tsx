@@ -274,7 +274,7 @@ export default function RulesPage() {
         {/* Footer */}
         <div>
           <div className="mt-6 pt-6 border-t border-white/[0.06] text-center text-[10px] text-white">
-            Questions? Contact the commissioner at <a href="mailto:apexsportsgg@gmail.com" className="text-[#17FC13]/30 hover:text-[#17FC13]/50 no-underline">apexsportsgg@gmail.com</a>
+            Questions? Contact the commissioner at <a href="mailto:admin@apexacademy.gg" className="text-[#17FC13]/30 hover:text-[#17FC13]/50 no-underline">admin@apexacademy.gg</a>
           </div>
         </div>
       </div>

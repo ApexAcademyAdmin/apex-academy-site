@@ -41,7 +41,7 @@ export default function EventsPage() {
           <p className="text-sm text-white/80 max-w-md mx-auto mb-6">
             Contact us for more information about Apex Academy events and programs.
           </p>
-          <Button variant="secondary" href="mailto:apexsportsgg@gmail.com">Contact Us</Button>
+          <Button variant="secondary" href="mailto:admin@apexacademy.gg">Contact Us</Button>
         </div>
       </Section>
     </main>

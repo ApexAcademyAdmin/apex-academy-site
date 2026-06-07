@@ -336,7 +336,7 @@ function RegistrationCTA() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button href="/league/register">Register a Team</Button>
-            <Button variant="secondary" href="mailto:apexsportsgg@gmail.com">Contact Us</Button>
+            <Button variant="secondary" href="mailto:admin@apexacademy.gg">Contact Us</Button>
           </div>
         </div>
       </div>

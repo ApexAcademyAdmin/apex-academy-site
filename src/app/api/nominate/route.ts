@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     console.log("===============================");
 
     // TODO: Add Resend or SMTP email delivery on deploy
-    // await sendEmail({ to: "apexsportsgg@gmail.com", subject: `Prospect Nomination — ${data.playerName}`, ... })
+    // await sendEmail({ to: "admin@apexacademy.gg", subject: `Prospect Nomination — ${data.playerName}`, ... })
 
     return NextResponse.json({ success: true });
   } catch {

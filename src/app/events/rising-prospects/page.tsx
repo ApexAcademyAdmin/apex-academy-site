@@ -177,7 +177,7 @@ export default function RisingProspectsPage() {
           </p>
           <p className="text-[11px] text-white/65 mb-6">Apex Academy athletes participate for free.</p>
           <div className="flex flex-wrap justify-center gap-3">
-            <Button href="mailto:apexsportsgg@gmail.com">Register Now</Button>
+            <Button href="mailto:admin@apexacademy.gg">Register Now</Button>
             <Button variant="secondary" href="/events">All Events</Button>
           </div>
         </div>

@@ -222,7 +222,7 @@ export default function TeamsPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button href="/join">Register for Tryouts</Button>
-            <Button variant="secondary" href="mailto:apexsportsgg@gmail.com">Contact Us</Button>
+            <Button variant="secondary" href="mailto:admin@apexacademy.gg">Contact Us</Button>
           </div>
         </div>
       </Section>

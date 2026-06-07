@@ -438,23 +438,25 @@ export function welcomeEmail(opt: { firstName?: string; dashboardUrl: string }) 
   const html = layout(
     `Welcome to the ${LEAGUE}.`,
     header() +
-      hero("success", "Account Created", "Welcome to the League", `${sub}Your account is ready. Here's where to go next.`) +
+      hero("success", "Account Created", "Welcome to the League", `${sub}Your account is verified and ready. Here's where to go next.`) +
       spacer(26) +
-      statusCard("success", "Account Active", "Your account is verified and ready to use. Register a team or manage your details from the dashboard.") +
+      statusCard("success", "Account Active", "Your email is verified and your account is ready to use. Everything lives in your dashboard.") +
       spacer(8) +
       timeline("Getting Started", [
-        "Register your town team — it takes under a minute.",
-        "Once approved, complete your team profile and roster.",
-        "Stay tuned for the schedule, standings, and announcements.",
+        "Follow your team's schedule, scores, and standings.",
+        "Explore league info and team pages.",
+        "Gear up at the team shop.",
       ]) +
-      button(opt.dashboardUrl, "Access Dashboard") +
+      button(opt.dashboardUrl, "Go to Dashboard") +
       supportCard() +
       spacer(22) +
       footer(),
   );
   const text = `WELCOME TO THE ${LEAGUE.toUpperCase()}
 
-Your account is ready. Register your town team (under a minute), then complete your profile and roster once approved.
+${opt.firstName ? `Welcome, ${opt.firstName}. ` : ""}Your email is verified and your account is ready.
+
+From your dashboard you can follow your team's schedule, scores, and standings, explore team pages, and gear up at the team shop.
 
 Dashboard: ${opt.dashboardUrl}
 Need help? ${CONTACT.email}`;

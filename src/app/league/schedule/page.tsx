@@ -30,6 +30,9 @@ export default function SchedulePage() {
 
       <Section>
         <div className="space-y-12">
+          {UPCOMING_GAMES.length === 0 && (
+            <div className="text-center py-16 text-[13px] text-white/55">No games scheduled yet — the schedule posts once teams are set for the season.</div>
+          )}
           {Object.entries(grouped).map(([date, games], di) => (
             <div key={date}>
               <div>

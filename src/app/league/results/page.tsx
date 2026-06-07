@@ -88,7 +88,9 @@ export default function ResultsPage() {
 
       <Section>
         <div className="space-y-4">
-          {RECENT_RESULTS.map(r => (
+          {RECENT_RESULTS.length === 0 ? (
+            <div className="text-center py-16 text-[13px] text-white/55">No results yet — game results post here once the season begins.</div>
+          ) : RECENT_RESULTS.map(r => (
             <GameCard key={r.id} r={r} />
           ))}
         </div>

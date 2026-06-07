@@ -24,6 +24,9 @@ function DivisionTable({ rows, label }: { rows: StandingsEntry[]; label: string 
             </tr>
           </thead>
           <tbody>
+            {rows.length === 0 && (
+              <tr><td colSpan={7} className="py-8 text-center text-[12px] text-white/55">No teams yet — standings post as teams join.</td></tr>
+            )}
             {rows.map((r, i) => (
               <tr key={r.team} className={`${i < rows.length - 1 ? "border-b border-white/[0.02]" : ""} hover:bg-white/[0.01] transition-colors`}>
                 <td className="py-3.5 px-3">

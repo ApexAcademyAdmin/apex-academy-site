@@ -27,7 +27,7 @@ const PRODUCTS: Product[] = [
 
   // Pants & Bottoms
   { id: "pants-game", name: "New Balance Game Pants", category: "Pants & Bottoms", price: 55, colors: ["White", "Black"], description: "Official New Balance game pants. Pro-length with reinforced knees, belt-loop waist, and black piping. Performance fit.", image: "/shop/pants-game.png" },
-  { id: "shorts-training", name: "Training Shorts", category: "Pants & Bottoms", price: 40, colors: ["Black"], description: "Lightweight performance shorts with zippered pockets. Athletic fit for training and warmups." },
+  { id: "shorts-training", name: "Training Shorts", category: "Pants & Bottoms", price: 40, colors: ["Black"], description: "Lightweight black performance training shorts with the Apex Academy mark. Athletic fit for training and warmups.", image: "/shop/shorts-training.png", dark: true },
   { id: "sweats-apex", name: "Apex Sweatpants", category: "Pants & Bottoms", price: 55, colors: ["Black"], description: "Premium black sweatpants with embroidered Apex branding. Tapered leg. Comfortable off-field wear." },
 
   // Performance Wear

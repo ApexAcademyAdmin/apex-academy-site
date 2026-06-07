@@ -1,6 +1,9 @@
 const sharp = require("sharp");
-const [,, inPath, outPath, thrArg] = process.argv;
+const [,, inPath, outPath, thrArg, mode = "dark"] = process.argv;
 const threshold = parseInt(thrArg || "60", 10);
+// mode "dark"  -> remove dark background (light subject on black)
+// mode "light" -> remove light background (dark subject on white)
+const isBg = (l) => (mode === "light" ? l > threshold : l < threshold);
 
 (async () => {
   const { data, info } = await sharp(inPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
@@ -14,7 +17,7 @@ const threshold = parseInt(thrArg || "60", 10);
     if (visited[p]) return;
     visited[p] = 1;
     const i = p * 4;
-    if (lum(i) < threshold) { data[i + 3] = 0; stack.push(x, y); }
+    if (isBg(lum(i))) { data[i + 3] = 0; stack.push(x, y); }
   };
   for (let x = 0; x < width; x++) { seed(x, 0); seed(x, height - 1); }
   for (let y = 0; y < height; y++) { seed(0, y); seed(width - 1, y); }
@@ -25,5 +28,5 @@ const threshold = parseInt(thrArg || "60", 10);
   let cleared = 0;
   for (let p = 0; p < width * height; p++) if (data[p * 4 + 3] === 0) cleared++;
   await sharp(data, { raw: { width, height, channels: 4 } }).png().toFile(outPath);
-  console.log(`done ${width}x${height} thr=${threshold} cleared=${(100 * cleared / (width * height)).toFixed(1)}%`);
+  console.log(`done ${width}x${height} mode=${mode} thr=${threshold} cleared=${(100 * cleared / (width * height)).toFixed(1)}%`);
 })();

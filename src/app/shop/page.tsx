@@ -13,15 +13,16 @@ type Product = {
   colors: string[];
   description: string;
   image?: string;
+  dark?: boolean; // black product — needs a spotlight bg to be visible
 };
 
 const PRODUCTS: Product[] = [
   // Hats
-  { id: "hat", name: "Apex Hat", category: "Hats", price: 35, colors: ["Black/Green"], description: "Official Apex Academy fitted cap. Structured black crown with a raised embroidered A mark, perforated rear panels, and a pro-style curved brim.", image: "/shop/hat.png" },
+  { id: "hat", name: "Apex Hat", category: "Hats", price: 35, colors: ["Black/Green"], description: "Official Apex Academy fitted cap. Structured black crown with a raised embroidered A mark, perforated rear panels, and a pro-style curved brim.", image: "/shop/hat.png", dark: true },
 
   // Jerseys
   { id: "jersey-home", name: "Home Jersey", category: "Jerseys", price: 90, colors: ["White"], description: "Official Apex Academy home jersey. White New Balance full button-down with the Apex Academy mark, green and black piping, and a pro-cut fit.", image: "/shop/jersey-home.png" },
-  { id: "jersey-away", name: "Away Jersey", category: "Jerseys", price: 90, colors: ["Black"], description: "Official Apex Academy away jersey. Black New Balance full button-down with the Apex Academy mark and green piping. Pro-cut fit.", image: "/shop/jersey-away.png" },
+  { id: "jersey-away", name: "Away Jersey", category: "Jerseys", price: 90, colors: ["Black"], description: "Official Apex Academy away jersey. Black New Balance full button-down with the Apex Academy mark and green piping. Pro-cut fit.", image: "/shop/jersey-away.png", dark: true },
   { id: "jersey-alt", name: "Alternative Jersey", category: "Jerseys", price: 90, colors: ["White/Navy/Red"], description: "Alternative Apex Academy jersey. White New Balance full button-down with navy and red trim and the Apex Academy mark.", image: "/shop/jersey-alt.png" },
 
   // Pants & Bottoms
@@ -104,7 +105,7 @@ export default function ShopPage() {
               onClick={() => setSelectedProduct(product)}
             >
               {/* Product image */}
-              <div className={`relative aspect-square flex items-center justify-center overflow-hidden ${product.image ? "bg-black" : "bg-radial"}`}>
+              <div className={`relative aspect-square flex items-center justify-center overflow-hidden ${product.image ? (product.dark ? "bg-product" : "bg-black") : "bg-radial"}`}>
                 {product.image ? (
                   <Image
                     src={product.image}
@@ -159,7 +160,7 @@ export default function ShopPage() {
               &times;
             </button>
 
-            <div className={`relative aspect-[4/3] flex items-center justify-center overflow-hidden ${selectedProduct.image ? "bg-black" : "bg-radial"}`}>
+            <div className={`relative aspect-[4/3] flex items-center justify-center overflow-hidden ${selectedProduct.image ? (selectedProduct.dark ? "bg-product" : "bg-black") : "bg-radial"}`}>
               {selectedProduct.image ? (
                 <Image src={selectedProduct.image} alt={selectedProduct.name} fill sizes="(max-width: 768px) 100vw, 672px" className="object-contain" />
               ) : (

@@ -34,3 +34,8 @@
 @utility bg-radial {
   background-image: radial-gradient(ellipse at center, #171717, #000);
 }
+
+/* Product spotlight — light enough to show black cutouts, dark enough for white ones */
+@utility bg-product {
+  background-image: radial-gradient(ellipse at center 44%, #3b3b3b 0%, #0b0b0b 62%);
+}

@@ -25,10 +25,6 @@ export default function TeamLayout({
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,_rgba(23,252,19,0.07)_0%,_transparent_50%)]" />
-        {/* Centered logo watermark */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <Image src="/logos/apex-a-mark.png" alt="" width={400} height={400} className="w-[220px] md:w-[300px] object-contain opacity-[0.06]" />
-        </div>
 
         <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-8 md:pb-10">
           <div className="flex items-center gap-2 mb-6 text-[10px] font-medium uppercase tracking-[0.2em]">
@@ -46,9 +42,12 @@ export default function TeamLayout({
               </h1>
               <p className="text-[14px] text-white/75 leading-[1.7] max-w-lg">{team.description}</p>
             </div>
-            <div className="flex items-center gap-5 shrink-0">
+            <div className="relative flex items-center justify-center gap-8 shrink-0 py-4">
+              <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-visible">
+                <Image src="/logos/apex-a-mark.png" alt="" width={400} height={400} className="w-[230px] max-w-none object-contain opacity-[0.09]" />
+              </div>
               {[{ l: "Record", v: team.record }, { l: "Roster", v: String(team.roster.length) }].map((s) => (
-                <div key={s.l} className="text-center">
+                <div key={s.l} className="relative text-center">
                   <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/55 mb-0.5">{s.l}</div>
                   <div className="text-lg font-bold">{s.v}</div>
                 </div>

@@ -25,9 +25,6 @@ const C = {
   text: "#EAEDF1",
   muted: "#B0B7C3",     // neutral gray — body copy
   faint: "#6B7480",
-  warning: "#F5C542",
-  error: "#E5484D",
-  info: "#5B9DF9",
 };
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://apex-academy-site.vercel.app").replace(/\/$/, "");
@@ -35,7 +32,9 @@ const LOGO_URL = `${SITE_URL}/logos/decal-lg.png`;
 const LEAGUE = "Apex Academy League";
 
 type Tone = "success" | "warning" | "info" | "error";
-const toneColor: Record<Tone, string> = { success: C.green, warning: C.warning, info: C.info, error: C.error };
+// Program palette only: green for positive/brand states, white for
+// caution/negative states. Meaning is carried by the glyph, headline, and copy.
+const toneColor: Record<Tone, string> = { success: C.green, info: C.green, warning: C.white, error: C.white };
 const toneGlyph: Record<Tone, string> = { success: "&#10003;", warning: "!", info: "i", error: "&#10005;" };
 
 const esc = (s: string) =>
@@ -87,7 +86,7 @@ function badge(text: string): string {
 function adminBadge(): string {
   return `
   <tr><td class="px" style="padding:24px 36px 0;background:${C.bg};">
-    <span style="display:inline-block;font-size:10px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:${C.warning};background:${C.warning}14;border:1px solid ${C.warning}44;border-radius:999px;padding:5px 13px;">Admin · Action Required</span>
+    <span style="display:inline-block;font-size:10px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:${C.white};background:${C.white}12;border:1px solid ${C.white}33;border-radius:999px;padding:5px 13px;">Admin · Action Required</span>
   </td></tr>`;
 }
 

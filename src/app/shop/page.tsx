@@ -33,7 +33,7 @@ const PRODUCTS: Product[] = [
   // Performance Wear
   { id: "tee-performance", name: "Performance T-Shirt", category: "Performance", price: 30, colors: ["Black"], description: "Moisture-wicking black performance tee with the Apex Academy mark. Athletic fit. Built for training.", image: "/shop/tee-performance.png" },
   { id: "hoodie-apex", name: "Apex Hoodie", category: "Performance", price: 65, colors: ["Black"], description: "Premium heavyweight black hoodie with the Apex Academy mark. Fleece-lined. Cold weather essential.", image: "/shop/hoodie-apex.png" },
-  { id: "jacket-apex", name: "Apex Team Jacket", category: "Performance", price: 75, colors: ["Black"], description: "Full-zip team jacket with Apex Academy branding. Water-resistant shell. Warm-up and travel." },
+  { id: "jacket-apex", name: "Apex Team Jacket", category: "Performance", price: 75, colors: ["Black"], description: "Black quarter-zip team jacket with the Apex Academy mark and green accents. Warm-up and travel.", image: "/shop/jacket-apex.png" },
   { id: "jersey-practice", name: "Practice Jersey", category: "Performance", price: 35, colors: ["Black", "Green"], description: "Lightweight mesh practice jersey. Sublimated Apex branding. Breathable and durable for daily training." },
 
   // Equipment

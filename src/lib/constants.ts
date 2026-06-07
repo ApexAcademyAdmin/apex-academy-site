@@ -50,3 +50,21 @@ export const CONTACT = {
   instagram: "https://www.instagram.com/apexacademyofficial",
   instagramHandle: "@ApexAcademy",
 } as const;
+
+// League age groups offered for town-team registration (NOT the Apex travel
+// program's Prospects/Premier divisions). Centralized so the list can be
+// adjusted in one place, and later moved to an admin-editable setting.
+export const AGE_GROUPS = [
+  "10U", "12U", "14U",
+] as const;
+
+// Team registration review lifecycle.
+export type TeamStatus = "pending_review" | "needs_info" | "approved" | "rejected" | "published";
+
+export const TEAM_STATUS_META: Record<TeamStatus, { label: string; tone: "amber" | "blue" | "green" | "red" | "orange" }> = {
+  pending_review: { label: "Pending Review", tone: "amber" },
+  needs_info:     { label: "Needs Info",     tone: "orange" },
+  approved:       { label: "Approved",       tone: "blue" },
+  rejected:       { label: "Rejected",       tone: "red" },
+  published:      { label: "Published",      tone: "green" },
+};

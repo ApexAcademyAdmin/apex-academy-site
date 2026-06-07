@@ -3,6 +3,15 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { TEAM_STATUS_META, type TeamStatus } from "@/lib/constants";
+
+const STATUS_TONE: Record<string, string> = {
+  amber: "bg-yellow-500/[0.08] text-yellow-400/80 border-yellow-500/20",
+  orange: "bg-orange-500/[0.08] text-orange-400/80 border-orange-500/20",
+  blue: "bg-blue-500/[0.08] text-blue-400/80 border-blue-500/20",
+  green: "bg-[#17FC13]/[0.08] text-[#17FC13]/80 border-[#17FC13]/20",
+  red: "bg-red-500/[0.08] text-red-400/70 border-red-500/20",
+};
 
 type RosterPlayer = {
   name: string;
@@ -178,14 +187,14 @@ export default function TeamEditPage() {
       <div>
         {/* Status badge */}
         <div className="mb-8">
-          <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-            team.status === "active"
-              ? "bg-[#17FC13]/[0.08] text-[#17FC13]/80 border border-[#17FC13]/20"
-              : "bg-yellow-500/[0.08] text-yellow-400/80 border border-yellow-500/20"
-          }`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${team.status === "active" ? "bg-[#17FC13]" : "bg-yellow-400"}`} />
-            {team.status === "active" ? "Active" : "Pending Review"}
-          </span>
+          {(() => {
+            const meta = TEAM_STATUS_META[team.status as TeamStatus] || TEAM_STATUS_META.pending_review;
+            return (
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${STATUS_TONE[meta.tone]}`}>
+                {meta.label}
+              </span>
+            );
+          })()}
           <p className="text-[10px] text-white/20 mt-2">Team status is managed by league administrators.</p>
         </div>
 

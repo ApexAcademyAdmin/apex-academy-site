@@ -16,8 +16,8 @@ export default function AdminHome() {
         const teams: Team[] = data.teams || [];
         setCounts({
           total: teams.length,
-          pending: teams.filter((t) => t.status === "pending").length,
-          active: teams.filter((t) => t.status === "active").length,
+          pending: teams.filter((t) => t.status === "pending_review").length,
+          active: teams.filter((t) => t.status === "published").length,
           rejected: teams.filter((t) => t.status === "rejected").length,
         });
       }
@@ -29,7 +29,7 @@ export default function AdminHome() {
   const stats = [
     { label: "Total Teams", value: counts.total, color: "text-white/90" },
     { label: "Pending Review", value: counts.pending, color: "text-yellow-400/90" },
-    { label: "Active", value: counts.active, color: "text-[#17FC13]/90" },
+    { label: "Published", value: counts.active, color: "text-[#17FC13]/90" },
     { label: "Rejected", value: counts.rejected, color: "text-red-400/80" },
   ];
 

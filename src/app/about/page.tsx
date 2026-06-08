@@ -95,6 +95,7 @@ export default function AboutPage() {
           <p className="text-[15px] md:text-[17px] text-white/80 leading-[1.75] italic">
             &ldquo;Apex Academy is about more than baseball. It&apos;s about helping young athletes build a foundation for success in whatever path they choose next.&rdquo;
           </p>
+          <div className="mt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/60">&mdash; Coach Gary</div>
         </div>
 
         <div className="mt-10 border border-[#171717] bg-radial p-7 text-center">

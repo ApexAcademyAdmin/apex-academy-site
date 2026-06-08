@@ -48,7 +48,7 @@ const PROSPECT_EVENTS = [
 ];
 
 const ALUMNI_FACES = ["oliveira-christian", "clark-kevin", "born-ian", "flaherty-cameron", "seeley-conner", "mcmahon-brandon", "osullivan-aidan"];
-const ALUMNI_LOGOS = ["swarthmore", "umass-boston", "haverford", "saint-michaels", "salem-state", "ithaca", "salisbury", "wentworth", "dodgers"];
+const ALUMNI_LOGOS = ["dodgers", "umass-boston", "swarthmore", "saint-michaels", "salisbury", "salem-state", "haverford"];
 
 export default function Home() {
   const [liveGames, setLiveGames] = useState<(Game & { teamName: string })[]>([]);

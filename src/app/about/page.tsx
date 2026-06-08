@@ -61,8 +61,10 @@ export default function AboutPage() {
           </Movement>
 
           <Movement label="The League">
-            <p>The Apex Academy League grew out of the same belief. It exists to give players and teams across Greater Boston more chances to compete and be seen. Games are played on weekday evenings, so weekends stay free for travel and tournaments — meaningful at-bats, innings, and reps without forcing families to choose.</p>
-            <p>For recreational players it&apos;s organized, development-focused competition. For prospects, it&apos;s another stage. For the region, it&apos;s an extension of the same mission — competition, development, and visibility, reaching more players than any single program could on its own.</p>
+            <p>The League was created from the same philosophy that drives Apex Academy: creating more opportunities for players to compete, develop, and enjoy the game. Rather than creating separation between town baseball and travel baseball, the goal is to help bridge the gap between them by providing a structured, competitive environment that welcomes players and organizations from across the region.</p>
+            <p>The schedule is intentionally designed around the realities of modern baseball. Games are primarily played during the week, allowing players to continue participating with their travel teams, tournaments, and other commitments without being forced to choose one experience over another. This creates additional opportunities for meaningful at-bats, innings, and development throughout the season while minimizing conflicts for players and families.</p>
+            <p>Beyond the competition itself, the League is designed to create a more engaging and rewarding baseball experience. Regular season and postseason achievements are recognized through league awards, with players, coaches, and teams celebrated annually at the Apex Academy Banquet. The League also serves as another avenue for visibility, helping players gain exposure while continuing to develop within a competitive and supportive environment.</p>
+            <p>At its core, the League exists to strengthen baseball throughout the region by providing quality competition, fostering development, building community, and creating opportunities for players to continue growing both on and off the field.</p>
           </Movement>
 
           <Movement label="What Success Looks Like">

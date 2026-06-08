@@ -1,8 +1,5 @@
-import { Fragment } from "react";
 import { Button } from "@/components/Button";
 import { CONTACT } from "@/lib/constants";
-
-const PATHWAY = ["10U", "12U", "14U", "Prospects", "Premier", "College"];
 
 const ALUMNI_FIGURES = [
   { val: "20+", label: "College Players" },
@@ -57,20 +54,6 @@ export default function AboutPage() {
           <Movement label="Another Way">
             <p>So we set out to build one. The idea was simple: a genuinely high-level baseball experience at a cost families could actually afford, with player development, inclusion, and opportunity at the center of every decision. Not wins for the sake of wins. Not a logo to sell. A program built around the people who make the game worth playing.</p>
             <p>That mission hasn&apos;t changed since. Everything we&apos;ve added in the years since has been in service of it.</p>
-          </Movement>
-
-          <Movement label="More Than A Travel Team">
-            <p>What started as a way to keep kids in the game has grown into a complete development organization. Teams were only the beginning. Around them we built coaching that follows one shared system, a recruiting process that prepares players long before they realize it, prospect events that put them in front of college coaches, a league that gives them somewhere to compete, and an alumni path that shows the work pays off.</p>
-            <p>It all connects. A player can enter young and follow a clear path as far as their work will take them:</p>
-            <div className="flex flex-wrap items-center gap-1.5 pt-1">
-              {PATHWAY.map((stage, i) => (
-                <Fragment key={stage}>
-                  <span className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border ${i === PATHWAY.length - 1 ? "border-[#17FC13]/40 text-[#17FC13] bg-[#17FC13]/[0.05]" : "border-[#171717] text-white/70"}`}>{stage}</span>
-                  {i < PATHWAY.length - 1 && <span className="text-white/25 text-[11px]">&rarr;</span>}
-                </Fragment>
-              ))}
-            </div>
-            <p>Every level runs on the same standards and the same philosophy — so moving up isn&apos;t a fresh start. It&apos;s the next step.</p>
           </Movement>
 
           <Movement label="Development First">

@@ -20,43 +20,28 @@ function Lead({ eyebrow, title, accent, sub, center }: { eyebrow: string; title:
   );
 }
 
-const WHY_JOIN = [
-  { t: "More Competitive Games", d: "Meaningful weeknight games that add quality innings and at-bats to every player's season." },
-  { t: "Weeknight Scheduling", d: "Games Wednesday–Friday evenings keep weekends free for tournaments and family time." },
-  { t: "Player Development", d: "A development-first environment built to make every player better — not just keep score." },
-  { t: "Awards & Recognition", d: "Regular season and postseason awards, All-League teams, and banquet recognition." },
-  { t: "League Technology", d: "Live standings, statistics, schedules, and a professional team page for every club." },
-  { t: "Additional Opportunities", d: "Player profiles, exposure, and eligibility for Apex prospect events." },
+const HOW_IT_WORKS = [
+  { t: "Weeknight Games", d: "Every game is played Wednesday–Friday evening — weekends stay free for tournaments and family time." },
+  { t: "Age Divisions", d: "Five age groups from 10U through 18U, each with its own structure and age-appropriate rules." },
+  { t: "MLB-Style Rules", d: "Pitch counts, rest requirements, leadoffs, stealing, and dropped third strike — all enforced by age." },
+  { t: "Season & Championship", d: `A full summer season (${LEAGUE_META.seasonStart} – ${LEAGUE_META.seasonEnd}) leading to playoffs and a Championship Weekend.` },
+  { t: "Turnkey For Teams", d: "Bring your roster — we handle fields, umpires, scheduling, standings, and league operations." },
+  { t: "Affordable Entry", d: `${LEAGUE_META.registrationFee} per team, all in. A professional league experience without the travel-ball price tag.` },
 ];
 
-const DIFFERENCE = [
-  "Structured Competition", "Premier & Prospect Divisions", "Live Standings",
-  "Player Statistics", "Awards Program", "Professional League Website",
-  "Apex Live Coverage", "Player Profiles", "Prospect Events",
+const WHY_JOIN = [
+  { t: "More Competitive Games", d: "Meaningful weeknight games that add quality innings and at-bats to every player's season." },
+  { t: "No Tournament Conflicts", d: "Weeknight scheduling fits around your weekend travel and tournament commitments." },
+  { t: "Player Development", d: "A development-first environment built to make every player better — not just keep score." },
+  { t: "Competitive Balance", d: "Premier and Prospect divisions keep teams matched with the right level of competition." },
+  { t: "Run For You", d: "Scheduling, certified umpires, fields, and live standings handled — so you can focus on coaching." },
+  { t: "Recognition", d: "Regular season and postseason awards, All-League teams, and annual banquet recognition." },
 ];
 
 const AUDIENCES = [
   { t: "Town Programs", d: "Add competitive midweek games without disrupting your existing season or schedule." },
   { t: "Travel Programs", d: "Keep players game-ready between tournaments with meaningful weekday reps." },
   { t: "Independent Teams", d: "Bring a roster and play — we handle scheduling, fields, umpires, and operations." },
-];
-
-const RECOGNITION = ["Regular Season Awards", "Playoff Awards", "League Champions", "All-League Teams", "Banquet Recognition", "Player Spotlights"];
-
-const PROSPECT_EVENTS = [
-  { tag: "Showcase", t: "All-New England Prospect Games", d: "An invitational showcase pairing combine testing with live games in front of attending college coaches.", href: "/league/showcase" },
-  { tag: "Combine", t: "Rising Prospects Combine", d: "Professional-level testing and verified player profiles with guaranteed college coach attendance.", href: "/events/rising-prospects" },
-];
-
-const EXPERIENCE = [
-  { t: "Live Standings", href: "/league/standings" },
-  { t: "Schedules", href: "/league/schedule" },
-  { t: "Statistics", href: "/league/standings" },
-  { t: "Player Profiles", href: "/teams" },
-  { t: "Apex Live", href: "/live" },
-  { t: "Awards", href: "/league/banquet" },
-  { t: "Team Pages", href: "/teams" },
-  { t: "Mobile Access", href: "/live" },
 ];
 
 export default function LeaguePage() {
@@ -83,13 +68,13 @@ export default function LeaguePage() {
             </p>
             <div className="flex items-center justify-center gap-3 flex-wrap">
               <Button href="/league/register">Register Your Team</Button>
-              <Button href="#divisions" variant="secondary">Explore Divisions</Button>
+              <Button href="#how" variant="secondary">How It Works</Button>
             </div>
           </FadeIn>
         </div>
       </section>
 
-      {/* ══════════ 1 · WHY THE LEAGUE EXISTS ══════════ */}
+      {/* ══════════ WHY THE LEAGUE EXISTS ══════════ */}
       <Section size="md">
         <FadeIn className="max-w-2xl mx-auto text-center">
           <Lead center eyebrow="Why The League Exists" title="Built To Strengthen" accent="Town Ball" />
@@ -101,7 +86,44 @@ export default function LeaguePage() {
         </FadeIn>
       </Section>
 
-      {/* ══════════ 2 · WHY TEAMS JOIN ══════════ */}
+      {/* ══════════ HOW IT WORKS ══════════ */}
+      <Section id="how" size="md" border="top" bg="radial">
+        <FadeIn><Lead eyebrow="How It Works" title="The" accent="Format" sub="A professionally run league with a simple, predictable structure for every team." /></FadeIn>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-7">
+          {HOW_IT_WORKS.map((c, i) => (
+            <FadeIn key={c.t} delay={(i % 3) * 0.06}>
+              <div className="border border-[#171717] bg-black p-5 h-full">
+                <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/45 mb-3">0{i + 1}</div>
+                <h3 className="text-sm uppercase font-bold mb-2">{c.t}</h3>
+                <p className="text-[12px] text-white/65 leading-[1.7]">{c.d}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </Section>
+
+      {/* ══════════ PREMIER & PROSPECT DIVISIONS ══════════ */}
+      <Section id="divisions" size="md" border="top">
+        <FadeIn><Lead center eyebrow="Competition Structure" title="Premier &" accent="Prospect" sub="Two divisions per age group (10U–18U) create competitive balance and a better experience for everyone." /></FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-8 max-w-3xl mx-auto">
+          <FadeIn>
+            <div className="border border-[#17FC13]/25 bg-[#17FC13]/[0.03] p-6 h-full">
+              <h3 className="text-lg uppercase font-bold mb-1">Premier Division</h3>
+              <div className="text-[10px] font-bold uppercase tracking-wider text-[#17FC13]/60 mb-3">Competitive</div>
+              <p className="text-[13px] text-white/70 leading-[1.7]">Higher-level competition for experienced, competitive teams.</p>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.08}>
+            <div className="border border-[#171717] bg-radial p-6 h-full">
+              <h3 className="text-lg uppercase font-bold mb-1">Prospect Division</h3>
+              <div className="text-[10px] font-bold uppercase tracking-wider text-white/45 mb-3">Development</div>
+              <p className="text-[13px] text-white/70 leading-[1.7]">Development-focused competition built for growth and confidence.</p>
+            </div>
+          </FadeIn>
+        </div>
+      </Section>
+
+      {/* ══════════ WHY TEAMS JOIN ══════════ */}
       <Section size="md" border="top" bg="radial">
         <FadeIn><Lead eyebrow="Why Teams Join" title="A Better" accent="Experience" /></FadeIn>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-7">
@@ -116,26 +138,13 @@ export default function LeaguePage() {
         </div>
       </Section>
 
-      {/* ══════════ 3 · THE DIFFERENCE ══════════ */}
+      {/* ══════════ BUILT FOR EVERY TEAM ══════════ */}
       <Section size="md" border="top">
-        <FadeIn><Lead eyebrow="The Difference" title="Not Your Average" accent="League" sub="Everything a travel-level experience offers — organized, tracked, and built for development." /></FadeIn>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mt-7">
-          {DIFFERENCE.map((d) => (
-            <div key={d} className="flex items-center gap-2.5 border border-[#171717] bg-radial px-3.5 py-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] shrink-0" />
-              <span className="text-[11px] font-bold uppercase tracking-wide text-white/85 leading-tight">{d}</span>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ══════════ 4 · BUILT FOR EVERY TEAM ══════════ */}
-      <Section size="md" border="top" bg="radial">
         <FadeIn><Lead eyebrow="Built For Every Team" title="One League," accent="Every Program" /></FadeIn>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-7">
           {AUDIENCES.map((a, i) => (
             <FadeIn key={a.t} delay={i * 0.06}>
-              <div className="border border-[#171717] bg-black p-6 h-full">
+              <div className="border border-[#171717] bg-radial p-6 h-full">
                 <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/50 mb-3">0{i + 1}</div>
                 <h3 className="text-base uppercase font-bold mb-2">{a.t}</h3>
                 <p className="text-[12px] text-white/65 leading-[1.7]">{a.d}</p>
@@ -143,93 +152,6 @@ export default function LeaguePage() {
             </FadeIn>
           ))}
         </div>
-      </Section>
-
-      {/* ══════════ 5 · PLAYER RECOGNITION ══════════ */}
-      <Section size="md" border="top">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <FadeIn>
-            <Lead eyebrow="Player Recognition" title="Players Get" accent="Noticed" sub="Achievement is recognized all season — on the field, on the platform, and at the annual Apex Academy Banquet." />
-            <div className="mt-6"><Button href="/league/banquet" variant="secondary" size="small">Awards &amp; Banquet</Button></div>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <div className="grid grid-cols-2 gap-2.5">
-              {RECOGNITION.map((r) => (
-                <div key={r} className="border border-[#171717] bg-radial px-4 py-3.5 flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] shrink-0" />
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-white/85 leading-tight">{r}</span>
-                </div>
-              ))}
-            </div>
-          </FadeIn>
-        </div>
-      </Section>
-
-      {/* ══════════ 6 · PREMIER & PROSPECT DIVISIONS ══════════ */}
-      <Section id="divisions" size="md" border="top" bg="radial">
-        <FadeIn><Lead center eyebrow="Competition Structure" title="Premier &" accent="Prospect" sub="Two divisions per age group (10U–18U) create competitive balance and a better experience for everyone." /></FadeIn>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-8 max-w-3xl mx-auto">
-          <FadeIn>
-            <div className="border border-[#17FC13]/25 bg-[#17FC13]/[0.03] p-6 h-full">
-              <h3 className="text-lg uppercase font-bold mb-1">Premier Division</h3>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#17FC13]/60 mb-3">Competitive</div>
-              <p className="text-[13px] text-white/70 leading-[1.7]">Higher-level competition for experienced, competitive teams.</p>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.08}>
-            <div className="border border-[#171717] bg-black p-6 h-full">
-              <h3 className="text-lg uppercase font-bold mb-1">Prospect Division</h3>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/45 mb-3">Development</div>
-              <p className="text-[13px] text-white/70 leading-[1.7]">Development-focused competition built for growth and confidence.</p>
-            </div>
-          </FadeIn>
-        </div>
-        <div className="text-center mt-8"><Button href="/league/standings" variant="secondary" size="small">View Standings</Button></div>
-      </Section>
-
-      {/* ══════════ 7 · PROSPECT EVENTS ══════════ */}
-      <Section size="md" border="top">
-        <FadeIn><Lead center eyebrow="Prospect Events" title="An On-Ramp To The" accent="Next Level" sub="The league connects to recruiting events that put players in front of college coaches — with player evaluation, exposure, and development built in." /></FadeIn>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-8">
-          {PROSPECT_EVENTS.map((e, i) => (
-            <FadeIn key={e.t} delay={i * 0.08}>
-              <a href={e.href} className="block border border-[#171717] bg-radial p-6 h-full no-underline hover:border-[#17FC13]/30 transition-all group">
-                <span className="inline-block text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 border border-[#17FC13]/20 text-[#17FC13]/70 mb-4">{e.tag}</span>
-                <h3 className="text-lg uppercase font-bold mb-2 leading-tight group-hover:text-[#17FC13] transition-colors">{e.t}</h3>
-                <p className="text-[13px] text-white/70 leading-[1.7]">{e.d}</p>
-              </a>
-            </FadeIn>
-          ))}
-        </div>
-        <div className="text-center mt-8"><Button href="/events" variant="secondary" size="small">View Events</Button></div>
-      </Section>
-
-      {/* ══════════ 8 · LEAGUE EXPERIENCE ══════════ */}
-      <Section size="md" border="top" bg="radial">
-        <FadeIn><Lead eyebrow="The Experience" title="Beyond" accent="Game Day" sub="The league lives on a professional platform — follow your team anytime, anywhere." /></FadeIn>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-7">
-          {EXPERIENCE.map((x) => (
-            <a key={x.t} href={x.href} className="border border-[#171717] bg-black px-4 py-4 text-center no-underline hover:border-[#17FC13]/25 transition-colors group">
-              <span className="text-[11px] font-bold uppercase tracking-wide text-white/80 group-hover:text-[#17FC13] transition-colors">{x.t}</span>
-            </a>
-          ))}
-        </div>
-        <div className="text-center mt-8"><Button href="/live" variant="secondary" size="small">Watch Apex Live</Button></div>
-      </Section>
-
-      {/* ══════════ 9 · COMMUNITY ══════════ */}
-      <Section size="md" border="top">
-        <FadeIn className="max-w-2xl mx-auto text-center">
-          <Lead center eyebrow="Community" title="It Belongs To" accent="The Game" />
-          <p className="text-[14px] md:text-[15px] text-white/80 leading-[1.75] mt-5">
-            The league is built for the people who make baseball matter — players, families, coaches, and organizations — with one goal: a stronger game across the region.
-          </p>
-          <div className="flex flex-wrap justify-center gap-2 mt-7">
-            {["Players", "Families", "Coaches", "Organizations", "Communities"].map((t) => (
-              <span key={t} className="px-4 py-2 border border-[#171717] text-[11px] font-bold uppercase tracking-wider text-white/75">{t}</span>
-            ))}
-          </div>
-        </FadeIn>
       </Section>
 
       {/* ══════════ FINAL CTA ══════════ */}

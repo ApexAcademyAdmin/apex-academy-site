@@ -40,6 +40,7 @@ export const NAV_LINKS: NavLink[] = [
       { title: "Rising Prospects Combine", href: "/events/rising-prospects" },
     ],
   },
+  { title: "Alumni", href: "/alumni" },
   { title: "Partners", href: "/partners" },
   { title: "Shop", href: "/shop" },
 ];

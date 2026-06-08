@@ -21,7 +21,6 @@ export const NAV_LINKS: NavLink[] = [
     title: "League",
     href: "/league",
     children: [
-      { title: "League Home", href: "/league" },
       { title: "Standings", href: "/league/standings" },
       { title: "Schedule", href: "/league/schedule" },
       { title: "Results", href: "/league/results" },

@@ -66,21 +66,18 @@ export default function Home() {
   return (
     <>
       {/* ══════════ HERO ══════════ */}
-      <section className="relative min-h-[78vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[56vh] flex items-center justify-center overflow-hidden pt-16">
         <div className="absolute inset-0 bg-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,_rgba(23,252,19,0.06)_0%,_transparent_55%)]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.035] pointer-events-none">
-          <Image src="/logos/apex-a-mark.png" alt="" width={760} height={760} className="object-contain" priority />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,_rgba(23,252,19,0.06)_0%,_transparent_55%)]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none">
+          <Image src="/logos/apex-a-mark.png" alt="" width={680} height={680} className="object-contain" priority />
         </div>
 
         <FadeIn className="relative z-10 text-center px-6 max-w-3xl mx-auto">
-          <div className="flex justify-center mb-8">
-            <Image src="/logos/decal-lg.png" alt="Apex Academy" width={320} height={120} className="h-16 md:h-20 w-auto object-contain" />
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl uppercase font-bold leading-[0.85] mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl uppercase font-bold leading-[0.85] mb-5">
             Built For <span className="accent-text">The Players</span>
           </h1>
-          <p className="text-[16px] md:text-[18px] text-white/80 leading-[1.75] max-w-xl mx-auto mb-9">
+          <p className="text-[15px] md:text-[17px] text-white/80 leading-[1.7] max-w-xl mx-auto mb-7">
             One organization dedicated to helping athletes develop, compete, and create opportunities for themselves — both on and off the field.
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
@@ -88,10 +85,6 @@ export default function Home() {
             <Button href="/teams" variant="secondary">Explore Teams</Button>
           </div>
         </FadeIn>
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <div className="w-px h-8 bg-gradient-to-b from-[#17FC13]/30 to-transparent" />
-        </div>
       </section>
 
       {/* ══════════ LIVE BANNER (conditional) ══════════ */}
@@ -112,16 +105,16 @@ export default function Home() {
       )}
 
       {/* ══════════ 1 · WHO WE ARE ══════════ */}
-      <div className="max-w-[1120px] mx-auto px-6 py-14 md:py-16">
+      <div className="max-w-[1120px] mx-auto px-6 py-11 md:py-12">
         <FadeIn className="max-w-2xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2.5 mb-3">
             <span aria-hidden className="w-5 h-px bg-[#17FC13]/50 shrink-0" />
             <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/60">Who We Are</span>
           </div>
-          <h2 className="text-2xl md:text-3xl uppercase font-bold leading-[0.95] mb-5">
+          <h2 className="text-2xl md:text-3xl uppercase font-bold leading-[0.95] mb-4">
             A Player-First <span className="accent-text">Organization</span>
           </h2>
-          <p className="text-[15px] md:text-[16px] text-white/80 leading-[1.8] mb-8">
+          <p className="text-[14px] md:text-[15px] text-white/80 leading-[1.75] mb-6">
             Apex Academy was founded in 2020 to give Greater Boston families a better path — high-level baseball built on development, opportunity, and inclusion rather than cost and exclusivity. Everything we do is built to help players grow, on the field and well beyond it.
           </p>
           <Button href="/about" variant="secondary" size="small">Learn More About Apex</Button>
@@ -130,8 +123,8 @@ export default function Home() {
 
       {/* ══════════ 2 · THE PLAYER PATHWAY ══════════ */}
       <div className="border-y border-[#171717] bg-radial">
-        <div className="max-w-[1120px] mx-auto px-6 py-14 md:py-16">
-          <FadeIn className="text-center max-w-xl mx-auto mb-10">
+        <div className="max-w-[1120px] mx-auto px-6 py-11 md:py-12">
+          <FadeIn className="text-center max-w-xl mx-auto mb-7">
             <div className="flex items-center justify-center gap-2.5 mb-3">
               <span aria-hidden className="w-5 h-px bg-[#17FC13]/50 shrink-0" />
               <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/60">The Player Pathway</span>
@@ -161,14 +154,14 @@ export default function Home() {
             </div>
           </FadeIn>
 
-          <div className="text-center mt-10">
+          <div className="text-center mt-7">
             <Button href="/teams" variant="secondary" size="small">View Teams</Button>
           </div>
         </div>
       </div>
 
       {/* ══════════ 3 · THE LEAGUE ══════════ */}
-      <div className="max-w-[1120px] mx-auto px-6 py-14 md:py-16">
+      <div className="max-w-[1120px] mx-auto px-6 py-11 md:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <FadeIn>
             <Lead eyebrow="The League" title="Bridging Town &" accent="Travel" />
@@ -197,8 +190,8 @@ export default function Home() {
 
       {/* ══════════ 4 · PROSPECT EVENTS ══════════ */}
       <div className="border-y border-[#171717] bg-radial">
-        <div className="max-w-[1120px] mx-auto px-6 py-14 md:py-16">
-          <FadeIn className="text-center max-w-xl mx-auto mb-10">
+        <div className="max-w-[1120px] mx-auto px-6 py-11 md:py-12">
+          <FadeIn className="text-center max-w-xl mx-auto mb-7">
             <div className="flex items-center justify-center gap-2.5 mb-3">
               <span aria-hidden className="w-5 h-px bg-[#17FC13]/50 shrink-0" />
               <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/60">Prospect Events</span>
@@ -209,7 +202,7 @@ export default function Home() {
             </p>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-7">
             {PROSPECT_EVENTS.map((e, i) => (
               <FadeIn key={e.title} delay={i * 0.08}>
                 <a href={e.href} className="block border border-[#171717] bg-black p-6 md:p-7 h-full no-underline hover:border-[#17FC13]/30 transition-all group">
@@ -228,8 +221,8 @@ export default function Home() {
       </div>
 
       {/* ══════════ 5 · ALUMNI ══════════ */}
-      <div className="max-w-[1120px] mx-auto px-6 py-14 md:py-16">
-        <FadeIn className="text-center max-w-xl mx-auto mb-10">
+      <div className="max-w-[1120px] mx-auto px-6 py-11 md:py-12">
+        <FadeIn className="text-center max-w-xl mx-auto mb-7">
           <div className="flex items-center justify-center gap-2.5 mb-3">
             <span aria-hidden className="w-5 h-px bg-[#17FC13]/50 shrink-0" />
             <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/60">Alumni</span>
@@ -267,7 +260,7 @@ export default function Home() {
 
       {/* ══════════ 6 · APEX LIVE ══════════ */}
       <div className="border-y border-[#171717] bg-radial">
-        <div className="max-w-[1120px] mx-auto px-6 py-14 md:py-16">
+        <div className="max-w-[1120px] mx-auto px-6 py-11 md:py-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <FadeIn>
               <Lead eyebrow="Apex Live" title="Every Game." accent="Live." />
@@ -291,9 +284,9 @@ export default function Home() {
       </div>
 
       {/* ══════════ FINAL CTA ══════════ */}
-      <div className="max-w-[1120px] mx-auto px-6 py-16 md:py-24">
+      <div className="max-w-[1120px] mx-auto px-6 py-14 md:py-16">
         <FadeIn className="max-w-xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-7">
+          <h2 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-6">
             Ready To <span className="accent-text">Get Started?</span>
           </h2>
           <div className="flex items-center justify-center gap-3 flex-wrap">

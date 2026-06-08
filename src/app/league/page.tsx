@@ -63,10 +63,7 @@ export default function LeaguePage() {
             <p className="text-[15px] md:text-[17px] text-white/80 leading-[1.7] max-w-2xl mx-auto mb-6">
               A premier, community-based league that brings select travel-ball elements — postseason awards, an annual banquet celebration, and showcase exposure for top performers — into organized local play. More competition, more recognition, and more opportunity, without leaving your community behind.
             </p>
-            <p className="text-[12px] text-white/55 mb-8">
-              {LEAGUE_META.seasonStart} – {LEAGUE_META.seasonEnd} &middot; {LEAGUE_META.registrationFee} / team &middot; {LEAGUE_META.location} &middot; Games Wed–Fri
-            </p>
-            <div className="flex items-center justify-center gap-3 flex-wrap">
+            <div className="flex items-center justify-center gap-3 flex-wrap mt-8">
               <Button href="/league/register">Register Your Team</Button>
               <Button href="#how" variant="secondary">How It Works</Button>
             </div>

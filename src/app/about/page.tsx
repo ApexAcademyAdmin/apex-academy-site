@@ -40,13 +40,13 @@ export default function AboutPage() {
         <div className="relative pl-7 sm:pl-10 border-l border-white/[0.08] space-y-11 md:space-y-12">
 
           <Movement label="Where It Started">
-            <p>Apex Academy was founded in late 2020, after conversations with families across Greater Boston who felt the travel baseball landscape was changing for the worse. Costs were climbing. Larger organizations were consolidating the game into something that looked more like a business than a community — and for a lot of families, the sport their kids loved was slipping out of reach.</p>
-            <p>We believed there had to be another way.</p>
+            <p>Apex Academy was founded in late 2020 following conversations with families throughout Greater Boston who believed the youth baseball landscape was becoming increasingly difficult to navigate. As costs continued to rise and access to competitive opportunities became more limited, many families felt the focus of the game was shifting away from player development and community.</p>
+            <p>We saw an opportunity to build something different.</p>
           </Movement>
 
-          <Movement label="Another Way">
-            <p>So we set out to build one. The idea was simple: a genuinely high-level baseball experience at a cost families could actually afford, with player development, inclusion, and opportunity at the center of every decision. Not wins for the sake of wins. Not a logo to sell. A program built around the people who make the game worth playing.</p>
-            <p>That mission hasn&apos;t changed since. Everything we&apos;ve added in the years since has been in service of it.</p>
+          <Movement label="Our Foundation">
+            <p>From the beginning, the vision was straightforward: create a high-quality baseball experience that remained accessible to families while placing player development, opportunity, and inclusion at the center of every decision. The objective was never simply to build teams or compete in tournaments. It was to create an environment where athletes could develop their skills, grow their confidence, and pursue their goals both on and off the field.</p>
+            <p>That philosophy continues to guide the organization today. Every team, event, resource, and opportunity that has been added since our founding has been built with the same purpose in mind: providing players with the support, guidance, and opportunities they need to reach their full potential.</p>
           </Movement>
 
           <Movement label="Development First">

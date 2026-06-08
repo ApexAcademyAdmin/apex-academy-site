@@ -55,8 +55,9 @@ export default function AboutPage() {
           </Movement>
 
           <Movement label="Opportunity">
-            <p>Much of what we do exists to open doors players might not otherwise have. Competitive baseball is the starting point. From there comes recruiting education, verified player profiles, statistical tracking, media exposure, and prospect events like the All-New England Prospect Games and the Rising Prospects Combine — where athletes test, play, and get evaluated in front of college coaches from across NCAA Division I, II, III, NAIA, and NJCAA.</p>
-            <p>The goal is never just to be good. It&apos;s to be seen — and to be ready when the opportunity comes.</p>
+            <p>Much of what we do is centered around creating opportunities for players to grow, develop, and pursue their goals both on and off the field. Competitive baseball is only part of the journey. We believe athletes deserve access to the resources, guidance, information, and experiences that help them better understand the path ahead and prepare for whatever comes next.</p>
+            <p>Our responsibility is not only to help players improve as athletes, but to help them build confidence, gain perspective, and put themselves in position to take advantage of opportunities when they arise.</p>
+            <p>The goal is never simply to participate. The goal is to continue developing, continue learning, and be prepared when the next opportunity presents itself.</p>
           </Movement>
 
           <Movement label="The League">

@@ -26,7 +26,20 @@ const COMMITMENTS: Alum[] = [
 
 // Asset maps — only contain entries whose files actually exist in /public/alumni.
 // PHOTO: player slug -> headshot path. LOGO: exact school name -> logo path.
-const PHOTO: Record<string, string> = {};
+const PHOTO: Record<string, string> = {
+  "born-ian": "/alumni/players/born-ian.jpg",
+  "clark-kevin": "/alumni/players/clark-kevin.jpg",
+  "cummings-kyle": "/alumni/players/cummings-kyle.jpg",
+  "figueroa-christian": "/alumni/players/figueroa-christian.jpg",
+  "flaherty-cameron": "/alumni/players/flaherty-cameron.jpg",
+  "lewis-matthew": "/alumni/players/lewis-matthew.jpg",
+  "mcmahon-brandon": "/alumni/players/mcmahon-brandon.jpg",
+  "osullivan-aidan": "/alumni/players/osullivan-aidan.jpg",
+  "sack-brendan": "/alumni/players/sack-brendan.jpg",
+  "salerno-max": "/alumni/players/salerno-max.jpg",
+  "seeley-conner": "/alumni/players/seeley-conner.jpg",
+  "sullivan-seth": "/alumni/players/sullivan-seth.jpg",
+};
 const LOGO: Record<string, string> = {
   "Wheaton College": "/alumni/logos/wheaton.png",
   "Swarthmore College": "/alumni/logos/swarthmore.png",

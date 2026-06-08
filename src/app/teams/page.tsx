@@ -97,11 +97,7 @@ export default function TeamsPage() {
           {TEAMS.map((t, i) => (
             <FadeIn key={t.id} delay={(i % 3) * 0.05}>
               <a href={`/teams/${t.id}`} className="group block border border-[#171717] bg-black p-6 hover:border-[#17FC13]/25 transition-all no-underline">
-                <div className="flex flex-col md:flex-row md:items-center gap-5">
-                  {/* Identity */}
-                  <div className="md:w-36 shrink-0">
-                    <div className="text-3xl md:text-4xl font-bold text-[#17FC13] leading-none">{t.age}</div>
-                  </div>
+                <div className="flex items-center gap-5">
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <h3 className="text-lg md:text-xl uppercase font-bold mb-2 group-hover:text-[#17FC13] transition-colors">{t.name}</h3>

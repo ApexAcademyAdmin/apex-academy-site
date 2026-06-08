@@ -27,12 +27,18 @@ export default function AboutPage() {
             <span className="text-white/10">/</span>
             <span className="text-[#17FC13]/50">About</span>
           </div>
-          <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-2">Est. 2020 &middot; Boston, Massachusetts</div>
-          <h1 className="text-3xl md:text-5xl uppercase font-bold leading-[0.9] mb-4">
+          <div className="flex items-center gap-2.5 mb-4">
+            <span aria-hidden className="w-5 h-px bg-[#17FC13]/50 shrink-0" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/60">Est. 2020 &middot; Boston, Massachusetts</span>
+          </div>
+          <h1 className="text-3xl md:text-5xl uppercase font-bold leading-[0.95] mb-5">
             Built For <span className="accent-text">The Players</span>
           </h1>
-          <p className="text-[15px] md:text-[16px] text-white/80 leading-[1.8] max-w-2xl">
-            A player-first baseball organization built on development and opportunity — and on the belief that every athlete deserves the support to grow, compete, and pursue their goals, on the field and well beyond it. This is how Apex started, what we set out to build, and where we&apos;re going.
+          <p className="text-[15px] md:text-[17px] text-white/85 leading-[1.75] max-w-2xl">
+            Apex Academy is a player-first baseball organization in Greater Boston — built on development, opportunity, and the long-term growth of every athlete we work with.
+          </p>
+          <p className="mt-3 text-[13px] md:text-[14px] text-white/55 leading-[1.7] max-w-2xl">
+            What follows is where we started, what we stand for, and where we&apos;re going.
           </p>
         </div>
       </section>

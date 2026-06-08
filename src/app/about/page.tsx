@@ -3,9 +3,11 @@ import { CONTACT } from "@/lib/constants";
 
 function Movement({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <section className="relative">
-      <span aria-hidden className="absolute -left-[33px] sm:-left-[45px] top-[6px] w-2 h-2 rounded-full bg-[#17FC13] ring-4 ring-[#17FC13]/10" />
-      <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#17FC13]/60 mb-3">{label}</div>
+    <section>
+      <div className="flex items-center gap-2.5 mb-3">
+        <span aria-hidden className="w-5 h-px bg-[#17FC13]/50 shrink-0" />
+        <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#17FC13]/60">{label}</span>
+      </div>
       <div className="space-y-3.5 text-[14px] md:text-[15px] text-white/85 leading-[1.85]">{children}</div>
     </section>
   );
@@ -30,14 +32,14 @@ export default function AboutPage() {
             Built For <span className="accent-text">The Players</span>
           </h1>
           <p className="text-[15px] md:text-[16px] text-white/80 leading-[1.8] max-w-2xl">
-            One organization built on a single belief — that every player deserves a place to develop, compete, and create opportunities for themselves, on and off the field. This is how it started, and where it&apos;s going.
+            A player-first baseball organization built on development and opportunity — and on the belief that every athlete deserves the support to grow, compete, and pursue their goals, on the field and well beyond it. This is how Apex started, what we set out to build, and where we&apos;re going.
           </p>
         </div>
       </section>
 
       {/* ══════ THE STORY ══════ */}
-      <div className="max-w-[760px] mx-auto px-6 py-12 md:py-16">
-        <div className="relative pl-7 sm:pl-10 border-l border-white/[0.08] space-y-11 md:space-y-12">
+      <div className="max-w-[1120px] mx-auto px-6 py-12 md:py-16">
+        <div className="max-w-[760px] space-y-11 md:space-y-12">
 
           <Movement label="Where It Started">
             <p>Apex Academy was founded in late 2020 following conversations with families throughout Greater Boston who believed the youth baseball landscape was becoming increasingly difficult to navigate. As costs continued to rise and access to competitive opportunities became more limited, many families felt the focus of the game was shifting away from player development and community.</p>
@@ -50,7 +52,7 @@ export default function AboutPage() {
           </Movement>
 
           <Movement label="Development First">
-            <p>Every player enters the game with different strengths, different goals, and a different path ahead of them. Our responsibility is to help each athlete maximize their potential by providing the guidance, opportunities, and developmental environment needed to continue growing over time.</p>
+            <p>How we pursue that potential is where our approach to development begins. Every player enters the game with different strengths, different goals, and a different path ahead of them. Our responsibility is to help each athlete maximize their potential by providing the guidance, opportunities, and developmental environment needed to continue growing over time.</p>
             <p>We believe development should be intentional. Players are encouraged to learn the game, expand their skill sets, and gain experience in roles that support their long-term growth rather than short-term outcomes. The objective is not simply to become a better player today, but to continue building the foundation for future success.</p>
             <p>Baseball naturally teaches lessons that extend far beyond the field. Accountability, resilience, leadership, discipline, and perseverance are developed through the daily process of improvement. Helping players carry those lessons with them into school, work, relationships, and life is one of the most important responsibilities we have as a program.</p>
           </Movement>
@@ -83,17 +85,17 @@ export default function AboutPage() {
         </div>
 
         {/* ── Closing ── */}
-        <div className="mt-12 md:mt-14 border-l-2 border-[#17FC13]/40 pl-5 py-1">
-          <p className="text-[15px] md:text-[17px] text-white/80 leading-[1.75] italic">
+        <div className="max-w-[760px] mt-12 md:mt-14">
+          <p className="text-[16px] md:text-[18px] text-white/85 leading-[1.7] italic">
             &ldquo;Apex Academy is about more than baseball. It&apos;s about helping young athletes build a foundation for success in whatever path they choose next.&rdquo;
           </p>
           <div className="mt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/60">&mdash; Coach Gary</div>
         </div>
 
-        <div className="mt-10 border border-[#171717] bg-radial p-7 text-center">
+        <div className="max-w-[760px] mt-10 border border-[#171717] bg-radial p-7">
           <h3 className="text-base uppercase font-bold mb-2">Join Apex</h3>
-          <p className="text-[13px] text-white/65 mb-5 max-w-sm mx-auto">Ready to be part of something built for the players? Start here.</p>
-          <div className="flex flex-col sm:flex-row gap-2.5 justify-center max-w-sm mx-auto">
+          <p className="text-[13px] text-white/65 mb-5">Ready to be part of something built for the players? Start here.</p>
+          <div className="flex flex-col sm:flex-row gap-2.5">
             <Button href="/join" size="small">Register</Button>
             <Button href={CONTACT.instagram} variant="secondary" size="small" external>{CONTACT.instagramHandle}</Button>
           </div>

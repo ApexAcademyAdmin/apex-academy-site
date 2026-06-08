@@ -126,8 +126,6 @@ export default function AlumniPage() {
     return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   }, []);
 
-  const collegeCount = ALUMNI.filter((a) => a.level === "College").length;
-  const collegePrograms = new Set(ALUMNI.filter((a) => a.level !== "Professional").map((a) => a.school)).size;
   const marqueeLogos = [...wall, ...wall];
 
   return (
@@ -147,25 +145,6 @@ export default function AlumniPage() {
             <h1 className="text-4xl md:text-6xl uppercase font-bold leading-[0.9] mb-4">
               Apex Academy <span className="accent-text">Alumni</span>
             </h1>
-            <p className="text-[15px] md:text-[17px] text-white/75 leading-[1.7] max-w-xl mx-auto">
-              Where development becomes opportunity.
-            </p>
-            <div className="flex items-center justify-center gap-8 mt-8">
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-[#17FC13] leading-none">{collegeCount}</div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/55 mt-1.5">College Players</div>
-              </div>
-              <div className="h-8 w-px bg-white/10" />
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-[#17FC13] leading-none">1</div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/55 mt-1.5">Professional</div>
-              </div>
-              <div className="h-8 w-px bg-white/10" />
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-[#17FC13] leading-none">{collegePrograms}</div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/55 mt-1.5">Programs</div>
-              </div>
-            </div>
           </FadeIn>
         </div>
 

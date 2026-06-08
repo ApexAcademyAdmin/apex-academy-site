@@ -58,7 +58,7 @@ export function Navbar() {
         <div className="max-w-[1180px] mx-auto px-6 w-full flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="no-underline shrink-0 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#17FC13]/60">
-            <Image src="/logos/decal-nav.png" alt="Apex Academy" width={316} height={156} className="h-16 w-auto object-contain" priority />
+            <Image src="/logos/decal-nav.png" alt="Apex Academy" width={316} height={156} className="h-12 w-auto object-contain" priority />
           </a>
 
           {/* Desktop nav */}

@@ -1,13 +1,6 @@
 import { Button } from "@/components/Button";
 import { CONTACT } from "@/lib/constants";
 
-const ALUMNI_FIGURES = [
-  { val: "20+", label: "College Players" },
-  { val: "1", label: "Pro Signing · LAD" },
-  { val: "D1–NJCAA", label: "Placement Range" },
-  { val: "2020", label: "Founded" },
-];
-
 function Movement({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <section className="relative">
@@ -72,16 +65,11 @@ export default function AboutPage() {
           </Movement>
 
           <Movement label="What Success Looks Like">
-            <p>We measure ourselves by where our players end up. Since 2020, more than twenty Apex athletes have gone on to play college baseball, and one signed professionally with the Los Angeles Dodgers organization.</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/[0.06] border border-white/[0.06] my-1">
-              {ALUMNI_FIGURES.map((s) => (
-                <div key={s.label} className="bg-black px-3 py-4 text-center">
-                  <div className="text-lg md:text-xl font-bold text-[#17FC13]">{s.val}</div>
-                  <div className="text-[9px] font-bold uppercase tracking-wider text-white/55 mt-1">{s.label}</div>
-                </div>
-              ))}
-            </div>
-            <p>We don&apos;t read those as trophies. We read them as proof of what happens when a player is given real opportunity and real support. Success here is just as much the player who becomes a leader, a teammate, a student, or someone who builds something of their own. The game is the vehicle. The person is the point.</p>
+            <p>Success isn&apos;t measured by trophies, rankings, or accolades alone.</p>
+            <p>It&apos;s measured by the opportunities our players create for themselves through hard work, development, and perseverance. Some Apex athletes have continued their baseball careers at the collegiate and professional levels, while others have gone on to pursue success in academics, business, and their communities.</p>
+            <p>We believe the lessons learned through baseball extend far beyond the field. Confidence, accountability, leadership, resilience, and teamwork are qualities that impact every aspect of life.</p>
+            <p>Our goal has never been to simply develop better baseball players. Our goal is to help develop better people.</p>
+            <p className="text-white font-semibold">The game is the vehicle. The person is the purpose.</p>
           </Movement>
 
           <Movement label="What We Protect">

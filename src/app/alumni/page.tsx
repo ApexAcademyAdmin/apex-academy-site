@@ -2,15 +2,24 @@ import { Button } from "@/components/Button";
 import { FadeIn } from "@/components/FadeIn";
 import { CONTACT } from "@/lib/constants";
 
+const PRO = { name: "Christian Oliveira", org: "Los Angeles Dodgers" };
+
 const COMMITMENTS = [
-  { name: "Marcus Rivera", pos: "RHP", school: "Boston College", year: "2025", note: "93 mph fastball, 3.8 GPA" },
-  { name: "James O'Brien", pos: "SS", school: "UMass Amherst", year: "2025", note: "All-State selection, .420 BA" },
-  { name: "Tyler Chen", pos: "C/1B", school: "Northeastern", year: "2025", note: "Exit velo 96 mph, Gold Glove finalist" },
-  { name: "Derek Williams", pos: "OF", school: "UConn", year: "2024", note: "6.5 sixty, top 100 PBR NE" },
-  { name: "Anthony Russo", pos: "LHP", school: "Bryant University", year: "2024", note: "88 mph, 3 pitch mix" },
-  { name: "Kevin Park", pos: "2B", school: "Holy Cross", year: "2024", note: "Gold Glove defender, .380 BA" },
-  { name: "Michael Santos", pos: "RHP/OF", school: "Merrimack", year: "2023", note: "90 mph, two-way player" },
-  { name: "Ryan Murphy", pos: "3B", school: "Bentley", year: "2023", note: "Power hitter, 12 HR senior season" },
+  { name: "Cameron Flaherty", school: "Gordon College / St. Michael's" },
+  { name: "Kevin Clark", school: "UMass Boston" },
+  { name: "Kyle Cummings", school: "UMass Boston" },
+  { name: "Christian Figueroa", school: "Wentworth" },
+  { name: "Aidan O'Sullivan", school: "Haverford College" },
+  { name: "Ian Born", school: "Swarthmore College" },
+  { name: "Conner Seeley", school: "UMass Boston / Salisbury" },
+  { name: "Matthew Lewis", school: "UMass Dartmouth / Bunker Hill CC" },
+  { name: "Oliver Henke", school: "Swarthmore College" },
+  { name: "Stefan Alexandrov", school: "Wheaton College" },
+  { name: "Matthew Mariani", school: "Dickinson College" },
+  { name: "Brendan Sack", school: "Bunker Hill CC" },
+  { name: "Seth Sullivan", school: "Salem State" },
+  { name: "Brandon McMahon", school: "Salem State" },
+  { name: "Max Salerno", school: "Ithaca College" },
 ];
 
 export default function AlumniPage() {
@@ -46,22 +55,29 @@ export default function AlumniPage() {
         </div>
       </div>
 
+      {/* Professional */}
+      <div className="max-w-[1120px] mx-auto px-6 pt-6">
+        <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/55 mb-4">Professional</div>
+        <FadeIn>
+          <div className="border border-[#17FC13]/25 bg-[#17FC13]/[0.03] p-5 flex items-center justify-between">
+            <div>
+              <h3 className="text-base md:text-lg uppercase font-bold">{PRO.name}</h3>
+              <div className="text-[#17FC13] text-xs font-bold uppercase tracking-wide mt-1">{PRO.org}</div>
+            </div>
+            <span className="text-[9px] font-bold uppercase tracking-[0.15em] px-2.5 py-1 border border-[#17FC13]/30 text-[#17FC13]/80">Pro</span>
+          </div>
+        </FadeIn>
+      </div>
+
       {/* Commitments */}
       <div className="max-w-[1120px] mx-auto px-6 py-6">
         <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/55 mb-4">College Commitments</div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {COMMITMENTS.map((c, i) => (
             <FadeIn key={i} delay={i * 0.03}>
               <div className="border border-[#171717] bg-radial p-4 hover:border-[#17FC13]/15 transition-colors">
-                <div className="flex items-start justify-between mb-2">
-                  <div>
-                    <h3 className="text-sm uppercase font-bold">{c.name}</h3>
-                    <div className="text-[10px] text-white/65 mt-0.5">{c.pos}</div>
-                  </div>
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-white/55">{c.year}</span>
-                </div>
-                <div className="text-[#17FC13] text-xs font-bold uppercase tracking-wide mb-1">{c.school}</div>
-                <p className="text-[11px] text-white/70">{c.note}</p>
+                <h3 className="text-sm uppercase font-bold">{c.name}</h3>
+                <div className="text-[#17FC13] text-xs font-bold uppercase tracking-wide mt-1.5">{c.school}</div>
               </div>
             </FadeIn>
           ))}

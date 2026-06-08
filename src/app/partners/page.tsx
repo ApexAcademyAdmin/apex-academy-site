@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { Button } from "@/components/Button";
 import { CONTACT } from "@/lib/constants";
 
@@ -81,21 +80,15 @@ export default function PartnersPage() {
       {/* ══════ DETAIL ══════ */}
       <div className="max-w-[1120px] mx-auto px-6 py-6">
         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-4 transition-opacity duration-200 ${visible ? "opacity-100" : "opacity-0"}`}>
-          {/* Logo lockup */}
+          {/* Partner logo */}
           <div className="relative w-full pt-[55%] bg-radial border border-[#171717] overflow-hidden">
             <div className="absolute inset-0 bg-black/50" />
-            <div className="absolute inset-0 flex items-center justify-center gap-6 md:gap-10">
-              <div className="w-[30%] flex items-center justify-center">
-                <Image src="/logos/decal-lg.png" alt="Apex Academy" width={480} height={320} className="w-full h-auto object-contain opacity-70" />
-              </div>
-              <span className="text-white/10 text-lg">&times;</span>
-              <div className="w-[30%] flex items-center justify-center">
-                {active.logo ? (
-                  <img src={active.logo} alt={active.name} className="w-full h-auto object-contain" />
-                ) : (
-                  <span className="text-white/80 text-lg sm:text-xl font-bold uppercase tracking-wide text-center" style={{ fontFamily: "var(--font-display), sans-serif" }}>{active.logoText}</span>
-                )}
-              </div>
+            <div className="absolute inset-0 flex items-center justify-center p-6">
+              {active.logo ? (
+                <img src={active.logo} alt={active.name} className="w-[75%] h-[75%] object-contain" />
+              ) : (
+                <span className="text-white/80 text-2xl sm:text-3xl font-bold uppercase tracking-wide text-center" style={{ fontFamily: "var(--font-display), sans-serif" }}>{active.logoText}</span>
+              )}
             </div>
           </div>
 

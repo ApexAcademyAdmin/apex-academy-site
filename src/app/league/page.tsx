@@ -1,362 +1,253 @@
-"use client";
-
-import { useState } from "react";
-
 import { Section } from "@/components/Section";
 import { Button } from "@/components/Button";
-import { LEAGUE_META, STANDINGS, UPCOMING_GAMES, RECENT_RESULTS } from "@/lib/league-data";
+import { FadeIn } from "@/components/FadeIn";
+import { LEAGUE_META } from "@/lib/league-data";
 
-const AGE_GROUPS = ["10U", "12U", "14U", "16U", "18U"];
-
-// ═══════════════════════════════════════
-// HEADER — what is the league
-// ═══════════════════════════════════════
-function Header() {
+/* ── Section lead: accent-dash eyebrow + heading (+ optional sub) ── */
+function Lead({ eyebrow, title, accent, sub, center }: { eyebrow: string; title: string; accent?: string; sub?: string; center?: boolean }) {
   return (
-    <div className="pt-24 md:pt-28 pb-8 md:pb-12">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#17FC13]/20 bg-[#17FC13]/5 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/80">{LEAGUE_META.season} — Registration Open</span>
-          </div>
-        </div>
-
-        <div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl uppercase font-bold leading-[0.85] mb-5 max-w-3xl">
-            Community Baseball<br /><span className="accent-text">Built Different</span>
-          </h1>
-        </div>
-
-        <div>
-          <p className="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed mb-4">
-            The Apex Academy League is a weekday baseball league for players ages 8–18 across Greater Boston. Games are played exclusively on Wednesdays, Thursdays, and Fridays — keeping weekends free for travel tournaments. Development-focused. Affordable for every family.
-          </p>
-          <p className="text-sm text-white/70 mb-8">
-            {LEAGUE_META.seasonStart} — {LEAGUE_META.seasonEnd} &middot; {LEAGUE_META.registrationFee} per team &middot; {LEAGUE_META.location}
-          </p>
-        </div>
-
-        <div>
-          <div className="flex flex-wrap gap-3">
-            <Button href="/league/register">Register a Team</Button>
-            <Button variant="secondary" href="#standings">View Standings</Button>
-            <Button variant="secondary" href="/league/schedule">View Schedule</Button>
-          </div>
-        </div>
+    <div className={center ? "text-center max-w-2xl mx-auto" : ""}>
+      <div className={`flex items-center gap-2.5 mb-3 ${center ? "justify-center" : ""}`}>
+        <span aria-hidden className="w-5 h-px bg-[#17FC13]/50 shrink-0" />
+        <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/60">{eyebrow}</span>
+        {center && <span aria-hidden className="w-5 h-px bg-[#17FC13]/50 shrink-0" />}
       </div>
+      <h2 className="text-2xl md:text-3xl uppercase font-bold leading-[0.95]">
+        {title} {accent && <span className="accent-text">{accent}</span>}
+      </h2>
+      {sub && <p className="text-[14px] text-white/70 leading-[1.7] mt-3.5">{sub}</p>}
     </div>
   );
 }
 
-// ═══════════════════════════════════════
-// HOW IT WORKS — the league explained
-// ═══════════════════════════════════════
-function HowItWorks() {
-  const points = [
-    { title: "Age-Based Divisions", desc: "Multiple age groups from youth through high school, each with their own division structure and age-appropriate rules." },
-    { title: "Weekday Games Only", desc: "All games are scheduled on weekday evenings. Weekends stay open for travel tournaments, showcases, and family time." },
-    { title: "Real Baseball Rules", desc: "MLB-style rules adjusted by age. Pitch counts, rest requirements, leadoffs, stealing, dropped third strike — all enforced." },
-    { title: "Playoffs & Championship", desc: "Top teams from each division qualify for single-elimination playoffs leading to a season-ending Championship Weekend." },
-  ];
+const WHY_JOIN = [
+  { t: "More Competitive Games", d: "Meaningful weeknight games that add quality innings and at-bats to every player's season." },
+  { t: "Weeknight Scheduling", d: "Games Wednesday–Friday evenings keep weekends free for tournaments and family time." },
+  { t: "Player Development", d: "A development-first environment built to make every player better — not just keep score." },
+  { t: "Awards & Recognition", d: "Regular season and postseason awards, All-League teams, and banquet recognition." },
+  { t: "League Technology", d: "Live standings, statistics, schedules, and a professional team page for every club." },
+  { t: "Additional Opportunities", d: "Player profiles, exposure, and eligibility for Apex prospect events." },
+];
 
-  return (
-    <Section border="bottom">
-      <div>
-        <div className="mb-8">
-          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">How It Works</div>
-          <h2 className="text-2xl md:text-3xl uppercase font-bold">The <span className="accent-text">Format</span></h2>
-        </div>
-      </div>
+const DIFFERENCE = [
+  "Structured Competition", "Premier & Prospect Divisions", "Live Standings",
+  "Player Statistics", "Awards Program", "Professional League Website",
+  "Apex Live Coverage", "Player Profiles", "Prospect Events",
+];
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {points.map((p, i) => (
-          <div key={p.title}>
-            <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5">
-              <div className="text-sm font-bold text-white/80 mb-1.5">{p.title}</div>
-              <div className="text-[12px] text-white/80 leading-relaxed">{p.desc}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
+const AUDIENCES = [
+  { t: "Town Programs", d: "Add competitive midweek games without disrupting your existing season or schedule." },
+  { t: "Travel Programs", d: "Keep players game-ready between tournaments with meaningful weekday reps." },
+  { t: "Independent Teams", d: "Bring a roster and play — we handle scheduling, fields, umpires, and operations." },
+];
 
-// ═══════════════════════════════════════
-// WHO IT'S FOR
-// ═══════════════════════════════════════
-function WhoItsFor() {
-  const audiences = [
-    {
-      title: "Travel Players",
-      desc: "Stay game-ready between tournaments and showcase events. The Apex Academy League provides meaningful weekday competition, helping players accumulate valuable at-bats, innings, and defensive reps without interfering with weekend travel schedules.",
-      note: "Ideal for athletes looking to continue developing throughout the season while maintaining their tournament commitments.",
-    },
-    {
-      title: "Recreational Players",
-      desc: "Organized, competitive baseball in a development-focused environment. Players benefit from a professionally run league with certified umpires, enforced pitch counts, tracked standings, and opportunities to be recognized through player profiles and league events.",
-      note: "An affordable way for families to experience organized baseball without sacrificing quality.",
-    },
-    {
-      title: "Teams & Organizations",
-      desc: "Bring your roster. We\u2019ll handle the rest. The Apex Academy League provides scheduling, fields, umpires, standings, and league operations, allowing coaches and organizations to focus on player development and competition.",
-      note: "A turnkey solution for programs seeking a professional league experience.",
-    },
-    {
-      title: "Future Prospects",
-      desc: "More opportunities to compete. More opportunities to be seen. League participants gain access to player profiles, statistical tracking, media exposure, and eligibility for events such as the All-New England Prospect Games and other Apex recruiting initiatives.",
-      note: "Because development is about more than games \u2014 it\u2019s about creating opportunities for the next level.",
-    },
-  ];
+const RECOGNITION = ["Regular Season Awards", "Playoff Awards", "League Champions", "All-League Teams", "Banquet Recognition", "Player Spotlights"];
 
-  return (
-    <Section border="bottom">
-      <div>
-        <div className="mb-4">
-          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Who It&apos;s For</div>
-          <h2 className="text-2xl md:text-3xl uppercase font-bold mb-3">Built for Every Level of <span className="accent-text">Baseball</span></h2>
-          <p className="text-sm text-white/80 max-w-2xl leading-relaxed">
-            Whether you&apos;re looking for additional game reps, affordable competition, or a professionally operated league experience, the Apex Academy League was designed to serve players, families, teams, and organizations throughout Greater Boston and New England.
-          </p>
-        </div>
-      </div>
+const PROSPECT_EVENTS = [
+  { tag: "Showcase", t: "All-New England Prospect Games", d: "An invitational showcase pairing combine testing with live games in front of attending college coaches.", href: "/league/showcase" },
+  { tag: "Combine", t: "Rising Prospects Combine", d: "Professional-level testing and verified player profiles with guaranteed college coach attendance.", href: "/events/rising-prospects" },
+];
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {audiences.map((a, i) => (
-          <div key={a.title}>
-            <div className="bg-[#0d1117] rounded-xl border border-white/[0.04] p-5 h-full">
-              <div className="text-sm font-bold text-white/80 mb-2">{a.title}</div>
-              <div className="text-[12px] text-white/80 leading-relaxed mb-3">{a.desc}</div>
-              <div className="text-[11px] text-white/60 font-medium leading-relaxed">{a.note}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
+const EXPERIENCE = [
+  { t: "Live Standings", href: "/league/standings" },
+  { t: "Schedules", href: "/league/schedule" },
+  { t: "Statistics", href: "/league/standings" },
+  { t: "Player Profiles", href: "/teams" },
+  { t: "Apex Live", href: "/live" },
+  { t: "Awards", href: "/league/banquet" },
+  { t: "Team Pages", href: "/teams" },
+  { t: "Mobile Access", href: "/live" },
+];
 
-// ═══════════════════════════════════════
-// LEAGUE ACTIVITY — standings + results + schedule
-// ═══════════════════════════════════════
-function LeagueActivity() {
-  const [activeAge, setActiveAge] = useState("12U");
-  const divA = STANDINGS[`${activeAge}-Premier`] || [];
-  const divB = STANDINGS[`${activeAge}-Prospect`] || [];
-
-  const nextGames = UPCOMING_GAMES.slice(0, 4);
-  const recentResults = RECENT_RESULTS.slice(0, 4);
-
-  return (
-    <Section id="standings" border="bottom">
-      <div>
-        <div className="mb-6">
-          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">League Activity</div>
-          <h2 className="text-2xl md:text-3xl uppercase font-bold">Standings, Scores & <span className="accent-text">Schedule</span></h2>
-        </div>
-      </div>
-
-      {/* STANDINGS */}
-      <div>
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex gap-1">
-            {AGE_GROUPS.map(age => (
-              <button key={age} onClick={() => setActiveAge(age)}
-                className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all ${activeAge === age ? "bg-[#17FC13]/10 text-[#17FC13] border border-[#17FC13]/25" : "text-white/80 border border-white/[0.04] hover:border-white/[0.08]"}`}>
-                {age}
-              </button>
-            ))}
-          </div>
-          <a href="/league/standings" className="text-[10px] font-bold uppercase tracking-wider text-white/70 hover:text-[#17FC13]/60 transition-colors no-underline">All Standings →</a>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-8">
-          {[{ rows: divA, label: "Premier Division" }, { rows: divB, label: "Prospect Division" }].map(({ rows, label }) => (
-            <div key={label} className="bg-[#0d1117] rounded-lg border border-white/[0.04]">
-              <div className="px-4 py-2 border-b border-white/[0.04]">
-                <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50">{label}</span>
-              </div>
-              {rows.map((t, i) => (
-                <div key={t.team} className={`flex items-center gap-3 px-4 py-2 ${i < rows.length - 1 ? "border-b border-white/[0.02]" : ""}`}>
-                  <div className="flex items-center gap-1.5 w-5">
-                    {t.playoffBound && <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]" />}
-                    <span className="text-[11px] font-mono text-white/80">{t.rank}</span>
-                  </div>
-                  <span className="text-[12px] font-medium text-white/80 flex-1">
-                    {t.teamId ? <a href={`/teams/${t.teamId}`} className="text-[#17FC13]/80 hover:text-[#17FC13] no-underline transition-colors">{t.team}</a> : t.team}
-                  </span>
-                  <span className="text-[11px] font-mono text-white/80 w-10 text-right">{t.w}-{t.l}{t.t ? `-${t.t}` : ""}</span>
-                  <span className="text-[11px] font-mono font-bold text-white/60 w-10 text-right">{t.pct}</span>
-                  <span className={`text-[10px] font-mono font-bold w-8 text-right ${t.streak.startsWith("W") ? "text-[#17FC13]/60" : "text-red-400/50"}`}>{t.streak}</span>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* RESULTS + SCHEDULE side by side */}
-      <div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Recent Results */}
-          <div className="bg-[#0d1117] rounded-lg border border-white/[0.04]">
-            <div className="px-4 py-2.5 border-b border-white/[0.04] flex items-center justify-between">
-              <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50">Recent Results</span>
-              <a href="/league/results" className="text-[10px] text-white/65 hover:text-[#17FC13]/50 transition-colors no-underline">View All →</a>
-            </div>
-            {recentResults.map((r, i) => {
-              const homeWin = r.homeScore > r.awayScore;
-              return (
-                <div key={r.id} className={`px-4 py-2.5 ${i < recentResults.length - 1 ? "border-b border-white/[0.02]" : ""}`}>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[9px] font-bold uppercase tracking-wider text-white/65">{r.division}</span>
-                    <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-white/[0.04] text-white/70">Final</span>
-                  </div>
-                  <div className={`flex items-center justify-between ${!homeWin ? "" : "opacity-50"}`}>
-                    <div className="flex items-center gap-2">
-                      {!homeWin && <span className="w-0.5 h-3.5 rounded-full bg-[#17FC13]" />}
-                      {homeWin && <span className="w-0.5 h-3.5 rounded-full bg-transparent" />}
-                      <span className="text-[13px] font-bold text-white">{r.away}</span>
-                    </div>
-                    <span className="text-[14px] font-bold font-mono text-white tabular-nums">{r.awayScore}</span>
-                  </div>
-                  <div className={`flex items-center justify-between ${homeWin ? "" : "opacity-50"}`}>
-                    <div className="flex items-center gap-2">
-                      {homeWin && <span className="w-0.5 h-3.5 rounded-full bg-[#17FC13]" />}
-                      {!homeWin && <span className="w-0.5 h-3.5 rounded-full bg-transparent" />}
-                      <span className="text-[13px] font-bold text-white">{r.home}</span>
-                    </div>
-                    <span className="text-[14px] font-bold font-mono text-white tabular-nums">{r.homeScore}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Upcoming Games */}
-          <div className="bg-[#0d1117] rounded-lg border border-white/[0.04]">
-            <div className="px-4 py-2.5 border-b border-white/[0.04] flex items-center justify-between">
-              <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#17FC13]/50">Upcoming Games</span>
-              <a href="/league/schedule" className="text-[10px] text-white/65 hover:text-[#17FC13]/50 transition-colors no-underline">Full Schedule →</a>
-            </div>
-            {nextGames.map((g, i) => (
-              <div key={g.id} className={`px-4 py-2.5 ${i < nextGames.length - 1 ? "border-b border-white/[0.02]" : ""}`}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[10px] font-mono text-white/60">{g.date} &middot; {g.time}</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[9px] font-bold uppercase tracking-wider text-white/65">{g.ageGroup} {g.division}</span>
-                  </div>
-                </div>
-                <div className="text-[12px] text-white/60">
-                  <span>{g.away}</span>
-                  <span className="text-white/60 mx-1.5">@</span>
-                  <span>{g.home}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-// ═══════════════════════════════════════
-// QUICK ACCESS — tools & resources
-// ═══════════════════════════════════════
-function QuickAccess() {
-  const links = [
-    { label: "Rules & Format", desc: "By age division", href: "/league/rules" },
-    { label: "Field Locations", desc: "169+ approved fields", href: "/league/fields" },
-    { label: "Awards & Banquet", desc: "Annual recognition", href: "/league/banquet" },
-    { label: "Register Team", desc: LEAGUE_META.registrationFee, href: "/league/register" },
-  ];
-
-  return (
-    <Section size="sm" border="bottom">
-      <div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {links.map(l => (
-            <a key={l.label} href={l.href} className="bg-[#0d1117] rounded-lg border border-white/[0.04] px-4 py-3.5 hover:border-[#17FC13]/10 transition-all no-underline group">
-              <div className="text-[12px] font-bold text-white/70 group-hover:text-[#17FC13] transition-colors">{l.label}</div>
-              <div className="text-[10px] text-white/65 mt-0.5">{l.desc}</div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-// ═══════════════════════════════════════
-// FEATURED EVENT
-// ═══════════════════════════════════════
-function FeaturedEvent() {
-  return (
-    <Section border="bottom">
-      <div>
-        <div className="bg-[#0d1117] rounded-2xl border border-[#17FC13]/10 p-6 md:p-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50">Featured Event</div>
-                <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#17FC13]/10 text-[#17FC13]/60">August 2026</span>
-              </div>
-              <h3 className="text-lg md:text-xl font-bold uppercase text-white/90 mb-1">All-New England Prospect Games</h3>
-              <p className="text-[12px] text-white/80 max-w-lg leading-relaxed">
-                Two-day prospect combine and showcase. Verified metrics, college coach exposure, recruiting education, and two prospect games. 16U &middot; 17U &middot; 18U.
-              </p>
-            </div>
-            <div className="flex gap-2 flex-shrink-0">
-              <Button href="/league/showcase/nominate" size="small">Nominate a Prospect</Button>
-              <Button variant="secondary" href="/league/showcase" size="small">Event Details</Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-// ═══════════════════════════════════════
-// REGISTRATION CTA
-// ═══════════════════════════════════════
-function RegistrationCTA() {
-  return (
-    <Section size="lg">
-      <div>
-        <div className="text-center">
-          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-3">Registration Open</div>
-          <h2 className="text-2xl md:text-3xl font-bold uppercase mb-3 leading-[0.9]">
-            Join the <span className="accent-text">League</span>
-          </h2>
-          <p className="text-sm text-white/80 max-w-md mx-auto mb-6">
-            Ages 8–18. All skill levels. {LEAGUE_META.registrationFee} per team. Registration deadline: {LEAGUE_META.registrationDeadline}.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Button href="/league/register">Register a Team</Button>
-            <Button variant="secondary" href="mailto:admin@apexacademy.gg">Contact Us</Button>
-          </div>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-// ═══════════════════════════════════════
-// MAIN PAGE
-// ═══════════════════════════════════════
 export default function LeaguePage() {
   return (
     <main>
-      <Header />
-      <HowItWorks />
-      <WhoItsFor />
-      <LeagueActivity />
-      <QuickAccess />
-      <FeaturedEvent />
-      <RegistrationCTA />
+      {/* ══════════ HERO ══════════ */}
+      <section className="relative overflow-hidden border-b border-[#171717]">
+        <div className="absolute inset-0 bg-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_-10%,_rgba(23,252,19,0.08)_0%,_transparent_55%)]" />
+        <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-12 text-center">
+          <FadeIn>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#17FC13]/20 bg-[#17FC13]/[0.04] mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/80">{LEAGUE_META.season} · Registration Open</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl uppercase font-bold leading-[0.9] mb-5">
+              Elevating Baseball<br />Across <span className="accent-text">New England</span>
+            </h1>
+            <p className="text-[15px] md:text-[17px] text-white/80 leading-[1.7] max-w-2xl mx-auto mb-6">
+              A competitive, development-focused league built to strengthen the town baseball experience while creating more opportunities for players, teams, and communities throughout the region.
+            </p>
+            <p className="text-[12px] text-white/55 mb-8">
+              {LEAGUE_META.seasonStart} – {LEAGUE_META.seasonEnd} &middot; {LEAGUE_META.registrationFee} / team &middot; {LEAGUE_META.location} &middot; Games Wed–Fri
+            </p>
+            <div className="flex items-center justify-center gap-3 flex-wrap">
+              <Button href="/league/register">Register Your Team</Button>
+              <Button href="#divisions" variant="secondary">Explore Divisions</Button>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ══════════ 1 · WHY THE LEAGUE EXISTS ══════════ */}
+      <Section size="md">
+        <FadeIn className="max-w-2xl mx-auto text-center">
+          <Lead center eyebrow="Why The League Exists" title="Built To Strengthen" accent="Town Ball" />
+          <div className="mt-6 space-y-3 text-[14px] md:text-[15px] text-white/80 leading-[1.7]">
+            <p>Town baseball is one of the most important parts of youth sports — and it should stay that way.</p>
+            <p>But players deserve more chances to compete, develop, and stay engaged across the full season.</p>
+            <p className="text-white font-semibold">This league exists to create those opportunities — a supplement to town ball, never a replacement.</p>
+          </div>
+        </FadeIn>
+      </Section>
+
+      {/* ══════════ 2 · WHY TEAMS JOIN ══════════ */}
+      <Section size="md" border="top" bg="radial">
+        <FadeIn><Lead eyebrow="Why Teams Join" title="A Better" accent="Experience" /></FadeIn>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-7">
+          {WHY_JOIN.map((c, i) => (
+            <FadeIn key={c.t} delay={(i % 3) * 0.06}>
+              <div className="border border-[#171717] bg-black p-5 h-full hover:border-[#17FC13]/20 transition-colors">
+                <h3 className="text-sm uppercase font-bold mb-2">{c.t}</h3>
+                <p className="text-[12px] text-white/65 leading-[1.7]">{c.d}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </Section>
+
+      {/* ══════════ 3 · THE DIFFERENCE ══════════ */}
+      <Section size="md" border="top">
+        <FadeIn><Lead eyebrow="The Difference" title="Not Your Average" accent="League" sub="Everything a travel-level experience offers — organized, tracked, and built for development." /></FadeIn>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mt-7">
+          {DIFFERENCE.map((d) => (
+            <div key={d} className="flex items-center gap-2.5 border border-[#171717] bg-radial px-3.5 py-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] shrink-0" />
+              <span className="text-[11px] font-bold uppercase tracking-wide text-white/85 leading-tight">{d}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* ══════════ 4 · BUILT FOR EVERY TEAM ══════════ */}
+      <Section size="md" border="top" bg="radial">
+        <FadeIn><Lead eyebrow="Built For Every Team" title="One League," accent="Every Program" /></FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-7">
+          {AUDIENCES.map((a, i) => (
+            <FadeIn key={a.t} delay={i * 0.06}>
+              <div className="border border-[#171717] bg-black p-6 h-full">
+                <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/50 mb-3">0{i + 1}</div>
+                <h3 className="text-base uppercase font-bold mb-2">{a.t}</h3>
+                <p className="text-[12px] text-white/65 leading-[1.7]">{a.d}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </Section>
+
+      {/* ══════════ 5 · PLAYER RECOGNITION ══════════ */}
+      <Section size="md" border="top">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <FadeIn>
+            <Lead eyebrow="Player Recognition" title="Players Get" accent="Noticed" sub="Achievement is recognized all season — on the field, on the platform, and at the annual Apex Academy Banquet." />
+            <div className="mt-6"><Button href="/league/banquet" variant="secondary" size="small">Awards &amp; Banquet</Button></div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="grid grid-cols-2 gap-2.5">
+              {RECOGNITION.map((r) => (
+                <div key={r} className="border border-[#171717] bg-radial px-4 py-3.5 flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] shrink-0" />
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-white/85 leading-tight">{r}</span>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </Section>
+
+      {/* ══════════ 6 · PREMIER & PROSPECT DIVISIONS ══════════ */}
+      <Section id="divisions" size="md" border="top" bg="radial">
+        <FadeIn><Lead center eyebrow="Competition Structure" title="Premier &" accent="Prospect" sub="Two divisions per age group (10U–18U) create competitive balance and a better experience for everyone." /></FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-8 max-w-3xl mx-auto">
+          <FadeIn>
+            <div className="border border-[#17FC13]/25 bg-[#17FC13]/[0.03] p-6 h-full">
+              <h3 className="text-lg uppercase font-bold mb-1">Premier Division</h3>
+              <div className="text-[10px] font-bold uppercase tracking-wider text-[#17FC13]/60 mb-3">Competitive</div>
+              <p className="text-[13px] text-white/70 leading-[1.7]">Higher-level competition for experienced, competitive teams.</p>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.08}>
+            <div className="border border-[#171717] bg-black p-6 h-full">
+              <h3 className="text-lg uppercase font-bold mb-1">Prospect Division</h3>
+              <div className="text-[10px] font-bold uppercase tracking-wider text-white/45 mb-3">Development</div>
+              <p className="text-[13px] text-white/70 leading-[1.7]">Development-focused competition built for growth and confidence.</p>
+            </div>
+          </FadeIn>
+        </div>
+        <div className="text-center mt-8"><Button href="/league/standings" variant="secondary" size="small">View Standings</Button></div>
+      </Section>
+
+      {/* ══════════ 7 · PROSPECT EVENTS ══════════ */}
+      <Section size="md" border="top">
+        <FadeIn><Lead center eyebrow="Prospect Events" title="An On-Ramp To The" accent="Next Level" sub="The league connects to recruiting events that put players in front of college coaches — with player evaluation, exposure, and development built in." /></FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-8">
+          {PROSPECT_EVENTS.map((e, i) => (
+            <FadeIn key={e.t} delay={i * 0.08}>
+              <a href={e.href} className="block border border-[#171717] bg-radial p-6 h-full no-underline hover:border-[#17FC13]/30 transition-all group">
+                <span className="inline-block text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 border border-[#17FC13]/20 text-[#17FC13]/70 mb-4">{e.tag}</span>
+                <h3 className="text-lg uppercase font-bold mb-2 leading-tight group-hover:text-[#17FC13] transition-colors">{e.t}</h3>
+                <p className="text-[13px] text-white/70 leading-[1.7]">{e.d}</p>
+              </a>
+            </FadeIn>
+          ))}
+        </div>
+        <div className="text-center mt-8"><Button href="/events" variant="secondary" size="small">View Events</Button></div>
+      </Section>
+
+      {/* ══════════ 8 · LEAGUE EXPERIENCE ══════════ */}
+      <Section size="md" border="top" bg="radial">
+        <FadeIn><Lead eyebrow="The Experience" title="Beyond" accent="Game Day" sub="The league lives on a professional platform — follow your team anytime, anywhere." /></FadeIn>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-7">
+          {EXPERIENCE.map((x) => (
+            <a key={x.t} href={x.href} className="border border-[#171717] bg-black px-4 py-4 text-center no-underline hover:border-[#17FC13]/25 transition-colors group">
+              <span className="text-[11px] font-bold uppercase tracking-wide text-white/80 group-hover:text-[#17FC13] transition-colors">{x.t}</span>
+            </a>
+          ))}
+        </div>
+        <div className="text-center mt-8"><Button href="/live" variant="secondary" size="small">Watch Apex Live</Button></div>
+      </Section>
+
+      {/* ══════════ 9 · COMMUNITY ══════════ */}
+      <Section size="md" border="top">
+        <FadeIn className="max-w-2xl mx-auto text-center">
+          <Lead center eyebrow="Community" title="It Belongs To" accent="The Game" />
+          <p className="text-[14px] md:text-[15px] text-white/80 leading-[1.75] mt-5">
+            The league is built for the people who make baseball matter — players, families, coaches, and organizations — with one goal: a stronger game across the region.
+          </p>
+          <div className="flex flex-wrap justify-center gap-2 mt-7">
+            {["Players", "Families", "Coaches", "Organizations", "Communities"].map((t) => (
+              <span key={t} className="px-4 py-2 border border-[#171717] text-[11px] font-bold uppercase tracking-wider text-white/75">{t}</span>
+            ))}
+          </div>
+        </FadeIn>
+      </Section>
+
+      {/* ══════════ FINAL CTA ══════════ */}
+      <Section size="lg" border="top" bg="radial">
+        <FadeIn className="max-w-xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-4">
+            Ready To Join The <span className="accent-text">League?</span>
+          </h2>
+          <p className="text-[14px] text-white/70 leading-[1.7] mb-7">
+            Join organizations across the region helping create a better baseball experience for players and families.
+          </p>
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <Button href="/league/register">Register Your Team</Button>
+            <Button href="/league/rules" variant="secondary">Learn More</Button>
+          </div>
+          <p className="text-[12px] text-white/45 mt-6">Registration deadline: {LEAGUE_META.registrationDeadline}</p>
+        </FadeIn>
+      </Section>
     </main>
   );
 }

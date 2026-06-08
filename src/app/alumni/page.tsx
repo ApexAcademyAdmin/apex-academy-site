@@ -1,51 +1,25 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import { Button } from "@/components/Button";
 import { FadeIn } from "@/components/FadeIn";
 import { CONTACT } from "@/lib/constants";
 
-type Alum = { slug: string; name: string; schools: string[] };
-
-const PRO = { slug: "oliveira-christian", name: "Christian Oliveira", org: "Los Angeles Dodgers" };
-
-const COMMITMENTS: Alum[] = [
-  { slug: "alexandrov-stefan", name: "Stefan Alexandrov", schools: ["Wheaton College"] },
-  { slug: "born-ian", name: "Ian Born", schools: ["Swarthmore College"] },
-  { slug: "clark-kevin", name: "Kevin Clark", schools: ["UMass Boston"] },
-  { slug: "cummings-kyle", name: "Kyle Cummings", schools: ["UMass Boston"] },
-  { slug: "figueroa-christian", name: "Christian Figueroa", schools: ["Wentworth Institute of Technology"] },
-  { slug: "flaherty-cameron", name: "Cameron Flaherty", schools: ["Gordon College", "Saint Michael's College"] },
-  { slug: "henke-oliver", name: "Oliver Henke", schools: ["Swarthmore College"] },
-  { slug: "lewis-matthew", name: "Matthew Lewis", schools: ["UMass Dartmouth", "Bunker Hill Community College"] },
-  { slug: "mariani-matthew", name: "Matthew Mariani", schools: ["Dickinson College"] },
-  { slug: "mcmahon-brandon", name: "Brandon McMahon", schools: ["Salem State University"] },
-  { slug: "osullivan-aidan", name: "Aidan O'Sullivan", schools: ["Haverford College"] },
-  { slug: "sack-brendan", name: "Brendan Sack", schools: ["Bunker Hill Community College"] },
-  { slug: "salerno-max", name: "Max Salerno", schools: ["Ithaca College"] },
-  { slug: "seeley-conner", name: "Conner Seeley", schools: ["UMass Boston", "Salisbury University"] },
-  { slug: "sullivan-seth", name: "Seth Sullivan", schools: ["Salem State University"] },
-];
-
-// Asset maps — only contain entries whose files actually exist in /public/alumni.
-// PHOTO: player slug -> headshot path. LOGO: exact school name -> logo path.
-const PHOTO: Record<string, string> = {
-  "born-ian": "/alumni/players/born-ian.jpg",
-  "clark-kevin": "/alumni/players/clark-kevin.jpg",
-  "cummings-kyle": "/alumni/players/cummings-kyle.jpg",
-  "figueroa-christian": "/alumni/players/figueroa-christian.jpg",
-  "flaherty-cameron": "/alumni/players/flaherty-cameron.jpg",
-  "lewis-matthew": "/alumni/players/lewis-matthew.jpg",
-  "mcmahon-brandon": "/alumni/players/mcmahon-brandon.jpg",
-  "osullivan-aidan": "/alumni/players/osullivan-aidan.jpg",
-  "sack-brendan": "/alumni/players/sack-brendan.jpg",
-  "salerno-max": "/alumni/players/salerno-max.jpg",
-  "seeley-conner": "/alumni/players/seeley-conner.jpg",
-  "sullivan-seth": "/alumni/players/sullivan-seth.jpg",
+type Level = "Professional" | "College" | "Committed";
+type Alum = {
+  slug: string;
+  name: string;
+  level: Level;
+  school: string;   // primary / highest-level school (key into LOGO)
+  photo?: string;   // /alumni/players/<slug>.jpg — omitted falls back to monogram
 };
+
+// Exact school name -> standardized logo asset
 const LOGO: Record<string, string> = {
   "Wheaton College": "/alumni/logos/wheaton.png",
   "Swarthmore College": "/alumni/logos/swarthmore.png",
   "UMass Boston": "/alumni/logos/umass-boston.png",
   "Wentworth Institute of Technology": "/alumni/logos/wentworth.png",
-  "Gordon College": "/alumni/logos/gordon.png",
   "Saint Michael's College": "/alumni/logos/saint-michaels.png",
   "Haverford College": "/alumni/logos/haverford.png",
   "UMass Dartmouth": "/alumni/logos/umass-dartmouth.png",
@@ -57,110 +31,245 @@ const LOGO: Record<string, string> = {
   "Los Angeles Dodgers": "/alumni/logos/dodgers.png",
 };
 
+const ALUMNI: Alum[] = [
+  { slug: "oliveira-christian", name: "Christian Oliveira", level: "Professional", school: "Los Angeles Dodgers" },
+  { slug: "born-ian", name: "Ian Born", level: "College", school: "Swarthmore College", photo: "/alumni/players/born-ian.jpg" },
+  { slug: "clark-kevin", name: "Kevin Clark", level: "College", school: "UMass Boston", photo: "/alumni/players/clark-kevin.jpg" },
+  { slug: "cummings-kyle", name: "Kyle Cummings", level: "College", school: "UMass Boston", photo: "/alumni/players/cummings-kyle.jpg" },
+  { slug: "figueroa-christian", name: "Christian Figueroa", level: "College", school: "Wentworth Institute of Technology", photo: "/alumni/players/figueroa-christian.jpg" },
+  { slug: "flaherty-cameron", name: "Cameron Flaherty", level: "College", school: "Saint Michael's College", photo: "/alumni/players/flaherty-cameron.jpg" },
+  { slug: "lewis-matthew", name: "Matthew Lewis", level: "College", school: "UMass Dartmouth", photo: "/alumni/players/lewis-matthew.jpg" },
+  { slug: "mcmahon-brandon", name: "Brandon McMahon", level: "College", school: "Salem State University", photo: "/alumni/players/mcmahon-brandon.jpg" },
+  { slug: "osullivan-aidan", name: "Aidan O'Sullivan", level: "College", school: "Haverford College", photo: "/alumni/players/osullivan-aidan.jpg" },
+  { slug: "sack-brendan", name: "Brendan Sack", level: "College", school: "Bunker Hill Community College", photo: "/alumni/players/sack-brendan.jpg" },
+  { slug: "salerno-max", name: "Max Salerno", level: "College", school: "Ithaca College", photo: "/alumni/players/salerno-max.jpg" },
+  { slug: "seeley-conner", name: "Conner Seeley", level: "College", school: "Salisbury University", photo: "/alumni/players/seeley-conner.jpg" },
+  { slug: "sullivan-seth", name: "Seth Sullivan", level: "College", school: "Salem State University", photo: "/alumni/players/sullivan-seth.jpg" },
+  { slug: "alexandrov-stefan", name: "Stefan Alexandrov", level: "Committed", school: "Wheaton College" },
+  { slug: "henke-oliver", name: "Oliver Henke", level: "Committed", school: "Swarthmore College" },
+  { slug: "mariani-matthew", name: "Matthew Mariani", level: "Committed", school: "Dickinson College" },
+];
+
+const FILTERS: ("All" | Level)[] = ["All", "Professional", "College", "Committed"];
+
+const LEVEL_STYLE: Record<Level, string> = {
+  Professional: "text-[#17FC13] border-[#17FC13]/40 bg-[#17FC13]/[0.06]",
+  College: "text-white/80 border-white/15 bg-white/[0.03]",
+  Committed: "text-white/70 border-white/10 bg-white/[0.02]",
+};
+
 function initials(name: string) {
   return name.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
 }
 
-function Avatar({ slug, name, size = "md" }: { slug: string; name: string; size?: "md" | "lg" }) {
-  const dim = size === "lg" ? "w-16 h-16" : "w-14 h-14";
-  const photo = PHOTO[slug];
-  if (photo) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={photo} alt={name} className={`${dim} rounded-full object-cover border border-[#171717] shrink-0`} />;
-  }
+/* Standardized logo container — every logo sits on an identical white tile */
+function LogoTile({ school, size = "sm" }: { school: string; size?: "sm" | "md" }) {
+  const src = LOGO[school];
+  if (!src) return null;
+  const box = size === "md" ? "w-9 h-9" : "w-7 h-7";
+  const img = size === "md" ? "max-w-[28px] max-h-[28px]" : "max-w-[22px] max-h-[22px]";
   return (
-    <div className={`${dim} rounded-full bg-[#17FC13]/[0.06] border border-[#17FC13]/15 flex items-center justify-center shrink-0`}>
-      <span className={`font-bold text-[#17FC13]/70 ${size === "lg" ? "text-sm" : "text-xs"}`}>{initials(name)}</span>
-    </div>
-  );
-}
-
-function LogoTile({ src, label }: { src: string; label: string }) {
-  return (
-    <span className="inline-flex items-center justify-center bg-white rounded-[3px] h-5 px-1 shrink-0">
+    <span className={`inline-flex items-center justify-center bg-white rounded-md ${box} shrink-0`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={`${label} logo`} className="h-3.5 w-auto max-w-[40px] object-contain" />
+      <img src={src} alt={`${school} logo`} className={`${img} object-contain`} />
     </span>
   );
 }
 
-function SchoolLine({ schools }: { schools: string[] }) {
+/* Uniform headshot — identical aspect, crop, and fallback for every player */
+function Headshot({ photo, name }: { photo?: string; name: string }) {
+  if (photo) {
+    return (
+      <div className="aspect-[4/5] w-full overflow-hidden bg-[#0c0c0c]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={photo} alt={name} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
+      </div>
+    );
+  }
   return (
-    <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 mt-2">
-      {schools.map((s, i) => (
-        <span key={s} className="inline-flex items-center gap-1.5">
-          {LOGO[s] && <LogoTile src={LOGO[s]} label={s} />}
-          <span className="text-[#17FC13] text-xs font-bold uppercase tracking-wide">{s}</span>
-          {i < schools.length - 1 && <span className="text-white/25 text-[10px]">/</span>}
-        </span>
-      ))}
+    <div className="aspect-[4/5] w-full bg-[radial-gradient(ellipse_at_50%_30%,_#1c1c1c,_#0a0a0a)] flex items-center justify-center">
+      <span className="text-3xl font-bold text-[#17FC13]/25">{initials(name)}</span>
+    </div>
+  );
+}
+
+function AlumCard({ a }: { a: Alum }) {
+  return (
+    <div className="group relative border border-[#171717] bg-[#0a0a0a] overflow-hidden transition-all duration-300 hover:border-[#17FC13]/35 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(23,252,19,0.18)]">
+      <div className="relative">
+        <Headshot photo={a.photo} name={a.name} />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
+        <span className={`absolute top-2.5 left-2.5 text-[8px] font-bold uppercase tracking-[0.15em] px-2 py-1 border rounded-full backdrop-blur-sm ${LEVEL_STYLE[a.level]}`}>{a.level}</span>
+      </div>
+      <div className="p-4">
+        <h3 className="text-[15px] uppercase font-bold leading-tight truncate">{a.name}</h3>
+        <div className="flex items-center gap-2.5 mt-3">
+          <LogoTile school={a.school} />
+          <span className="text-[11px] font-bold uppercase tracking-wide text-white/70 leading-tight min-w-0">{a.school}</span>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default function AlumniPage() {
+  const [filter, setFilter] = useState<"All" | Level>("All");
+
+  const grid = useMemo(() => (filter === "All" ? ALUMNI : ALUMNI.filter((a) => a.level === filter)), [filter]);
+
+  const featured = ALUMNI.find((a) => a.level === "Professional")!;
+
+  // Commitment wall — unique schools/programs with player counts
+  const wall = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const a of ALUMNI) counts[a.school] = (counts[a.school] || 0) + 1;
+    return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  }, []);
+
+  const collegeCount = ALUMNI.filter((a) => a.level === "College").length;
+  const collegePrograms = new Set(ALUMNI.filter((a) => a.level !== "Professional").map((a) => a.school)).size;
+  const marqueeLogos = [...wall, ...wall];
+
   return (
     <>
-      {/* Header */}
-      <section className="relative overflow-hidden">
+      {/* ══════════ HERO ══════════ */}
+      <section className="relative overflow-hidden border-b border-[#171717]">
         <div className="absolute inset-0 bg-black" />
-        <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-6">
-          <div className="flex items-center gap-2 mb-5 text-[10px] font-medium uppercase tracking-[0.2em]">
-            <a href="/" className="text-white/60 no-underline hover:text-white/80">Home</a>
-            <span className="text-white/10">/</span>
-            <span className="text-[#17FC13]/50">Alumni</span>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_-10%,_rgba(23,252,19,0.08)_0%,_transparent_55%)]" />
+
+        <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-10 text-center">
+          <FadeIn>
+            <div className="flex items-center justify-center gap-2.5 mb-4">
+              <span aria-hidden className="w-5 h-px bg-[#17FC13]/50" />
+              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/60">The Next Level</span>
+              <span aria-hidden className="w-5 h-px bg-[#17FC13]/50" />
+            </div>
+            <h1 className="text-4xl md:text-6xl uppercase font-bold leading-[0.9] mb-4">
+              Apex Academy <span className="accent-text">Alumni</span>
+            </h1>
+            <p className="text-[15px] md:text-[17px] text-white/75 leading-[1.7] max-w-xl mx-auto">
+              Where development becomes opportunity.
+            </p>
+            <div className="flex items-center justify-center gap-8 mt-8">
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-[#17FC13] leading-none">{collegeCount}</div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/55 mt-1.5">College Players</div>
+              </div>
+              <div className="h-8 w-px bg-white/10" />
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-[#17FC13] leading-none">1</div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/55 mt-1.5">Professional</div>
+              </div>
+              <div className="h-8 w-px bg-white/10" />
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-[#17FC13] leading-none">{collegePrograms}</div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/55 mt-1.5">Programs</div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+
+        {/* Logo marquee */}
+        <div className="relative border-t border-[#171717] py-5 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          <div className="flex items-center gap-3 w-max animate-marquee">
+            {marqueeLogos.map(([school], i) => (
+              <span key={`${school}-${i}`} className="inline-flex items-center justify-center bg-white rounded-md w-12 h-12 shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={LOGO[school]} alt="" className="max-w-[38px] max-h-[38px] object-contain" />
+              </span>
+            ))}
           </div>
-          <h1 className="text-3xl md:text-4xl uppercase font-bold leading-[0.9] mb-2">
-            Apex <span className="accent-text">Alumni</span>
-          </h1>
-          <p className="text-[14px] text-white/70 leading-[1.7] max-w-lg">Our athletes compete at the next level. Every commitment is a product of development, discipline, and the Apex standard.</p>
         </div>
       </section>
 
-      {/* Professional */}
-      <div className="max-w-[1120px] mx-auto px-6 pt-8">
-        <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/55 mb-4">Professional</div>
+      {/* ══════════ FEATURED — PROFESSIONAL ══════════ */}
+      <div className="max-w-[1120px] mx-auto px-6 py-12 md:py-14">
+        <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-4">Featured</div>
         <FadeIn>
-          <div className="border border-[#17FC13]/25 bg-[#17FC13]/[0.03] p-5 flex items-center gap-4">
-            <Avatar slug={PRO.slug} name={PRO.name} size="lg" />
-            <div className="min-w-0 flex-1">
-              <h3 className="text-base md:text-lg uppercase font-bold">{PRO.name}</h3>
-              <div className="flex items-center gap-1.5 mt-1.5">
-                {LOGO[PRO.org] && <LogoTile src={LOGO[PRO.org]} label={PRO.org} />}
-                <span className="text-[#17FC13] text-xs font-bold uppercase tracking-wide">{PRO.org}</span>
+          <div className="relative grid grid-cols-1 sm:grid-cols-[200px_1fr] border border-[#17FC13]/25 bg-[radial-gradient(ellipse_at_0%_0%,_rgba(23,252,19,0.06),_transparent_60%)] overflow-hidden">
+            <div className="aspect-[4/5] sm:aspect-auto bg-[radial-gradient(ellipse_at_50%_30%,_#1c1c1c,_#0a0a0a)] flex items-center justify-center min-h-[200px]">
+              <span className="text-5xl font-bold text-[#17FC13]/25">{initials(featured.name)}</span>
+            </div>
+            <div className="p-6 md:p-8 flex flex-col justify-center">
+              <span className="self-start text-[8px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 border border-[#17FC13]/40 bg-[#17FC13]/[0.06] text-[#17FC13] rounded-full mb-4">Professional</span>
+              <h2 className="text-2xl md:text-3xl uppercase font-bold leading-[0.95] mb-2">{featured.name}</h2>
+              <p className="text-[13px] text-white/65 leading-[1.7] max-w-md mb-5">Signed professionally out of high school — the first Apex Academy athlete to reach affiliated professional baseball.</p>
+              <div className="flex items-center gap-3">
+                <LogoTile school={featured.school} size="md" />
+                <span className="text-sm font-bold uppercase tracking-wide text-white">{featured.school}</span>
               </div>
             </div>
-            <span className="text-[9px] font-bold uppercase tracking-[0.15em] px-2.5 py-1 border border-[#17FC13]/30 text-[#17FC13]/80">Pro</span>
           </div>
         </FadeIn>
       </div>
 
-      {/* Commitments */}
-      <div className="max-w-[1120px] mx-auto px-6 py-6">
-        <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/55 mb-4">College Commitments</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {COMMITMENTS.map((c, i) => (
-            <FadeIn key={c.slug} delay={i * 0.03}>
-              <div className="border border-[#171717] bg-radial p-4 flex items-center gap-4 hover:border-[#17FC13]/15 transition-colors h-full">
-                <Avatar slug={c.slug} name={c.name} />
-                <div className="min-w-0">
-                  <h3 className="text-sm uppercase font-bold leading-tight">{c.name}</h3>
-                  <SchoolLine schools={c.schools} />
-                </div>
-              </div>
+      {/* ══════════ ALUMNI GRID ══════════ */}
+      <div className="max-w-[1120px] mx-auto px-6 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+          <div>
+            <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/55 mb-2">The Roster of Alumni</div>
+            <h2 className="text-2xl md:text-3xl uppercase font-bold">Where They <span className="accent-text">Play</span></h2>
+          </div>
+          {/* Filters */}
+          <div className="flex flex-wrap items-center gap-1.5">
+            {FILTERS.map((f) => (
+              <button
+                key={f}
+                onClick={() => setFilter(f)}
+                className={`px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider border rounded-full transition-all ${filter === f ? "border-[#17FC13]/50 text-[#17FC13] bg-[#17FC13]/[0.06]" : "border-[#171717] text-white/55 hover:text-white/80 hover:border-white/20"}`}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+          {grid.map((a, i) => (
+            <FadeIn key={a.slug} delay={(i % 8) * 0.03}>
+              <AlumCard a={a} />
             </FadeIn>
           ))}
         </div>
+        {grid.length === 0 && (
+          <div className="text-center py-12 text-[13px] text-white/55">No alumni in this category yet.</div>
+        )}
       </div>
 
-      {/* CTA */}
-      <div className="max-w-[1120px] mx-auto px-6 pb-8">
-        <div className="border border-[#171717] bg-radial p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <h3 className="text-sm uppercase font-bold mb-1">Be Next</h3>
-            <p className="text-[11px] text-white/65">Your path to the next level starts here.</p>
+      {/* ══════════ COLLEGE COMMITMENT WALL ══════════ */}
+      <div className="border-y border-[#171717] bg-radial mt-10">
+        <div className="max-w-[1120px] mx-auto px-6 py-12 md:py-16">
+          <div className="text-center max-w-xl mx-auto mb-10">
+            <div className="flex items-center justify-center gap-2.5 mb-3">
+              <span aria-hidden className="w-5 h-px bg-[#17FC13]/50" />
+              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/60">Commitment Wall</span>
+              <span aria-hidden className="w-5 h-px bg-[#17FC13]/50" />
+            </div>
+            <h2 className="text-2xl md:text-3xl uppercase font-bold leading-[0.95] mb-3">Programs <span className="accent-text">Represented</span></h2>
+            <p className="text-[13px] text-white/70 leading-[1.7]">Apex athletes have advanced to programs across NCAA, NJCAA, and professional baseball.</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {wall.map(([school, count]) => (
+              <div key={school} className="flex items-center gap-3 border border-[#171717] bg-black p-3.5 hover:border-[#17FC13]/20 transition-colors">
+                <LogoTile school={school} size="md" />
+                <div className="min-w-0">
+                  <div className="text-[11px] font-bold uppercase tracking-wide text-white/85 leading-tight truncate">{school}</div>
+                  <div className="text-[9px] text-white/45 mt-0.5">{count} {count > 1 ? "players" : "player"}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ══════════ CTA ══════════ */}
+      <div className="max-w-[1120px] mx-auto px-6 py-14 md:py-16">
+        <div className="border border-[#171717] bg-radial p-7 md:p-9 flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left">
+          <div>
+            <h3 className="text-xl md:text-2xl uppercase font-bold mb-1.5">Be <span className="accent-text">Next</span></h3>
+            <p className="text-[13px] text-white/65 max-w-md">Development creates opportunity. Your path to the next level starts at Apex.</p>
+          </div>
+          <div className="flex items-center gap-3 shrink-0">
             <Button href="/join" size="small">Register</Button>
             <Button href={CONTACT.instagram} variant="secondary" size="small" external>{CONTACT.instagramHandle}</Button>
           </div>

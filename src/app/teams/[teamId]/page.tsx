@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { ALL_TEAMS } from "@/lib/team-data";
 import { getGames, isCoachSession } from "@/lib/game-store";
-import { computeTeamBatting } from "@/lib/stat-calculator";
-import type { Game, BattingLine } from "@/lib/scoring-types";
+import type { Game } from "@/lib/scoring-types";
 import { GAME_TYPE_LABELS } from "@/lib/scoring-types";
 import { Section } from "@/components/Section";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -19,16 +18,12 @@ export default function TeamPage() {
   const team = ALL_TEAMS[teamId];
 
   const [games, setGames] = useState<Game[]>([]);
-  const [batting, setBatting] = useState<BattingLine[]>([]);
   const [isCoach, setIsCoach] = useState(false);
 
   useEffect(() => {
     if (!team) return;
-    const g = getGames(teamId);
-    setGames(g);
+    setGames(getGames(teamId));
     setIsCoach(isCoachSession(teamId));
-    const scored = g.filter((x) => x.status === "final" || x.status === "live");
-    if (scored.length > 0) setBatting(computeTeamBatting(teamId, g));
   }, [teamId, team]);
 
   if (!team) return <div className="max-w-[1120px] mx-auto px-6 pt-32 pb-20 text-center"><p className="text-white/70">Team not found.</p></div>;
@@ -162,76 +157,6 @@ export default function TeamPage() {
             )}
           </div>
         </div>
-      </Section>
-
-      {/* ══════ STATS ══════ */}
-      <Section size="md" border="top">
-        <SectionHeading accent="Leaders">Season</SectionHeading>
-        {batting.length > 0 ? (
-          <div className="border border-[#171717] overflow-x-auto">
-            <table className="w-full text-[11px]">
-              <thead>
-                <tr className="border-b border-[#171717] bg-white/[0.01]">
-                  <th className="text-left px-4 py-2.5 font-bold uppercase tracking-wider text-white/60 min-w-[130px]">Player</th>
-                  {["AB", "H", "2B", "3B", "HR", "RBI", "BB", "K", "AVG", "OBP", "SLG"].map((h) => (
-                    <th key={h} className="px-2 py-2.5 font-bold text-white/60 text-center">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {batting.map((l) => (
-                  <tr key={l.playerId} className="border-b border-[#171717] last:border-b-0 hover:bg-white/[0.01]">
-                    <td className="px-4 py-2.5">
-                      <a href={`/teams/${teamId}/player/${l.playerId}`} className="font-bold uppercase text-white/60 no-underline hover:text-[#17FC13]">{l.playerName}</a>
-                    </td>
-                    <td className="px-2 py-2.5 text-center text-white/80">{l.AB}</td>
-                    <td className="px-2 py-2.5 text-center text-white/80">{l.H}</td>
-                    <td className="px-2 py-2.5 text-center text-white/80">{l["2B"]}</td>
-                    <td className="px-2 py-2.5 text-center text-white/80">{l["3B"]}</td>
-                    <td className="px-2 py-2.5 text-center text-white/80">{l.HR}</td>
-                    <td className="px-2 py-2.5 text-center text-white/80">{l.RBI}</td>
-                    <td className="px-2 py-2.5 text-center text-white/80">{l.BB}</td>
-                    <td className="px-2 py-2.5 text-center text-white/80">{l.K}</td>
-                    <td className="px-2 py-2.5 text-center font-bold text-white/70">{l.AVG}</td>
-                    <td className="px-2 py-2.5 text-center text-white/80">{l.OBP}</td>
-                    <td className="px-2 py-2.5 text-center text-white/80">{l.SLG}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/55 mb-3">Batting</div>
-              <div className="border border-[#171717]">
-                {team.battingLeaders.map((l, i) => (
-                  <div key={i} className="flex items-center justify-between px-4 py-3 border-b border-[#171717] last:border-b-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[9px] font-bold text-[#17FC13]/40 w-8">{l.stat}</span>
-                      <span className="text-xs font-bold uppercase text-white/90">{l.name}</span>
-                    </div>
-                    <span className="text-lg font-bold">{l.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/55 mb-3">Pitching</div>
-              <div className="border border-[#171717]">
-                {team.pitchingLeaders.map((l, i) => (
-                  <div key={i} className="flex items-center justify-between px-4 py-3 border-b border-[#171717] last:border-b-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[9px] font-bold text-[#17FC13]/40 w-8">{l.stat}</span>
-                      <span className="text-xs font-bold uppercase text-white/90">{l.name}</span>
-                    </div>
-                    <span className="text-lg font-bold">{l.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
       </Section>
 
       {/* ══════ COACHING STAFF ══════ */}

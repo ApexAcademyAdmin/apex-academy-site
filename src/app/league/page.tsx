@@ -64,8 +64,9 @@ export default function LeaguePage() {
           <Lead center eyebrow="Why This League Exists" title="Bridging Town &" accent="Travel" />
           <div className="mt-6 space-y-3 text-[14px] md:text-[15px] text-white/80 leading-[1.7]">
             <p>Town baseball is the heart of the game — local, accessible, and community-built. Travel baseball opens the door to higher competition and exposure. Families shouldn&apos;t have to choose between the two.</p>
-            <p>This league bridges that gap, bringing travel-level organization, recognition, and opportunity to the players and teams already invested in their town programs.</p>
-            <p className="text-white font-semibold">A better experience — built to strengthen local baseball, not replace it.</p>
+            <p>That&apos;s why every game is played on a weeknight. Weekends stay open for tournaments and travel — so players keep their town team and their travel commitments, and still get more competitive, organized baseball in between.</p>
+            <p>It&apos;s a bridge, not a barrier: travel-level organization, recognition, and opportunity for the players and teams already invested in their town programs.</p>
+            <p className="text-white font-semibold">A better town baseball experience — built to strengthen local baseball, not replace it.</p>
           </div>
         </FadeIn>
       </Section>

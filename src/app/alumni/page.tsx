@@ -5,20 +5,20 @@ import { CONTACT } from "@/lib/constants";
 const PRO = { name: "Christian Oliveira", org: "Los Angeles Dodgers" };
 
 const COMMITMENTS = [
-  { name: "Cameron Flaherty", school: "Gordon College / St. Michael's" },
+  { name: "Cameron Flaherty", school: "Gordon College / Saint Michael's College" },
   { name: "Kevin Clark", school: "UMass Boston" },
   { name: "Kyle Cummings", school: "UMass Boston" },
-  { name: "Christian Figueroa", school: "Wentworth" },
+  { name: "Christian Figueroa", school: "Wentworth Institute of Technology" },
   { name: "Aidan O'Sullivan", school: "Haverford College" },
   { name: "Ian Born", school: "Swarthmore College" },
-  { name: "Conner Seeley", school: "UMass Boston / Salisbury" },
-  { name: "Matthew Lewis", school: "UMass Dartmouth / Bunker Hill CC" },
+  { name: "Conner Seeley", school: "UMass Boston / Salisbury University" },
+  { name: "Matthew Lewis", school: "UMass Dartmouth / Bunker Hill Community College" },
   { name: "Oliver Henke", school: "Swarthmore College" },
   { name: "Stefan Alexandrov", school: "Wheaton College" },
   { name: "Matthew Mariani", school: "Dickinson College" },
-  { name: "Brendan Sack", school: "Bunker Hill CC" },
-  { name: "Seth Sullivan", school: "Salem State" },
-  { name: "Brandon McMahon", school: "Salem State" },
+  { name: "Brendan Sack", school: "Bunker Hill Community College" },
+  { name: "Seth Sullivan", school: "Salem State University" },
+  { name: "Brandon McMahon", school: "Salem State University" },
   { name: "Max Salerno", school: "Ithaca College" },
 ];
 
@@ -41,22 +41,8 @@ export default function AlumniPage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <div className="border-y border-[#171717] bg-radial">
-        <div className="max-w-[1120px] mx-auto px-6 py-4">
-          <div className="grid grid-cols-4 gap-6">
-            {[{ val: "20+", label: "College Commitments" }, { val: "1", label: "Professional Signing" }, { val: "100%", label: "Graduation Rate" }, { val: "3.5+", label: "Avg Team GPA" }].map((s, i) => (
-              <div key={i} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold leading-none">{s.val}</div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/60 mt-1">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Professional */}
-      <div className="max-w-[1120px] mx-auto px-6 pt-6">
+      <div className="max-w-[1120px] mx-auto px-6 pt-8">
         <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/55 mb-4">Professional</div>
         <FadeIn>
           <div className="border border-[#17FC13]/25 bg-[#17FC13]/[0.03] p-5 flex items-center justify-between">

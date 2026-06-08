@@ -89,19 +89,19 @@ export default function LeaguePage() {
       {/* ══════════ PREMIER & PROSPECT DIVISIONS ══════════ */}
       <Section id="divisions" size="md" border="top">
         <FadeIn><Lead center eyebrow="Competition Structure" title="Premier &" accent="Prospect" sub="Two divisions per age group (10U–18U) create competitive balance and a better experience for everyone." /></FadeIn>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-8 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-8">
           <FadeIn>
-            <div className="border border-[#17FC13]/25 bg-[#17FC13]/[0.03] p-6 h-full">
-              <h3 className="text-lg uppercase font-bold mb-1">Premier Division</h3>
+            <div className="border border-[#17FC13]/25 bg-[#17FC13]/[0.03] p-7 md:p-8 h-full">
+              <h3 className="text-lg md:text-xl uppercase font-bold mb-1">Premier Division</h3>
               <div className="text-[10px] font-bold uppercase tracking-wider text-[#17FC13]/60 mb-3">Competitive</div>
-              <p className="text-[13px] text-white/70 leading-[1.7]">Higher-level competition for experienced, competitive teams.</p>
+              <p className="text-[13px] md:text-[14px] text-white/70 leading-[1.75]">Higher-level competition for experienced, competitive teams ready to test themselves against the best in the league.</p>
             </div>
           </FadeIn>
           <FadeIn delay={0.08}>
-            <div className="border border-[#171717] bg-radial p-6 h-full">
-              <h3 className="text-lg uppercase font-bold mb-1">Prospect Division</h3>
+            <div className="border border-[#171717] bg-radial p-7 md:p-8 h-full">
+              <h3 className="text-lg md:text-xl uppercase font-bold mb-1">Prospect Division</h3>
               <div className="text-[10px] font-bold uppercase tracking-wider text-white/45 mb-3">Development</div>
-              <p className="text-[13px] text-white/70 leading-[1.7]">Development-focused competition built for growth and confidence.</p>
+              <p className="text-[13px] md:text-[14px] text-white/70 leading-[1.75]">Development-focused competition built for growth and confidence, with room for every player to take the next step.</p>
             </div>
           </FadeIn>
         </div>
@@ -111,20 +111,23 @@ export default function LeaguePage() {
       <Section size="md" border="top" bg="radial">
         <FadeIn><Lead center eyebrow="Recognition" title="Earned On The Field," accent="Celebrated Off It" sub="Players and teams deserve to be recognized for the work they put in all season long." /></FadeIn>
         <FadeIn delay={0.1}>
-          <div className="border border-[#17FC13]/20 bg-black p-6 md:p-8 mt-8 max-w-3xl mx-auto text-center">
-            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/50 mb-3">The Celebration</div>
-            <h3 className="text-xl uppercase font-bold mb-3">The Apex Academy Banquet</h3>
-            <p className="text-[13px] md:text-[14px] text-white/70 leading-[1.75] mb-6 max-w-xl mx-auto">
-              The season culminates at the annual Apex Academy Banquet — a professional, family-friendly celebration where regular season and playoff accomplishments are honored and awards are presented to the players, teams, and coaches who earned them.
-            </p>
-            <div className="flex flex-wrap justify-center gap-2 mb-6">
+          <div className="border border-[#17FC13]/20 bg-black p-7 md:p-10 mt-8 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/50 mb-3">The Celebration</div>
+              <h3 className="text-xl md:text-2xl uppercase font-bold mb-3">The Apex Academy Banquet</h3>
+              <p className="text-[13px] md:text-[14px] text-white/70 leading-[1.75] mb-6">
+                The season culminates at the annual Apex Academy Banquet — a professional, family-friendly celebration where regular season and playoff accomplishments are honored and awards are presented to the players, teams, and coaches who earned them.
+              </p>
+              <Button href="/league/banquet" variant="secondary" size="small">Awards &amp; Banquet</Button>
+            </div>
+            <div className="grid grid-cols-2 gap-2.5">
               {AWARDS.map((a) => (
-                <span key={a} className="inline-flex items-center gap-2 px-3 py-1.5 border border-[#171717] bg-radial text-[10px] font-bold uppercase tracking-wider text-white/80">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]" />{a}
-                </span>
+                <div key={a} className="border border-[#171717] bg-radial px-4 py-4 flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] shrink-0" />
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-white/85 leading-tight">{a}</span>
+                </div>
               ))}
             </div>
-            <Button href="/league/banquet" variant="secondary" size="small">Awards &amp; Banquet</Button>
           </div>
         </FadeIn>
       </Section>
@@ -133,20 +136,23 @@ export default function LeaguePage() {
       <Section size="md" border="top">
         <FadeIn><Lead center eyebrow="Season-Ending Showcase" title="A Stage For Top" accent="Performers" sub="The league's standout players earn selection to a season-ending showcase — a celebration of the region's best talent and a reward for a season of work." /></FadeIn>
         <FadeIn delay={0.1}>
-          <div className="border border-[#17FC13]/20 bg-radial p-6 md:p-8 mt-8 max-w-3xl mx-auto text-center">
-            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/50 mb-3">All-New England Prospect Games</div>
-            <h3 className="text-xl uppercase font-bold mb-3">Seen Beyond The Local Game</h3>
-            <p className="text-[13px] md:text-[14px] text-white/70 leading-[1.75] mb-6 max-w-xl mx-auto">
-              Selected players compete in showcase-style games as part of the All-New England Prospect Games. College coaches are invited to attend, giving top performers the chance to be evaluated and gain exposure beyond the local game.
-            </p>
-            <div className="flex flex-wrap justify-center gap-2 mb-6">
+          <div className="border border-[#17FC13]/20 bg-radial p-7 md:p-10 mt-8 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/50 mb-3">All-New England Prospect Games</div>
+              <h3 className="text-xl md:text-2xl uppercase font-bold mb-3">Seen Beyond The Local Game</h3>
+              <p className="text-[13px] md:text-[14px] text-white/70 leading-[1.75] mb-6">
+                Selected players compete in showcase-style games as part of the All-New England Prospect Games. College coaches are invited to attend, giving top performers the chance to be evaluated and gain exposure beyond the local game.
+              </p>
+              <Button href="/league/showcase" variant="secondary" size="small">Showcase Details</Button>
+            </div>
+            <div className="grid grid-cols-1 gap-2.5">
               {SHOWCASE_POINTS.map((p) => (
-                <span key={p} className="inline-flex items-center gap-2 px-3 py-1.5 border border-[#171717] bg-black text-[10px] font-bold uppercase tracking-wider text-white/80">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13]" />{p}
-                </span>
+                <div key={p} className="border border-[#171717] bg-black px-4 py-4 flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] shrink-0" />
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-white/85 leading-tight">{p}</span>
+                </div>
               ))}
             </div>
-            <Button href="/league/showcase" variant="secondary" size="small">Showcase Details</Button>
           </div>
         </FadeIn>
       </Section>

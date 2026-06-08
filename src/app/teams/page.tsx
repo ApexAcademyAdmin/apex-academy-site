@@ -99,9 +99,8 @@ export default function TeamsPage() {
               <a href={`/teams/${t.id}`} className="group block border border-[#171717] bg-black p-6 hover:border-[#17FC13]/25 transition-all no-underline">
                 <div className="flex flex-col md:flex-row md:items-center gap-5">
                   {/* Identity */}
-                  <div className="md:w-40 shrink-0 flex md:block items-baseline gap-3">
+                  <div className="md:w-36 shrink-0">
                     <div className="text-3xl md:text-4xl font-bold text-[#17FC13] leading-none">{t.age}</div>
-                    <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/55 md:mt-2">{t.tagline}</div>
                   </div>
                   {/* Info */}
                   <div className="flex-1 min-w-0">

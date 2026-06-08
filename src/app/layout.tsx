@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { inter, exo2, orbitron } from "@/lib/fonts";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { CartProvider } from "@/lib/cart";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,9 +34,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${exo2.variable} ${orbitron.variable}`}>
       <body>
-        <Navbar />
-        {children}
-        <Footer />
+        <CartProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

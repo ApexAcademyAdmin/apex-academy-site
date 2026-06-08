@@ -50,8 +50,9 @@ export default function AboutPage() {
           </Movement>
 
           <Movement label="Development First">
-            <p>We&apos;re not built around the scoreboard. Every player arrives at a different stage, with a different ceiling and a different path to reach it — and our job is to help each one get the most out of theirs. Players are developed at the positions that fit their long-term trajectory, not just where a team happens to need them that weekend.</p>
-            <p>Baseball is a game built on failure, adjustment, discipline, and resilience. The lessons it teaches — accountability, leadership, perseverance, growth — outlast any season. Helping players carry those forward, on the field and off it, is the part we take most seriously.</p>
+            <p>Every player enters the game with different strengths, different goals, and a different path ahead of them. Our responsibility is to help each athlete maximize their potential by providing the guidance, opportunities, and developmental environment needed to continue growing over time.</p>
+            <p>We believe development should be intentional. Players are encouraged to learn the game, expand their skill sets, and gain experience in roles that support their long-term growth rather than short-term outcomes. The objective is not simply to become a better player today, but to continue building the foundation for future success.</p>
+            <p>Baseball naturally teaches lessons that extend far beyond the field. Accountability, resilience, leadership, discipline, and perseverance are developed through the daily process of improvement. Helping players carry those lessons with them into school, work, relationships, and life is one of the most important responsibilities we have as a program.</p>
           </Movement>
 
           <Movement label="Opportunity">

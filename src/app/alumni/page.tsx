@@ -67,7 +67,7 @@ function LogoTile({ school, size = "sm" }: { school: string; size?: "sm" | "md" 
   const src = LOGO[school];
   if (!src) return null;
   const box = size === "md" ? "w-9 h-9" : "w-7 h-7";
-  const img = size === "md" ? "max-w-[28px] max-h-[28px]" : "max-w-[22px] max-h-[22px]";
+  const img = size === "md" ? "max-w-[34px] max-h-[34px]" : "max-w-[26px] max-h-[26px]";
   return (
     <span className={`inline-flex items-center justify-center bg-white rounded-md ${box} shrink-0`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -175,7 +175,7 @@ export default function AlumniPage() {
             {marqueeLogos.map(([school], i) => (
               <span key={`${school}-${i}`} className="inline-flex items-center justify-center bg-white rounded-md w-12 h-12 shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={LOGO[school]} alt="" className="max-w-[38px] max-h-[38px] object-contain" />
+                <img src={LOGO[school]} alt="" className="max-w-[45px] max-h-[45px] object-contain" />
               </span>
             ))}
           </div>

@@ -595,3 +595,86 @@ export async function sendEmail({ to, subject, html, text, replyTo, template }: 
     return false;
   }
 }
+
+// ── Store: order confirmation ────────────────────────────────
+export type StoreOrderEmail = {
+  orderNumber: string;
+  email: string;
+  customerName: string;
+  items: { name: string; size?: string | null; color?: string | null; qty: number; unitCents: number }[];
+  subtotalCents: number;
+  shippingCents: number;
+  taxCents: number;
+  totalCents: number;
+  shippingMethod: string;
+  shippingAddress?: { line1?: string; line2?: string; city?: string; state?: string; zip?: string } | null;
+};
+
+const money = (c: number) => `$${(c / 100).toFixed(2)}`;
+const shipLabel = (m: string) => (m === "pickup" ? "Local Pickup" : m === "expedited" ? "Expedited Shipping" : "Standard Shipping");
+
+function itemRows(o: StoreOrderEmail) {
+  return o.items.map((i) => ({
+    label: `${i.name}${i.size ? ` · ${i.size}` : ""}${i.color ? ` · ${i.color}` : ""} × ${i.qty}`,
+    value: money(i.unitCents * i.qty),
+  }));
+}
+function totalRows(o: StoreOrderEmail) {
+  return [
+    { label: "Subtotal", value: money(o.subtotalCents) },
+    { label: shipLabel(o.shippingMethod), value: o.shippingCents ? money(o.shippingCents) : "Free" },
+    { label: "Tax", value: money(o.taxCents) },
+    { label: "Total", value: money(o.totalCents) },
+  ];
+}
+function addressLines(o: StoreOrderEmail) {
+  if (o.shippingMethod === "pickup") return [{ label: "Fulfillment", value: "Local Pickup — we'll be in touch to arrange it" }];
+  const a = o.shippingAddress || {};
+  const line = [a.line1, a.line2].filter(Boolean).join(", ");
+  return [
+    { label: "Ship To", value: o.customerName },
+    { label: "Address", value: line },
+    { label: "City / State / Zip", value: [a.city, a.state, a.zip].filter(Boolean).join(", ") },
+  ];
+}
+
+export function orderConfirmationEmail(o: StoreOrderEmail) {
+  const sections =
+    header() +
+    hero("success", "Apex Academy Shop", "Order Confirmed", "Thanks for your order — we're getting it ready.") +
+    infoCard("Order", [{ label: "Order Number", value: o.orderNumber }, { label: "Confirmation Sent To", value: o.email }]) +
+    spacer(14) +
+    infoCard("Items", itemRows(o)) +
+    spacer(14) +
+    infoCard("Summary", totalRows(o)) +
+    spacer(14) +
+    infoCard("Shipping", addressLines(o)) +
+    button(`${SITE_URL}/shop`, "Continue Shopping") +
+    supportCard() +
+    spacer(8) +
+    footer();
+  return {
+    subject: `Order Confirmed — ${o.orderNumber}`,
+    html: layout(`Your Apex Academy order ${o.orderNumber} is confirmed.`, sections),
+    text: `Order ${o.orderNumber} confirmed.\n\n${o.items.map((i) => `${i.name}${i.size ? ` (${i.size})` : ""} x${i.qty} — ${money(i.unitCents * i.qty)}`).join("\n")}\n\nSubtotal ${money(o.subtotalCents)}\nShipping ${money(o.shippingCents)}\nTax ${money(o.taxCents)}\nTotal ${money(o.totalCents)}\n\nQuestions? ${CONTACT.email}`,
+  };
+}
+
+export function orderAdminEmail(o: StoreOrderEmail) {
+  const sections =
+    header() +
+    hero("info", "Apex Academy Shop", "New Order", `${o.orderNumber} — ${money(o.totalCents)}`) +
+    infoCard("Customer", [{ label: "Name", value: o.customerName }, { label: "Email", value: o.email }]) +
+    spacer(14) +
+    infoCard("Items", itemRows(o)) +
+    spacer(14) +
+    infoCard("Summary", totalRows(o)) +
+    spacer(14) +
+    infoCard("Shipping", addressLines(o)) +
+    footer();
+  return {
+    subject: `New order — ${o.orderNumber} (${money(o.totalCents)})`,
+    html: layout(`New store order ${o.orderNumber}`, sections),
+    text: `New order ${o.orderNumber} — ${money(o.totalCents)} from ${o.customerName} (${o.email}).`,
+  };
+}

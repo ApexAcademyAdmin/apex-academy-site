@@ -23,7 +23,7 @@ const LOGO: Record<string, string> = {
   "Saint Michael's College": "/alumni/logos/saint-michaels.png",
   "Haverford College": "/alumni/logos/haverford.png",
   "UMass Dartmouth": "/alumni/logos/umass-dartmouth.png",
-  "Bunker Hill Community College": "/alumni/logos/bunker-hill.jpg",
+  "Bunker Hill Community College": "/alumni/logos/bunker-hill.png",
   "Dickinson College": "/alumni/logos/dickinson.png",
   "Salem State University": "/alumni/logos/salem-state.png",
   "Ithaca College": "/alumni/logos/ithaca.png",
@@ -62,16 +62,15 @@ function initials(name: string) {
   return name.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
 }
 
-/* Standardized logo container — every logo sits on an identical white tile */
+/* Standardized logo — cropped out, sized consistently, sitting on the dark surface */
 function LogoTile({ school, size = "sm" }: { school: string; size?: "sm" | "md" }) {
   const src = LOGO[school];
   if (!src) return null;
-  const box = size === "md" ? "w-9 h-9" : "w-7 h-7";
-  const img = size === "md" ? "max-w-[34px] max-h-[34px]" : "max-w-[26px] max-h-[26px]";
+  const box = size === "md" ? "h-7 w-7" : "h-6 w-6";
   return (
-    <span className={`inline-flex items-center justify-center bg-white rounded-md ${box} shrink-0`}>
+    <span className={`inline-flex items-center justify-center ${box} shrink-0`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={`${school} logo`} className={`${img} object-contain`} />
+      <img src={src} alt={`${school} logo`} className="max-w-full max-h-full object-contain" />
     </span>
   );
 }
@@ -80,9 +79,9 @@ function LogoTile({ school, size = "sm" }: { school: string; size?: "sm" | "md" 
 function Headshot({ photo, name }: { photo?: string; name: string }) {
   if (photo) {
     return (
-      <div className="aspect-[4/5] w-full overflow-hidden bg-[#0c0c0c]">
+      <div className="aspect-[4/5] w-full overflow-hidden bg-[#0a0a0a]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={photo} alt={name} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
+        <img src={photo} alt={name} className="w-full h-full object-cover object-top" />
       </div>
     );
   }
@@ -98,8 +97,7 @@ function AlumCard({ a }: { a: Alum }) {
     <div className="group relative border border-[#171717] bg-[#0a0a0a] overflow-hidden transition-all duration-300 hover:border-[#17FC13]/35 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(23,252,19,0.18)]">
       <div className="relative">
         <Headshot photo={a.photo} name={a.name} />
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
-        <span className={`absolute top-2.5 left-2.5 text-[8px] font-bold uppercase tracking-[0.15em] px-2 py-1 border rounded-full backdrop-blur-sm ${LEVEL_STYLE[a.level]}`}>{a.level}</span>
+        <span className={`absolute top-2.5 left-2.5 text-[8px] font-bold uppercase tracking-[0.15em] px-2 py-1 border rounded-full ${LEVEL_STYLE[a.level]}`}>{a.level}</span>
       </div>
       <div className="p-4">
         <h3 className="text-[15px] uppercase font-bold leading-tight truncate">{a.name}</h3>
@@ -126,8 +124,6 @@ export default function AlumniPage() {
     return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   }, []);
 
-  const marqueeLogos = [...wall, ...wall];
-
   return (
     <>
       {/* ══════════ HERO ══════════ */}
@@ -148,13 +144,13 @@ export default function AlumniPage() {
           </FadeIn>
         </div>
 
-        {/* Logo marquee */}
-        <div className="relative border-t border-[#171717] py-5 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <div className="flex items-center gap-3 w-max animate-marquee">
-            {marqueeLogos.map(([school], i) => (
-              <span key={`${school}-${i}`} className="inline-flex items-center justify-center bg-white rounded-md w-12 h-12 shrink-0">
+        {/* Logo row — static, centered */}
+        <div className="relative border-t border-[#171717] py-6">
+          <div className="max-w-[1120px] mx-auto px-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-5">
+            {wall.map(([school]) => (
+              <span key={school} className="inline-flex items-center justify-center h-11 w-11 shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={LOGO[school]} alt="" className="max-w-[45px] max-h-[45px] object-contain" />
+                <img src={LOGO[school]} alt={`${school} logo`} className="max-w-full max-h-full object-contain" />
               </span>
             ))}
           </div>

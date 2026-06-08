@@ -47,7 +47,7 @@ const PROSPECT_EVENTS = [
   },
 ];
 
-const ALUMNI_FACES = ["salerno-max", "osullivan-aidan", "born-ian", "flaherty-cameron", "seeley-conner", "mcmahon-brandon"];
+const ALUMNI_FACES = ["oliveira-christian", "clark-kevin", "born-ian", "flaherty-cameron", "seeley-conner", "mcmahon-brandon", "osullivan-aidan"];
 const ALUMNI_LOGOS = ["swarthmore", "umass-boston", "haverford", "saint-michaels", "salem-state", "ithaca", "salisbury", "wentworth", "dodgers"];
 
 export default function Home() {
@@ -235,7 +235,7 @@ export default function Home() {
 
         <FadeIn delay={0.1}>
           {/* Player photos */}
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 md:gap-3 mb-8">
+          <div className="grid grid-cols-3 sm:grid-cols-7 gap-2 md:gap-3 mb-8">
             {ALUMNI_FACES.map((slug) => (
               <div key={slug} className="aspect-[4/5] overflow-hidden border border-[#171717] bg-[#0a0a0a]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}

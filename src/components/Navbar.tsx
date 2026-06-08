@@ -83,6 +83,7 @@ export function Navbar() {
                       }`}
                     >
                       {n.title}
+                      {n.live && <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-[#17FC13] animate-pulse" />}
                       {n.children && (
                         <svg
                           className={`w-3 h-3 opacity-50 transition-transform duration-200 ease-out ${showMenu ? "rotate-180" : ""}`}
@@ -186,9 +187,10 @@ export function Navbar() {
               <a
                 href={n.href}
                 onClick={() => setOpen(false)}
-                className={`block text-xl font-bold uppercase tracking-wide no-underline transition-colors ${isActive(n.href) ? "text-[#17FC13]" : "text-white hover:text-[#17FC13]"}`}
+                className={`flex items-center gap-2 text-xl font-bold uppercase tracking-wide no-underline transition-colors ${isActive(n.href) ? "text-[#17FC13]" : "text-white hover:text-[#17FC13]"}`}
               >
                 {n.title}
+                {n.live && <span aria-hidden className="w-2 h-2 rounded-full bg-[#17FC13] animate-pulse" />}
               </a>
               {n.children && (
                 <div className="mt-2.5 flex flex-wrap gap-2">

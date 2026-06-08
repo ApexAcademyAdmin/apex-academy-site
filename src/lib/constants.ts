@@ -1,10 +1,12 @@
 export type NavLink = {
   title: string;
   href: string;
+  live?: boolean;
   children?: { title: string; href: string }[];
 };
 
 export const NAV_LINKS: NavLink[] = [
+  { title: "Home", href: "/" },
   { title: "About", href: "/about" },
   {
     title: "Teams",
@@ -17,6 +19,7 @@ export const NAV_LINKS: NavLink[] = [
       { title: "Premier", href: "/teams/premier" },
     ],
   },
+  { title: "Alumni", href: "/alumni" },
   {
     title: "League",
     href: "/league",
@@ -32,16 +35,8 @@ export const NAV_LINKS: NavLink[] = [
       { title: "Register Team", href: "/league/register" },
     ],
   },
-  {
-    title: "Events",
-    href: "/events",
-    children: [
-      { title: "Rising Prospects Combine", href: "/events/rising-prospects" },
-    ],
-  },
-  { title: "Alumni", href: "/alumni" },
-  { title: "Partners", href: "/partners" },
-  { title: "Shop", href: "/shop" },
+  { title: "Store", href: "/shop" },
+  { title: "Apex Live", href: "/live", live: true },
 ];
 
 export const CONTACT = {

@@ -47,7 +47,8 @@ const PROSPECT_EVENTS = [
   },
 ];
 
-const COLLEGES = ["Boston College", "UMass Amherst", "Northeastern", "UConn", "Bryant", "Holy Cross", "Merrimack", "Bentley"];
+const ALUMNI_FACES = ["salerno-max", "osullivan-aidan", "born-ian", "flaherty-cameron", "seeley-conner", "mcmahon-brandon"];
+const ALUMNI_LOGOS = ["swarthmore", "umass-boston", "haverford", "saint-michaels", "salem-state", "ithaca", "salisbury", "wentworth", "dodgers"];
 
 export default function Home() {
   const [liveGames, setLiveGames] = useState<(Game & { teamName: string })[]>([]);
@@ -80,7 +81,7 @@ export default function Home() {
             Built For <span className="accent-text">The Players</span>
           </h1>
           <p className="text-[16px] md:text-[18px] text-white/80 leading-[1.75] max-w-xl mx-auto mb-9">
-            A player-first baseball organization focused on development, opportunity, competition, and long-term growth.
+            One organization dedicated to helping athletes develop, compete, and create opportunities for themselves — both on and off the field.
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Button href="/join">Join Apex</Button>
@@ -226,54 +227,66 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ══════════ 5 · APEX LIVE ══════════ */}
+      {/* ══════════ 5 · ALUMNI ══════════ */}
       <div className="max-w-[1120px] mx-auto px-6 py-14 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <FadeIn>
-            <Lead eyebrow="Apex Live" title="Every Game." accent="Live." />
-            <p className="text-[14px] text-white/75 leading-[1.8] mt-5 mb-6">
-              Follow Apex teams in real time — live streaming, live scoring, box scores, and player statistics for every game.
-            </p>
-            <Button href="/live" variant="secondary" size="small">Watch Apex Live</Button>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <div className="grid grid-cols-2 gap-3">
-              {["Live Streaming", "Live Scoring", "Box Scores", "Player Stats"].map((f) => (
-                <div key={f} className="border border-[#171717] bg-radial px-4 py-5 flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 bg-[#17FC13] rounded-full shrink-0 animate-pulse" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-white">{f}</span>
-                </div>
-              ))}
-            </div>
-          </FadeIn>
-        </div>
+        <FadeIn className="text-center max-w-xl mx-auto mb-10">
+          <div className="flex items-center justify-center gap-2.5 mb-3">
+            <span aria-hidden className="w-5 h-px bg-[#17FC13]/50 shrink-0" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/60">Alumni</span>
+          </div>
+          <h2 className="text-2xl md:text-3xl uppercase font-bold leading-[0.95] mb-4">Where Our <span className="accent-text">Players Go</span></h2>
+          <p className="text-[14px] text-white/75 leading-[1.75]">
+            Apex athletes have advanced to college programs across the Northeast and beyond — and one to the professional level.
+          </p>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          {/* Player photos */}
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 md:gap-3 mb-8">
+            {ALUMNI_FACES.map((slug) => (
+              <div key={slug} className="aspect-[4/5] overflow-hidden border border-[#171717] bg-[#0a0a0a]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`/alumni/players/${slug}.jpg`} alt="" className="w-full h-full object-cover object-top" />
+              </div>
+            ))}
+          </div>
+          {/* College logos */}
+          <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-4 mb-9">
+            {ALUMNI_LOGOS.map((l) => (
+              <span key={l} className="inline-flex items-center justify-center h-9 w-10 shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`/alumni/logos/${l}.png`} alt="" className="max-w-full max-h-full object-contain" />
+              </span>
+            ))}
+          </div>
+          <div className="text-center">
+            <Button href="/alumni" variant="secondary" size="small">View Alumni</Button>
+          </div>
+        </FadeIn>
       </div>
 
-      {/* ══════════ 6 · ALUMNI ══════════ */}
+      {/* ══════════ 6 · APEX LIVE ══════════ */}
       <div className="border-y border-[#171717] bg-radial">
         <div className="max-w-[1120px] mx-auto px-6 py-14 md:py-16">
-          <FadeIn className="text-center max-w-xl mx-auto mb-9">
-            <div className="flex items-center justify-center gap-2.5 mb-3">
-              <span aria-hidden className="w-5 h-px bg-[#17FC13]/50 shrink-0" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/60">Alumni</span>
-            </div>
-            <h2 className="text-2xl md:text-3xl uppercase font-bold leading-[0.95] mb-4">Where Our <span className="accent-text">Players Go</span></h2>
-            <p className="text-[14px] text-white/75 leading-[1.75]">
-              Apex athletes have advanced to college programs across the Northeast and beyond — and one to the professional level.
-            </p>
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
-            <div className="flex flex-wrap justify-center gap-2 mb-9">
-              {COLLEGES.map((school) => (
-                <span key={school} className="px-4 py-2 border border-[#171717] text-xs font-bold uppercase tracking-wider text-white/80">{school}</span>
-              ))}
-              <span className="px-4 py-2 border border-[#17FC13]/25 bg-[#17FC13]/[0.03] text-xs font-bold uppercase tracking-wider text-[#17FC13]/70">LA Dodgers · Pro</span>
-            </div>
-            <div className="text-center">
-              <Button href="/alumni" variant="secondary" size="small">View Alumni</Button>
-            </div>
-          </FadeIn>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <FadeIn>
+              <Lead eyebrow="Apex Live" title="Every Game." accent="Live." />
+              <p className="text-[14px] text-white/75 leading-[1.8] mt-5 mb-6">
+                Follow Apex teams in real time — live streaming, live scoring, box scores, and player statistics for every game.
+              </p>
+              <Button href="/live" variant="secondary" size="small">Watch Apex Live</Button>
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <div className="grid grid-cols-2 gap-3">
+                {["Live Streaming", "Live Scoring", "Box Scores", "Player Stats"].map((f) => (
+                  <div key={f} className="border border-[#171717] bg-black px-4 py-5 flex items-center gap-2.5">
+                    <span className="w-1.5 h-1.5 bg-[#17FC13] rounded-full shrink-0 animate-pulse" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-white">{f}</span>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </div>
 

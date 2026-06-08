@@ -32,7 +32,7 @@ const LOGO: Record<string, string> = {
 };
 
 const ALUMNI: Alum[] = [
-  { slug: "oliveira-christian", name: "Christian Oliveira", level: "Professional", school: "Los Angeles Dodgers" },
+  { slug: "oliveira-christian", name: "Christian Oliveira", level: "Professional", school: "Los Angeles Dodgers", photo: "/alumni/players/oliveira-christian.jpg" },
   { slug: "born-ian", name: "Ian Born", level: "College", school: "Swarthmore College", photo: "/alumni/players/born-ian.jpg" },
   { slug: "clark-kevin", name: "Kevin Clark", level: "College", school: "UMass Boston", photo: "/alumni/players/clark-kevin.jpg" },
   { slug: "cummings-kyle", name: "Kyle Cummings", level: "College", school: "UMass Boston", photo: "/alumni/players/cummings-kyle.jpg" },
@@ -187,8 +187,15 @@ export default function AlumniPage() {
         <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#17FC13]/50 mb-4">Featured</div>
         <FadeIn>
           <div className="relative grid grid-cols-1 sm:grid-cols-[200px_1fr] border border-[#17FC13]/25 bg-[radial-gradient(ellipse_at_0%_0%,_rgba(23,252,19,0.06),_transparent_60%)] overflow-hidden">
-            <div className="aspect-[4/5] sm:aspect-auto bg-[radial-gradient(ellipse_at_50%_30%,_#1c1c1c,_#0a0a0a)] flex items-center justify-center min-h-[200px]">
-              <span className="text-5xl font-bold text-[#17FC13]/25">{initials(featured.name)}</span>
+            <div className="relative aspect-[4/5] sm:aspect-auto min-h-[220px] bg-[#0c0c0c] overflow-hidden">
+              {featured.photo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={featured.photo} alt={featured.name} className="absolute inset-0 w-full h-full object-cover object-top" />
+              ) : (
+                <div className="w-full h-full bg-[radial-gradient(ellipse_at_50%_30%,_#1c1c1c,_#0a0a0a)] flex items-center justify-center">
+                  <span className="text-5xl font-bold text-[#17FC13]/25">{initials(featured.name)}</span>
+                </div>
+              )}
             </div>
             <div className="p-6 md:p-8 flex flex-col justify-center">
               <span className="self-start text-[8px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 border border-[#17FC13]/40 bg-[#17FC13]/[0.06] text-[#17FC13] rounded-full mb-4">Professional</span>

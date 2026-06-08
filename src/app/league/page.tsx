@@ -31,15 +31,6 @@ const DIFFERENT = [
   { t: "Community-Based", d: "Built around local players, families, and programs across the region." },
 ];
 
-const HOW_IT_WORKS = [
-  { t: "Weeknight Games", d: "Every game is played Wednesday–Friday evening — weekends stay free for tournaments and family time." },
-  { t: "Age Divisions", d: "Five age groups from 10U through 18U, each with its own structure and age-appropriate rules." },
-  { t: "MLB-Style Rules", d: "Pitch counts, rest requirements, leadoffs, stealing, and dropped third strike — all enforced by age." },
-  { t: "Season & Championship", d: `A full summer season (${LEAGUE_META.seasonStart} – ${LEAGUE_META.seasonEnd}) leading to playoffs and a Championship Weekend.` },
-  { t: "Turnkey For Teams", d: "Bring your roster — we handle fields, umpires, scheduling, standings, and league operations." },
-  { t: "Affordable Entry", d: `${LEAGUE_META.registrationFee} per team, all in. A professional league experience without the travel-ball price tag.` },
-];
-
 const AWARDS = ["Regular Season Awards", "Playoff Awards", "Division Champions", "Individual Awards", "Team Recognition", "Coach Recognition"];
 
 const SHOWCASE_POINTS = ["Top Players Selected", "Showcase-Style Games", "College Coaches Invited", "Evaluation & Exposure"];
@@ -53,10 +44,6 @@ export default function LeaguePage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_-10%,_rgba(23,252,19,0.08)_0%,_transparent_55%)]" />
         <div className="relative max-w-[1120px] mx-auto px-6 pt-24 md:pt-28 pb-12 text-center">
           <FadeIn>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#17FC13]/20 bg-[#17FC13]/[0.04] mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#17FC13] animate-pulse" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/80">{LEAGUE_META.season} · Registration Open</span>
-            </div>
             <h1 className="text-4xl md:text-6xl uppercase font-bold leading-[0.9] mb-5">
               Elevating The Town<br />Baseball <span className="accent-text">Experience</span>
             </h1>
@@ -65,7 +52,7 @@ export default function LeaguePage() {
             </p>
             <div className="flex items-center justify-center gap-3 flex-wrap mt-8">
               <Button href="/league/register">Register Your Team</Button>
-              <Button href="#how" variant="secondary">How It Works</Button>
+              <Button href="#divisions" variant="secondary">Explore Divisions</Button>
             </div>
           </FadeIn>
         </div>
@@ -92,22 +79,6 @@ export default function LeaguePage() {
               <div className="border border-[#171717] bg-black p-5 h-full hover:border-[#17FC13]/20 transition-colors">
                 <h3 className="text-[13px] uppercase font-bold mb-2 leading-tight">{c.t}</h3>
                 <p className="text-[11.5px] text-white/65 leading-[1.65]">{c.d}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </Section>
-
-      {/* ══════════ HOW IT WORKS ══════════ */}
-      <Section id="how" size="md" border="top">
-        <FadeIn><Lead eyebrow="How It Works" title="The" accent="Format" sub="A professionally run league with a simple, predictable structure for every team." /></FadeIn>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-7">
-          {HOW_IT_WORKS.map((c, i) => (
-            <FadeIn key={c.t} delay={(i % 3) * 0.06}>
-              <div className="border border-[#171717] bg-radial p-5 h-full">
-                <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#17FC13]/45 mb-3">0{i + 1}</div>
-                <h3 className="text-sm uppercase font-bold mb-2">{c.t}</h3>
-                <p className="text-[12px] text-white/65 leading-[1.7]">{c.d}</p>
               </div>
             </FadeIn>
           ))}

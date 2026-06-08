@@ -5,21 +5,21 @@ import { CONTACT } from "@/lib/constants";
 const PRO = { name: "Christian Oliveira", org: "Los Angeles Dodgers" };
 
 const COMMITMENTS = [
-  { name: "Cameron Flaherty", school: "Gordon College / Saint Michael's College" },
+  { name: "Stefan Alexandrov", school: "Wheaton College" },
+  { name: "Ian Born", school: "Swarthmore College" },
   { name: "Kevin Clark", school: "UMass Boston" },
   { name: "Kyle Cummings", school: "UMass Boston" },
   { name: "Christian Figueroa", school: "Wentworth Institute of Technology" },
-  { name: "Aidan O'Sullivan", school: "Haverford College" },
-  { name: "Ian Born", school: "Swarthmore College" },
-  { name: "Conner Seeley", school: "UMass Boston / Salisbury University" },
-  { name: "Matthew Lewis", school: "UMass Dartmouth / Bunker Hill Community College" },
+  { name: "Cameron Flaherty", school: "Gordon College / Saint Michael's College" },
   { name: "Oliver Henke", school: "Swarthmore College" },
-  { name: "Stefan Alexandrov", school: "Wheaton College" },
+  { name: "Matthew Lewis", school: "UMass Dartmouth / Bunker Hill Community College" },
   { name: "Matthew Mariani", school: "Dickinson College" },
-  { name: "Brendan Sack", school: "Bunker Hill Community College" },
-  { name: "Seth Sullivan", school: "Salem State University" },
   { name: "Brandon McMahon", school: "Salem State University" },
+  { name: "Aidan O'Sullivan", school: "Haverford College" },
+  { name: "Brendan Sack", school: "Bunker Hill Community College" },
   { name: "Max Salerno", school: "Ithaca College" },
+  { name: "Conner Seeley", school: "UMass Boston / Salisbury University" },
+  { name: "Seth Sullivan", school: "Salem State University" },
 ];
 
 export default function AlumniPage() {

@@ -28,6 +28,7 @@ const LOGO: Record<string, string> = {
   "Salem State University": "/alumni/logos/salem-state.png",
   "Ithaca College": "/alumni/logos/ithaca.png",
   "Salisbury University": "/alumni/logos/salisbury.png",
+  "Northern Essex Community College": "/alumni/logos/northern-essex.png",
   "Los Angeles Dodgers": "/alumni/logos/dodgers.png",
 };
 
@@ -45,6 +46,7 @@ const ALUMNI: Alum[] = [
   { slug: "salerno-max", name: "Max Salerno", level: "College", school: "Ithaca College", photo: "/alumni/players/salerno-max.jpg" },
   { slug: "seeley-conner", name: "Conner Seeley", level: "College", school: "Salisbury University", photo: "/alumni/players/seeley-conner.jpg" },
   { slug: "sullivan-seth", name: "Seth Sullivan", level: "College", school: "Salem State University", photo: "/alumni/players/sullivan-seth.jpg" },
+  { slug: "valente-tyler", name: "Tyler Valente", level: "College", school: "Northern Essex Community College" },
   { slug: "alexandrov-stefan", name: "Stefan Alexandrov", level: "Committed", school: "Wheaton College" },
   { slug: "henke-oliver", name: "Oliver Henke", level: "Committed", school: "Swarthmore College" },
   { slug: "mariani-matthew", name: "Matthew Mariani", level: "Committed", school: "Dickinson College" },

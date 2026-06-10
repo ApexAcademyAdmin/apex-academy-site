@@ -10,7 +10,7 @@ type Alum = {
   slug: string;
   name: string;
   level: Level;
-  school: string;   // primary / highest-level school (key into LOGO)
+  school?: string;  // primary / highest-level school (key into LOGO); omitted = announcement pending
   photo?: string;   // /alumni/players/<slug>.jpg — omitted falls back to monogram
 };
 
@@ -47,6 +47,7 @@ const ALUMNI: Alum[] = [
   { slug: "seeley-conner", name: "Conner Seeley", level: "College", school: "Salisbury University", photo: "/alumni/players/seeley-conner.jpg" },
   { slug: "sullivan-seth", name: "Seth Sullivan", level: "College", school: "Salem State University", photo: "/alumni/players/sullivan-seth.jpg" },
   { slug: "valente-tyler", name: "Tyler Valente", level: "College", school: "Northern Essex Community College" },
+  { slug: "rojas-cruz-joel", name: "Joel Rojas Cruz", level: "Committed" },
   { slug: "alexandrov-stefan", name: "Stefan Alexandrov", level: "Committed", school: "Wheaton College" },
   { slug: "henke-oliver", name: "Oliver Henke", level: "Committed", school: "Swarthmore College" },
   { slug: "mariani-matthew", name: "Matthew Mariani", level: "Committed", school: "Dickinson College" },
@@ -104,8 +105,14 @@ function AlumCard({ a }: { a: Alum }) {
       <div className="p-4">
         <h3 className="text-[15px] uppercase font-bold leading-tight truncate">{a.name}</h3>
         <div className="flex items-center gap-2.5 mt-3">
-          <LogoTile school={a.school} />
-          <span className="text-[11px] font-bold uppercase tracking-wide text-white/70 leading-tight min-w-0">{a.school}</span>
+          {a.school ? (
+            <>
+              <LogoTile school={a.school} />
+              <span className="text-[11px] font-bold uppercase tracking-wide text-white/70 leading-tight min-w-0">{a.school}</span>
+            </>
+          ) : (
+            <span className="text-[11px] font-bold uppercase tracking-wide text-[#17FC13]/45 leading-tight">Coming Soon</span>
+          )}
         </div>
       </div>
     </div>
@@ -122,7 +129,7 @@ export default function AlumniPage() {
   // Commitment wall — unique schools/programs with player counts
   const wall = useMemo(() => {
     const counts: Record<string, number> = {};
-    for (const a of ALUMNI) counts[a.school] = (counts[a.school] || 0) + 1;
+    for (const a of ALUMNI) if (a.school) counts[a.school] = (counts[a.school] || 0) + 1;
     return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   }, []);
 

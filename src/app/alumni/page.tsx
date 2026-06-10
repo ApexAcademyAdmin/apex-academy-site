@@ -122,7 +122,12 @@ function AlumCard({ a }: { a: Alum }) {
 export default function AlumniPage() {
   const [filter, setFilter] = useState<"All" | Level>("All");
 
-  const grid = useMemo(() => (filter === "All" ? ALUMNI : ALUMNI.filter((a) => a.level === filter)), [filter]);
+  const grid = useMemo(() => {
+    const rank: Record<Level, number> = { Professional: 0, College: 1, Committed: 2 };
+    const last = (n: string) => n.trim().split(/\s+/).slice(-1)[0].toLowerCase();
+    const sorted = [...ALUMNI].sort((a, b) => rank[a.level] - rank[b.level] || last(a.name).localeCompare(last(b.name)));
+    return filter === "All" ? sorted : sorted.filter((a) => a.level === filter);
+  }, [filter]);
 
   const featured = ALUMNI.find((a) => a.level === "Professional")!;
 

@@ -66,8 +66,8 @@ function initials(name: string) {
 }
 
 /* Standardized logo — cropped out, sized consistently, sitting on the dark surface */
-function LogoTile({ school, size = "sm" }: { school: string; size?: "sm" | "md" }) {
-  const src = LOGO[school];
+function LogoTile({ school, size = "sm" }: { school?: string; size?: "sm" | "md" }) {
+  const src = school ? LOGO[school] : undefined;
   if (!src) return null;
   const box = size === "md" ? "h-7 w-7" : "h-6 w-6";
   return (
